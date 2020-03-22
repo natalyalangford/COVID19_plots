@@ -34,6 +34,7 @@ import os
 from datetime import datetime
 import shutil
 import csv
+import pickle
 import urllib.request
 import pandas as pd
 
@@ -42,44 +43,48 @@ class CovidData:
     _covid_data = {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv',
                    'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
                    'recoveries': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv'}
+    _pickle_filename = 'covid_data.pickle'
 
-    def __init__(self, key='confirmed'):
-        self.data_key = key
-        self.file_name = None
-        self.df = None
+    def __init__(self, download=False):
+        self.data = {'download_date': None, 'confirmed': None, 'deaths': None, 'recoveries': None}
+        self.read_datafile(download=download)
 
     def print_sources(self):
         [print('{}: {}'.format(k, v)) for k, v in self._covid_data.items()]
 
-    def print(self):
-        print(self.data_key)
-
-    def download_datafile(self):
+    def read_datafile(self, download=False):
         """ Return the new downloaded data's filename as a string
             Source: https://github.com/Ricks-Lab/amdgpu-utils/blob/c10dba61f11b9e5fb44d24acd1fa74122668afc2/GPUmodules/PCImodule.py
         """
-        self.file_name = 'covid_{}_{}.csv'.format(self.data_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
-        with urllib.request.urlopen(self._covid_data[self.data_key]) as response, open(self.file_name, 'wb') as out_file:
-            shutil.copyfileobj(response, out_file)
+        if not download and os.path.isfile(self._pickle_filename):
+            # Read pickle file.
+            with open(self._pickle_filename, 'rb') as f:
+                self.data = pickle.load(f)
+            return True
 
-        if os.path.isfile(self.file_name):
-            return self.file_name
-        else:
-            return None
+        for report_key in self._covid_data.keys():
+            temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
+            with urllib.request.urlopen(self._covid_data[report_key]) as response, open(temp_file_name, 'wb') as out_file:
+                shutil.copyfileobj(response, out_file)
+            self.data[report_key] = self.read_csv_file(temp_file_name)
 
-    def read_csv_file(self):
-        self.df = pd.read_csv(self.file_name)
-        print(self.df.values[:, 5:])
-        # self.df['total'] = self.df.values[:, 5:].sum(axis=1) Not cumulative
-        self.df['total'] = self.df.values[:, -1]
-        return self.df
+        with open(self._pickle_filename, 'wb') as f:
+            pickle.dump(self.data, f)
 
-    def top_ten(self):
-        ttdf = self.df.sort_values(['total'], ascending=False).head(30)
+        return True
+
+    @staticmethod
+    def read_csv_file(file_name):
+        df = pd.read_csv(file_name)
+        df['total'] = df.values[:, -1]
+        return df
+
+    def top_ten(self, report_key='confirmed'):
+        ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(30)
         print(ttdf)
 
-    def top_ten_us_states(self):
-        ldf = self.df.loc[self.df['Country/Region'] == 'US']
+    def top_ten_us_states(self, report_key='confirmed'):
+        ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
         ttdf = ldf.sort_values(['total'], ascending=False).head(30)
         print(ttdf)
 
@@ -93,7 +98,7 @@ def main():
     parser.add_argument('--about', help='README',
                         action='store_true', default=False)
     parser.add_argument('--parameter', help='confirmed, deaths, recoveries',
-                        action='store_true', default=False)
+                        type=str, default='confirmed')
     parser.add_argument('--download', help='download csv file',
                         action='store_true', default=False)
     parser.add_argument('--filename', help='csv file name',
@@ -116,19 +121,11 @@ def main():
         print('Status: ', __status__)
         sys.exit(0)
 
-    covid_confirmed = CovidData(key='deaths')
-    if args.download:
-        covid_confirmed.download_datafile()
+    covid_data = CovidData(download=args.download)
 
-    if args.filename:
-        covid_confirmed.file_name = args.filename
+    covid_data.top_ten()
 
-    covid_confirmed.read_csv_file()
-    print(covid_confirmed.df.columns)
-    covid_confirmed.top_ten()
-
-    covid_confirmed.top_ten_us_states()
-
+    covid_data.top_ten_us_states()
 
     sys.exit(0)
 
