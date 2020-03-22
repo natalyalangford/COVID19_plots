@@ -82,6 +82,7 @@ class CovidData:
                 shutil.copyfileobj(response, out_file)
             self.data[report_key] = self.read_csv_file(temp_file_name)
             os.remove(temp_file_name)
+        self.data['download_date'] = datetime.utcnow()
 
         with open(self._pickle_filename, 'wb') as f:
             pickle.dump(self.data, f)
@@ -99,25 +100,27 @@ class CovidData:
         df['total'] = df.values[:, -1]
         return df
 
-    def top_ten(self, report_key='confirmed'):
+    def top_ten(self, number=10, report_name='country', report_key='confirmed'):
         """
 
+        :param number:
+        :type number: int
+        :param report_name:
+        :type report_name: str
         :param report_key:
         :type report_key: str
         :return: None
         """
-        ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(30) #what does ascending and head(30) do
-        print(ttdf)
-
-    def top_ten_us_states(self, report_key='confirmed'):
-        """
-
-        :param report_key:
-        :type report_key: str
-        :return:
-        """
-        ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
-        ttdf = ldf.sort_values(['total'], ascending=False).head(30)
+        print('Top {} Report - {}'.format(report_name, report_key))
+        print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
+        if report_name == 'country':
+            ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(number)
+        elif report_name == 'us-state':
+            ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
+            ttdf = ldf.sort_values(['total'], ascending=False).head(number)
+        elif report_name == 'china-province':
+            ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'China']
+            ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         print(ttdf)
 
 
@@ -129,6 +132,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--about', help='README',
                         action='store_true', default=False)
+    parser.add_argument('--length', help='length of sorted reports',
+                        type=int, default=10)
+    parser.add_argument('--report', help='country, us-state, china-province',
+                        type=str, default='confirmed')
     parser.add_argument('--parameter', help='confirmed, deaths, recoveries',
                         type=str, default='confirmed')
     parser.add_argument('--download', help='download csv file',
@@ -155,11 +162,7 @@ def main():
 
     covid_data = CovidData(download=args.download)
 
-
-    covid_data.top_ten(report_key=args.parameter)
-
-    covid_data.top_ten_us_states(report_key=args.parameter)
-
+    covid_data.top_ten(number=args.length, report_name=args.report, report_key=args.parameter)
 
     sys.exit(0)
 
