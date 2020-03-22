@@ -38,7 +38,7 @@ import pickle
 import urllib.request
 import pandas as pd
 
-.idea/*.csv*.pickle
+
 class CovidData:
     _covid_data = {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv',
                    'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
@@ -102,7 +102,7 @@ class CovidData:
         """
 
         :param report_key:
-        :type report_key: string
+        :type report_key: str
         :return: None
         """
         ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(30) #what does ascending and head(30) do
@@ -112,7 +112,7 @@ class CovidData:
         """
 
         :param report_key:
-        :type report_key: string
+        :type report_key: str
         :return:
         """
         ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
@@ -154,9 +154,11 @@ def main():
 
     covid_data = CovidData(download=args.download)
 
-    covid_data.top_ten()
 
-    covid_data.top_ten_us_states()
+    covid_data.top_ten(report_key=args.parameter)
+
+    covid_data.top_ten_us_states(report_key=args.parameter)
+
 
     sys.exit(0)
 
