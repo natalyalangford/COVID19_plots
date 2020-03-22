@@ -46,13 +46,27 @@ class CovidData:
     _pickle_filename = 'covid_data.pickle'
 
     def __init__(self, download=False):
+        """
+        :type download: Bool
+        :param download:
+        :return None
+        """
         self.data = {'download_date': None, 'confirmed': None, 'deaths': None, 'recoveries': None}
         self.read_datafile(download=download)
 
     def print_sources(self):
+        """
+        :return: None
+        """
         [print('{}: {}'.format(k, v)) for k, v in self._covid_data.items()]
 
     def read_datafile(self, download=False):
+        """
+
+        :param download:
+        :type download: Bool
+        :return: Bool
+        """
         """ Return the new downloaded data's filename as a string
             Source: https://github.com/Ricks-Lab/amdgpu-utils/blob/c10dba61f11b9e5fb44d24acd1fa74122668afc2/GPUmodules/PCImodule.py
         """
@@ -63,7 +77,7 @@ class CovidData:
             return True
 
         for report_key in self._covid_data.keys():
-            temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
+            temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))  #go over this for loop, a bit confusing
             with urllib.request.urlopen(self._covid_data[report_key]) as response, open(temp_file_name, 'wb') as out_file:
                 shutil.copyfileobj(response, out_file)
             self.data[report_key] = self.read_csv_file(temp_file_name)
@@ -75,15 +89,32 @@ class CovidData:
 
     @staticmethod
     def read_csv_file(file_name):
+        """
+
+        :param file_name:
+        :return: list
+        """
         df = pd.read_csv(file_name)
         df['total'] = df.values[:, -1]
         return df
 
     def top_ten(self, report_key='confirmed'):
-        ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(30)
+        """
+
+        :param report_key:
+        :type report_key: string
+        :return: None
+        """
+        ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(30) #what does ascending and head(30) do
         print(ttdf)
 
     def top_ten_us_states(self, report_key='confirmed'):
+        """
+
+        :param report_key:
+        :type report_key: string
+        :return:
+        """
         ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
         ttdf = ldf.sort_values(['total'], ascending=False).head(30)
         print(ttdf)
@@ -92,7 +123,7 @@ class CovidData:
 def main():
     """
     Main flow for covid19-vi.
-    :return:
+    :return: None
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--about', help='README',
