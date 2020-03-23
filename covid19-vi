@@ -127,10 +127,11 @@ class CovidData:
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
         if report_name == 'country':
+            report_key.loc[report_key['Province/State'] == 'Nan']
             # TODO Filter out items with State/Province of Nan and deal with exceptions
             ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(number)
         elif report_name == 'us-state':
-            # TODO Indicate total for the Country entry
+            # TODO Indicate gtotal for the Country entry
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'china-province':
