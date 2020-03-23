@@ -138,6 +138,7 @@ class CovidData:
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         else:
             print('Error: Invalid report specified.')
+            sys.exit(-1)
         print(ttdf)
 
 
