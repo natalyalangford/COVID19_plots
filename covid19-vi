@@ -111,6 +111,9 @@ class CovidData:
         df['total'] = df.values[:, -1]
         for country in self._prov_state_countries:
             df = self.aggregate_state_prov(df, country)
+        #for ex_country in self._prov_state_exceptions:
+            #df.loc[df['Province/State'] == ex_country] = np.NaN
+
         return df
 
     def top_ten(self, number=10, report_name='country', report_key='confirmed'):
@@ -127,9 +130,10 @@ class CovidData:
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
         if report_name == 'country':
-            report_key.loc[report_key['Province/State'] == 'Nan']
+            tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
             # TODO Filter out items with State/Province of Nan and deal with exceptions
-            ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(number)
+            #ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(number)
+            ttdf = tdf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'us-state':
             # TODO Indicate gtotal for the Country entry
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
