@@ -135,8 +135,8 @@ class CovidData:
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
         if report_name == 'country':
-            # TODO drop the Province/State column
             tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
+            tdf = tdf.drop('Province/State', axis=1)
             ttdf = tdf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'state' or report_name == 'province':
             # TODO Indicate total for the Country entry
@@ -144,7 +144,7 @@ class CovidData:
             regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
             ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
-        elif report_name == 'us-county':
+        elif report_name == 'us-county' or report_name == 'county':
             state_abv = ussa.us_state_abbrev[state]
             state_abv_str = ', {}'.format(state_abv)
             usdf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
