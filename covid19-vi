@@ -33,8 +33,6 @@ import sys
 import os
 from datetime import datetime
 import shutil
-import csv
-import re
 import pickle
 import urllib.request
 import us_state_abbrev as usa
@@ -51,8 +49,9 @@ class CovidData:
 
     def __init__(self, download=False):
         """
-        :type download: Bool
+        Initialize a CovidData object and populate from interweb if download is True.
         :param download:
+        :type download: Bool
         :return None
         """
         self.data = {'download_date': None, 'confirmed': None, 'deaths': None, 'recoveries': None}
@@ -66,13 +65,12 @@ class CovidData:
 
     def read_datafile(self, download=False):
         """
+        Read covid-19 data from the repository datafiles or a pickle file depends on value of download.
+        Source: https://github.com/Ricks-Lab/amdgpu-utils/blob/c10dba61f11b9e5fb44d24acd1fa74122668afc2/GPUmodules/PCImodule.py
 
-        :param download:
-        :type download: Bool
-        :return: Bool
-        """
-        """ Return the new downloaded data's filename as a string
-            Source: https://github.com/Ricks-Lab/amdgpu-utils/blob/c10dba61f11b9e5fb44d24acd1fa74122668afc2/GPUmodules/PCImodule.py
+        :param download: Dowload from the interweb if True, else read pickled data.
+        :type download: bool
+        :return: bool
         """
         if not download and os.path.isfile(self._pickle_filename):
             # Read pickle file.
@@ -89,6 +87,7 @@ class CovidData:
             os.remove(temp_file_name)
         self.data['download_date'] = datetime.utcnow()
 
+        # Save pickle file.
         with open(self._pickle_filename, 'wb') as f:
             pickle.dump(self.data, f)
 
@@ -105,8 +104,8 @@ class CovidData:
 
     def read_csv_file(self, file_name):
         """
-
-        :param file_name:
+        Read and preprocess the csv data files.  Format is from Johns Hopkins GitHub repo.
+        :param file_name: File name of the csv file to be processed.
         :return: list
         """
         df = pd.read_csv(file_name)
@@ -114,15 +113,14 @@ class CovidData:
         for country in self._prov_state_countries:
             df = self.aggregate_state_prov(df, country)
         df.loc[df['Province/State'] == df['Country/Region'], 'Province/State'] = np.NaN
-
         df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
 
         return df
 
     def top_ten(self, number=10, report_name='country', report_key='confirmed', state='New York'):
         """
-
-        :param number:
+         Generate tabular data report.
+        :param number: Number of lines of data for the table.
         :type number: int
         :param report_name:
         :type report_name: str
@@ -142,6 +140,7 @@ class CovidData:
             ttdf = tdf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'us-state':
             # TODO Indicate total for the Country entry
+            # TODO need to drop counties from the list.
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'us-county':
