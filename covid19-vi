@@ -35,7 +35,7 @@ from datetime import datetime
 import shutil
 import pickle
 import urllib.request
-import us_state_abbrev as usa
+import us_state_abbrev as ussa
 import pandas as pd
 import numpy as np
 
@@ -45,7 +45,7 @@ class CovidData:
                    'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
                    'recoveries': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv'}
     _pickle_filename = 'covid_data.pickle'
-    _prov_state_countries = ['US', 'China', 'Canada']
+    _prov_state_countries = ['US', 'China', 'Canada', 'Australia']
 
     def __init__(self, download=False):
         """
@@ -114,10 +114,9 @@ class CovidData:
             df = self.aggregate_state_prov(df, country)
         df.loc[df['Province/State'] == df['Country/Region'], 'Province/State'] = np.NaN
         df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
-
         return df
 
-    def top_ten(self, number=10, report_name='country', report_key='confirmed', state='New York'):
+    def top_ten(self, number=10, report_name='country', report_key='confirmed', state='New York', country='US'):
         """
          Generate tabular data report.
         :param number: Number of lines of data for the table.
@@ -128,37 +127,38 @@ class CovidData:
         :type report_key: str
         :param state:
         :type state: str
+        :param country:
+        :type country: str
         :return: None
-        ::todo: deal with any country that has provinces or states
         """
+        # TODO - display age of data.
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
         if report_name == 'country':
             # TODO drop the Province/State column
             tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
-            # TODO Filter out items with State/Province of Nan and deal with exceptions
             ttdf = tdf.sort_values(['total'], ascending=False).head(number)
-        elif report_name == 'us-state':
+        elif report_name == 'state' or report_name == 'province':
             # TODO Indicate total for the Country entry
-            # TODO need to drop counties from the list.
-            ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
+            ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == country]
+            regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
+            ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'us-county':
-            state_abv = usa.us_state_abbrev[state]
-            state_regx = ', {}'.format(state_abv)
+            state_abv = ussa.us_state_abbrev[state]
+            state_abv_str = ', {}'.format(state_abv)
             usdf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
             df1 = usdf.loc[usdf['Province/State'] == state]
-            # TODO the following statement will drop all rows with an nan, but only want to drop if this col has nan
-            df2 = usdf.dropna().query('`Province/State`.str.endswith(@state_regx)')
+            df2 = usdf.query('`Province/State`.str.endswith(@state_abv_str, na=False)')
             stdf = pd.concat([df1, df2], ignore_index=True)
             ttdf = stdf.sort_values(['total'], ascending=False).head(number)
-        elif report_name == 'china-province':
-            ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'China']
-            ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         else:
             print('Error: Invalid report specified.')
             sys.exit(-1)
-        print(ttdf)
+        with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
+            ttdf.reset_index(drop=True, inplace=True)
+            print(ttdf)
+        print('')
 
 
 def main():
@@ -171,9 +171,11 @@ def main():
                         action='store_true', default=False)
     parser.add_argument('--length', help='length of sorted reports',
                         type=int, default=10)
+    parser.add_argument('--country', help='Name of country for state/province report.',
+                        type=str, default='US')
     parser.add_argument('--state', help='Name of state for county report.',
-                        type=str, default='Florida')
-    parser.add_argument('--report', help='country, us-state, us-county, china-province',
+                        type=str, default='New York')
+    parser.add_argument('--report', help='country, state, province, us-county',
                         type=str, default='confirmed')
     parser.add_argument('--parameter', help='confirmed, deaths, recoveries',
                         type=str, default='confirmed')
@@ -201,7 +203,8 @@ def main():
 
     covid_data = CovidData(download=args.download)
 
-    covid_data.top_ten(number=args.length, report_name=args.report, report_key=args.parameter, state=args.state)
+    covid_data.top_ten(number=args.length, report_name=args.report, report_key=args.parameter,
+                       state=args.state, country=args.country)
 
     sys.exit(0)
 
