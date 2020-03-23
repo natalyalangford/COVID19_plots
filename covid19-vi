@@ -37,6 +37,7 @@ import csv
 import pickle
 import urllib.request
 import pandas as pd
+import numpy as np
 
 
 class CovidData:
@@ -44,6 +45,8 @@ class CovidData:
                    'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
                    'recoveries': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv'}
     _pickle_filename = 'covid_data.pickle'
+    _prov_state_exceptions = ['France', 'Denmark']
+    _prov_state_countries = ['US', 'China']
 
     def __init__(self, download=False):
         """
@@ -90,7 +93,15 @@ class CovidData:
         return True
 
     @staticmethod
-    def read_csv_file(file_name):
+    def aggregate_state_prov(df, country):
+        sp_df = df.loc[df['Country/Region'] == country]
+        country_df = sp_df.head(1)
+        country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
+        country_df['Province/State'] = np.NaN
+        fdf = pd.concat([df, country_df], ignore_index=True)
+        return fdf
+
+    def read_csv_file(self, file_name):
         """
 
         :param file_name:
@@ -98,6 +109,8 @@ class CovidData:
         """
         df = pd.read_csv(file_name)
         df['total'] = df.values[:, -1]
+        for country in self._prov_state_countries:
+            df = self.aggregate_state_prov(df, country)
         return df
 
     def top_ten(self, number=10, report_name='country', report_key='confirmed'):
@@ -114,13 +127,17 @@ class CovidData:
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
         if report_name == 'country':
+            # TODO Filter out items with State/Province of Nan and deal with exceptions
             ttdf = self.data[report_key].sort_values(['total'], ascending=False).head(number)
         elif report_name == 'us-state':
+            # TODO Indicate total for the Country entry
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
         elif report_name == 'china-province':
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'China']
             ttdf = ldf.sort_values(['total'], ascending=False).head(number)
+        else:
+            print('Error: Invalid report specified.')
         print(ttdf)
 
 
