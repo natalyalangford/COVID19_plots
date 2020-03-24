@@ -39,6 +39,8 @@ import us_state_abbrev as ussa
 import pandas as pd
 import numpy as np
 
+DEBUG = False
+
 
 class CovidData:
     _covid_data = {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
@@ -71,6 +73,7 @@ class CovidData:
         :type download: bool
         :return: bool
         """
+        global DEBUG
         if not download and os.path.isfile(self._pickle_filename):
             # Read pickle file.
             with open(self._pickle_filename, 'rb') as f:
@@ -78,12 +81,16 @@ class CovidData:
             return True
 
         for report_key in self._covid_data.keys():
-            temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
-            #temp_file_name = 'covid_{}_{}.csv'.format(report_key, 'test')
-            with urllib.request.urlopen(self._covid_data[report_key]) as response, open(temp_file_name, 'wb') as out_file:
-                shutil.copyfileobj(response, out_file)
+            if DEBUG:
+                temp_file_name = 'covid_{}_{}.csv'.format(report_key, 'test')
+            else:
+                temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
+            if not DEBUG or not os.path.isfile(temp_file_name):
+                with urllib.request.urlopen(self._covid_data[report_key]) as response, open(temp_file_name, 'wb') as out_file:
+                    shutil.copyfileobj(response, out_file)
             self.data[report_key] = self.read_csv_file(temp_file_name)
-            os.remove(temp_file_name)
+            if not DEBUG:
+                os.remove(temp_file_name)
         self.data['download_date'] = datetime.utcnow()
 
         # Save pickle file.
@@ -117,12 +124,17 @@ class CovidData:
 
     def read_csv_file(self, file_name):
         """
-        Read and preprocess the csv data files.  Format is from Johns Hopkins GitHub repo.
+        Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
         :param file_name: File name of the csv file to be processed.
         :return: list
         """
         df = pd.read_csv(file_name)
-        df.loc[:, 'total'] = df.iloc[:, -1]
+        df.loc[:, 'Yesterday'] = df.iloc[:, -2]
+        df.loc[:, 'Total'] = df.iloc[:, -2]
+        df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
+        # TODO - % increase doesn't work
+        df.loc[:, '%DayIncrease'] = (df.loc[:, 'DayIncrease'] / df.loc[:, 'Yesterday'])
+        # TODO - Need regression fit to calculate rate of increase
         for country in self._prov_state_countries:
             df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
             df = self.aggregate_state_prov(df, country)
@@ -151,13 +163,13 @@ class CovidData:
         if report_name == 'country':
             tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
             tdf = tdf.drop('Province/State', axis=1)
-            ttdf = tdf.sort_values(['total'], ascending=False).head(number)
+            ttdf = tdf.sort_values(['Total'], ascending=False).head(number)
         elif report_name == 'state' or report_name == 'province':
             # TODO Indicate total for the Country entry
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == country]
             regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
             ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
-            ttdf = ldf.sort_values(['total'], ascending=False).head(number)
+            ttdf = ldf.sort_values(['Total'], ascending=False).head(number)
         elif report_name == 'us-county' or report_name == 'county':
             state_abv = ussa.us_state_abbrev[state]
             state_abv_str = ', {}'.format(state_abv)
@@ -165,7 +177,7 @@ class CovidData:
             df1 = usdf.loc[usdf['Province/State'] == state]
             df2 = usdf.query('`Province/State`.str.endswith(@state_abv_str, na=False)')
             stdf = pd.concat([df1, df2], ignore_index=True)
-            ttdf = stdf.sort_values(['total'], ascending=False).head(number)
+            ttdf = stdf.sort_values(['Total'], ascending=False).head(number)
         else:
             print('Error: Invalid report specified.')
             sys.exit(-1)
@@ -214,6 +226,9 @@ def main():
         print('Maintainer: ', __maintainer__)
         print('Status: ', __status__)
         sys.exit(0)
+
+    global DEBUG
+    DEBUG = True if args.debug else False
 
     covid_data = CovidData(download=args.download)
 
