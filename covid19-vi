@@ -129,17 +129,18 @@ class CovidData:
         :return: list
         """
         df = pd.read_csv(file_name)
-        df.loc[:, 'Yesterday'] = df.iloc[:, -2]
-        df.loc[:, 'Total'] = df.iloc[:, -2]
-        df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
-        # TODO - % increase doesn't work
-        df.loc[:, '%DayIncrease'] = (df.loc[:, 'DayIncrease'] / df.loc[:, 'Yesterday'])
         # TODO - Need regression fit to calculate rate of increase
         for country in self._prov_state_countries:
             df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
             df = self.aggregate_state_prov(df, country)
         df = self.aggregate_world(df)
         df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
+        df.loc[:, 'Yesterday'] = df.iloc[:, -2]
+        df.loc[:, 'Total'] = df.iloc[:, -2]
+        df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
+        df.loc[:, '%DayIncrease'] = (df.loc[:, 'DayIncrease'] / df.loc[:, 'Yesterday'])
+        df.loc[df['%DayIncrease'].isna(), '%DayIncrease'] = 0.0
+        df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
         return df
 
     def top_ten(self, number=10, report_name='country', report_key='confirmed', state='New York', country='US'):
@@ -164,12 +165,18 @@ class CovidData:
             tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
             tdf = tdf.drop('Province/State', axis=1)
             ttdf = tdf.sort_values(['Total'], ascending=False).head(number)
+            num_cols = ttdf.shape[1]
+            col_select = np.r_[0:1, num_cols-9:num_cols]
+            ttdf = ttdf.iloc[:, col_select].copy()
         elif report_name == 'state' or report_name == 'province':
             # TODO Indicate total for the Country entry
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == country]
             regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
             ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
             ttdf = ldf.sort_values(['Total'], ascending=False).head(number)
+            num_cols = ttdf.shape[1]
+            col_select = np.r_[0:2, num_cols-8:num_cols]
+            ttdf = ttdf.iloc[:, col_select].copy()
         elif report_name == 'us-county' or report_name == 'county':
             state_abv = ussa.us_state_abbrev[state]
             state_abv_str = ', {}'.format(state_abv)
@@ -178,6 +185,9 @@ class CovidData:
             df2 = usdf.query('`Province/State`.str.endswith(@state_abv_str, na=False)')
             stdf = pd.concat([df1, df2], ignore_index=True)
             ttdf = stdf.sort_values(['Total'], ascending=False).head(number)
+            num_cols = ttdf.shape[1]
+            col_select = np.r_[0:2, num_cols-8:num_cols]
+            ttdf = ttdf.iloc[:, col_select].copy()
         else:
             print('Error: Invalid report specified.')
             sys.exit(-1)
