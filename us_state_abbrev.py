@@ -10,6 +10,7 @@
 us_state_abbrev = {
     'Alabama': 'AL',
     'Alaska': 'AK',
+    'American Samoa': 'AS',
     'Arizona': 'AZ',
     'Arkansas': 'AR',
     'California': 'CA',
@@ -19,6 +20,7 @@ us_state_abbrev = {
     'District of Columbia': 'DC',
     'Florida': 'FL',
     'Georgia': 'GA',
+    'Guam': 'GM',
     'Hawaii': 'HI',
     'Idaho': 'ID',
     'Illinois': 'IL',
@@ -47,7 +49,6 @@ us_state_abbrev = {
     'Ohio': 'OH',
     'Oklahoma': 'OK',
     'Oregon': 'OR',
-    'Palau': 'PW',
     'Pennsylvania': 'PA',
     'Puerto Rico': 'PR',
     'Rhode Island': 'RI',
@@ -62,9 +63,14 @@ us_state_abbrev = {
     'Washington': 'WA',
     'West Virginia': 'WV',
     'Wisconsin': 'WI',
-    'Wyoming': 'WY',
+    'Wyoming': 'WY'
 }
 
 # thank you to @kinghelix and @trevormarburger for this idea
 abbrev_us_state = dict(map(reversed, us_state_abbrev.items()))
 
+# Simple test examples
+if __name__ == '__main__':
+    print("Wisconin --> WI?", us_state_abbrev['Wisconsin'] == 'WI')
+    print("WI --> Wisconin?", abbrev_us_state['WI'] == 'Wisconsin')
+    print("Number of entries (50 states, DC, 5 Territories) == 56? ", 56 == len(us_state_abbrev))
