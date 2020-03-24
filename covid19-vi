@@ -18,7 +18,7 @@
 """
 __author__ = 'Natalya Langford'
 __copyright__ = 'Copyright (C) 2020 Natalya Langford'
-__credits__ = ['']
+__credits__ = ['Ricks-Lab - Collaborator']
 __license__ = 'GNU General Public License'
 __program_name__ = 'covid19-vi'
 __version__ = 'v0.0.1'
@@ -233,10 +233,15 @@ class CovidData:
         for pname in plot_item_names:
             if report_name == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
+                total = pdf.loc[pdf['Country/Region'] == pname, 'Total'].tolist()[0]
             else:
                 y = pdf.loc[pdf['Province/State'] == pname, :]
+                total = pdf.loc[pdf['Province/State'] == pname, 'Total'].tolist()[0]
             y = list(y.iloc[0, col_select])
-            ax.plot(y, label=pname)
+            lname = '{} ({})'.format(pname, total)
+            ax.plot(y, label=lname)
+            ax.text(x=len(y), y=y[-1], s=pname,
+                    bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
         ax.legend(loc="upper left")
         if report_key == 'confirmed':
             if report_name == 'country':
