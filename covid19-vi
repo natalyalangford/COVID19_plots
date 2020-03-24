@@ -94,9 +94,21 @@ class CovidData:
         return True
 
     @staticmethod
+    def aggregate_world(df):
+        ac_df = df.loc[df['Province/State'].isnull()]
+        world_df = ac_df.head(1).copy()
+        world_df.loc[:, 5:] = ac_df.values[:, 5:].sum(axis=0)
+        world_df.loc[:, 'Country/Region'] = 'Global'
+        world_df.loc[:, 'Province/State'] = np.NaN
+        world_df.loc[:, 'Lat'] = 0.0
+        world_df.loc[:, 'Long'] = 0.0
+        fdf = pd.concat([df, world_df], ignore_index=True)
+        return fdf
+
+    @staticmethod
     def aggregate_state_prov(df, country):
         sp_df = df.loc[df['Country/Region'] == country, :]
-        country_df = sp_df.head(1)
+        country_df = sp_df.head(1).copy()
         country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
         country_df.loc[:, 'Province/State'] = np.NaN
         fdf = pd.concat([df, country_df], ignore_index=True)
@@ -110,9 +122,10 @@ class CovidData:
         """
         df = pd.read_csv(file_name)
         # TODO - Next statement give slice warning
-        df.loc[:, 'total'] = df.values[:, -1]
+        df.loc[:, 'total'] = df.iloc[:, -1]
         for country in self._prov_state_countries:
             df = self.aggregate_state_prov(df, country)
+        df = self.aggregate_world(df)
         df.loc[df['Province/State'] == df['Country/Region'], 'Province/State'] = np.NaN
         df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         return df
