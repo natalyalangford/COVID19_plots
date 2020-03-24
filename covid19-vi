@@ -38,6 +38,8 @@ import urllib.request
 import us_state_abbrev as ussa
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+
 
 DEBUG = False
 
@@ -47,6 +49,8 @@ class CovidData:
                    'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['US', 'China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
+    _data_source = 'https://github.com/CSSEGISandData/COVID-19'
+    _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
 
     def __init__(self, download=False):
         """
@@ -55,7 +59,7 @@ class CovidData:
         :type download: Bool
         :return None
         """
-        self.data = {'download_date': None, 'confirmed': None, 'deaths': None, 'recoveries': None}
+        self.data = {'data_date': None, 'download_date': None, 'confirmed': None, 'deaths': None, 'recoveries': None}
         self.read_datafile(download=download)
 
     def print_sources(self):
@@ -92,6 +96,7 @@ class CovidData:
             if not DEBUG:
                 os.remove(temp_file_name)
         self.data['download_date'] = datetime.utcnow()
+        print(self.data['data_date'])
 
         # Save pickle file.
         with open(self._pickle_filename, 'wb') as f:
@@ -129,6 +134,7 @@ class CovidData:
         :return: list
         """
         df = pd.read_csv(file_name)
+        self.data['data_date'] = df.columns[-1]
         # TODO - Need regression fit to calculate rate of increase
         for country in self._prov_state_countries:
             df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
@@ -143,7 +149,8 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
         return df
 
-    def top_ten(self, number=10, report_name='country', report_key='confirmed', state='New York', country='US'):
+    def top_ten(self, number=10, report_name='country', report_key='confirmed',
+                state='New York', country='US', plot=False):
         """
          Generate tabular data report.
         :param number: Number of lines of data for the table.
@@ -156,6 +163,8 @@ class CovidData:
         :type state: str
         :param country:
         :type country: str
+        :param plot:
+        :type plot: bool
         :return: None
         """
         # TODO - display age of data.
@@ -165,6 +174,8 @@ class CovidData:
             tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
             tdf = tdf.drop('Province/State', axis=1)
             ttdf = tdf.sort_values(['Total'], ascending=False).head(number)
+            if plot:
+                self.plot(ttdf)
             num_cols = ttdf.shape[1]
             col_select = np.r_[0:1, num_cols-9:num_cols]
             ttdf = ttdf.iloc[:, col_select].copy()
@@ -196,6 +207,29 @@ class CovidData:
             print(ttdf)
         print('')
 
+    def plot(self, pdf):
+        num_cols = pdf.shape[1]
+        col_select = np.r_[4:num_cols-4]
+        plot_item_names = list(pdf['Country/Region'])
+        fig = plt.figure(figsize=(10, 10))
+        ax = fig.add_subplot(1, 1, 1)
+        ax.set_yscale('log')
+        ax.grid(True)
+        ax.set_facecolor('#d0dbd5')
+        fig.patch.set_facecolor('#eeeeee')
+        plt.figtext(0.99, 0.01,
+                    'Data from the {} Johns Hopkins data on GitHub {}\nAnalytics: {}'.format(self.data['data_date'],
+                    self._data_source, self._analytics_source), horizontalalignment='right', fontsize=8)
+        for pname in plot_item_names:
+            y = pdf.loc[pdf['Country/Region'] == pname, :]
+            y = list(y.iloc[0, col_select])
+            ax.plot(y, label=pname)
+        ax.set_title('COVID-19 Confirmed Cases by Country', fontsize=18)
+        ax.legend(loc="upper left")
+        plt.ylabel('Confirmed Cases', fontsize=16)
+        plt.xlabel('Days Since Outbreak', fontsize=16)
+        plt.show()
+
 
 def main():
     """
@@ -221,6 +255,8 @@ def main():
                         type=str, default='')
     parser.add_argument('--table', help='Output table of basic GPU details',
                         action='store_true', default=False)
+    parser.add_argument('--plot', help='plot output',
+                        action='store_true', default=False)
     parser.add_argument('-d', '--debug', help='Debug output',
                         action='store_true', default=False)
     args = parser.parse_args()
@@ -243,7 +279,7 @@ def main():
     covid_data = CovidData(download=args.download)
 
     covid_data.top_ten(number=args.length, report_name=args.report, report_key=args.parameter,
-                       state=args.state, country=args.country)
+                       state=args.state, country=args.country, plot=args.plot)
 
     sys.exit(0)
 
