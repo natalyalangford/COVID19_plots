@@ -41,11 +41,10 @@ import numpy as np
 
 
 class CovidData:
-    _covid_data = {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv',
-                   'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv',
-                   'recoveries': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv'}
+    _covid_data = {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
+                   'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'}
     _pickle_filename = 'covid_data.pickle'
-    _prov_state_countries = ['US', 'China', 'Canada', 'Australia']
+    _prov_state_countries = ['US', 'China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
 
     def __init__(self, download=False):
         """
@@ -80,7 +79,7 @@ class CovidData:
 
         for report_key in self._covid_data.keys():
             temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
-            # temp_file_name = 'covid_{}_{}.csv'.format(report_key, 'test')
+            #temp_file_name = 'covid_{}_{}.csv'.format(report_key, 'test')
             with urllib.request.urlopen(self._covid_data[report_key]) as response, open(temp_file_name, 'wb') as out_file:
                 shutil.copyfileobj(response, out_file)
             self.data[report_key] = self.read_csv_file(temp_file_name)
@@ -95,9 +94,10 @@ class CovidData:
 
     @staticmethod
     def aggregate_world(df):
-        ac_df = df.loc[df['Province/State'].isnull()]
+        ac_df = df.loc[df['Province/State'].isnull()].copy()
+        ac_df.iloc[:, 5:] = ac_df.iloc[:, 5:].fillna(0)
         world_df = ac_df.head(1).copy()
-        world_df.loc[:, 5:] = ac_df.values[:, 5:].sum(axis=0)
+        world_df.iloc[:, 5:] = ac_df.values[:, 5:].sum(axis=0)
         world_df.loc[:, 'Country/Region'] = 'Global'
         world_df.loc[:, 'Province/State'] = np.NaN
         world_df.loc[:, 'Lat'] = 0.0
@@ -107,7 +107,8 @@ class CovidData:
 
     @staticmethod
     def aggregate_state_prov(df, country):
-        sp_df = df.loc[df['Country/Region'] == country, :]
+        sp_df = df.loc[df['Country/Region'] == country, :].copy()
+        sp_df.iloc[:, 5:] = sp_df.iloc[:, 5:].fillna(0)
         country_df = sp_df.head(1).copy()
         country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
         country_df.loc[:, 'Province/State'] = np.NaN
@@ -121,12 +122,11 @@ class CovidData:
         :return: list
         """
         df = pd.read_csv(file_name)
-        # TODO - Next statement give slice warning
         df.loc[:, 'total'] = df.iloc[:, -1]
         for country in self._prov_state_countries:
+            df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
             df = self.aggregate_state_prov(df, country)
         df = self.aggregate_world(df)
-        df.loc[df['Province/State'] == df['Country/Region'], 'Province/State'] = np.NaN
         df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         return df
 
