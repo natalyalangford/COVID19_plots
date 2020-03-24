@@ -172,22 +172,24 @@ class CovidData:
         print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
         if report_name == 'country':
             tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
-            tdf = tdf.drop('Province/State', axis=1)
-            ttdf = tdf.sort_values(['Total'], ascending=False).head(number)
+            tdf = tdf.sort_values(['Total'], ascending=False).head(number)
             if plot:
-                self.plot(ttdf)
-            num_cols = ttdf.shape[1]
+                plot_df = tdf.copy()
+            tdf = tdf.drop('Province/State', axis=1)
+            num_cols = tdf.shape[1]
             col_select = np.r_[0:1, num_cols-9:num_cols]
-            ttdf = ttdf.iloc[:, col_select].copy()
+            ttdf = tdf.iloc[:, col_select].copy()
         elif report_name == 'state' or report_name == 'province':
             # TODO Indicate total for the Country entry
             ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == country]
             regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
             ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
-            ttdf = ldf.sort_values(['Total'], ascending=False).head(number)
-            num_cols = ttdf.shape[1]
+            ldf = ldf.sort_values(['Total'], ascending=False).head(number)
+            if plot:
+                plot_df = ldf.copy()
+            num_cols = ldf.shape[1]
             col_select = np.r_[0:2, num_cols-8:num_cols]
-            ttdf = ttdf.iloc[:, col_select].copy()
+            ttdf = ldf.iloc[:, col_select].copy()
         elif report_name == 'us-county' or report_name == 'county':
             state_abv = ussa.us_state_abbrev[state]
             state_abv_str = ', {}'.format(state_abv)
@@ -195,10 +197,12 @@ class CovidData:
             df1 = usdf.loc[usdf['Province/State'] == state]
             df2 = usdf.query('`Province/State`.str.endswith(@state_abv_str, na=False)')
             stdf = pd.concat([df1, df2], ignore_index=True)
-            ttdf = stdf.sort_values(['Total'], ascending=False).head(number)
-            num_cols = ttdf.shape[1]
+            stdf = stdf.sort_values(['Total'], ascending=False).head(number)
+            if plot:
+                plot_df = stdf.copy()
+            num_cols = stdf.shape[1]
             col_select = np.r_[0:2, num_cols-8:num_cols]
-            ttdf = ttdf.iloc[:, col_select].copy()
+            ttdf = stdf.iloc[:, col_select].copy()
         else:
             print('Error: Invalid report specified.')
             sys.exit(-1)
@@ -206,11 +210,17 @@ class CovidData:
             ttdf.reset_index(drop=True, inplace=True)
             print(ttdf)
         print('')
+        if plot:
+            self.plot(plot_df, report_name, report_key, state, country)
 
-    def plot(self, pdf):
+    def plot(self, pdf, report_name, report_key, state, country):
         num_cols = pdf.shape[1]
         col_select = np.r_[4:num_cols-4]
-        plot_item_names = list(pdf['Country/Region'])
+        if report_name == 'country':
+            plot_item_names = list(pdf['Country/Region'])
+        else:
+            pdf.loc[(pdf['Province/State'].isna()), 'Province/State'] = 'Total'
+            plot_item_names = list(pdf['Province/State'])
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(1, 1, 1)
         ax.set_yscale('log')
@@ -221,12 +231,24 @@ class CovidData:
                     'Data from the {} Johns Hopkins data on GitHub {}\nAnalytics: {}'.format(self.data['data_date'],
                     self._data_source, self._analytics_source), horizontalalignment='right', fontsize=8)
         for pname in plot_item_names:
-            y = pdf.loc[pdf['Country/Region'] == pname, :]
+            if report_name == 'country':
+                y = pdf.loc[pdf['Country/Region'] == pname, :]
+            else:
+                y = pdf.loc[pdf['Province/State'] == pname, :]
             y = list(y.iloc[0, col_select])
             ax.plot(y, label=pname)
-        ax.set_title('COVID-19 Confirmed Cases by Country', fontsize=18)
         ax.legend(loc="upper left")
-        plt.ylabel('Confirmed Cases', fontsize=16)
+        if report_key == 'confirmed':
+            if report_name == 'country':
+                ax.set_title('COVID-19 Confirmed Cases by Country', fontsize=20)
+            elif report_name == 'state' or report_name == 'province':
+                ax.set_title('COVID-19 Confirmed Cases by Province/State for {}'.format(country), fontsize=20)
+            else:
+                ax.set_title('COVID-19 Confirmed Cases by Country for {}'.format(state), fontsize=20)
+            plt.ylabel('Confirmed Cases', fontsize=16)
+        else:
+            ax.set_title('COVID-19 Deaths by {}'.format(report_name), fontsize=20)
+            plt.ylabel('Deaths', fontsize=16)
         plt.xlabel('Days Since Outbreak', fontsize=16)
         plt.show()
 
