@@ -50,7 +50,7 @@ class CovidData:
                    'usa': {'confirmed': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
                            'deaths': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv'}}
     _pickle_filename = 'covid_data.pickle'
-    _prov_state_countries = ['US', 'China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
+    _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _data_source = 'https://github.com/CSSEGISandData/COVID-19'
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
 
@@ -99,7 +99,7 @@ class CovidData:
 
         for zone, zone_dict in self._covid_data.items():
             if zone == 'usa':
-                continue
+                pass
             for report_key, link in zone_dict.items():
                 if DEBUG:
                     temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_key, 'test')
@@ -108,7 +108,7 @@ class CovidData:
                 if not DEBUG or not os.path.isfile(temp_file_name):
                     with urllib.request.urlopen(link) as response, open(temp_file_name, 'wb') as out_file:
                         shutil.copyfileobj(response, out_file)
-                self.data[zone][report_key] = self.read_csv_file(temp_file_name)
+                self.data[zone][report_key] = self.read_csv_file(temp_file_name, zone)
                 if not DEBUG:
                     os.remove(temp_file_name)
                 self.data[zone]['data_date'] = self.data[zone][report_key].columns[-5]
@@ -135,27 +135,45 @@ class CovidData:
 
     @staticmethod
     def aggregate_state_prov(df, country):
-        sp_df = df.loc[df['Country/Region'] == country, :].copy()
-        sp_df.iloc[:, 5:] = sp_df.iloc[:, 5:].fillna(0)
-        country_df = sp_df.head(1).copy()
-        country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
-        country_df.loc[:, 'Province/State'] = np.NaN
-        fdf = pd.concat([df, country_df], ignore_index=True)
+        if country == 'US':
+            fdf = df.copy()
+            state_list = df['State'].unique()
+            for state in state_list:
+                sc_df = df.loc[df['State'] == state, :].copy()
+                state_df = sc_df.head(1).copy()
+                sc_df.iloc[:, 5:] = sc_df.iloc[:, 5:].fillna(0)
+                state_df.loc[:, 4:] = sc_df.values[:, 4:].sum(axis=0)
+                state_df.loc[:, 'County Name'] = np.NaN
+                fdf = pd.concat([fdf, state_df], ignore_index=True)
+        else:
+            sp_df = df.loc[df['Country/Region'] == country, :].copy()
+            sp_df.iloc[:, 5:] = sp_df.iloc[:, 5:].fillna(0)
+            country_df = sp_df.head(1).copy()
+            country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
+            country_df.loc[:, 'Province/State'] = np.NaN
+            fdf = pd.concat([df, country_df], ignore_index=True)
         return fdf
 
-    def read_csv_file(self, file_name):
+    def read_csv_file(self, file_name, zone):
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
         :param file_name: File name of the csv file to be processed.
         :return: list
         """
-        df = pd.read_csv(file_name)
+        try:
+            df = pd.read_csv(file_name)
+        except UnicodeDecodeError:
+            df = pd.read_csv(file_name, encoding='ISO-8859-1')
+
         # TODO - Need regression fit to calculate rate of increase
-        for country in self._prov_state_countries:
-            df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
-            df = self.aggregate_state_prov(df, country)
-        df = self.aggregate_world(df)
-        df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
+        if zone == 'global':
+            for country in self._prov_state_countries:
+                df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
+                df = self.aggregate_state_prov(df, country)
+            df = self.aggregate_world(df)
+            df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
+        else:
+            df = self.aggregate_state_prov(df, 'US')
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
         df.loc[:, 'Total'] = df.iloc[:, -2]
         df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
@@ -165,7 +183,7 @@ class CovidData:
         return df
 
     def top_ten(self, number=10, report_name='country', report_key='confirmed',
-                state='New York', country='US', plot=False):
+                state='NY', country='US', plot=False):
         """
          Generate tabular data report.
         :param number: Number of lines of data for the table.
@@ -196,24 +214,27 @@ class CovidData:
             ttdf = tdf.iloc[:, col_select].copy()
         elif report_name == 'state' or report_name == 'province':
             if country == 'US':
-                ldf = self.data['usa'][report_key].loc[self.data['usa'][report_key]['Country/Region'] == country]
+                ldf = self.data['usa'][report_key]
+                ldf = ldf.loc[ldf['County Name'].isnull()]
+                ldf = ldf.sort_values(['Total'], ascending=False).head(number)
+                ldf = ldf.drop(['countyFIPS', 'County Name'], axis=1)
+                if plot:
+                    plot_df = ldf.copy()
+                num_cols = ldf.shape[1]
+                col_select = np.r_[0:3, num_cols-8:num_cols]
+                ttdf = ldf.iloc[:, col_select].copy()
             else:
                 ldf = self.data['global'][report_key].loc[self.data['global'][report_key]['Country/Region'] == country]
-            regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
-            ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
-            ldf = ldf.sort_values(['Total'], ascending=False).head(number)
-            if plot:
-                plot_df = ldf.copy()
-            num_cols = ldf.shape[1]
-            col_select = np.r_[0:2, num_cols-8:num_cols]
-            ttdf = ldf.iloc[:, col_select].copy()
+                ldf = ldf.sort_values(['Total'], ascending=False).head(number)
+                if plot:
+                    plot_df = ldf.copy()
+                num_cols = ldf.shape[1]
+                col_select = np.r_[0:2, num_cols-8:num_cols]
+                ttdf = ldf.iloc[:, col_select].copy()
         elif report_name == 'us-county' or report_name == 'county':
-            state_abv = ussa.us_state_abbrev[state]
-            state_abv_str = ', {}'.format(state_abv)
-            usdf = self.data['usa'][report_key].loc[self.data['usa'][report_key]['Country/Region'] == 'US']
-            df1 = usdf.loc[usdf['Province/State'] == state]
-            df2 = usdf.query('`Province/State`.str.endswith(@state_abv_str, na=False)')
-            stdf = pd.concat([df1, df2], ignore_index=True)
+            usdf = self.data['usa'][report_key]
+            stdf = usdf.loc[usdf['State'] == state]
+            stdf.loc[(stdf['County Name'].isna()), 'County Name'] = 'Total'
             stdf = stdf.sort_values(['Total'], ascending=False).head(number)
             if plot:
                 plot_df = stdf.copy()
@@ -236,8 +257,12 @@ class CovidData:
         if report_name == 'country':
             plot_item_names = list(pdf['Country/Region'])
         else:
-            pdf.loc[(pdf['Province/State'].isna()), 'Province/State'] = 'Total'
-            plot_item_names = list(pdf['Province/State'])
+            if country == 'US':
+                plot_item_names = list(pdf['State']) if report_name == 'state' else list(pdf['County Name'])
+                col_select = np.r_[3:num_cols - 4] if report_name == 'state' else np.r_[4:num_cols - 4]
+            else:
+                pdf.loc[(pdf['Province/State'].isna()), 'Province/State'] = 'Total'
+                plot_item_names = list(pdf['Province/State'])
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(1, 1, 1)
         ax.set_yscale('log')
@@ -253,8 +278,15 @@ class CovidData:
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
                 total = pdf.loc[pdf['Country/Region'] == pname, 'Total'].tolist()[0]
             else:
-                y = pdf.loc[pdf['Province/State'] == pname, :]
-                total = pdf.loc[pdf['Province/State'] == pname, 'Total'].tolist()[0]
+                if country == 'US':
+                    state_name = ussa.abbrev_us_state[state]
+                    y = pdf.loc[pdf['State'] == pname, :] if report_name == 'state' else \
+                        pdf.loc[pdf['County Name'] == pname, :]
+                    total = pdf.loc[pdf['State'] == pname, 'Total'].tolist()[0] if report_name == 'state' else \
+                            pdf.loc[pdf['County Name'] == pname, 'Total'].tolist()[0]
+                else:
+                    y = pdf.loc[pdf['Province/State'] == pname, :]
+                    total = pdf.loc[pdf['Province/State'] == pname, 'Total'].tolist()[0]
             y = list(y.iloc[0, col_select])
             lname = '{} ({})'.format(pname, total)
             ax.plot(y, label=lname)
@@ -265,9 +297,10 @@ class CovidData:
             if report_name == 'country':
                 ax.set_title('COVID-19 Confirmed Cases by Country', fontsize=20)
             elif report_name == 'state' or report_name == 'province':
-                ax.set_title('COVID-19 Confirmed Cases by Province/State for {}'.format(country), fontsize=20)
+                ps = 'State' if country == 'US' else 'Province/State'
+                ax.set_title('COVID-19 Confirmed Cases by {} for {}'.format(ps, country), fontsize=20)
             else:
-                ax.set_title('COVID-19 Confirmed Cases by Country for {}'.format(state), fontsize=20)
+                ax.set_title('COVID-19 Confirmed Cases by County for {}'.format(state_name), fontsize=20)
             plt.ylabel('Confirmed Cases', fontsize=16)
         else:
             ax.set_title('COVID-19 Deaths by {}'.format(report_name), fontsize=20)
@@ -289,7 +322,7 @@ def main():
     parser.add_argument('--country', help='Name of country for state/province report.',
                         type=str, default='US')
     parser.add_argument('--state', help='Name of state for county report.',
-                        type=str, default='New York')
+                        type=str, default='NY')
     parser.add_argument('--report', help='country, state, province, us-county',
                         type=str, default='confirmed')
     parser.add_argument('--parameter', help='confirmed, deaths',
