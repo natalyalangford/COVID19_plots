@@ -7,10 +7,13 @@ province.
 ## Requirements:
 * Import pandas 
 
+## Under Development:
+* US deaths and confirmed cases data by State (Data still not uploaded yet.)
+
 ## Reference Material:
 * [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
-
+* Collaborators: [Ricks Lab](https://github.com/Ricks-Lab)
 ## Known Issues:
-* Some state and country files for COVID19 data is still pending 
+* Some state and country files for COVID-19 data is still pending 
 
 ## History:
