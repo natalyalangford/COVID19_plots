@@ -54,7 +54,7 @@ class CovidData:
     _data_source = 'https://github.com/CSSEGISandData/COVID-19'
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
 
-    def __init__(self, download=False):
+    def __init__(self, args, download=False):
         """
         Initialize a CovidData object and populate from interweb if download is True.
         :param download:
@@ -72,6 +72,7 @@ class CovidData:
                              'deaths': None,
                              'recoveries': None}}
         self.read_datafile(download=download)
+        self.args = args
 
     def print_sources(self):
         """
@@ -158,6 +159,7 @@ class CovidData:
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
         :param file_name: File name of the csv file to be processed.
+        :param zone: global or usa file source.
         :return: list
         """
         try:
@@ -204,7 +206,10 @@ class CovidData:
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
         print('  Data last data point date: {}'.format(self.data['global']['data_date']))
+        plot_file_name_suffix = 'png'
+        plot_file_name = None
         if report_name == 'country':
+            plot_file_name = '{}_{}_{}.{}'.format(report_key, report_name, country, plot_file_name_suffix)
             tdf = self.data['global'][report_key].copy()
             tdf = tdf.loc[tdf['Province/State'].isnull()]
             tdf = tdf.sort_values(['Total'], ascending=False).head(number)
@@ -215,6 +220,7 @@ class CovidData:
             col_select = np.r_[0:1, num_cols-9:num_cols]
             ttdf = tdf.iloc[:, col_select].copy()
         elif report_name == 'state' or report_name == 'province':
+            plot_file_name = '{}_{}_{}.{}'.format(report_key, report_name, country, plot_file_name_suffix)
             if country == 'US':
                 ldf = self.data['usa'][report_key]
                 ldf = ldf.loc[ldf['County Name'].isnull()].copy()
@@ -235,6 +241,7 @@ class CovidData:
                 col_select = np.r_[0:2, num_cols-8:num_cols]
                 ttdf = ldf.iloc[:, col_select].copy()
         elif report_name == 'us-county' or report_name == 'county':
+            plot_file_name = '{}_{}_{}.{}'.format(report_key, 'county', state, plot_file_name_suffix)
             usdf = self.data['usa'][report_key]
             stdf = usdf.loc[usdf['State'] == state].copy()
             stdf.loc[(stdf['County Name'].isna()), 'County Name'] = 'Total'
@@ -254,9 +261,9 @@ class CovidData:
             print(ttdf)
         print('')
         if plot:
-            self.plot(plot_df, report_name, report_key, state, country)
+            self.plot(plot_df, report_name, report_key, state, country, plot_file_name)
 
-    def plot(self, pdf, report_name, report_key, state, country):
+    def plot(self, pdf, report_name, report_key, state, country, plot_fname):
         num_cols = pdf.shape[1]
         col_select = np.r_[4:num_cols-4]
         if report_name == 'country':
@@ -309,7 +316,10 @@ class CovidData:
             ax.set_title('COVID-19 Deaths by {}'.format(report_name), fontsize=20)
             plt.ylabel('Deaths', fontsize=16)
         plt.xlabel('Days Since Outbreak', fontsize=16)
-        plt.show()
+        if self.args.saveplot:
+            plt.savefig(plot_fname, quality=95, optimize=True)
+        if self.args.showplot:
+            plt.show()
 
 
 def main():
@@ -326,7 +336,7 @@ def main():
                         type=str, default='US')
     parser.add_argument('--state', help='Name of state for county report.',
                         type=str, default='NY')
-    parser.add_argument('--report', help='country, state, province, us-county',
+    parser.add_argument('--report', help='country, state, province, county',
                         type=str, default='confirmed')
     parser.add_argument('--parameter', help='confirmed, deaths',
                         type=str, default='confirmed')
@@ -336,7 +346,9 @@ def main():
                         type=str, default='')
     parser.add_argument('--table', help='Output table of basic GPU details',
                         action='store_true', default=False)
-    parser.add_argument('--plot', help='plot output',
+    parser.add_argument('--saveplot', help='save plot output to a file',
+                        action='store_true', default=False)
+    parser.add_argument('--showplot', help='plot output',
                         action='store_true', default=False)
     parser.add_argument('-d', '--debug', help='Debug output',
                         action='store_true', default=False)
@@ -361,10 +373,12 @@ def main():
         print('Error: invalid argument for parameters: {}'.format(args.parameter))
         sys.exit(-1)
 
-    covid_data = CovidData(download=args.download)
+    plot = True if args.showplot or args.saveplot else False
+
+    covid_data = CovidData(args=args, download=args.download)
 
     covid_data.top_ten(number=args.length, report_name=args.report, report_key=args.parameter,
-                       state=args.state, country=args.country, plot=args.plot)
+                       state=args.state, country=args.country, plot=plot)
 
     sys.exit(0)
 
