@@ -45,8 +45,10 @@ DEBUG = False
 
 
 class CovidData:
-    _covid_data = {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
-                   'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'}
+    _covid_data = {'global': {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
+                              'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'},
+                   'usa': {'confirmed': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
+                           'deaths': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv'}}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['US', 'China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _data_source = 'https://github.com/CSSEGISandData/COVID-19'
@@ -59,21 +61,32 @@ class CovidData:
         :type download: Bool
         :return None
         """
-        self.data = {'data_date': None, 'download_date': None, 'confirmed': None, 'deaths': None, 'recoveries': None}
+        self.data = {'global': {'data_date': None,
+                                'download_date': None,
+                                'confirmed': None,
+                                'deaths': None,
+                                'recoveries': None},
+                     'usa': {'data_date': None,
+                             'download_date': None,
+                             'confirmed': None,
+                             'deaths': None,
+                             'recoveries': None}}
         self.read_datafile(download=download)
 
     def print_sources(self):
         """
         :return: None
         """
-        [print('{}: {}'.format(k, v)) for k, v in self._covid_data.items()]
+        for k, v in self._covid_data.items():
+            print(k)
+            [print(' {}: {}'.format(k2, v2)) for k2, v2 in v.items()]
 
     def read_datafile(self, download=False):
         """
         Read covid-19 data from the repository datafiles or a pickle file depends on value of download.
         Source: https://github.com/Ricks-Lab/amdgpu-utils/blob/c10dba61f11b9e5fb44d24acd1fa74122668afc2/GPUmodules/PCImodule.py
 
-        :param download: Dowload from the interweb if True, else read pickled data.
+        :param download: Download from the interweb if True, else read pickled data.
         :type download: bool
         :return: bool
         """
@@ -84,19 +97,22 @@ class CovidData:
                 self.data = pickle.load(f)
             return True
 
-        for report_key in self._covid_data.keys():
-            if DEBUG:
-                temp_file_name = 'covid_{}_{}.csv'.format(report_key, 'test')
-            else:
-                temp_file_name = 'covid_{}_{}.csv'.format(report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
-            if not DEBUG or not os.path.isfile(temp_file_name):
-                with urllib.request.urlopen(self._covid_data[report_key]) as response, open(temp_file_name, 'wb') as out_file:
-                    shutil.copyfileobj(response, out_file)
-            self.data[report_key] = self.read_csv_file(temp_file_name)
-            if not DEBUG:
-                os.remove(temp_file_name)
-        self.data['download_date'] = datetime.utcnow()
-        print(self.data['data_date'])
+        for zone, zone_dict in self._covid_data.items():
+            if zone == 'usa':
+                continue
+            for report_key, link in zone_dict.items():
+                if DEBUG:
+                    temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_key, 'test')
+                else:
+                    temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
+                if not DEBUG or not os.path.isfile(temp_file_name):
+                    with urllib.request.urlopen(link) as response, open(temp_file_name, 'wb') as out_file:
+                        shutil.copyfileobj(response, out_file)
+                self.data[zone][report_key] = self.read_csv_file(temp_file_name)
+                if not DEBUG:
+                    os.remove(temp_file_name)
+                self.data[zone]['data_date'] = self.data[zone][report_key].columns[-5]
+            self.data[zone]['download_date'] = datetime.utcnow()
 
         # Save pickle file.
         with open(self._pickle_filename, 'wb') as f:
@@ -134,7 +150,6 @@ class CovidData:
         :return: list
         """
         df = pd.read_csv(file_name)
-        self.data['data_date'] = df.columns[-1]
         # TODO - Need regression fit to calculate rate of increase
         for country in self._prov_state_countries:
             df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
@@ -169,9 +184,9 @@ class CovidData:
         """
         # TODO - display age of data.
         print('Top {} Report - {}'.format(report_name, report_key))
-        print('  Extract downloaded: {} UTC'.format(self.data['download_date']))
+        print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
         if report_name == 'country':
-            tdf = self.data[report_key].loc[self.data[report_key]['Province/State'].isnull()]
+            tdf = self.data['global'][report_key].loc[self.data['global'][report_key]['Province/State'].isnull()]
             tdf = tdf.sort_values(['Total'], ascending=False).head(number)
             if plot:
                 plot_df = tdf.copy()
@@ -180,8 +195,10 @@ class CovidData:
             col_select = np.r_[0:1, num_cols-9:num_cols]
             ttdf = tdf.iloc[:, col_select].copy()
         elif report_name == 'state' or report_name == 'province':
-            # TODO Indicate total for the Country entry
-            ldf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == country]
+            if country == 'US':
+                ldf = self.data['usa'][report_key].loc[self.data['usa'][report_key]['Country/Region'] == country]
+            else:
+                ldf = self.data['global'][report_key].loc[self.data['global'][report_key]['Country/Region'] == country]
             regex_pattern = r'.*, [A-Z][A-Z]'  # This regex represents US County entries.
             ldf = ldf[~ldf['Province/State'].str.contains(regex_pattern, na=False)]
             ldf = ldf.sort_values(['Total'], ascending=False).head(number)
@@ -193,7 +210,7 @@ class CovidData:
         elif report_name == 'us-county' or report_name == 'county':
             state_abv = ussa.us_state_abbrev[state]
             state_abv_str = ', {}'.format(state_abv)
-            usdf = self.data[report_key].loc[self.data[report_key]['Country/Region'] == 'US']
+            usdf = self.data['usa'][report_key].loc[self.data['usa'][report_key]['Country/Region'] == 'US']
             df1 = usdf.loc[usdf['Province/State'] == state]
             df2 = usdf.query('`Province/State`.str.endswith(@state_abv_str, na=False)')
             stdf = pd.concat([df1, df2], ignore_index=True)
@@ -228,8 +245,9 @@ class CovidData:
         ax.set_facecolor('#d0dbd5')
         fig.patch.set_facecolor('#eeeeee')
         plt.figtext(0.99, 0.01,
-                    'Data from the {} Johns Hopkins data on GitHub {}\nAnalytics: {}'.format(self.data['data_date'],
-                    self._data_source, self._analytics_source), horizontalalignment='right', fontsize=8)
+                    'Data from the {} Johns Hopkins data on GitHub {}\nAnalytics: {}'.format(
+                        self.data['global']['data_date'], self._data_source, self._analytics_source),
+                    horizontalalignment='right', fontsize=8)
         for pname in plot_item_names:
             if report_name == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
@@ -274,7 +292,7 @@ def main():
                         type=str, default='New York')
     parser.add_argument('--report', help='country, state, province, us-county',
                         type=str, default='confirmed')
-    parser.add_argument('--parameter', help='confirmed, deaths, recoveries',
+    parser.add_argument('--parameter', help='confirmed, deaths',
                         type=str, default='confirmed')
     parser.add_argument('--download', help='download csv file',
                         action='store_true', default=False)
@@ -302,6 +320,10 @@ def main():
 
     global DEBUG
     DEBUG = True if args.debug else False
+
+    if args.parameter not in CovidData._covid_data['global'].keys():
+        print('Error: invalid argument for parameters: {}'.format(args.parameter))
+        sys.exit(-1)
 
     covid_data = CovidData(download=args.download)
 
