@@ -203,8 +203,10 @@ class CovidData:
         # TODO - display age of data.
         print('Top {} Report - {}'.format(report_name, report_key))
         print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
+        print('  Data last data point date: {}'.format(self.data['global']['data_date']))
         if report_name == 'country':
-            tdf = self.data['global'][report_key].loc[self.data['global'][report_key]['Province/State'].isnull()]
+            tdf = self.data['global'][report_key].copy()
+            tdf = tdf.loc[tdf['Province/State'].isnull()]
             tdf = tdf.sort_values(['Total'], ascending=False).head(number)
             if plot:
                 plot_df = tdf.copy()
@@ -215,16 +217,17 @@ class CovidData:
         elif report_name == 'state' or report_name == 'province':
             if country == 'US':
                 ldf = self.data['usa'][report_key]
-                ldf = ldf.loc[ldf['County Name'].isnull()]
+                ldf = ldf.loc[ldf['County Name'].isnull()].copy()
                 ldf = ldf.sort_values(['Total'], ascending=False).head(number)
-                ldf = ldf.drop(['countyFIPS', 'County Name'], axis=1)
                 if plot:
                     plot_df = ldf.copy()
                 num_cols = ldf.shape[1]
-                col_select = np.r_[0:3, num_cols-8:num_cols]
+                col_select = np.r_[2, num_cols-9:num_cols]
                 ttdf = ldf.iloc[:, col_select].copy()
             else:
-                ldf = self.data['global'][report_key].loc[self.data['global'][report_key]['Country/Region'] == country]
+                ldf = self.data['global'][report_key]
+                ldf = ldf.loc[ldf['Country/Region'] == country].copy()
+                ldf.loc[(ldf['Province/State'].isna()), 'Province/State'] = 'Total'
                 ldf = ldf.sort_values(['Total'], ascending=False).head(number)
                 if plot:
                     plot_df = ldf.copy()
@@ -233,17 +236,19 @@ class CovidData:
                 ttdf = ldf.iloc[:, col_select].copy()
         elif report_name == 'us-county' or report_name == 'county':
             usdf = self.data['usa'][report_key]
-            stdf = usdf.loc[usdf['State'] == state]
+            stdf = usdf.loc[usdf['State'] == state].copy()
             stdf.loc[(stdf['County Name'].isna()), 'County Name'] = 'Total'
             stdf = stdf.sort_values(['Total'], ascending=False).head(number)
             if plot:
                 plot_df = stdf.copy()
             num_cols = stdf.shape[1]
-            col_select = np.r_[0:2, num_cols-8:num_cols]
+            col_select = np.r_[1:3, num_cols-9:num_cols]
             ttdf = stdf.iloc[:, col_select].copy()
         else:
             print('Error: Invalid report specified.')
             sys.exit(-1)
+
+        # Display report table.
         with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
             ttdf.reset_index(drop=True, inplace=True)
             print(ttdf)
@@ -259,9 +264,7 @@ class CovidData:
         else:
             if country == 'US':
                 plot_item_names = list(pdf['State']) if report_name == 'state' else list(pdf['County Name'])
-                col_select = np.r_[3:num_cols - 4] if report_name == 'state' else np.r_[4:num_cols - 4]
             else:
-                pdf.loc[(pdf['Province/State'].isna()), 'Province/State'] = 'Total'
                 plot_item_names = list(pdf['Province/State'])
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(1, 1, 1)
@@ -279,7 +282,6 @@ class CovidData:
                 total = pdf.loc[pdf['Country/Region'] == pname, 'Total'].tolist()[0]
             else:
                 if country == 'US':
-                    state_name = ussa.abbrev_us_state[state]
                     y = pdf.loc[pdf['State'] == pname, :] if report_name == 'state' else \
                         pdf.loc[pdf['County Name'] == pname, :]
                     total = pdf.loc[pdf['State'] == pname, 'Total'].tolist()[0] if report_name == 'state' else \
@@ -300,6 +302,7 @@ class CovidData:
                 ps = 'State' if country == 'US' else 'Province/State'
                 ax.set_title('COVID-19 Confirmed Cases by {} for {}'.format(ps, country), fontsize=20)
             else:
+                state_name = ussa.abbrev_us_state[state]
                 ax.set_title('COVID-19 Confirmed Cases by County for {}'.format(state_name), fontsize=20)
             plt.ylabel('Confirmed Cases', fontsize=16)
         else:
