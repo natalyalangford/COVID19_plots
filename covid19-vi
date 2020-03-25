@@ -123,6 +123,10 @@ class CovidData:
 
     @staticmethod
     def aggregate_world(df):
+        """
+        :param df: dataframe
+        :return: list
+        """
         ac_df = df.loc[df['Province/State'].isnull()].copy()
         ac_df.iloc[:, 5:] = ac_df.iloc[:, 5:].fillna(0)
         world_df = ac_df.head(1).copy()
@@ -136,6 +140,12 @@ class CovidData:
 
     @staticmethod
     def aggregate_state_prov(df, country):
+        """
+        :param df: dataframe
+        :param country:
+        :param :type str
+        :return: list
+        """
         if country == 'US':
             fdf = df.copy()
             state_list = df['State'].unique()
@@ -264,6 +274,19 @@ class CovidData:
             self.plot(plot_df, report_name, report_key, state, country, plot_file_name)
 
     def plot(self, pdf, report_name, report_key, state, country, plot_fname):
+        """
+
+        :param pdf:
+        :type pdf:
+        :param report_name:
+        :type report_name: str
+        :param report_key:
+        :type report_key:
+        :param state:
+        :param country:
+        :param plot_fname:
+        :return:
+        """
         num_cols = pdf.shape[1]
         col_select = np.r_[4:num_cols-4]
         if report_name == 'country':
