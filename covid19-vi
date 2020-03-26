@@ -227,17 +227,12 @@ class CovidData:
         :type plot: bool
         :return: None
         """
-        # TODO - display age of data.
-        if self.args.viewtable:
-            print('Top {} Report - {}'.format(self.args.region, self.args.type))
-            print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
-            print('  Data last data point date: {}'.format(self.data['global']['data_date']))
         plot_file_name_suffix = 'png'
-        plot_file_name = None
+        table_file_name_suffix = 'txt'
+        report_file_name = None
         plot_df = pd.DataFrame()
         if self.args.region == 'country':
-            plot_file_name = '{}_{}_{}.{}'.format(self.args.type, self.args.region,
-                                                  'global', plot_file_name_suffix)
+            report_file_name = '{}_{}_{}'.format(self.args.type, self.args.region, 'global')
             tdf = self.data['global'][self.args.type].copy()
             tdf = tdf.loc[tdf['Province/State'].isnull()]
             tdf = tdf.sort_values(['Total'], ascending=False).head(self.args.length)
@@ -248,8 +243,7 @@ class CovidData:
             col_select = np.r_[0:1, num_cols-11:num_cols]
             ttdf = tdf.iloc[:, col_select].copy()
         elif self.args.region == 'state' or self.args.region == 'province':
-            plot_file_name = '{}_{}_{}.{}'.format(self.args.type, self.args.region,
-                                                  self.args.country, plot_file_name_suffix)
+            report_file_name = '{}_{}_{}'.format(self.args.type, self.args.region, self.args.country)
             if self.args.country == 'US':
                 ldf = self.data['usa'][self.args.type]
                 ldf = ldf.loc[ldf['County Name'].isnull()].copy()
@@ -270,8 +264,7 @@ class CovidData:
                 col_select = np.r_[0:2, num_cols-8:num_cols]
                 ttdf = ldf.iloc[:, col_select].copy()
         elif self.args.region == 'us-county' or self.args.region == 'county':
-            plot_file_name = '{}_{}_{}.{}'.format(self.args.type, 'county',
-                                                  self.args.state, plot_file_name_suffix)
+            report_file_name = '{}_{}_{}'.format(self.args.type, 'county', self.args.state)
             usdf = self.data['usa'][self.args.type]
             stdf = usdf.loc[usdf['State'] == self.args.state].copy()
             stdf.loc[(stdf['County Name'].isna()), 'County Name'] = 'Total'
@@ -285,13 +278,28 @@ class CovidData:
             print('Error: Invalid report specified.')
             sys.exit(-1)
 
-        # Display report table.
-        if self.args.viewtable:
-            with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
-                ttdf.reset_index(drop=True, inplace=True)
-                print(ttdf)
-            print('')
+        # Display and/or write report table.
+        if self.args.showtable or self.args.savetable:
+            file_ptr_list = [sys.stdout] if self.args.showtable else []
+            table_file_name = '{}.{}'.format(report_file_name, table_file_name_suffix)
+            if self.args.savedir:
+                if not os.path.isdir(self.args.savedir):
+                    os.mkdir(self.args.savedir, 0o775)
+                table_file_name = os.path.join(self.args.savedir, table_file_name)
+            if self.args.savetable: file_ptr_list.append(open(table_file_name, 'w'))
+            for fp in file_ptr_list:
+                # TODO - display age of data.
+                print('Top {} {} Report - {}'.format(self.args.length, self.args.region, self.args.type), file=fp)
+                print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
+                print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
+                with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
+                    ttdf.reset_index(drop=True, inplace=True)
+                    print(ttdf, file=fp)
+                print('', file=fp)
+
+        # Display and/or write plot.
         if plot:
+            plot_file_name = '{}.{}'.format(report_file_name, plot_file_name_suffix)
             if self.args.savedir:
                 if not os.path.isdir(self.args.savedir):
                     os.mkdir(self.args.savedir, 0o775)
@@ -393,13 +401,13 @@ def main():
                         type=str, default='confirmed')
     parser.add_argument('--download', help='download csv file',
                         action='store_true', default=False)
-    parser.add_argument('--filename', help='csv file name',
-                        type=str, default='')
     parser.add_argument('--saveplot', help='save plot output to a file',
                         action='store_true', default=False)
     parser.add_argument('--showplot', help='plot output',
                         action='store_true', default=False)
-    parser.add_argument('--viewtable', help='display table',
+    parser.add_argument('--savetable', help='write table to file',
+                        action='store_true', default=False)
+    parser.add_argument('--showtable', help='display table',
                         action='store_true', default=False)
     parser.add_argument('--savedir', help='destination for saving output',
                         type=str, default=None)
