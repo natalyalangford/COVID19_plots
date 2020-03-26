@@ -3,11 +3,14 @@ Visualization utilities for the COVID-19 data from Johns Hopkins University and 
 
 # [daily report of key plots](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md)
 
+Check out the [User Guide!](USER_GUIDE.md)
 ## Requirements:
 Required python packages can be installed with:
 ```
 sudo -H pip install -r requirements.txt
 ```
+
+
 
 ## Reference Material:
 * [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
