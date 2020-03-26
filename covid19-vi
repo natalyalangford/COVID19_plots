@@ -50,7 +50,7 @@ class CovidData:
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _data_source = {'global': {'link': 'https://github.com/CSSEGISandData/COVID-19',
                                'name': 'Johns Hopkins University'},
-                    'usa': {'link': 'https://static.usafacts.org/public/data/covid-19/',
+                    'usa': {'link': 'https://usafacts.org/issues/coronavirus/',
                             'name': 'USA Facts'}}
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
@@ -119,9 +119,8 @@ class CovidData:
             return True
 
         for zone, zone_dict in self._covid_data.items():
-            if zone == 'global':
-                pass
             for report_type, link in zone_dict.items():
+                print('Downloading: Zone: {}, Type: {}'.format(zone, report_type))
                 if self.args.debug:
                     temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_type, 'test')
                 else:
@@ -134,7 +133,8 @@ class CovidData:
                         print('Error [{}]: could not download:\n   [{}].'.format('', link))
                         continue
                 read_df = pd.read_csv(io.StringIO(csv_data.decode('utf-8', errors='replace')))
-                print(read_df)
+                with pd.option_context('display.max_rows', None, 'show_dimensions', False):
+                    print(read_df.head(1))
                 self.data[zone][report_type] = self.read_csv_file(csv_data, zone, read_df)
                 self.data[zone]['data_date'] = self.data[zone][report_type].columns[-5]
             self.data[zone]['download_date'] = datetime.utcnow()
