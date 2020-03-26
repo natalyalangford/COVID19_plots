@@ -119,6 +119,7 @@ class CovidData:
             return True
 
         for zone, zone_dict in self._covid_data.items():
+            #if zone == 'global': continue
             for report_type, link in zone_dict.items():
                 print('Downloading: Zone: {}, Type: {}'.format(zone, report_type))
                 if self.args.debug:
@@ -132,7 +133,11 @@ class CovidData:
                     except requests.exceptions.RequestException as err:
                         print('Error [{}]: could not download:\n   [{}].'.format(err, link))
                         continue
-                read_df = pd.read_csv(io.StringIO(csv_data.decode('utf-8', errors='replace')))
+                read_df = pd.read_csv(io.StringIO(csv_data.decode('utf-8', errors='replace')), sep=',')
+                read_df = read_df.loc[:, ~read_df.columns.str.contains('^Unnamed')]
+                #if zone == 'usa':
+                    #read_df = read_df.loc[~read_df['County Name'].isnull()].copy()
+                    #read_df = read_df.loc[~read_df['State'].isnull()].copy()
                 with pd.option_context('display.max_rows', None, 'show_dimensions', False):
                     print(read_df.head(1))
                 self.data[zone][report_type] = self.read_csv_file(csv_data, zone, read_df)
@@ -175,8 +180,12 @@ class CovidData:
             for state in state_list:
                 sc_df = df.loc[df['State'] == state, :].copy()
                 state_df = sc_df.head(1).copy()
-                sc_df.iloc[:, 5:] = sc_df.iloc[:, 5:].fillna(0)
-                state_df.loc[:, 4:] = sc_df.values[:, 4:].sum(axis=0)
+                state_df.loc[0, 4:] = 0
+                sc_df.iloc[:, 4:] = sc_df.iloc[:, 4:].fillna(0)
+                state_df.loc[0, 4:] = sc_df.values[:, 4:].sum(axis=0)
+                state_df = state_df.head(1).copy()
+                #with pd.option_context('display.max_rows', None, 'show_dimensions', False):
+                    #print(state_df)
                 state_df.loc[:, 'County Name'] = np.NaN
                 fdf = pd.concat([fdf, state_df], ignore_index=True)
         else:
