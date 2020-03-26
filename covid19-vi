@@ -32,9 +32,11 @@ import argparse
 import sys
 import os
 from datetime import datetime
-import shutil
+import io
 import pickle
-import urllib.request
+import requests
+#import urllib.request
+#import urllib.error
 import us_state_abbrev as ussa
 import pandas as pd
 import numpy as np
@@ -48,7 +50,10 @@ class CovidData:
                            'deaths': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv'}}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
-    _data_source = 'https://github.com/CSSEGISandData/COVID-19'
+    _data_source = {'global': {'link': 'https://github.com/CSSEGISandData/COVID-19',
+                               'name': 'Johns Hopkins University'},
+                    'usa': {'link': 'https://static.usafacts.org/public/data/covid-19/',
+                            'name': 'USA Facts'}}
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
                    'region': ['country', 'state', 'province', 'county']}
@@ -116,7 +121,7 @@ class CovidData:
             return True
 
         for zone, zone_dict in self._covid_data.items():
-            if zone == 'usa':
+            if zone == 'global':
                 pass
             for report_type, link in zone_dict.items():
                 if self.args.debug:
@@ -125,11 +130,14 @@ class CovidData:
                     temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_type,
                                                                  datetime.utcnow().strftime('%m%d_%H%M%S'))
                 if not self.args.debug or not os.path.isfile(temp_file_name):
-                    with urllib.request.urlopen(link) as response, open(temp_file_name, 'wb') as out_file:
-                        shutil.copyfileobj(response, out_file)
-                self.data[zone][report_type] = self.read_csv_file(temp_file_name, zone)
-                if not self.args.debug:
-                    os.remove(temp_file_name)
+                    try:
+                        csv_data = requests.get(link).content
+                    except:
+                        print('Error [{}]: could not download:\n   [{}].'.format('', link))
+                        continue
+                read_df = pd.read_csv(io.StringIO(csv_data.decode('utf-8', errors='replace')))
+                print(read_df)
+                self.data[zone][report_type] = self.read_csv_file(csv_data, zone, read_df)
                 self.data[zone]['data_date'] = self.data[zone][report_type].columns[-5]
             self.data[zone]['download_date'] = datetime.utcnow()
 
@@ -182,17 +190,19 @@ class CovidData:
             fdf = pd.concat([df, country_df], ignore_index=True)
         return fdf
 
-    def read_csv_file(self, file_name, zone):
+    def read_csv_file(self, file_name, zone, df=None):
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
         :param file_name: File name of the csv file to be processed.
         :param zone: global or usa file source.
+        :param df:
         :return: list
         """
-        try:
-            df = pd.read_csv(file_name)
-        except UnicodeDecodeError:
-            df = pd.read_csv(file_name, encoding='ISO-8859-1')
+        if df is None:
+            try:
+                df = pd.read_csv(file_name)
+            except UnicodeDecodeError:
+                df = pd.read_csv(file_name, encoding='ISO-8859-1')
 
         # TODO - Need regression fit to calculate rate of increase
         if zone == 'global':
@@ -220,9 +230,10 @@ class CovidData:
         :return: None
         """
         # TODO - display age of data.
-        print('Top {} Report - {}'.format(self.args.region, self.args.type))
-        print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
-        print('  Data last data point date: {}'.format(self.data['global']['data_date']))
+        if self.args.viewtable:
+            print('Top {} Report - {}'.format(self.args.region, self.args.type))
+            print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
+            print('  Data last data point date: {}'.format(self.data['global']['data_date']))
         plot_file_name_suffix = 'png'
         plot_file_name = None
         plot_df = pd.DataFrame()
@@ -277,10 +288,11 @@ class CovidData:
             sys.exit(-1)
 
         # Display report table.
-        with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
-            ttdf.reset_index(drop=True, inplace=True)
-            print(ttdf)
-        print('')
+        if self.args.viewtable:
+            with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
+                ttdf.reset_index(drop=True, inplace=True)
+                print(ttdf)
+            print('')
         if plot:
             self.plot(plot_df, plot_file_name)
 
@@ -294,6 +306,15 @@ class CovidData:
         """
         num_cols = pdf.shape[1]
         col_select = np.r_[4:num_cols-4]
+
+        # Set credit string base on data source
+        data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
+        credit_str = 'Data from the {} extract at {}, Credit: {}'.format(
+                     self.data[data_src]['data_date'],
+                     self._data_source[data_src]['link'],
+                     self._data_source[data_src]['name'])
+
+        # Select label names based on report type and region
         if self.args.region == 'country':
             plot_item_names = list(pdf['Country/Region'])
         else:
@@ -301,15 +322,15 @@ class CovidData:
                 plot_item_names = list(pdf['State']) if self.args.region == 'state' else list(pdf['County Name'])
             else:
                 plot_item_names = list(pdf['Province/State'])
+
+        # Prepare matplotlib figure.
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(1, 1, 1)
         ax.set_yscale('log')
         ax.grid(True)
         ax.set_facecolor('#d0dbd5')
         fig.patch.set_facecolor('#eeeeee')
-        plt.figtext(0.99, 0.01,
-                    'Data from the {} Johns Hopkins data on GitHub {}\nAnalytics: {}'.format(
-                        self.data['global']['data_date'], self._data_source, self._analytics_source),
+        plt.figtext(0.99, 0.01, '{}\nAnalytics: {}'.format(credit_str, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
         for pname in plot_item_names:
             if self.args.region == 'country':
@@ -375,6 +396,8 @@ def main():
     parser.add_argument('--saveplot', help='save plot output to a file',
                         action='store_true', default=False)
     parser.add_argument('--showplot', help='plot output',
+                        action='store_true', default=False)
+    parser.add_argument('--viewtable', help='display table',
                         action='store_true', default=False)
     parser.add_argument('-d', '--debug', help='Debug output',
                         action='store_true', default=False)
