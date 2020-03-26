@@ -35,8 +35,6 @@ from datetime import datetime
 import io
 import pickle
 import requests
-#import urllib.request
-#import urllib.error
 import us_state_abbrev as ussa
 import pandas as pd
 import numpy as np
