@@ -41,9 +41,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-DEBUG = False
-
-
 class CovidData:
     _covid_data = {'global': {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
                               'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'},
@@ -53,6 +50,8 @@ class CovidData:
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _data_source = 'https://github.com/CSSEGISandData/COVID-19'
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
+    _valid_args = {'type': ['deaths', 'confirmed'],
+                   'region': ['country', 'state', 'province', 'county']}
 
     def __init__(self, args, download=False):
         """
@@ -71,8 +70,27 @@ class CovidData:
                              'confirmed': None,
                              'deaths': None,
                              'recoveries': None}}
-        self.read_datafile(download=download)
         self.args = args
+        if not self.chk_args():
+            print('Error: invalid arguments.')
+            sys.exit(-10)
+        if not self.read_datafile(download=download):
+            print('Error: error while downloading sources.')
+            sys.exit(-20)
+
+    def chk_args(self):
+        if self.args.type not in self._valid_args['type']:
+            print('Error in value for --type {}, valid values are {}'.format(self.args.type,
+                                                                             self._valid_args['type']))
+            return False
+        if self.args.region not in self._valid_args['region']:
+            print('Error in value for --region {}, valid values are {}'.format(self.args.region,
+                                                                               self._valid_args['region']))
+            return False
+        if self.args.state not in ussa.us_state_abbrev.values():
+            print('Error in value for --state {}, {} is not a valid US state abbreviation')
+            return False
+        return True
 
     def print_sources(self):
         """
@@ -91,7 +109,6 @@ class CovidData:
         :type download: bool
         :return: bool
         """
-        global DEBUG
         if not download and os.path.isfile(self._pickle_filename):
             # Read pickle file.
             with open(self._pickle_filename, 'rb') as f:
@@ -101,18 +118,19 @@ class CovidData:
         for zone, zone_dict in self._covid_data.items():
             if zone == 'usa':
                 pass
-            for report_key, link in zone_dict.items():
-                if DEBUG:
-                    temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_key, 'test')
+            for report_type, link in zone_dict.items():
+                if self.args.debug:
+                    temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_type, 'test')
                 else:
-                    temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_key, datetime.utcnow().strftime('%m%d_%H%M%S'))
-                if not DEBUG or not os.path.isfile(temp_file_name):
+                    temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_type,
+                                                                 datetime.utcnow().strftime('%m%d_%H%M%S'))
+                if not self.args.debug or not os.path.isfile(temp_file_name):
                     with urllib.request.urlopen(link) as response, open(temp_file_name, 'wb') as out_file:
                         shutil.copyfileobj(response, out_file)
-                self.data[zone][report_key] = self.read_csv_file(temp_file_name, zone)
-                if not DEBUG:
+                self.data[zone][report_type] = self.read_csv_file(temp_file_name, zone)
+                if not self.args.debug:
                     os.remove(temp_file_name)
-                self.data[zone]['data_date'] = self.data[zone][report_key].columns[-5]
+                self.data[zone]['data_date'] = self.data[zone][report_type].columns[-5]
             self.data[zone]['download_date'] = datetime.utcnow()
 
         # Save pickle file.
@@ -139,14 +157,13 @@ class CovidData:
         return fdf
 
     @staticmethod
-    def aggregate_state_prov(df, country):
+    def aggregate_state_prov(df, file_country):
         """
-        :param df: dataframe
-        :param country:
-        :param :type str
+        :param df:
+        :param file_country:
         :return: list
         """
-        if country == 'US':
+        if file_country == 'US':
             fdf = df.copy()
             state_list = df['State'].unique()
             for state in state_list:
@@ -157,7 +174,7 @@ class CovidData:
                 state_df.loc[:, 'County Name'] = np.NaN
                 fdf = pd.concat([fdf, state_df], ignore_index=True)
         else:
-            sp_df = df.loc[df['Country/Region'] == country, :].copy()
+            sp_df = df.loc[df['Country/Region'] == file_country, :].copy()
             sp_df.iloc[:, 5:] = sp_df.iloc[:, 5:].fillna(0)
             country_df = sp_df.head(1).copy()
             country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
@@ -179,9 +196,10 @@ class CovidData:
 
         # TODO - Need regression fit to calculate rate of increase
         if zone == 'global':
-            for country in self._prov_state_countries:
-                df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == country), 'Province/State'] = country
-                df = self.aggregate_state_prov(df, country)
+            for ps_country in self._prov_state_countries:
+                df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == ps_country),
+                           'Province/State'] = ps_country
+                df = self.aggregate_state_prov(df, ps_country)
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         else:
@@ -194,72 +212,65 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
         return df
 
-    def top_ten(self, number=10, report_name='country', report_key='confirmed',
-                state='NY', country='US', plot=False):
+    def top_ten(self, plot=False):
         """
          Generate tabular data report.
-        :param number: Number of lines of data for the table.
-        :type number: int
-        :param report_name:
-        :type report_name: str
-        :param report_key:
-        :type report_key: str
-        :param state:
-        :type state: str
-        :param country:
-        :type country: str
         :param plot:
         :type plot: bool
         :return: None
         """
         # TODO - display age of data.
-        print('Top {} Report - {}'.format(report_name, report_key))
+        print('Top {} Report - {}'.format(self.args.region, self.args.type))
         print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']))
         print('  Data last data point date: {}'.format(self.data['global']['data_date']))
         plot_file_name_suffix = 'png'
         plot_file_name = None
-        if report_name == 'country':
-            plot_file_name = '{}_{}_{}.{}'.format(report_key, report_name, country, plot_file_name_suffix)
-            tdf = self.data['global'][report_key].copy()
+        plot_df = pd.DataFrame()
+        if self.args.region == 'country':
+            plot_file_name = '{}_{}_{}.{}'.format(self.args.type, self.args.region,
+                                                  self.args.country, plot_file_name_suffix)
+            tdf = self.data['global'][self.args.type].copy()
             tdf = tdf.loc[tdf['Province/State'].isnull()]
-            tdf = tdf.sort_values(['Total'], ascending=False).head(number)
+            tdf = tdf.sort_values(['Total'], ascending=False).head(self.args.length)
             if plot:
                 plot_df = tdf.copy()
             tdf = tdf.drop('Province/State', axis=1)
             num_cols = tdf.shape[1]
-            col_select = np.r_[0:1, num_cols-9:num_cols]
+            col_select = np.r_[0:1, num_cols-11:num_cols]
             ttdf = tdf.iloc[:, col_select].copy()
-        elif report_name == 'state' or report_name == 'province':
-            plot_file_name = '{}_{}_{}.{}'.format(report_key, report_name, country, plot_file_name_suffix)
-            if country == 'US':
-                ldf = self.data['usa'][report_key]
+        elif self.args.region == 'state' or self.args.region == 'province':
+            plot_file_name = '{}_{}_{}.{}'.format(self.args.type, self.args.region,
+                                                  self.args.country, plot_file_name_suffix)
+            if self.args.country == 'US':
+                ldf = self.data['usa'][self.args.type]
                 ldf = ldf.loc[ldf['County Name'].isnull()].copy()
-                ldf = ldf.sort_values(['Total'], ascending=False).head(number)
+                ldf = ldf.sort_values(['Total'], ascending=False).head(self.args.length)
                 if plot:
                     plot_df = ldf.copy()
                 num_cols = ldf.shape[1]
-                col_select = np.r_[2, num_cols-9:num_cols]
+                col_select = np.r_[2, num_cols-10:num_cols]
                 ttdf = ldf.iloc[:, col_select].copy()
             else:
-                ldf = self.data['global'][report_key]
-                ldf = ldf.loc[ldf['Country/Region'] == country].copy()
+                ldf = self.data['global'][self.args.type]
+                ldf = ldf.loc[ldf['Country/Region'] == self.args.country].copy()
                 ldf.loc[(ldf['Province/State'].isna()), 'Province/State'] = 'Total'
-                ldf = ldf.sort_values(['Total'], ascending=False).head(number)
+                ldf = ldf.sort_values(['Total'], ascending=False).head(self.args.length)
                 if plot:
                     plot_df = ldf.copy()
                 num_cols = ldf.shape[1]
                 col_select = np.r_[0:2, num_cols-8:num_cols]
                 ttdf = ldf.iloc[:, col_select].copy()
-        elif report_name == 'us-county' or report_name == 'county':
-            plot_file_name = '{}_{}_{}.{}'.format(report_key, 'county', state, plot_file_name_suffix)
-            usdf = self.data['usa'][report_key]
-            stdf = usdf.loc[usdf['State'] == state].copy()
+        elif self.args.region == 'us-county' or self.args.region == 'county':
+            plot_file_name = '{}_{}_{}.{}'.format(self.args.type, 'county',
+                                                  self.args.state, plot_file_name_suffix)
+            usdf = self.data['usa'][self.args.type]
+            stdf = usdf.loc[usdf['State'] == self.args.state].copy()
             stdf.loc[(stdf['County Name'].isna()), 'County Name'] = 'Total'
-            stdf = stdf.sort_values(['Total'], ascending=False).head(number)
+            stdf = stdf.sort_values(['Total'], ascending=False).head(self.args.length)
             if plot:
                 plot_df = stdf.copy()
             num_cols = stdf.shape[1]
-            col_select = np.r_[1:3, num_cols-9:num_cols]
+            col_select = np.r_[1:3, num_cols-8:num_cols]
             ttdf = stdf.iloc[:, col_select].copy()
         else:
             print('Error: Invalid report specified.')
@@ -271,29 +282,23 @@ class CovidData:
             print(ttdf)
         print('')
         if plot:
-            self.plot(plot_df, report_name, report_key, state, country, plot_file_name)
+            self.plot(plot_df, plot_file_name)
 
-    def plot(self, pdf, report_name, report_key, state, country, plot_fname):
+    def plot(self, pdf, plot_fname):
         """
 
         :param pdf:
-        :type pdf:
-        :param report_name:
-        :type report_name: str
-        :param report_key:
-        :type report_key:
-        :param state:
-        :param country:
+        :type pdf: pd.dataFrame
         :param plot_fname:
         :return:
         """
         num_cols = pdf.shape[1]
         col_select = np.r_[4:num_cols-4]
-        if report_name == 'country':
+        if self.args.region == 'country':
             plot_item_names = list(pdf['Country/Region'])
         else:
-            if country == 'US':
-                plot_item_names = list(pdf['State']) if report_name == 'state' else list(pdf['County Name'])
+            if self.args.country == 'US':
+                plot_item_names = list(pdf['State']) if self.args.region == 'state' else list(pdf['County Name'])
             else:
                 plot_item_names = list(pdf['Province/State'])
         fig = plt.figure(figsize=(10, 10))
@@ -307,15 +312,15 @@ class CovidData:
                         self.data['global']['data_date'], self._data_source, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
         for pname in plot_item_names:
-            if report_name == 'country':
+            if self.args.region == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
                 total = pdf.loc[pdf['Country/Region'] == pname, 'Total'].tolist()[0]
             else:
-                if country == 'US':
-                    y = pdf.loc[pdf['State'] == pname, :] if report_name == 'state' else \
+                if self.args.country == 'US':
+                    y = pdf.loc[pdf['State'] == pname, :] if self.args.region == 'state' else \
                         pdf.loc[pdf['County Name'] == pname, :]
-                    total = pdf.loc[pdf['State'] == pname, 'Total'].tolist()[0] if report_name == 'state' else \
-                            pdf.loc[pdf['County Name'] == pname, 'Total'].tolist()[0]
+                    total = pdf.loc[pdf['State'] == pname, 'Total'].tolist()[0] if self.args.region == 'state' \
+                            else pdf.loc[pdf['County Name'] == pname, 'Total'].tolist()[0]
                 else:
                     y = pdf.loc[pdf['Province/State'] == pname, :]
                     total = pdf.loc[pdf['Province/State'] == pname, 'Total'].tolist()[0]
@@ -325,18 +330,18 @@ class CovidData:
             ax.text(x=len(y), y=y[-1], s=pname,
                     bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
         ax.legend(loc="upper left")
-        if report_key == 'confirmed':
-            if report_name == 'country':
+        if self.args.type == 'confirmed':
+            if self.args.region == 'country':
                 ax.set_title('COVID-19 Confirmed Cases by Country', fontsize=20)
-            elif report_name == 'state' or report_name == 'province':
-                ps = 'State' if country == 'US' else 'Province/State'
-                ax.set_title('COVID-19 Confirmed Cases by {} for {}'.format(ps, country), fontsize=20)
+            elif self.args.region == 'state' or self.args.region == 'province':
+                ps = 'State' if self.args.country == 'US' else 'Province/State'
+                ax.set_title('COVID-19 Confirmed Cases by {} for {}'.format(ps, self.args.country), fontsize=20)
             else:
-                state_name = ussa.abbrev_us_state[state]
+                state_name = ussa.abbrev_us_state[self.args.state]
                 ax.set_title('COVID-19 Confirmed Cases by County for {}'.format(state_name), fontsize=20)
             plt.ylabel('Confirmed Cases', fontsize=16)
         else:
-            ax.set_title('COVID-19 Deaths by {}'.format(report_name), fontsize=20)
+            ax.set_title('COVID-19 Deaths by {}'.format(self.args.region), fontsize=20)
             plt.ylabel('Deaths', fontsize=16)
         plt.xlabel('Days Since Outbreak', fontsize=16)
         if self.args.saveplot:
@@ -359,16 +364,14 @@ def main():
                         type=str, default='US')
     parser.add_argument('--state', help='Name of state for county report.',
                         type=str, default='NY')
-    parser.add_argument('--report', help='country, state, province, county',
-                        type=str, default='confirmed')
-    parser.add_argument('--parameter', help='confirmed, deaths',
+    parser.add_argument('--region', help='country, state, province, county',
+                        type=str, default='country')
+    parser.add_argument('--type', help='confirmed, deaths',
                         type=str, default='confirmed')
     parser.add_argument('--download', help='download csv file',
                         action='store_true', default=False)
     parser.add_argument('--filename', help='csv file name',
                         type=str, default='')
-    parser.add_argument('--table', help='Output table of basic GPU details',
-                        action='store_true', default=False)
     parser.add_argument('--saveplot', help='save plot output to a file',
                         action='store_true', default=False)
     parser.add_argument('--showplot', help='plot output',
@@ -389,19 +392,11 @@ def main():
         print('Status: ', __status__)
         sys.exit(0)
 
-    global DEBUG
-    DEBUG = True if args.debug else False
-
-    if args.parameter not in CovidData._covid_data['global'].keys():
-        print('Error: invalid argument for parameters: {}'.format(args.parameter))
-        sys.exit(-1)
-
     plot = True if args.showplot or args.saveplot else False
 
     covid_data = CovidData(args=args, download=args.download)
 
-    covid_data.top_ten(number=args.length, report_name=args.report, report_key=args.parameter,
-                       state=args.state, country=args.country, plot=plot)
+    covid_data.top_ten(plot=plot)
 
     sys.exit(0)
 
