@@ -237,7 +237,7 @@ class CovidData:
         plot_df = pd.DataFrame()
         if self.args.region == 'country':
             plot_file_name = '{}_{}_{}.{}'.format(self.args.type, self.args.region,
-                                                  self.args.country, plot_file_name_suffix)
+                                                  'global', plot_file_name_suffix)
             tdf = self.data['global'][self.args.type].copy()
             tdf = tdf.loc[tdf['Province/State'].isnull()]
             tdf = tdf.sort_values(['Total'], ascending=False).head(self.args.length)
@@ -292,6 +292,10 @@ class CovidData:
                 print(ttdf)
             print('')
         if plot:
+            if self.args.savedir:
+                if not os.path.isdir(self.args.savedir):
+                    os.mkdir(self.args.savedir, 0o775)
+                plot_file_name = os.path.join(self.args.savedir, plot_file_name)
             self.plot(plot_df, plot_file_name)
 
     def plot(self, pdf, plot_fname):
@@ -397,6 +401,8 @@ def main():
                         action='store_true', default=False)
     parser.add_argument('--viewtable', help='display table',
                         action='store_true', default=False)
+    parser.add_argument('--savedir', help='destination for saving output',
+                        type=str, default=None)
     parser.add_argument('-d', '--debug', help='Debug output',
                         action='store_true', default=False)
     args = parser.parse_args()
