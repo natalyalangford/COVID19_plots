@@ -129,8 +129,8 @@ class CovidData:
                 if not self.args.debug or not os.path.isfile(temp_file_name):
                     try:
                         csv_data = requests.get(link).content
-                    except:
-                        print('Error [{}]: could not download:\n   [{}].'.format('', link))
+                    except requests.exceptions.RequestException as err:
+                        print('Error [{}]: could not download:\n   [{}].'.format(err, link))
                         continue
                 read_df = pd.read_csv(io.StringIO(csv_data.decode('utf-8', errors='replace')))
                 with pd.option_context('display.max_rows', None, 'show_dimensions', False):
@@ -296,6 +296,7 @@ class CovidData:
                     ttdf.reset_index(drop=True, inplace=True)
                     print(ttdf, file=fp)
                 print('', file=fp)
+                # TODO - Display credits.
 
         # Display and/or write plot.
         if plot:
