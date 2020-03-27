@@ -8,4 +8,4 @@ install:
 
 ## Example Commands
 ./covid19-vi --type confirmed --region country --country US --state TX --length 20 --saveplot --savedir 'FILENAME'
-the command above should save the plot of desired country, state, type etc 
+the command above should save the plot of desired country, state, type etc
