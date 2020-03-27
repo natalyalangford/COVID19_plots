@@ -91,8 +91,14 @@ class CovidData:
                                                                                self._valid_args['region']))
             return False
         if self.args.state not in ussa.us_state_abbrev.values():
-            print('Error in value for --state {}, {} is not a valid US state abbreviation')
+            print('Error in value for --state {}, {} is not a valid US state abbreviation'.format(self.args.state,
+                                                                                                  self.args.state))
+            print('Valid state abbreviations: {}'.format(list(ussa.abbrev_us_state.keys())))
             return False
+        if self.args.length <= 0:
+            print('Error in value for --length {}, must be positive integer.'.format(self.args.length))
+            return False
+        # TODO - verify a reasonable string is used for directory name
         return True
 
     def print_sources(self):
@@ -221,6 +227,7 @@ class CovidData:
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         else:
             df = self.aggregate_state_prov(df, 'US')
+        # TODO - add days to double metric
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
         df.loc[:, 'Total'] = df.iloc[:, -2]
         df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
@@ -416,9 +423,9 @@ def main():
                         action='store_true', default=False)
     parser.add_argument('--length', help='length of sorted reports',
                         type=int, default=10)
-    parser.add_argument('--country', help='Name of country for state/province report.',
+    parser.add_argument('--country', help='Name of country for state/province report',
                         type=str, default='US')
-    parser.add_argument('--state', help='Name of state for county report.',
+    parser.add_argument('--state', help='Name of state for county report',
                         type=str, default='NY')
     parser.add_argument('--region', help='country, state, province, count, county-state',
                         type=str, default='country')
@@ -453,10 +460,12 @@ def main():
         sys.exit(0)
 
     plot = True if args.showplot or args.saveplot else False
+    table = True if args.showtable or args.savetable else False
 
     covid_data = CovidData(args=args, download=args.download)
 
-    covid_data.top_ten(plot=plot)
+    if table or plot:
+        covid_data.top_ten(plot=plot)
 
     sys.exit(0)
 
