@@ -42,5 +42,5 @@ automation to distribute accurate and timely data.  We will update our toolset w
 ###### [Table for above plot](confirmed_county_TX.txt)
 
 ## Development Team:
-* (@natalyalangford)[https://github.com/natalyalangford]
-* (@Ricks-Lab)[https://github.com/Ricks-Lab]
+* [@natalyalangford](https://github.com/natalyalangford)
+* [@Ricks-Lab](https://github.com/Ricks-Lab)
