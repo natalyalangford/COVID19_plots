@@ -3,6 +3,7 @@
 ## List of reports
  - [Top 20 Countries](#top-20-countries)
  - [Top 20 US Sates](#top-20-us-states)
+ - [Top 20 US Counties](#top-20-us-counties)
  - [Selected US Sates](#selected-us-states)
 
 ## Top 20 Countries
@@ -12,6 +13,10 @@
 ## Top 20 US States
 ![](confirmed_state_US.png)
 ![](deaths_state_US.png)
+
+## Top 20 US Counties
+![](confirmed_county-state_US.png)
+![](deaths_county-state_US.png)
 
 ## Selected US States
 ![](confirmed_county_NY.png)
