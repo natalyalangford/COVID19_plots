@@ -421,17 +421,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--about', help='README',
                         action='store_true', default=False)
-    parser.add_argument('--length', help='length of sorted reports',
+    parser.add_argument('--length', help='data length for sorted reports',
                         type=int, default=10)
-    parser.add_argument('--country', help='Name of country for state/province report',
+    parser.add_argument('--country', help='name of country for state/province reports',
                         type=str, default='US')
-    parser.add_argument('--state', help='Name of state for county report',
+    parser.add_argument('--state', help='name of state for county reports',
                         type=str, default='NY')
-    parser.add_argument('--region', help='country, state, province, count, county-state',
+    parser.add_argument('--region', help='scope of report: country, state, province, count, county-state',
                         type=str, default='country')
-    parser.add_argument('--type', help='confirmed, deaths',
+    parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')
-    parser.add_argument('--download', help='download csv file',
+    parser.add_argument('--sources', help='list sources used by this utility',
+                        action='store_true', default=False)
+    parser.add_argument('--download', help='download data from sources and save local pickle',
                         action='store_true', default=False)
     parser.add_argument('--saveplot', help='save plot output to a file',
                         action='store_true', default=False)
@@ -443,7 +445,7 @@ def main():
                         action='store_true', default=False)
     parser.add_argument('--savedir', help='destination for saving output',
                         type=str, default=None)
-    parser.add_argument('-d', '--debug', help='Debug output',
+    parser.add_argument('--debug', help='debug output',
                         action='store_true', default=False)
     args = parser.parse_args()
 
@@ -463,6 +465,9 @@ def main():
     table = True if args.showtable or args.savetable else False
 
     covid_data = CovidData(args=args, download=args.download)
+
+    if args.sources:
+        covid_data.print_sources()
 
     if table or plot:
         covid_data.top_ten(plot=plot)
