@@ -19,17 +19,21 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ###########################################################################
 set -x
-./covid19-vi --type confirmed --region country --length 20 --saveplot --savedir daily_report
-./covid19-vi --type deaths --region country --length 20 --saveplot --savedir daily_report
+# Global Reports
+./covid19-vi --type confirmed --region country --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type deaths --region country --length 20 --saveplot --savetable --savedir daily_report
 
-./covid19-vi --type confirmed --region state --country US --length 20 --saveplot --savedir daily_report
-./covid19-vi --type deaths --region state --country US --length 20 --saveplot --savedir daily_report
+# US Reports by State
+./covid19-vi --type confirmed --region state --country US --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type deaths --region state --country US --length 20 --saveplot --savetable --savedir daily_report
 
-./covid19-vi --type confirmed --region county-state --country US --length 20 --saveplot --savedir daily_report
-./covid19-vi --type deaths --region county-state --country US --length 20 --saveplot --savedir daily_report
+# US Reports by County
+./covid19-vi --type confirmed --region county-state --country US --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type deaths --region county-state --country US --length 20 --saveplot --savetable --savedir daily_report
 
-./covid19-vi --type confirmed --region county --country US --state NY --length 20 --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state OR --length 20 --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state CA --length 20 --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state FL --length 20 --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state TX --length 20 --saveplot --savedir daily_report
+# US State State Reports by County
+./covid19-vi --type confirmed --region county --country US --state NY --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state OR --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state CA --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state FL --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state TX --length 20 --saveplot --savetable --savedir daily_report
