@@ -427,7 +427,7 @@ def main():
                         type=str, default='US')
     parser.add_argument('--state', help='name of state for county reports',
                         type=str, default='NY')
-    parser.add_argument('--region', help='scope of report: country, state, province, count, county-state',
+    parser.add_argument('--region', help='scope of report: country, state, province, county, county-state',
                         type=str, default='country')
     parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')

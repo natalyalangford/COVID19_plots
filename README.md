@@ -28,7 +28,7 @@ optional arguments:
   --length LENGTH    data length for sorted reports
   --country COUNTRY  name of country for state/province report
   --state STATE      name of state for county report
-  --region REGION    scope of report: country, state, province, count, county-state
+  --region REGION    scope of report: country, state, province, county, county-state
   --type TYPE        type of report: confirmed, deaths
   --sources          list sources used by this utility
   --download         download data from sources and save local pickle
@@ -47,6 +47,11 @@ This bash script is used to generate the plots and tables found in the posted
 ## Reference Material
 * Global COVID-19 Data Source: [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
 * US COVID-19 Data Source: [USA Facts](https://usafacts.org/issues/coronavirus/)
+
+## Known Issues
+* USA Facts data is a day behind global data from JHU, could be that JHU is using UTC, but state reports 
+seem to be lagging what others are reporting.
+* Data aggregation function is kludgy and should be rewritten using pivot.
 
 ## History
 * 22-Mar-20: Project Initiated
