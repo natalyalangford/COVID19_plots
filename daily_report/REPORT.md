@@ -1,4 +1,9 @@
 # COVID-19 Daily Reports
+This daily report is based on the latest time series extracts provided by Johns Hopkins University for
+global data and from USA Facts for US data.  Unfortunately, the US data lags the global data and lags 
+typical reported data.  I am still looking for a more timely source.  JHU indicates they will have the
+US data posted, but still not available on their GitHub site.  I assume they are working on some cool
+automation to distribute accurate and timely data.  We will update our toolset when available.
 
 ## List of reports
  - [Top 20 Countries](#top-20-countries)
@@ -35,3 +40,7 @@
 ###### [Table for above plot](confirmed_county_CA.txt)
 ![](confirmed_county_TX.png)
 ###### [Table for above plot](confirmed_county_TX.txt)
+
+## Development Team:
+* (@natalyalangford)[https://github.com/natalyalangford]
+* (@Ricks-Lab)[https://github.com/Ricks-Lab]
