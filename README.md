@@ -18,27 +18,29 @@ aggretators, and analytics utilities and then pickled for quicker use by the uti
 Various reports can be generated from the pickled data set by using command line arguments:
 ```
 usage: covid19-vi [-h] [--about] [--length LENGTH] [--country COUNTRY]
-                  [--state STATE] [--region REGION] [--type TYPE] [--download]
-                  [--saveplot] [--showplot] [--savetable] [--showtable]
-                  [--savedir SAVEDIR] [-d]
+                  [--state STATE] [--region REGION] [--type TYPE] [--sources]
+                  [--download] [--saveplot] [--showplot] [--savetable]
+                  [--showtable] [--savedir SAVEDIR] [-d]
 
 optional arguments:
   -h, --help         show this help message and exit
   --about            README
-  --length LENGTH    length of sorted reports
-  --country COUNTRY  Name of country for state/province report
-  --state STATE      Name of state for county report
-  --region REGION    country, state, province, count, county-state
-  --type TYPE        confirmed, deaths
-  --download         download csv file
+  --length LENGTH    data length for sorted reports
+  --country COUNTRY  name of country for state/province report
+  --state STATE      name of state for county report
+  --region REGION    scope of report: country, state, province, count, county-state
+  --type TYPE        type of report: confirmed, deaths
+  --sources          list sources used by this utility
+  --download         download data from sources and save local pickle
   --saveplot         save plot output to a file
   --showplot         plot output
   --savetable        write table to file
   --showtable        display table
   --savedir SAVEDIR  destination for saving output
-  -d, --debug        Debug output
+  --debug            debug output
 ```
-## daily-sh
+
+## daily.sh
 This bash script is used to generate the plots and tables found in the posted
 [daily report](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md).
 
