@@ -1,0 +1,25 @@
+Top 20 county-state Report - confirmed
+  Extract downloaded: 2020-03-27 04:14:32.185105 UTC
+  Data last data point date: 3/26/20
+              County Name State  3/22/2020  3/23/2020  3/24/2020  3/25/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0           New York City    NY       9654      12339      14776      17856      14776  17856         3080          20.8
+1      Westchester County    NY       1873       2894       3891       4691       3891   4691          800          20.6
+2           Nassau County    NY       1900       2442       2869       3285       2869   3285          416          14.5
+3          Suffolk County    NY       1034       1458       1880       2260       1880   2260          380          20.2
+4             Cook County    IL        805        922       1194       1418       1194   1418          224          18.8
+5             King County    WA       1040       1170       1277       1359       1277   1359           82           6.4
+6            Wayne County    MI        477        638        873       1121        873   1121          248          28.4
+7         Rockland County    NY        455        592        671        968        671    968          297          44.3
+8   Statewide Unallocated    NJ        221        419        645        933        645    933          288          44.7
+9          Orleans Parish    LA        451        567        675        827        675    827          152          22.5
+10          Bergen County    NJ        457        609        701        819        701    819          118          16.8
+11     Los Angeles County    CA        409        536        662        799        662    799          137          20.7
+12          Orange County    NY        247        389        539        638        539    638           99          18.4
+13       Snohomish County    WA        480        519        614        634        614    634           20           3.3
+14       Fairfield County    CT        208        270        384        546        384    546          162          42.2
+15         Oakland County    MI        277        329        428        543        428    543          115          26.9
+16      Miami-Dade County    FL        227        278        338        491        338    491          153          45.3
+17     Santa Clara County    CA        302        321        375        459        375    459           84          22.4
+18       Middlesex County    MA        199        232        304        446        304    446          142          46.7
+19         Broward County    FL        217        263        311        412        311    412          101          32.5
+
