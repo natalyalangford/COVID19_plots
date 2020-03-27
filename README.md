@@ -1,19 +1,50 @@
 # COVID19_plots
 Visualization utilities for the COVID-19 data from Johns Hopkins University and US data from the USA Facts website.
 
-## Generated Reports
-We have used this utility and the bash file included in the repository to generate the following report:
-* [daily report of key plots](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md)
-
-Check out the [User Guide!](USER_GUIDE.md)
-## Requirements
-Required python packages can be installed with:
+This project was developed in and for the Linux environment using Python 3.7.  It does have dependencies
+on other modules which can be met by installing those defined the the provided requirements file:
 ```
 sudo -H pip install -r requirements.txt
 ```
+We have used this utility and the bash file included in the repository to generate the following report:
+* [Daily Report of Key Plots](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md)
+
+## covid19-vi
+The *covid19-vi* utility is the main interface for the projects access to the public COVID-19 time series
+data.  The *--download* option is used to retrieve the latest data from the sources defined in the project.
+The data is read with a url request and loaded into a dataframe.  The dataframe is processed with error checkers,
+aggretators, and analytics utilities and then pickled for quicker use by the utility.
+
+Various reports can be generated from the pickled data set by using command line arguments:
+```
+usage: covid19-vi [-h] [--about] [--length LENGTH] [--country COUNTRY]
+                  [--state STATE] [--region REGION] [--type TYPE] [--download]
+                  [--saveplot] [--showplot] [--savetable] [--showtable]
+                  [--savedir SAVEDIR] [-d]
+
+optional arguments:
+  -h, --help         show this help message and exit
+  --about            README
+  --length LENGTH    length of sorted reports
+  --country COUNTRY  Name of country for state/province report
+  --state STATE      Name of state for county report
+  --region REGION    country, state, province, count, county-state
+  --type TYPE        confirmed, deaths
+  --download         download csv file
+  --saveplot         save plot output to a file
+  --showplot         plot output
+  --savetable        write table to file
+  --showtable        display table
+  --savedir SAVEDIR  destination for saving output
+  -d, --debug        Debug output
+```
+## daily-sh
+This bash script is used to generate the plots and tables found in the posted
+[daily report](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md).
 
 ## Reference Material
 * Global COVID-19 Data Source: [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
 * US COVID-19 Data Source: [USA Facts](https://usafacts.org/issues/coronavirus/)
 
 ## History
+* 22-Mar-20: Project Initiated
