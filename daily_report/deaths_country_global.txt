@@ -1,5 +1,5 @@
 Top 20 country Report - deaths
-  Extract downloaded: 2020-03-27 04:14:32.185105 UTC
+  Extract downloaded: 2020-03-27 18:53:28.843460 UTC
   Data last data point date: 3/26/20
     Country/Region  3/20/20  3/21/20  3/22/20  3/23/20  3/24/20  3/25/20  3/26/20  Yesterday  Total  DayIncrease  %DayIncrease
 0           Global    11299    12973    14651    16505    18625    21181    23970      21181  23970         2789          13.2

@@ -1,25 +1,25 @@
 Top 20 county Report - confirmed
-  Extract downloaded: 2020-03-27 04:14:32.185105 UTC
+  Extract downloaded: 2020-03-27 18:53:28.843460 UTC
   Data last data point date: 3/26/20
-            County Name State  3/22/2020  3/23/2020  3/24/2020  3/25/2020  Yesterday  Total  DayIncrease  %DayIncrease
-0                 Total    FL       1005       1227       1412       1977       1412   1977          565          40.0
-1     Miami-Dade County    FL        227        278        338        491        338    491          153          45.3
-2        Broward County    FL        217        263        311        412        311    412          101          32.5
-3     Palm Beach County    FL         72         89        101        141        101    141           40          39.6
-4   Hillsborough County    FL         58         75         91        123         91    123           32          35.2
-5         Orange County    FL         33         48         50         89         50     89           39          78.0
-6          Duval County    FL         39         50         50         60         50     60           10          20.0
-7        Collier County    FL         33         39         41         57         41     57           16          39.0
-8       Pinellas County    FL         38         41         45         54         45     54            9          20.0
-9            Lee County    FL         26         30         32         52         32     52           20          62.5
-10       Alachua County    FL         35         36         37         46         37     46            9          24.3
-11       Osceola County    FL         24         25         26         39         26     39           13          50.0
-12      Sarasota County    FL         17         21         26         32         26     32            6          23.1
-13      Seminole County    FL         19         22         23         32         23     32            9          39.1
-14     St. Johns County    FL         16         18         22         28         22     28            6          27.3
-15       Volusia County    FL         14         16         18         28         18     28           10          55.6
-16       Manatee County    FL         13         15         16         26         16     26           10          62.5
-17          Lake County    FL          6          9         14         22         14     22            8          57.1
-18        Sumter County    FL          4          8         10         18         10     18            8          80.0
-19         Pasco County    FL         11         14         15         18         15     18            3          20.0
+            County Name State  3/23/20  3/24/20  3/25/20  3/26/20  Yesterday  Total  DayIncrease  %DayIncrease
+0                 Total    FL     1227     1412     1976     2456       1976   2456          480          24.3
+1     Miami-Dade County    FL      278      338      491      654        491    654          163          33.2
+2        Broward County    FL      263      311      412      505        412    505           93          22.6
+3     Palm Beach County    FL       89      101      141      174        141    174           33          23.4
+4   Hillsborough County    FL       75       91      123      151        123    151           28          22.8
+5         Orange County    FL       48       50       89      119         89    119           30          33.7
+6       Columbia County    FL        2        3        3       67          3     67           64        2133.3
+7            Lee County    FL       30       32       52       66         52     66           14          26.9
+8       Pinellas County    FL       41       45       54       65         54     65           11          20.4
+9          Duval County    FL       50       50       60       60         60     60            0           0.0
+10       Alachua County    FL       36       37       46       53         46     53            7          15.2
+11       Osceola County    FL       25       26       39       45         39     45            6          15.4
+12      Seminole County    FL       22       23       32       40         32     40            8          25.0
+13     St. Johns County    FL       18       22       28       36         28     36            8          28.6
+14      Sarasota County    FL       21       26       32       34         32     34            2           6.2
+15       Volusia County    FL       16       18       28       34         28     34            6          21.4
+16          Lake County    FL        9       14       22       26         22     26            4          18.2
+17       Manatee County    FL       15       16       25       25         25     25            0           0.0
+18        Sumter County    FL        8       10       18       24         18     24            6          33.3
+19      Okaloosa County    FL       14       14       18       22         18     22            4          22.2
 

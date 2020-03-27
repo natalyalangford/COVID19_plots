@@ -1,25 +1,25 @@
 Top 20 county Report - confirmed
-  Extract downloaded: 2020-03-27 04:14:32.185105 UTC
+  Extract downloaded: 2020-03-27 18:53:28.843460 UTC
   Data last data point date: 3/26/20
-          County Name State  3/22/2020  3/23/2020  3/24/2020  3/25/2020  Yesterday  Total  DayIncrease  %DayIncrease
-0               Total    OR        161        190        209        266        209    266           57          27.3
-1   Washington County    OR         55         69         76         96         76     96           20          26.3
-2       Marion County    OR         22         30         32         43         32     43           11          34.4
-3    Multnomah County    OR         19         21         25         33         25     33            8          32.0
-4         Linn County    OR         19         20         20         25         20     25            5          25.0
-5    Clackamas County    OR         12         14         17         21         17     21            4          23.5
-6    Deschutes County    OR         10         10         10         10         10     10            0           0.0
-7      Yamhill County    OR          6          6          6          7          6      7            1          16.7
-8       Benton County    OR          4          4          4          6          4      6            2          50.0
-9         Lane County    OR          4          4          4          5          4      5            1          25.0
-10     Jackson County    OR          2          2          3          4          3      4            1          33.3
-11        Polk County    OR          1          3          3          3          3      3            0           0.0
-12     Douglas County    OR          1          1          1          3          1      3            2         200.0
-13   Josephine County    OR          1          1          1          2          1      2            1         100.0
-14    Umatilla County    OR          2          2          2          2          2      2            0           0.0
-15     Klamath County    OR          1          1          1          1          1      1            0           0.0
-16     Lincoln County    OR          0          0          0          1          0      1            1           inf
-17  Hood River County    OR          0          0          1          1          1      1            0           0.0
-18       Grant County    OR          1          1          1          1          1      1            0           0.0
-19       Union County    OR          1          1          1          1          1      1            0           0.0
+          County Name State  3/23/20  3/24/20  3/25/20  3/26/20  Yesterday  Total  DayIncrease  %DayIncrease
+0               Total    OR      190      209      266      316        266    316           50          18.8
+1   Washington County    OR       69       76       96      104         96    104            8           8.3
+2       Marion County    OR       30       32       43       57         43     57           14          32.6
+3    Multnomah County    OR       21       25       33       45         33     45           12          36.4
+4         Linn County    OR       20       20       25       26         25     26            1           4.0
+5    Clackamas County    OR       14       17       21       21         21     21            0           0.0
+6    Deschutes County    OR       10       10       10       15         10     15            5          50.0
+7         Lane County    OR        4        4        5        7          5      7            2          40.0
+8      Yamhill County    OR        6        6        7        7          7      7            0           0.0
+9         Polk County    OR        3        3        3        6          3      6            3         100.0
+10      Benton County    OR        4        4        6        6          6      6            0           0.0
+11   Josephine County    OR        1        1        2        4          2      4            2         100.0
+12     Jackson County    OR        2        3        4        4          4      4            0           0.0
+13     Douglas County    OR        1        1        3        3          3      3            0           0.0
+14    Umatilla County    OR        2        2        2        2          2      2            0           0.0
+15     Clatsop County    OR        0        1        1        2          1      2            1         100.0
+16       Wasco County    OR        0        0        0        1          0      1            1           inf
+17       Union County    OR        1        1        1        1          1      1            0           0.0
+18     Lincoln County    OR        0        0        1        1          1      1            0           0.0
+19   Tillamook County    OR        0        0        0        1          0      1            1           inf
 
