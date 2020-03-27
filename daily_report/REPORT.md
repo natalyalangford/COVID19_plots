@@ -8,6 +8,7 @@
 
 ## Top 20 Countries
 ![](confirmed_country_global.png)
+![Table for above plot](confirmed_country_global.txt)
 ![](deaths_country_global.png)
 
 ## Top 20 US States
