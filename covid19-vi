@@ -83,6 +83,7 @@ class CovidData:
             sys.exit(-20)
 
     def chk_args(self):
+        # TODO add arg checking for response and threshold
         if self.args.type not in self._valid_args['type']:
             print('Error in value for --type {}, valid values are {}'.format(self.args.type,
                                                                              self._valid_args['type']))
@@ -243,6 +244,39 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
         return df
 
+    @staticmethod
+    def day_percent_growth(df, file_zone):
+        dpd_df = df.copy(deep=True)
+        series_start = 4 if file_zone == 'usa' else 5
+        series_end = df.shape[1] - 4
+        dpd_df.iloc[:, series_start:series_end] = (df.iloc[:, series_start:series_end].pct_change(axis=1) * 100.0).round(1)
+        with pd.option_context('mode.use_inf_as_na', True):
+            dpd_df.iloc[:, series_start:series_end] = dpd_df.iloc[:, series_start:series_end].fillna(0.0)
+        dpd_df.loc[:, 'Cases'] = dpd_df.loc[:, 'Total']
+        dpd_df.loc[:, 'Total'] = dpd_df.iloc[:, series_end-3:series_end].median(axis=1, skipna=True, numeric_only=True)
+        dpd_df = dpd_df.rename(columns={'Total': 'Median'})
+        dpd_df = dpd_df.drop('%DayIncrease', axis=1)
+        dpd_df = dpd_df.drop('Yesterday', axis=1)
+        dpd_df.reset_index(drop=True, inplace=True)
+        dpd_df.loc[:, 'DayIncrease'] = dpd_df.iloc[:, -4] - dpd_df.iloc[:, -5]
+        print(dpd_df)
+        return dpd_df
+
+    def report_process(self, rdf, glb_usa):
+        # Pre-process data
+        rdf = rdf.loc[rdf['Total'] >= self.args.threshold] if self.args.threshold else \
+            rdf.sort_values(['Total'], ascending=False).head(self.args.length)
+        rdf.reset_index(drop=True, inplace=True)
+
+        # Process for growth or number
+        if self.args.response == 'growth':
+            rdf.reset_index(drop=True, inplace=True)
+            rdf = self.day_percent_growth(rdf, glb_usa)
+            rdf = rdf.sort_values(['Median'], ascending=False)
+        else:
+            rdf = rdf.sort_values(['Total'], ascending=False).head(self.args.length)
+        return rdf
+
     def top_ten(self, plot=False):
         """
          Generate tabular data report.
@@ -253,60 +287,91 @@ class CovidData:
         plot_file_name_suffix = 'png'
         table_file_name_suffix = 'txt'
         report_file_name = None
-        plot_df = pd.DataFrame()
+        table_df = plot_df = pd.DataFrame()
         if self.args.region == 'country':
             report_file_name = '{}_{}_{}'.format(self.args.type, self.args.region, 'global')
-            tdf = self.data['global'][self.args.type].copy()
-            tdf = tdf.loc[tdf['Province/State'].isnull()]
-            tdf = tdf.sort_values(['Total'], ascending=False).head(self.args.length)
+
+            # Pre-process data
+            temp_df = self.data['global'][self.args.type]
+            tdf = temp_df.loc[temp_df['Province/State'].isnull()].copy()
+            tdf = tdf.drop('Province/State', axis=1)
+            tdf = self.report_process(tdf, 'global')
+
+            # Set the plot data
             if plot:
                 plot_df = tdf.copy()
-            tdf = tdf.drop('Province/State', axis=1)
+
+            # Select columns for table
             num_cols = tdf.shape[1]
             col_select = np.r_[0:1, num_cols-11:num_cols]
-            ttdf = tdf.iloc[:, col_select].copy()
+            table_df = tdf.iloc[:, col_select]
+
         elif self.args.region == 'state' or self.args.region == 'province':
             report_file_name = '{}_{}_{}'.format(self.args.type, self.args.region, self.args.country)
+
             if self.args.country == 'US':
-                ldf = self.data['usa'][self.args.type]
-                ldf = ldf.loc[ldf['County Name'].isnull()].copy()
-                ldf = ldf.sort_values(['Total'], ascending=False).head(self.args.length)
+                # Pre-process data
+                temp_df = self.data['usa'][self.args.type]
+                tdf = temp_df.loc[temp_df['County Name'].isnull()].copy()
+                tdf = self.report_process(tdf, 'usa')
+
+                # Set the plot data
                 if plot:
-                    plot_df = ldf.copy()
-                num_cols = ldf.shape[1]
+                    plot_df = tdf.copy()
+
+                # Select columns for table
+                num_cols = tdf.shape[1]
                 col_select = np.r_[2, num_cols-10:num_cols]
-                ttdf = ldf.iloc[:, col_select].copy()
+                table_df = tdf.iloc[:, col_select]
+
             else:
-                ldf = self.data['global'][self.args.type]
-                ldf = ldf.loc[ldf['Country/Region'] == self.args.country].copy()
-                ldf.loc[(ldf['Province/State'].isna()), 'Province/State'] = 'Total'
-                ldf = ldf.sort_values(['Total'], ascending=False).head(self.args.length)
+                # Pre-process data
+                tdf = self.data['global'][self.args.type]
+                tdf = tdf.loc[tdf['Country/Region'] == self.args.country].copy()
+                tdf.loc[(tdf['Province/State'].isna()), 'Province/State'] = 'Total'
+                tdf = self.report_process(tdf, 'global')
+
+                # Set the plot data
                 if plot:
-                    plot_df = ldf.copy()
-                num_cols = ldf.shape[1]
+                    plot_df = tdf.copy()
+
+                num_cols = tdf.shape[1]
                 col_select = np.r_[0:2, num_cols-8:num_cols]
-                ttdf = ldf.iloc[:, col_select].copy()
+                table_df = tdf.iloc[:, col_select].copy()
+
         elif self.args.region == 'county':
             report_file_name = '{}_{}_{}'.format(self.args.type, 'county', self.args.state)
-            usdf = self.data['usa'][self.args.type]
-            stdf = usdf.loc[usdf['State'] == self.args.state].copy()
-            stdf.loc[(stdf['County Name'].isna()), 'County Name'] = 'Total'
-            stdf = stdf.sort_values(['Total'], ascending=False).head(self.args.length)
+
+            # Pre-process data
+            temp_df = self.data['usa'][self.args.type]
+            tdf = temp_df.loc[temp_df['State'] == self.args.state].copy()
+            tdf.loc[(tdf['County Name'].isna()), 'County Name'] = 'Total'
+            tdf = self.report_process(tdf, 'usa')
+
+            # Set the plot data
             if plot:
-                plot_df = stdf.copy()
-            num_cols = stdf.shape[1]
+                plot_df = tdf.copy()
+
+            num_cols = tdf.shape[1]
             col_select = np.r_[1:3, num_cols-8:num_cols]
-            ttdf = stdf.iloc[:, col_select].copy()
+            table_df = tdf.iloc[:, col_select].copy()
+
         elif self.args.region == 'county-state':
             report_file_name = '{}_{}_{}'.format(self.args.type, 'county-state', self.args.country)
-            csdf = self.data['usa'][self.args.type].copy()
-            csdf = csdf.loc[~csdf['County Name'].isnull()].copy()
-            csdf = csdf.sort_values(['Total'], ascending=False).head(self.args.length)
+
+            # Pre-process data
+            temp_df = self.data['usa'][self.args.type]
+            tdf = temp_df.loc[~temp_df['County Name'].isnull()].copy()
+            tdf = self.report_process(tdf, 'usa')
+
+            # Set the plot data
             if plot:
-                plot_df = csdf.copy()
-            num_cols = csdf.shape[1]
+                plot_df = tdf.copy()
+
+            num_cols = tdf.shape[1]
             col_select = np.r_[1:3, num_cols - 8:num_cols]
-            ttdf = csdf.iloc[:, col_select].copy()
+            table_df = tdf.iloc[:, col_select].copy()
+
         else:
             print('Error: Invalid report specified.')
             sys.exit(-1)
@@ -326,9 +391,11 @@ class CovidData:
                 print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
                 print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
                 with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
-                    ttdf.reset_index(drop=True, inplace=True)
-                    print(ttdf, file=fp)
+                    table_df.reset_index(drop=True, inplace=True)
+                    print(table_df, file=fp)
                 print('', file=fp)
+                if fp != sys.stdout:
+                    fp.close()
                 # TODO - Display credits.
 
         # Display and/or write plot.
@@ -348,6 +415,8 @@ class CovidData:
         :param plot_fname:
         :return:
         """
+        # Basic report parameters
+        plot_response = 'Median' if self.args.response == 'growth' else 'Total'
         num_cols = pdf.shape[1]
         col_select = np.r_[4:num_cols-4]
 
@@ -361,8 +430,8 @@ class CovidData:
         # Select label names based on report type and region
         if self.args.region == 'county-state':
             pdf.loc[:, 'County Name'] = pdf.loc[:, 'County Name'] + ', ' + pdf.loc[:, 'State']
-
         if self.args.region == 'country':
+            col_select = np.r_[3:num_cols - 4]
             plot_item_names = list(pdf['Country/Region'])
         else:
             if self.args.country == 'US':
@@ -373,47 +442,75 @@ class CovidData:
         # Prepare matplotlib figure.
         fig = plt.figure(figsize=(10, 10))
         ax = fig.add_subplot(1, 1, 1)
-        ax.set_yscale('log')
-        ax.grid(True)
+        if self.args.response == 'log':
+            ax.set_yscale('log')
         ax.set_facecolor('#d0dbd5')
         fig.patch.set_facecolor('#eeeeee')
         plt.figtext(0.99, 0.01, '{}\nAnalytics: {}'.format(credit_str, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
+
+        # Generate Plots
+        bar_y = []
+        bar_l = []
         for pname in plot_item_names:
+            # Get parameter values as y
             if self.args.region == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
-                total = pdf.loc[pdf['Country/Region'] == pname, 'Total'].tolist()[0]
+                total = pdf.loc[pdf['Country/Region'] == pname, plot_response].tolist()[0]
+                bar_y.append(total)
             else:
                 if self.args.country == 'US':
                     y = pdf.loc[pdf['State'] == pname, :] if self.args.region == 'state' else \
                         pdf.loc[pdf['County Name'] == pname, :]
-                    total = pdf.loc[pdf['State'] == pname, 'Total'].tolist()[0] if self.args.region == 'state' \
-                            else pdf.loc[pdf['County Name'] == pname, 'Total'].tolist()[0]
+                    total = pdf.loc[pdf['State'] == pname, plot_response].tolist()[0] if self.args.region == 'state' \
+                            else pdf.loc[pdf['County Name'] == pname, plot_response].tolist()[0]
+                    bar_y.append(total)
                 else:
                     y = pdf.loc[pdf['Province/State'] == pname, :]
-                    total = pdf.loc[pdf['Province/State'] == pname, 'Total'].tolist()[0]
+                    total = pdf.loc[pdf['Province/State'] == pname, plot_response].tolist()[0]
+                    bar_y.append(total)
             y = list(y.iloc[0, col_select])
+
+            # Construct legend name with values
             lname = '{} ({})'.format(pname, total)
-            ax.plot(y, label=lname)
-            ax.text(x=len(y), y=y[-1], s=pname,
-                    bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
-        ax.legend(loc="upper left")
-        if self.args.type == 'confirmed':
-            if self.args.region == 'country':
-                ax.set_title('COVID-19 Confirmed Cases by Country', fontsize=20)
-            elif self.args.region == 'state' or self.args.region == 'province':
-                ps = 'State' if self.args.country == 'US' else 'Province/State'
-                ax.set_title('COVID-19 Confirmed Cases by {} for {}'.format(ps, self.args.country), fontsize=20)
-            elif self.args.region == 'county-state':
-                ax.set_title('COVID-19 Confirmed Cases by {} {}'.format('US', self.args.region), fontsize=20)
+
+            # Plot lines and label or collect bar plot details for later
+            if self.args.response == 'growth':
+                bar_l.append(lname)
             else:
-                state_name = ussa.abbrev_us_state[self.args.state]
-                ax.set_title('COVID-19 Confirmed Cases by County for {}'.format(state_name), fontsize=20)
-            plt.ylabel('Confirmed Cases', fontsize=16)
+                ax.plot(y, label=lname)
+                ax.text(x=len(y), y=y[-1], s=pname,
+                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
+        # plot the bar plot
+        if self.args.response == 'growth':
+            ax.grid(False)
+            plt.xticks(rotation=90)
+            fig.subplots_adjust(bottom=0.3)
+            ax.bar(np.arange(len(bar_y)), bar_y, tick_label=bar_l)
         else:
-            ax.set_title('COVID-19 Deaths by {}'.format(self.args.region), fontsize=20)
-            plt.ylabel('Deaths', fontsize=16)
-        plt.xlabel('Days Since Outbreak', fontsize=16)
+            ax.grid(True)
+            ax.legend(loc="upper left")
+
+        # Now add details to the plot
+        name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
+        name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
+        y_axis_l = 'Highest Last 3 Day Median Growth' if self.args.response == 'growth' else 'Days Since Outbreak'
+        if self.args.region == 'country':
+            name_region = 'Country'
+        elif self.args.region == 'state' or self.args.region == 'province':
+            ps = 'State' if self.args.country == 'US' else 'Province/State'
+            name_region = '{} for {}'.format(ps, self.args.country)
+        elif self.args.region == 'county-state':
+            name_region = '{} {}'.format('US', 'County, State')
+        else:
+            state_name = ussa.abbrev_us_state[self.args.state]
+            name_region = 'County for {}'.format(state_name)
+        ax.set_title('COVID-19 {} {} by {}'.format(name_1, name_2, name_region), fontsize=20)
+        plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
+        plt.xlabel(y_axis_l, fontsize=16)
+
+        # Output plot
         if self.args.saveplot:
             plt.savefig(plot_fname, quality=95, optimize=True)
         if self.args.showplot:
@@ -426,10 +523,12 @@ def main():
     :return: None
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--about', help='README',
+    parser.add_argument('--about', help='display information about this utility',
                         action='store_true', default=False)
     parser.add_argument('--length', help='data length for sorted reports',
                         type=int, default=10)
+    parser.add_argument('--threshold', help='threshold of case number to be included',
+                        type=int, default=None)
     parser.add_argument('--country', help='name of country for state/province reports',
                         type=str, default='US')
     parser.add_argument('--state', help='name of state for county reports',
@@ -438,6 +537,8 @@ def main():
                         type=str, default='country')
     parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')
+    parser.add_argument('--response', help='response: log, linear, growth',
+                        type=str, default='log')
     parser.add_argument('--sources', help='list sources used by this utility',
                         action='store_true', default=False)
     parser.add_argument('--download', help='download data from sources and save local pickle',

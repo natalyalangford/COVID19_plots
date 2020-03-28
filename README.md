@@ -17,27 +17,30 @@ aggretators, and analytics utilities and then pickled for quicker use by the uti
 
 Various reports can be generated from the pickled data set by using command line arguments:
 ```
-usage: covid19-vi [-h] [--about] [--length LENGTH] [--country COUNTRY]
-                  [--state STATE] [--region REGION] [--type TYPE] [--sources]
-                  [--download] [--saveplot] [--showplot] [--savetable]
-                  [--showtable] [--savedir SAVEDIR]
+usage: covid19-vi [-h] [--about] [--length LENGTH] [--threshold THRESHOLD]
+                  [--country COUNTRY] [--state STATE] [--region REGION]
+                  [--type TYPE] [--response RESPONSE] [--sources] [--download]
+                  [--saveplot] [--showplot] [--savetable] [--showtable]
+                  [--savedir SAVEDIR] [--debug]
 
 optional arguments:
-  -h, --help         show this help message and exit
-  --about            README
-  --length LENGTH    data length for sorted reports
-  --country COUNTRY  name of country for state/province report
-  --state STATE      name of state for county report
-  --region REGION    scope of report: country, state, province, county, county-state
-  --type TYPE        type of report: confirmed, deaths
-  --sources          list sources used by this utility
-  --download         download data from sources and save local pickle
-  --saveplot         save plot output to a file
-  --showplot         plot output
-  --savetable        write table to file
-  --showtable        display table
-  --savedir SAVEDIR  destination for saving output
-  --debug            debug output
+  -h, --help             show this help message and exit
+  --about                display information about this utility
+  --length LENGTH        data length for sorted reports
+  --threshold THRESHOLD  threshold of case number to be included
+  --country COUNTRY      name of country for state/province reports
+  --state STATE          name of state for county reports
+  --region REGION        scope of report: country, state, province, county, county-state
+  --type TYPE            type of report: confirmed, deaths
+  --response RESPONSE    response: log, linear, growth
+  --sources              list sources used by this utility
+  --download             download data from sources and save local pickle
+  --saveplot             save plot output to a file
+  --showplot             plot output
+  --savetable            write table to file
+  --showtable            display table
+  --savedir SAVEDIR      destination for saving output
+  --debug                debug output
 ```
 As an example, the command line arguments to only download and pre-process time series data, execute
 the following:
@@ -55,6 +58,10 @@ covid19-vi --type deaths --region province --country Canada --length 20 --showta
 To display a plot of the confirmed cases for top 20 counties of New York, execute:
 ```shell script
 covid19-vi --type confirmed --region county --country US --state NY --length 20 --showplot
+```
+To display confirmed case growth rates for countries with more than 7000 cases, execute:
+```shell script
+covid19-vi --type confirmed --region country --threshold 7000 --response growth --showplot --showtable
 ```
 
 ## daily.sh
