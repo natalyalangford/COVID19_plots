@@ -20,7 +20,7 @@ Various reports can be generated from the pickled data set by using command line
 usage: covid19-vi [-h] [--about] [--length LENGTH] [--country COUNTRY]
                   [--state STATE] [--region REGION] [--type TYPE] [--sources]
                   [--download] [--saveplot] [--showplot] [--savetable]
-                  [--showtable] [--savedir SAVEDIR] [-d]
+                  [--showtable] [--savedir SAVEDIR]
 
 optional arguments:
   -h, --help         show this help message and exit
@@ -38,6 +38,23 @@ optional arguments:
   --showtable        display table
   --savedir SAVEDIR  destination for saving output
   --debug            debug output
+```
+As an example, the command line arguments to only download and pre-process time series data, execute
+the following:
+```shell script
+covid19-vi --download
+```
+To display a plot of the confirmed cases for top 20 countries, execute:
+```shell script
+covid19-vi --type confirmed --region country --length 20 --showplot
+```
+To display a table of the deaths for top 20 provinces of Canada, execute:
+```shell script
+covid19-vi --type deaths --region province --country Canada --length 20 --showtable
+```
+To display a plot of the confirmed cases for top 20 counties of New York, execute:
+```shell script
+covid19-vi --type confirmed --region county --country US --state NY --length 20 --showplot
 ```
 
 ## daily.sh
