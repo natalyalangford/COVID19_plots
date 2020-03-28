@@ -62,8 +62,10 @@ This bash script is used to generate the plots and tables found in the posted
 [daily report](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md).
 
 ## Reference Material
-* Global COVID-19 Data Source: [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
-* US COVID-19 Data Source: [USA Facts](https://usafacts.org/issues/coronavirus/)
+* Global COVID-19 Data Source:
+[CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
+* US COVID-19 Data Source:
+[USA Facts](https://usafacts.org/issues/coronavirus/)
 
 ## Known Issues
 * USA Facts data is a day behind global data from JHU, could be that JHU is using UTC, but state reports 
@@ -71,4 +73,7 @@ seem to be lagging what others are reporting.
 * Data aggregation function is kludgy and should be rewritten using pivot.
 
 ## History
+* 26-Mar-20: Corrected error in downloading from USA Facts (removed urllib3)
+* 25-Mar-20: Started publishing
+[daily report](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md).
 * 22-Mar-20: Project Initiated
