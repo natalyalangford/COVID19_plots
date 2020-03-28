@@ -1,25 +1,25 @@
 Top 20 county-state Report - deaths
-  Extract downloaded: 2020-03-27 18:53:28.843460 UTC
-  Data last data point date: 3/26/20
-              County Name State  3/23/20  3/24/20  3/25/20  3/26/20  Yesterday  Total  DayIncrease  %DayIncrease
-0           New York City    NY      125      199      280      365        280    365           85          30.4
-1             King County    WA       87       94      100      109        100    109            9           9.0
-2          Orleans Parish    LA       20       26       37       46         37     46            9          24.3
-3            Wayne County    MI        8       13       21       26         21     26            5          23.8
-4          Suffolk County    NY        4       17       20       22         20     22            2          10.0
-5      Los Angeles County    CA        7       11       13       21         13     21            8          61.5
-6   Statewide Unallocated    GA        5        4       12       21         12     21            9          75.0
-7   Statewide Unallocated    NJ        3        3       20       19         20     19           -1          -5.0
-8      Santa Clara County    CA       13       16       17       19         17     19            2          11.8
-9           Nassau County    NY        7        7       17       19         17     19            2          11.8
-10            Cook County    IL        9       12       13       18         13     18            5          38.5
-11          Bergen County    NJ        9       14       14       17         14     17            3          21.4
-12       Snohomish County    WA       11       16       16       16         16     16            0           0.0
-13         Oakland County    MI        4        4       10       15         10     15            5          50.0
-14       Fairfield County    CT        6        7       12       13         12     13            1           8.3
-15       Jefferson Parish    LA        5        5        7       12          7     12            5          71.4
-16          Macomb County    MI        2        3        7       11          7     11            4          57.1
-17           Essex County    NJ        4        7        7       11          7     11            4          57.1
-18           Clark County    NV        4        6        6       10          6     10            4          66.7
-19       Riverside County    CA        6        6        8        8          8      8            0           0.0
+  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Data last data point date: 3/27/20
+              County Name State  3/23/20  ...  Total  DayIncrease  %DayIncrease
+0           New York City    NY      125  ...    365           85          30.4
+1             King County    WA       87  ...    109            9           9.0
+2          Orleans Parish    LA       20  ...     46            9          24.3
+3            Wayne County    MI        8  ...     26            5          23.8
+4          Suffolk County    NY        4  ...     22            2          10.0
+5      Los Angeles County    CA        7  ...     21            8          61.5
+6   Statewide Unallocated    GA        5  ...     21            9          75.0
+7   Statewide Unallocated    NJ        3  ...     19           -1          -5.0
+8      Santa Clara County    CA       13  ...     19            2          11.8
+9           Nassau County    NY        7  ...     19            2          11.8
+10            Cook County    IL        9  ...     18            5          38.5
+11          Bergen County    NJ        9  ...     17            3          21.4
+12       Snohomish County    WA       11  ...     16            0           0.0
+13         Oakland County    MI        4  ...     15            5          50.0
+14       Fairfield County    CT        6  ...     13            1           8.3
+15       Jefferson Parish    LA        5  ...     12            5          71.4
+16          Macomb County    MI        2  ...     11            4          57.1
+17           Essex County    NJ        4  ...     11            4          57.1
+18           Clark County    NV        4  ...     10            4          66.7
+19       Riverside County    CA        6  ...      8            0           0.0
 
