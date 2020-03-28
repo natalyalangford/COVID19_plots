@@ -1,25 +1,25 @@
 Top 20 county Report - confirmed
-  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Extract downloaded: 2020-03-28 14:55:23.195536 UTC
   Data last data point date: 3/27/20
-               County Name State  3/23/20  ...  Total  DayIncrease  %DayIncrease
-0                    Total    CA     2253  ...   4043          867          27.3
-1       Los Angeles County    CA      536  ...   1216          417          52.2
-2       Santa Clara County    CA      321  ...    542           83          18.1
-3         San Diego County    CA      230  ...    341           44          14.8
-4            Orange County    CA      125  ...    256           69          36.9
-5     San Francisco County    CA      131  ...    223           45          25.3
-6         San Mateo County    CA      142  ...    195           30          18.2
-7           Alameda County    CA      122  ...    163           28          20.7
-8      Contra Costa County    CA       71  ...    131           23          21.3
-9        Sacramento County    CA       88  ...    113            0           0.0
-10        Riverside County    CA       47  ...    107            0           0.0
-11      San Joaquin County    CA       51  ...     83           12          16.9
-12            Marin County    CA       47  ...     65            5           8.3
-13          Ventura County    CA       35  ...     61           11          22.0
-14   San Bernardino County    CA       17  ...     55            1           1.9
-15  San Luis Obispo County    CA       33  ...     54            8          17.4
-16           Sonoma County    CA       29  ...     49           10          25.6
-17    Santa Barbara County    CA       18  ...     42           16          61.5
-18           Solano County    CA       21  ...     34            3           9.7
-19       Santa Cruz County    CA       22  ...     32            7          28.0
+               County Name State  3/24/2020  3/25/2020  3/26/2020  3/27/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0                    Total    CA       2641       3176       4035       4872       4035   4872          837          20.7
+1       Los Angeles County    CA        662        799       1216       1465       1216   1465          249          20.5
+2       Santa Clara County    CA        375        459        542        574        542    574           32           5.9
+3         San Diego County    CA        242        297        341        417        341    417           76          22.3
+4            Orange County    CA        152        187        256        321        256    321           65          25.4
+5     San Francisco County    CA        152        178        223        279        223    279           56          25.1
+6         San Mateo County    CA        161        165        195        239        195    239           44          22.6
+7           Alameda County    CA        124        135        163        220        163    220           57          35.0
+8         Riverside County    CA         59        107        107        185        107    185           78          72.9
+9        Sacramento County    CA         88        113        113        164        113    164           51          45.1
+10     Contra Costa County    CA         86        108        131        151        131    151           20          15.3
+11      San Joaquin County    CA         60         71         83         93         83     93           10          12.0
+12            Marin County    CA         53         60         65         68         65     68            3           4.6
+13   San Bernardino County    CA         38         54         55         64         55     64            9          16.4
+14          Ventura County    CA         39         50         61         61         61     61            0           0.0
+15  San Luis Obispo County    CA         42         46         54         59         54     59            5           9.3
+16    Santa Barbara County    CA         24         26         42         47         42     47            5          11.9
+17           Placer County    CA         26         30         30         41         30     41           11          36.7
+18           Sonoma County    CA         34         39         41         41         41     41            0           0.0
+19             Kern County    CA         14         23         32         40         32     40            8          25.0
 

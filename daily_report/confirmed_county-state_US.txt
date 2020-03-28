@@ -1,25 +1,25 @@
 Top 20 county-state Report - confirmed
-  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Extract downloaded: 2020-03-28 14:55:23.195536 UTC
   Data last data point date: 3/27/20
-              County Name State  3/23/20  ...  Total  DayIncrease  %DayIncrease
-0           New York City    NY    12339  ...  23112         5256          29.4
-1      Westchester County    NY     2894  ...   5944         1253          26.7
-2           Nassau County    NY     2442  ...   3914          629          19.1
-3          Suffolk County    NY     1458  ...   2735          475          21.0
-4             Cook County    IL      922  ...   1904          486          34.3
-5             King County    WA     1170  ...   1577          218          16.0
-6            Wayne County    MI      638  ...   1389          268          23.9
-7      Los Angeles County    CA      536  ...   1216          417          52.2
-8           Bergen County    NJ      609  ...   1206          387          47.3
-9         Rockland County    NY      592  ...   1197          229          23.7
-10         Orleans Parish    LA      567  ...    997          170          20.6
-11  Statewide Unallocated    NJ      419  ...    933            0           0.0
-12       Snohomish County    WA      519  ...    778          144          22.7
-13          Orange County    NY      389  ...    751          113          17.7
-14         Oakland County    MI      329  ...    668          125          23.0
-15      Miami-Dade County    FL      278  ...    654          163          33.2
-16           Essex County    NJ      273  ...    609          228          59.8
-17       Fairfield County    CT      270  ...    607           61          11.2
-18     Santa Clara County    CA      321  ...    542           83          18.1
-19       Middlesex County    MA      232  ...    538           92          20.6
+              County Name State  3/24/2020  3/25/2020  3/26/2020  3/27/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0           Queens County    NY       4364       6420       7362       8214       7362   8214          852          11.6
+1      Westchester County    NY       3891       4691       5944       7187       5944   7187         1243          20.9
+2            Kings County    NY       4237       5232       6095       6750       6095   6750          655          10.7
+3           Nassau County    NY       2869       3285       3914       4657       3914   4657          743          19.0
+4            Bronx County    NY       2328       3542       4243       4655       4243   4655          412           9.7
+5         New York County    NY       2887       3616       4046       4478       4046   4478          432          10.7
+6          Suffolk County    NY       1880       2260       2735       3386       2735   3386          651          23.8
+7             Cook County    IL       1194       1418       1904       2239       1904   2239          335          17.6
+8   Statewide Unallocated    NJ        645        933        933       1984        933   1984         1051         112.6
+9             King County    WA       1277       1359       1577       1828       1577   1828          251          15.9
+10           Wayne County    MI        873       1121       1389       1810       1389   1810          421          30.3
+11          Bergen County    NJ        701        819       1206       1505       1206   1505          299          24.8
+12     Los Angeles County    CA        662        799       1216       1465       1216   1465          249          20.5
+13        Rockland County    NY        671        968       1197       1457       1197   1457          260          21.7
+14        Richmond County    NY        953       1166       1330       1440       1330   1440          110           8.3
+15         Orleans Parish    LA        675        827        997       1170        997   1170          173          17.4
+16       Snohomish County    WA        614        634        778        913        778    913          135          17.4
+17          Orange County    NY        539        638        751        910        751    910          159          21.2
+18      Miami-Dade County    FL        338        491        654        869        654    869          215          32.9
+19           Essex County    NJ        342        381        609        826        609    826          217          35.6
 

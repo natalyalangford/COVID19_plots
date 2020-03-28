@@ -1,25 +1,25 @@
 Top 20 county Report - confirmed
-  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Extract downloaded: 2020-03-28 14:55:23.195536 UTC
   Data last data point date: 3/27/20
-           County Name State  3/23/20  ...  Total  DayIncrease  %DayIncrease
-0                Total    NY    20911  ...  38976         8163          26.5
-1        New York City    NY    12339  ...  23112         5256          29.4
-2   Westchester County    NY     2894  ...   5944         1253          26.7
-3        Nassau County    NY     2442  ...   3914          629          19.1
-4       Suffolk County    NY     1458  ...   2735          475          21.0
-5      Rockland County    NY      592  ...   1197          229          23.7
-6        Orange County    NY      389  ...    751          113          17.7
-7      Dutchess County    NY      100  ...    190           37          24.2
-8        Albany County    NY      127  ...    171           19          12.5
-9        Monroe County    NY       76  ...    139           21          17.8
-10         Erie County    NY       87  ...    134           12           9.8
-11       Putnam County    NY       45  ...     94           10          11.9
-12     Onondaga County    NY       52  ...     83           18          27.7
-13       Ulster County    NY       35  ...     78           13          20.0
-14     Saratoga County    NY       53  ...     73            9          14.1
-15  Schenectady County    NY       44  ...     62            7          12.7
-16     Sullivan County    NY       23  ...     53           14          35.9
-17   Rensselaer County    NY       29  ...     32            1           3.2
-18     Tompkins County    NY       15  ...     22            6          37.5
-19       Broome County    NY        7  ...     16            5          45.5
+           County Name State  3/24/2020  3/25/2020  3/26/2020  3/27/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0                Total    NY      25578      32968      38976      44820      38976  44820         5844          15.0
+1        Queens County    NY       4364       6420       7362       8214       7362   8214          852          11.6
+2   Westchester County    NY       3891       4691       5944       7187       5944   7187         1243          20.9
+3         Kings County    NY       4237       5232       6095       6750       6095   6750          655          10.7
+4        Nassau County    NY       2869       3285       3914       4657       3914   4657          743          19.0
+5         Bronx County    NY       2328       3542       4243       4655       4243   4655          412           9.7
+6      New York County    NY       2887       3616       4046       4478       4046   4478          432          10.7
+7       Suffolk County    NY       1880       2260       2735       3386       2735   3386          651          23.8
+8      Rockland County    NY        671        968       1197       1457       1197   1457          260          21.7
+9      Richmond County    NY        953       1166       1330       1440       1330   1440          110           8.3
+10       Orange County    NY        539        638        751        910        751    910          159          21.2
+11     Dutchess County    NY        124        153        190        225        190    225           35          18.4
+12         Erie County    NY        107        122        134        219        134    219           85          63.4
+13       Albany County    NY        146        152        171        187        171    187           16           9.4
+14       Monroe County    NY         96        118        139        160        139    160           21          15.1
+15     Onondaga County    NY         60         65         83        115         83    115           32          38.6
+16       Putnam County    NY         67         84         94        111         94    111           17          18.1
+17       Ulster County    NY         47         65         78         98         78     98           20          25.6
+18     Saratoga County    NY         60         64         73         82         73     82            9          12.3
+19  Schenectady County    NY         46         55         62         66         62     66            4           6.5
 
