@@ -99,11 +99,13 @@ class CovidData:
         if self.args.length <= 0:
             print('Error in value for --length {}, must be positive integer.'.format(self.args.length))
             return False
-        # TODO - verify a reasonable string is used for directory name
-        if re.search(r'[\\/?%*:|\"<>]', self.args.savedir):
-            print('Error')
-        if re.search(r'[\s]', self.args.savedir):
-            print('Do NOT use spaces. People who put spaces in their files names will burn in hell. ')
+        if self.args.savedir:
+            if re.search(r'[\\/?%*:|\"<>]', self.args.savedir):
+                print('Error in value for --savedir {}, contains invalid characters'.format(self.args.savedir))
+                return False
+            if re.search(r'[\s]', self.args.savedir):
+                print('Error in value for --savedir {}, there is a special place in hell for people who use spaces in directory names.'.format(self.args.savedir))
+                return False
         return True
 
     def print_sources(self):
