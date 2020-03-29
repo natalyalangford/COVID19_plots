@@ -458,6 +458,7 @@ class CovidData:
                 # TODO - display age of data.
                 name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
                 name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
+                markup = ('\x1B[3m', '\x1B[23m') if fp == sys.stdout else ('', '')
                 print('', file=fp)
                 print('Top {} {} Report - {}'.format(self.args.length, self.args.region, self.args.type), file=fp)
                 print('  Top {} {} for regions with > {} {} cases'.format(self.args.length, name_2,
@@ -473,7 +474,8 @@ class CovidData:
                              self.data[data_src]['data_date'],
                              self._data_source[data_src]['link'],
                              self._data_source[data_src]['name'])
-                print('\x1B[3m   {}\n   Analytics: {}\x1B[23m'.format(credit_str, self._analytics_source), file=fp)
+                print('{}   {}\n   Analytics: {}{}'.format(markup[0], credit_str, self._analytics_source,
+                                                           markup[1]), file=fp)
                 print('', file=fp)
                 if fp != sys.stdout:
                     fp.close()
@@ -566,15 +568,9 @@ class CovidData:
                 if self.args.response == 'new-total':
                     thresh = 5 if self.args.type == 'deaths' else 100
                     start = False
-                    x = []
-                    for y_val in y:
-                        if start:
-                            x.append(y_val)
-                        else:
-                            if y_val >= thresh:
-                                start = True
-                                x.append(y_val)
+                    x = [y_val for i, y_val in enumerate(y) if min(y[i:]) > thresh]
                     y = x[:]
+                    # TODO - will list comprehension apply here
                     for i in range(0, len(x)):
                         if i == 0:
                             y[i] = x[i] if x[i] > 0 else np.NaN
@@ -583,6 +579,7 @@ class CovidData:
 
                     lookback = 3
                     y_orig = y[:]
+                    # TODO - will list comprehension apply here
                     for i in range(lookback, len(y)):
                         y[i] = float(np.nansum(y_orig[i-lookback: i]))/float(lookback - 1)
 
