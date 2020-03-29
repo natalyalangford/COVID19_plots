@@ -84,6 +84,10 @@ class CovidData:
             sys.exit(-20)
 
     def chk_args(self):
+        """
+        Argument error checking used by this utility.
+        :return: Bool
+        """
         if self.args.threshold:
             if self.args.threshold <= 0:
                 print('Error in value for --threshold{ {}, must be a positive integer.'.format(self.args.threshold))
