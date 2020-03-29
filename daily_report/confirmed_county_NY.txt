@@ -1,6 +1,6 @@
 Top 20 county Report - confirmed
-  Extract downloaded: 2020-03-28 23:52:07.373306 UTC
-  Data last data point date: 3/27/20
+  Extract downloaded: 2020-03-29 01:19:45.313063 UTC
+  Data last data point date: 3/28/20
            County Name State  3/24/2020  3/25/2020  3/26/2020  3/27/2020  Yesterday  Total  DayIncrease  %DayIncrease
 0                Total    NY      25578      32968      38976      44820      38976  44820         5844          15.0
 1        Queens County    NY       4364       6420       7362       8214       7362   8214          852          11.6

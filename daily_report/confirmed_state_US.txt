@@ -1,6 +1,6 @@
 Top 20 state Report - confirmed
-  Extract downloaded: 2020-03-28 23:52:07.373306 UTC
-  Data last data point date: 3/27/20
+  Extract downloaded: 2020-03-29 01:19:45.313063 UTC
+  Data last data point date: 3/28/20
    State  3/22/2020  3/23/2020  3/24/2020  3/25/2020  3/26/2020  3/27/2020  Yesterday  Total  DayIncrease  %DayIncrease
 0     NY      15832      20911      25578      32968      38976      44820      38976  44820         5844          15.0
 1     NJ       1914       2851       3675       4402       6331       8825       6331   8825         2494          39.4
