@@ -1,0 +1,30 @@
+
+Top 20 county Report - confirmed
+  Top 20 Cases for regions with > None Confirmed cases
+  Extract downloaded: 2020-03-29 14:40:21.297600 UTC
+  Data last data point date: 3/28/20
+            County Name State  3/25/2020  3/26/2020  3/27/2020  3/28/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0                 Total    FL       1975       2439       3198       4038       3198   4038          840          26.3
+1     Miami-Dade County    FL        491        654        869       1121        869   1121          252          29.0
+2        Broward County    FL        412        505        631        820        631    820          189          30.0
+3     Palm Beach County    FL        141        174        241        318        241    318           77          32.0
+4         Orange County    FL         89        119        174        213        174    213           39          22.4
+5   Hillsborough County    FL        123        151        174        206        174    206           32          18.4
+6          Duval County    FL         60         60         99        120         99    120           21          21.2
+7            Lee County    FL         52         66         95        119         95    119           24          25.3
+8       Pinellas County    FL         54         65         82        111         82    111           29          35.4
+9        Collier County    FL         57         67         85         95         85     95           10          11.8
+10       Osceola County    FL         39         45         56         74         56     74           18          32.1
+11      Seminole County    FL         32         40         54         68         54     68           14          25.9
+12       Alachua County    FL         46         53         60         68         60     68            8          13.3
+13     St. Johns County    FL         28         36         42         50         42     50            8          19.0
+14      Sarasota County    FL         32         34         43         50         43     50            7          16.3
+15       Volusia County    FL         28         34         43         44         43     44            1           2.3
+16        Sumter County    FL         18         24         29         40         29     40           11          37.9
+17          Lake County    FL         22         26         32         38         32     38            6          18.8
+18          Polk County    FL         15         20         28         37         28     37            9          32.1
+19         Pasco County    FL         18         21         25         34         25     34            9          36.0
+
+   Data from the 3/28/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Analytics: https://github.com/natalyalangford/COVID19_plots
+
