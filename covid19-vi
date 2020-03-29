@@ -279,7 +279,6 @@ class CovidData:
         dpd_df = dpd_df.drop('Yesterday', axis=1)
         dpd_df.reset_index(drop=True, inplace=True)
         dpd_df.loc[:, 'DayIncrease'] = dpd_df.iloc[:, -4] - dpd_df.iloc[:, -5]
-        print(type(dpd_df))
         return dpd_df
 
     def report_process(self, rdf, glb_usa):
@@ -293,15 +292,18 @@ class CovidData:
         :rtype: pandas.core.frame.DataFrame
         """
         # Pre-process data
-        rdf = rdf.loc[rdf['Total'] >= self.args.threshold] if self.args.threshold else \
-            rdf.sort_values(['Total'], ascending=False).head(self.args.length)
+        #rdf = rdf.loc[rdf['Total'] >= self.args.threshold] if self.args.threshold else \
+            #rdf.sort_values(['Total'], ascending=False).head(self.args.length)
+        if self.args.threshold:
+            rdf = rdf.loc[rdf['Total'] >= self.args.threshold]
         rdf.reset_index(drop=True, inplace=True)
 
         # Process for growth or number
         if self.args.response == 'growth':
             rdf.reset_index(drop=True, inplace=True)
             rdf = self.day_percent_growth(rdf, glb_usa)
-            rdf = rdf.sort_values(['Median'], ascending=False)
+            # rdf = rdf.sort_values(['Median'], ascending=False)
+            rdf = rdf.sort_values(['Median'], ascending=False).head(self.args.length)
         else:
             rdf = rdf.sort_values(['Total'], ascending=False).head(self.args.length)
         return rdf
@@ -416,7 +418,12 @@ class CovidData:
             if self.args.savetable: file_ptr_list.append(open(table_file_name, 'w'))
             for fp in file_ptr_list:
                 # TODO - display age of data.
+                name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
+                name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
                 print('Top {} {} Report - {}'.format(self.args.length, self.args.region, self.args.type), file=fp)
+                print('  Top {} {} for selected regions with > {} {}.'.format(self.args.length, name_2,
+                                                                              self.args.threshold,
+                                                                              name_1), file=fp)
                 print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
                 print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
                 with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
@@ -459,14 +466,18 @@ class CovidData:
         # Select label names based on report type and region
         if self.args.region == 'county-state':
             pdf.loc[:, 'County Name'] = pdf.loc[:, 'County Name'] + ', ' + pdf.loc[:, 'State']
+            trunc_len = 25
         if self.args.region == 'country':
             col_select = np.r_[3:num_cols - 4]
             plot_item_names = list(pdf['Country/Region'])
+            trunc_len = 15
         else:
             if self.args.country == 'US':
                 plot_item_names = list(pdf['State']) if self.args.region == 'state' else list(pdf['County Name'])
+                trunc_len = 5 if self.args.region == 'state' else 25
             else:
                 plot_item_names = list(pdf['Province/State'])
+                trunc_len = 25
 
         # Prepare matplotlib figure.
         fig = plt.figure(figsize=(10, 10))
@@ -501,11 +512,11 @@ class CovidData:
             y = list(y.iloc[0, col_select])
 
             # Construct legend name with values
-            lname = '{} ({})'.format(pname, total)
+            lname = '{} ({})'.format(pname[:trunc_len], total)
 
             # Plot lines and label or collect bar plot details for later
             if self.args.response == 'growth':
-                bar_l.append(lname)
+                bar_l.append('{}'.format(lname))
             else:
                 ax.plot(y, label=lname)
                 ax.text(x=len(y), y=y[-1], s=pname,
@@ -515,7 +526,6 @@ class CovidData:
         if self.args.response == 'growth':
             ax.grid(False)
             plt.xticks(rotation=90)
-            fig.subplots_adjust(bottom=0.3)
             ax.bar(np.arange(len(bar_y)), bar_y, tick_label=bar_l)
         else:
             ax.grid(True)
@@ -527,14 +537,20 @@ class CovidData:
         y_axis_l = 'Highest Last 3 Day Median Growth' if self.args.response == 'growth' else 'Days Since Outbreak'
         if self.args.region == 'country':
             name_region = 'Country'
+            x_tick_adjust = 0.25
         elif self.args.region == 'state' or self.args.region == 'province':
             ps = 'State' if self.args.country == 'US' else 'Province/State'
             name_region = '{} for {}'.format(ps, self.args.country)
+            x_tick_adjust = 0.15 if self.args.country == 'US' else 0.32
         elif self.args.region == 'county-state':
             name_region = '{} {}'.format('US', 'County, State')
+            x_tick_adjust = 0.32
         else:
             state_name = ussa.abbrev_us_state[self.args.state]
             name_region = 'County for {}'.format(state_name)
+            x_tick_adjust = 0.28
+
+        fig.subplots_adjust(bottom=x_tick_adjust)
         ax.set_title('COVID-19 {} {} by {}'.format(name_1, name_2, name_region), fontsize=20)
         plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
         plt.xlabel(y_axis_l, fontsize=16)
