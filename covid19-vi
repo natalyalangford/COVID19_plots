@@ -105,7 +105,9 @@ class CovidData:
                 print('Error in value for --savedir {}, contains invalid characters'.format(self.args.savedir))
                 return False
             if re.search(r'[\s]', self.args.savedir):
-                print('Error in value for --savedir {}, there is a special place in hell for people who use spaces in directory names.'.format(self.args.savedir))
+                print('Error in value for --savedir ',
+                      '{}, there is a special place in hell for people who use spaces in directory names.'.format(
+                          self.args.savedir))
                 return False
         return True
 
@@ -225,11 +227,10 @@ class CovidData:
             except UnicodeDecodeError:
                 df = pd.read_csv(file_name, encoding='ISO-8859-1')
 
-        # TODO - Need regression fit to calculate rate of increase
         if zone == 'global':
             for ps_country in self._prov_state_countries:
                 df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == ps_country),
-                           'Province/State'] = ps_country
+                       'Province/State'] = ps_country
                 df = self.aggregate_state_prov(df, ps_country)
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
@@ -246,10 +247,21 @@ class CovidData:
 
     @staticmethod
     def day_percent_growth(df, file_zone):
+        """
+        Calculate latest percentage growth based on past growth numbers.
+        :param df: target dataset
+        :type df: pandas.core.frame.DataFrame
+        :param file_zone: 
+        :type file_zone: str
+        :return: New dataframe with cases replaced by growth percentage
+        :rtype: pandas.core.frame.DataFrame
+        """
+        # TODO - Need regression fit to calculate rate of increase instead of 3 day median
         dpd_df = df.copy(deep=True)
         series_start = 4 if file_zone == 'usa' else 5
         series_end = df.shape[1] - 4
-        dpd_df.iloc[:, series_start:series_end] = (df.iloc[:, series_start:series_end].pct_change(axis=1) * 100.0).round(1)
+        dpd_df.iloc[:, series_start:series_end] = \
+            (df.iloc[:, series_start:series_end].pct_change(axis=1) * 100.0).round(1)
         with pd.option_context('mode.use_inf_as_na', True):
             dpd_df.iloc[:, series_start:series_end] = dpd_df.iloc[:, series_start:series_end].fillna(0.0)
         dpd_df.loc[:, 'Cases'] = dpd_df.loc[:, 'Total']
@@ -259,10 +271,19 @@ class CovidData:
         dpd_df = dpd_df.drop('Yesterday', axis=1)
         dpd_df.reset_index(drop=True, inplace=True)
         dpd_df.loc[:, 'DayIncrease'] = dpd_df.iloc[:, -4] - dpd_df.iloc[:, -5]
-        print(dpd_df)
+        print(type(dpd_df))
         return dpd_df
 
     def report_process(self, rdf, glb_usa):
+        """
+        Prepare selected dataset for generation of plot/table reports.
+        :param rdf: target dataset
+        :type rdf: pandas.core.frame.DataFrame
+        :param glb_usa: process as global or usa dataset
+        :type glb_usa: str
+        :return: new processed dataframe
+        :rtype: pandas.core.frame.DataFrame
+        """
         # Pre-process data
         rdf = rdf.loc[rdf['Total'] >= self.args.threshold] if self.args.threshold else \
             rdf.sort_values(['Total'], ascending=False).head(self.args.length)
@@ -279,8 +300,8 @@ class CovidData:
 
     def top_ten(self, plot=False):
         """
-         Generate tabular data report.
-        :param plot:
+        Generate tabular data report.
+        :param plot:  Flag to indicate if plot is requested.
         :type plot: bool
         :return: None
         """
@@ -409,11 +430,11 @@ class CovidData:
 
     def plot(self, pdf, plot_fname):
         """
-
+        Plot the target dataframe to file or display.
         :param pdf:
-        :type pdf: pd.dataFrame
-        :param plot_fname:
-        :return:
+        :type pdf: pandas.core.frame.DataFrame
+        :param plot_fname: Plot filename used if saveplot is specified.
+        :return: None
         """
         # Basic report parameters
         plot_response = 'Median' if self.args.response == 'growth' else 'Total'
