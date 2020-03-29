@@ -448,10 +448,10 @@ class CovidData:
                 if fp != sys.stdout:
                     fp.close()
                 data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
-                print('Data from the {} extract at {}, Credit: {}'.format(
-                     self.data[data_src]['data_date'],
-                     self._data_source[data_src]['link'],
-                     self._data_source[data_src]['name']))
+            print('Data from the {} extract at {}, Credit: {}'.format(
+                self.data[data_src]['data_date'],
+                self._data_source[data_src]['link'],
+                self._data_source[data_src]['name']))
                 # TODO - Display credits.
 
         # Display and/or write plot.
