@@ -84,12 +84,11 @@ class CovidData:
             sys.exit(-20)
 
     def chk_args(self):
-        # TODO add arg checking for response and threshold
         if self.args.threshold:
             if self.args.threshold <= 0:
                 print('Error in value for --threshold{ {}, must be a positive integer.'.format(self.args.threshold))
                 return False
-        if self.args.reponse not in self._valid_args['response']:
+        if self.args.response not in self._valid_args['response']:
             print('Error in value for --response {}, does not contain valid response'.format(self.args.response,
                                                                                              self._valid_args['response']))
             return False
