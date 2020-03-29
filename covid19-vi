@@ -1,6 +1,12 @@
 #!/usr/bin/env python3
 """ covid19-vi  -  Visualization utilities for the COVID-19 data from Johns Hopkins.
 
+    The *covid19-vi* utility is the main interface for the projects access to the public COVID-19
+    time series data.  The *--download* option is used to retrieve the latest data from the
+    sources defined in the project. The data is read with a url request and loaded into a
+    dataframe.  The dataframe is processed with error checkers, aggretators, and analytics
+    utilities and then pickled for quicker use by the utility.
+
     Copyright (C) 2020  Natalya Langford
 
     This program is free software: you can redistribute it and/or modify
@@ -36,13 +42,16 @@ from datetime import datetime
 import io
 import pickle
 import requests
-import us_state_abbrev as ussa
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import us_state_abbrev as ussa
 
 
 class CovidData:
+    """
+    Class for downloading, processing, and reporting on COVID-19 time series data.
+    """
     _covid_data = {'global': {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
                               'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'},
                    'usa': {'confirmed': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
@@ -56,12 +65,12 @@ class CovidData:
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
                    'region': ['country', 'state', 'province', 'county', 'county-state'],
-                   'response': ['log','linear','growth']}
+                   'response': ['log', 'linear', 'growth']}
 
     def __init__(self, args, download=False):
         """
         Initialize a CovidData object and populate from interweb if download is True.
-        :param download:
+        :param download: Flag to force actual download instead of using pickled data.
         :type download: Bool
         :return None
         """
@@ -86,15 +95,16 @@ class CovidData:
     def chk_args(self):
         """
         Argument error checking used by this utility.
-        :return: Bool
+        :return: True if check passes else False
+        :rtype: bool
         """
         if self.args.threshold:
             if self.args.threshold <= 0:
-                print('Error in value for --threshold{ {}, must be a positive integer.'.format(self.args.threshold))
+                print('Error in value for --threshold {}, must be a positive integer.'.format(self.args.threshold))
                 return False
         if self.args.response not in self._valid_args['response']:
-            print('Error in value for --response {}, does not contain valid response'.format(self.args.response,
-                                                                                             self._valid_args['response']))
+            print('Error in value for --response {}, valid values are {}'.format(self.args.response,
+                                                                                 self._valid_args['response']))
             return False
         if self.args.type not in self._valid_args['type']:
             print('Error in value for --type {}, valid values are {}'.format(self.args.type,
@@ -122,6 +132,15 @@ class CovidData:
                           self.args.savedir))
                 return False
         return True
+
+    @classmethod
+    def print_args(cls):
+        """
+        Prints valid arguments for command line options that require a string.
+        :return:
+        """
+        print('Valid argument values:')
+        [print(' {}: {}'.format(k2, v2)) for k2, v2 in cls._valid_args.items()]
 
     def print_sources(self):
         """
@@ -225,7 +244,7 @@ class CovidData:
                 state_df.loc[:, 'County Name'] = np.NaN
                 fdf = pd.concat([fdf, state_df], ignore_index=True)
         else:
-            sp_df = df.loc[df['Country/Region'] == file_country, :].copy()
+            sp_df = df.loc[df['Country/Region'] == target_country, :].copy()
             sp_df.iloc[:, 5:] = sp_df.iloc[:, 5:].fillna(0)
             country_df = sp_df.head(1).copy()
             country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
@@ -274,7 +293,7 @@ class CovidData:
         Calculate daily percentage growth based on past growth numbers, and populate Median with 3 day median.
         :param df: target dataset
         :type df: pandas.core.frame.DataFrame
-        :param file_zone: 
+        :param file_zone: Zone for data: usa or global
         :type file_zone: str
         :return: New dataframe with cases replaced by growth percentage
         :rtype: pandas.core.frame.DataFrame
@@ -335,7 +354,7 @@ class CovidData:
         report_file_name = None
         table_df = plot_df = pd.DataFrame()
         if self.args.region == 'country':
-            report_file_name = '{}_{}_{}'.format(self.args.type, self.args.region, 'global')
+            report_file_name = '{}_{}_{}_{}'.format(self.args.type, self.args.region, 'global', self.args.response)
 
             # Pre-process data
             temp_df = self.data['global'][self.args.type]
@@ -353,7 +372,8 @@ class CovidData:
             table_df = tdf.iloc[:, col_select]
 
         elif self.args.region == 'state' or self.args.region == 'province':
-            report_file_name = '{}_{}_{}'.format(self.args.type, self.args.region, self.args.country)
+            report_file_name = '{}_{}_{}_{}'.format(self.args.type, self.args.region,
+                                                    self.args.country, self.args.response)
 
             if self.args.country == 'US':
                 # Pre-process data
@@ -386,7 +406,7 @@ class CovidData:
                 table_df = tdf.iloc[:, col_select].copy()
 
         elif self.args.region == 'county':
-            report_file_name = '{}_{}_{}'.format(self.args.type, 'county', self.args.state)
+            report_file_name = '{}_{}_{}_{}'.format(self.args.type, 'county', self.args.state, self.args.response)
 
             # Pre-process data
             temp_df = self.data['usa'][self.args.type]
@@ -403,7 +423,8 @@ class CovidData:
             table_df = tdf.iloc[:, col_select].copy()
 
         elif self.args.region == 'county-state':
-            report_file_name = '{}_{}_{}'.format(self.args.type, 'county-state', self.args.country)
+            report_file_name = '{}_{}_{}_{}'.format(self.args.type, 'county-state',
+                                                    self.args.country, self.args.response)
 
             # Pre-process data
             temp_df = self.data['usa'][self.args.type]
@@ -435,24 +456,25 @@ class CovidData:
                 # TODO - display age of data.
                 name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
                 name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
+                print('', file=fp)
                 print('Top {} {} Report - {}'.format(self.args.length, self.args.region, self.args.type), file=fp)
-                print('  Top {} {} for selected regions with > {} {}.'.format(self.args.length, name_2,
-                                                                              self.args.threshold,
-                                                                              name_1), file=fp)
+                print('  Top {} {} for regions with > {} {} cases'.format(self.args.length, name_2,
+                                                                          self.args.threshold, name_1), file=fp)
                 print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
                 print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
-                with pd.option_context('display.max_rows', None, 'show_dimensions',  False):
+                with pd.option_context('display.max_rows', None, 'show_dimensions', False):
                     table_df.reset_index(drop=True, inplace=True)
                     print(table_df, file=fp)
                 print('', file=fp)
+                data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
+                credit_str = 'Data from the {} extract at {}, Credit: {}'.format(
+                             self.data[data_src]['data_date'],
+                             self._data_source[data_src]['link'],
+                             self._data_source[data_src]['name'])
+                print('\x1B[3m   {}\n   Analytics: {}\x1B[23m'.format(credit_str, self._analytics_source), file=fp)
+                print('', file=fp)
                 if fp != sys.stdout:
                     fp.close()
-                data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
-            print('Data from the {} extract at {}, Credit: {}'.format(
-                self.data[data_src]['data_date'],
-                self._data_source[data_src]['link'],
-                self._data_source[data_src]['name']))
-                # TODO - Display credits.
 
         # Display and/or write plot.
         if plot:
@@ -507,8 +529,8 @@ class CovidData:
             ax.set_yscale('log')
         ax.set_facecolor('#d0dbd5')
         fig.patch.set_facecolor('#eeeeee')
-        plt.figtext(0.99, 0.01, '{}\nAnalytics: {}'.format(credit_str, self._analytics_source),
-                    horizontalalignment='right', fontsize=8)
+        #plt.figtext(0.99, 0.01, '{}\nAnalytics: {}'.format(credit_str, self._analytics_source),
+                    #horizontalalignment='right', fontsize=8)
 
         # Generate Plots
         bar_y = []
@@ -556,6 +578,8 @@ class CovidData:
         name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
         name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
         y_axis_l = 'Highest Last 3 Day Median Growth' if self.args.response == 'growth' else 'Days Since Outbreak'
+        data_desc = 'Top {} {} for regions with > {} {} cases'.format(self.args.length, name_2,
+                                                                      self.args.threshold, name_1)
         if self.args.region == 'country':
             name_region = 'Country'
             x_tick_adjust = 0.25 if self.args.response == 'growth' else 0.1
@@ -574,6 +598,8 @@ class CovidData:
             name_region = 'County for {}'.format(state_name)
             x_tick_adjust = 0.28 if self.args.response == 'growth' else 0.1
 
+        plt.figtext(0.99, 0.01, '{}\n{}\nAnalytics: {}'.format(data_desc, credit_str, self._analytics_source),
+                    horizontalalignment='right', fontsize=8)
         fig.subplots_adjust(bottom=x_tick_adjust)
         ax.set_title('COVID-19 {} {} by {}'.format(name_1, name_2, name_region), fontsize=20)
         plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
@@ -636,6 +662,9 @@ def main():
         print('Version: ', __version__)
         print('Maintainer: ', __maintainer__)
         print('Status: ', __status__)
+        print('')
+        CovidData.print_args()
+        print('')
         sys.exit(0)
 
     plot = True if args.showplot or args.saveplot else False

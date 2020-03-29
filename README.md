@@ -10,10 +10,11 @@ We have used this utility and the bash file included in the repository to genera
 * [Daily Report of Key Plots](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md)
 
 ## covid19-vi
-The *covid19-vi* utility is the main interface for the projects access to the public COVID-19 time series
-data.  The *--download* option is used to retrieve the latest data from the sources defined in the project.
-The data is read with a url request and loaded into a dataframe.  The dataframe is processed with error checkers,
-aggretators, and analytics utilities and then pickled for quicker use by the utility.
+The *covid19-vi* utility is the main interface for the projects access to the public COVID-19
+time series data.  The *--download* option is used to retrieve the latest data from the
+sources defined in the project. The data is read with a url request and loaded into a
+dataframe.  The dataframe is processed with error checkers, aggretators, and analytics
+utilities and then pickled for quicker use by the utility.
 
 Various reports can be generated from the pickled data set by using command line arguments:
 ```
