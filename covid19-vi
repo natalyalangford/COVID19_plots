@@ -55,7 +55,8 @@ class CovidData:
                             'name': 'USA Facts'}}
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
-                   'region': ['country', 'state', 'province', 'county', 'county-state']}
+                   'region': ['country', 'state', 'province', 'county', 'county-state'],
+                   'response': ['log','linear','growth']}
 
     def __init__(self, args, download=False):
         """
@@ -86,9 +87,9 @@ class CovidData:
         # TODO add arg checking for response and threshold
         if self.args.threshold <= 0:
             print('Error in value for --threshold{ {}, must be a positive integer.'.format(self.args.threshold))
-        if self.args.reponse:
-            if re.search(r'[\\/?%*:|"<>]', self.args.repsonse):
-                print('Error in value for --response {}, contains invalid characters'.format(self.args.response))
+        if self.args.reponse not in self._valid_args['response']:
+            print('Error in value for --response {}, does not contain valid response'.format(self.args.response,
+                                                                                             self._valid_args['response']))
         if self.args.type not in self._valid_args['type']:
             print('Error in value for --type {}, valid values are {}'.format(self.args.type,
                                                                              self._valid_args['type']))
