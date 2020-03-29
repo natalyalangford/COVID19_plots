@@ -187,10 +187,12 @@ class CovidData:
                 if zone == 'usa':
                     # Delete rows with null state or county name
                     read_df = read_df.loc[(~read_df['County Name'].isnull() | ~read_df['State'].isnull())].copy()
-                with pd.option_context('display.max_rows', None, 'show_dimensions', False):
-                    print(read_df.head(1))
+                if self.args.debug:
+                    with pd.option_context('display.max_rows', None, 'show_dimensions', False):
+                        print(read_df.head(1))
                 self.data[zone][report_type] = self.read_csv_file(csv_data, zone, read_df)
                 self.data[zone]['data_date'] = self.data[zone][report_type].columns[-5]
+                print('  Last data date: {}, Data size: {}'.format(self.data[zone]['data_date'], read_df.shape))
             self.data[zone]['download_date'] = datetime.utcnow()
 
         # Save pickle file.
