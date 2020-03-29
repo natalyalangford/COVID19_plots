@@ -121,6 +121,7 @@ class CovidData:
 
     def print_sources(self):
         """
+        Formatted print of data sources used by this utility.
         :return: None
         """
         for k, v in self._covid_data.items():
@@ -178,8 +179,11 @@ class CovidData:
     @staticmethod
     def aggregate_world(df):
         """
-        :param df: dataframe
-        :return: list
+        Aggregate global total from country level data.
+        :param df: Target dataframe
+        :type df: pandas.core.frame.DataFrame
+        :return: Dataframe with aggregation row added
+        :rtype: pandas.core.frame.DataFrame
         """
         ac_df = df.loc[df['Province/State'].isnull()].copy()
         ac_df.iloc[:, 5:] = ac_df.iloc[:, 5:].fillna(0)
@@ -193,13 +197,17 @@ class CovidData:
         return fdf
 
     @staticmethod
-    def aggregate_state_prov(df, file_country):
+    def aggregate_state_prov(df, target_country):
         """
-        :param df:
-        :param file_country:
-        :return: list
+        Aggregate state/province level data to country totals.
+        :param df: Target dataframe
+        :type df: pandas.core.frame.DataFrame
+        :param target_country: Country for aggregation
+        :type target_country: str
+        :return: dataframe with aggregation row added
+        :rtype: pandas.core.frame.DataFrame
         """
-        if file_country == 'US':
+        if target_country == 'US':
             fdf = df.copy()
             state_list = df['State'].unique()
             # TODO - Need to replace with pivot
@@ -225,8 +233,11 @@ class CovidData:
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
         :param file_name: File name of the csv file to be processed.
+        :type file_name: str
         :param zone: global or usa file source.
-        :param df:
+        :type zone: str
+        :param df: dataframe to use instead of reading csv file.
+        :type df: pandas.core.frame.DataFrame
         :return: list
         """
         if df is None:
@@ -256,7 +267,7 @@ class CovidData:
     @staticmethod
     def day_percent_growth(df, file_zone):
         """
-        Calculate latest percentage growth based on past growth numbers.
+        Calculate daily percentage growth based on past growth numbers, and populate Median with 3 day median.
         :param df: target dataset
         :type df: pandas.core.frame.DataFrame
         :param file_zone: 
@@ -446,9 +457,10 @@ class CovidData:
     def plot(self, pdf, plot_fname):
         """
         Plot the target dataframe to file or display.
-        :param pdf:
+        :param pdf: Target dataframe
         :type pdf: pandas.core.frame.DataFrame
         :param plot_fname: Plot filename used if saveplot is specified.
+        :type plot_fname: str
         :return: None
         """
         # Basic report parameters
@@ -557,7 +569,7 @@ class CovidData:
 
         # Output plot
         if self.args.saveplot:
-            plt.savefig(plot_fname, quality=95, optimize=True)
+            plt.savefig(plot_fname, quality=90, optimize=True)
         if self.args.showplot:
             plt.show()
 
