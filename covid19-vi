@@ -549,18 +549,21 @@ class CovidData:
         y_axis_l = 'Highest Last 3 Day Median Growth' if self.args.response == 'growth' else 'Days Since Outbreak'
         if self.args.region == 'country':
             name_region = 'Country'
-            x_tick_adjust = 0.25
+            x_tick_adjust = 0.25 if self.args.response == 'growth' else 0.1
         elif self.args.region == 'state' or self.args.region == 'province':
             ps = 'State' if self.args.country == 'US' else 'Province/State'
             name_region = '{} for {}'.format(ps, self.args.country)
-            x_tick_adjust = 0.15 if self.args.country == 'US' else 0.32
+            if self.args.country == 'US':
+                x_tick_adjust = 0.15 if self.args.response == 'growth' else 0.1
+            else:
+                x_tick_adjust = 0.32 if self.args.response == 'growth' else 0.1
         elif self.args.region == 'county-state':
             name_region = '{} {}'.format('US', 'County, State')
-            x_tick_adjust = 0.32
+            x_tick_adjust = 0.32 if self.args.response == 'growth' else 0.1
         else:
             state_name = ussa.abbrev_us_state[self.args.state]
             name_region = 'County for {}'.format(state_name)
-            x_tick_adjust = 0.28
+            x_tick_adjust = 0.28 if self.args.response == 'growth' else 0.1
 
         fig.subplots_adjust(bottom=x_tick_adjust)
         ax.set_title('COVID-19 {} {} by {}'.format(name_1, name_2, name_region), fontsize=20)
