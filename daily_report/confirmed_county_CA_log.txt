@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
-  Top 20 Cases for regions with > None Confirmed cases
-  Extract downloaded: 2020-03-29 14:40:21.297600 UTC
-  Data last data point date: 3/28/20
-               County Name State  3/25/2020  3/26/2020  3/27/2020  3/28/2020  Yesterday  Total  DayIncrease  %DayIncrease
-0                    Total    CA       3176       4035       4872       5657       4872   5657          785          16.1
-1       Los Angeles County    CA        799       1216       1465       1804       1465   1804          339          23.1
-2       Santa Clara County    CA        459        542        574        591        574    591           17           3.0
-3         San Diego County    CA        297        341        417        488        417    488           71          17.0
-4            Orange County    CA        187        256        321        403        321    403           82          25.5
-5     San Francisco County    CA        178        223        279        308        279    308           29          10.4
-6         San Mateo County    CA        165        195        239        274        239    274           35          14.6
-7           Alameda County    CA        135        163        220        256        220    256           36          16.4
-8         Riverside County    CA        107        107        185        195        185    195           10           5.4
-9      Contra Costa County    CA        108        131        151        168        151    168           17          11.3
-10       Sacramento County    CA        113        113        164        164        164    164            0           0.0
-11      San Joaquin County    CA         71         83         93        108         93    108           15          16.1
-12          Ventura County    CA         50         61         61         98         61     98           37          60.7
-13   San Bernardino County    CA         54         55         64         76         64     76           12          18.8
-14            Marin County    CA         60         65         68         74         68     74            6           8.8
-15  San Luis Obispo County    CA         46         54         59         67         59     67            8          13.6
-16    Santa Barbara County    CA         26         42         47         64         47     64           17          36.2
-17           Sonoma County    CA         39         41         41         54         41     54           13          31.7
-18             Kern County    CA         23         32         40         46         40     46            6          15.0
-19           Placer County    CA         30         30         41         44         41     44            3           7.3
+  Top 20 Cases for regions, threshold = None Confirmed cases
+  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Data last data point date: 3/27/20
+               County Name State  3/23/20  3/24/20  3/25/20  3/26/20  Yesterday  Total  DayIncrease  %DayIncrease
+0                    Total    CA     2253     2641     3176     4043       3176   4043          867          27.3
+1       Los Angeles County    CA      536      662      799     1216        799   1216          417          52.2
+2       Santa Clara County    CA      321      375      459      542        459    542           83          18.1
+3         San Diego County    CA      230      242      297      341        297    341           44          14.8
+4            Orange County    CA      125      152      187      256        187    256           69          36.9
+5     San Francisco County    CA      131      152      178      223        178    223           45          25.3
+6         San Mateo County    CA      142      161      165      195        165    195           30          18.2
+7           Alameda County    CA      122      124      135      163        135    163           28          20.7
+8      Contra Costa County    CA       71       86      108      131        108    131           23          21.3
+9        Sacramento County    CA       88       88      113      113        113    113            0           0.0
+10        Riverside County    CA       47       59      107      107        107    107            0           0.0
+11      San Joaquin County    CA       51       60       71       83         71     83           12          16.9
+12            Marin County    CA       47       53       60       65         60     65            5           8.3
+13          Ventura County    CA       35       39       50       61         50     61           11          22.0
+14   San Bernardino County    CA       17       38       54       55         54     55            1           1.9
+15  San Luis Obispo County    CA       33       42       46       54         46     54            8          17.4
+16           Sonoma County    CA       29       34       39       49         39     49           10          25.6
+17    Santa Barbara County    CA       18       24       26       42         26     42           16          61.5
+18           Solano County    CA       21       24       31       34         31     34            3           9.7
+19       Santa Cruz County    CA       22       24       25       32         25     32            7          28.0
 
-   Data from the 3/28/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the 3/26/20 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

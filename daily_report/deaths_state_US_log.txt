@@ -1,30 +1,30 @@
 
 Top 20 state Report - deaths
-  Top 20 Cases for regions with > None Deaths cases
-  Extract downloaded: 2020-03-29 14:40:21.297600 UTC
-  Data last data point date: 3/28/20
-   State  3/23/2020  3/24/2020  3/25/2020  3/26/2020  3/27/2020  3/28/2020  Yesterday  Total  DayIncrease  %DayIncrease
-0     NY        156        236        342        439        544        785        544    785          241          44.3
-1     WA        110        123        132        147        184        189        184    189            5           2.7
-2     NJ         27         44         62         80        108        140        108    140           32          29.6
-3     LA         34         45         65         83        119        137        119    137           18          15.1
-4     CA         40         52         67         83        100        121        100    121           21          21.0
-5     MI         15         24         43         60         91        111         91    111           20          22.0
-6     GA         26         37         46         55         65         79         65     79           14          21.5
-7     FL         19         21         25         30         46         56         46     56           10          21.7
-8     IL         11         16         18         26         29         47         29     47           18          62.1
-9     MA          9         11         15         25         35         44         35     44            9          25.7
-10    CO          7         11         19         24         31         44         31     44           13          41.9
-11    PA          6          7         11         16         22         34         22     34           12          54.5
-12    CT         10         12         19         21         27         33         27     33            6          22.2
-13    IN          7          9         14         15         15         31         15     31           16         106.7
-14    TX          9         11         15         22         24         31         24     31            7          29.2
-15    OH          6          8         10         16         19         25         19     25            6          31.6
-16    VA          6          6          8          8         13         17         13     17            4          30.8
-17    SC          5          7          7         10          9         15          9     15            6          66.7
-18    OK          2          3          5          7          7         15          7     15            8         114.3
-19    AZ          2          5          5          8         13         15         13     15            2          15.4
+  Top 20 Cases for regions, threshold = None Deaths cases
+  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Data last data point date: 3/27/20
+   State  3/21/20  3/22/20  3/23/20  3/24/20  3/25/20  3/26/20  Yesterday  Total  DayIncrease  %DayIncrease
+0     NY       57      116      156      236      335      436        335    436          101          30.1
+1     WA       94       95      110      123      132      147        132    147           15          11.4
+2     CA       29       33       40       52       67       83         67     83           16          23.9
+3     LA       20       20       34       45       65       83         65     83           18          27.7
+4     NJ       16       24       27       44       62       80         62     80           18          29.0
+5     MI        5        7       15       24       43       60         43     60           17          39.5
+6     GA       20       20       26       38       47       56         47     56            9          19.1
+7     FL       10       13       19       21       25       30         25     30            5          20.0
+8     IL        6        8       11       16       18       26         18     26            8          44.4
+9     MA        2        5        9       11       15       25         15     25           10          66.7
+10    CO        6        7        7       11       19       24         19     24            5          26.3
+11    TX        5        5        9       11       15       22         15     22            7          46.7
+12    CT        5        8       10       12       19       21         19     21            2          10.5
+13    OH        3        3        6        8       10       16         10     16            6          60.0
+14    PA        2        2        6        7       11       16         11     16            5          45.5
+15    IN        4        6        7        9       14       15         14     15            1           7.1
+16    OR        4        4        5        5       10       11         10     11            1          10.0
+17    NV        2        2        4        6       10       10         10     10            0           0.0
+18    SC        3        3        5        7        7        9          7      9            2          28.6
+19    VA        3        6        7        7        9        9          9      9            0           0.0
 
-   Data from the 3/28/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the 3/26/20 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

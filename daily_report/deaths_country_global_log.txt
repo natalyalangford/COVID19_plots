@@ -1,30 +1,30 @@
 
 Top 20 country Report - deaths
-  Top 20 Cases for regions with > None Deaths cases
-  Extract downloaded: 2020-03-29 14:40:21.297600 UTC
-  Data last data point date: 3/28/20
-    Country/Region  3/22/20  3/23/20  3/24/20  3/25/20  3/26/20  3/27/20  3/28/20  Yesterday  Total  DayIncrease  %DayIncrease
-0           Global    14651    16505    18625    21181    23970    27198    30652      27198  30652         3454          12.7
-1            Italy     5476     6077     6820     7503     8215     9134    10023       9134  10023          889           9.7
-2            Spain     1772     2311     2808     3647     4365     5138     5982       5138   5982          844          16.4
-3            China     3274     3274     3281     3285     3291     3296     3299       3296   3299            3           0.1
-4             Iran     1685     1812     1934     2077     2234     2378     2517       2378   2517          139           5.8
-5           France      676      862     1102     1333     1698     1997     2317       1997   2317          320          16.0
-6               US      417      557      706      942     1209     1581     2026       1581   2026          445          28.1
-7   United Kingdom      282      336      423      466      580      761     1021        761   1021          260          34.2
-8      Netherlands      180      214      277      357      435      547      640        547    640           93          17.0
-9          Germany       94      123      157      206      267      342      433        342    433           91          26.6
-10         Belgium       75       88      122      178      220      289      353        289    353           64          22.1
-11     Switzerland       98      120      122      153      191      231      264        231    264           33          14.3
-12    Korea, South      111      111      120      126      131      139      144        139    144            5           3.6
-13          Brazil       25       34       46       59       77       92      111         92    111           19          20.7
-14          Turkey       30       37       44       59       75       92      108         92    108           16          17.4
-15          Sweden       21       25       36       62       77      105      105        105    105            0           0.0
-16       Indonesia       48       49       55       58       78       87      102         87    102           15          17.2
-17        Portugal       14       23       33       43       60       76      100         76    100           24          31.6
-18         Austria       16       21       28       30       49       58       68         58     68           10          17.2
-19     Philippines       25       33       35       38       45       54       68         54     68           14          25.9
+  Top 20 Cases for regions, threshold = None Deaths cases
+  Extract downloaded: 2020-03-28 00:07:03.279660 UTC
+  Data last data point date: 3/27/20
+    Country/Region  3/21/20  3/22/20  3/23/20  3/24/20  3/25/20  3/26/20  3/27/20  Yesterday  Total  DayIncrease  %DayIncrease
+0           Global    12973    14651    16505    18625    21181    23970    27198      23970  27198         3228          13.5
+1            Italy     4825     5476     6077     6820     7503     8215     9134       8215   9134          919          11.2
+2            Spain     1375     1772     2311     2808     3647     4365     5138       4365   5138          773          17.7
+3            China     3259     3274     3274     3281     3285     3291     3296       3291   3296            5           0.2
+4             Iran     1556     1685     1812     1934     2077     2234     2378       2234   2378          144           6.4
+5           France      563      676      862     1102     1333     1698     1997       1698   1997          299          17.6
+6               US      307      417      557      706      942     1209     1581       1209   1581          372          30.8
+7   United Kingdom      234      282      336      423      466      580      761        580    761          181          31.2
+8      Netherlands      137      180      214      277      357      435      547        435    547          112          25.7
+9          Germany       84       94      123      157      206      267      342        267    342           75          28.1
+10         Belgium       67       75       88      122      178      220      289        220    289           69          31.4
+11     Switzerland       75       98      120      122      153      191      231        191    231           40          20.9
+12    Korea, South      102      111      111      120      126      131      139        131    139            8           6.1
+13          Sweden       20       21       25       36       62       77      105         77    105           28          36.4
+14          Turkey        9       30       37       44       59       75       92         75     92           17          22.7
+15          Brazil       15       25       34       46       59       77       92         77     92           15          19.5
+16       Indonesia       38       48       49       55       58       78       87         78     87            9          11.5
+17        Portugal       12       14       23       33       43       60       76         60     76           16          26.7
+18         Austria        8       16       21       28       30       49       58         49     58            9          18.4
+19     Philippines       19       25       33       35       38       45       54         45     54            9          20.0
 
-   Data from the 3/28/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 3/27/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
