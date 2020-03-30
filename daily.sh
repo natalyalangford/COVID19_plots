@@ -20,8 +20,9 @@
 ###########################################################################
 set -x
 # Download Data
-./covid19-vi --download
+#./covid19-vi --download
 # Global Reports
+./covid19-vi --type confirmed --region country --length 100 --threshold 100 --response trajectory --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 30 --threshold 200 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 20 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region country --length 30 --threshold 10 --response new-total --saveplot --savedir daily_report
