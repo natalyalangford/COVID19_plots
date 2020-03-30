@@ -573,7 +573,7 @@ class CovidData:
                     start = False
 
                     # Modify x from cumulative per day starting at 0 to starting at threshold
-                    x = [y_val for i, y_val in enumerate(y) if min(y[i:]) >= thresh]
+                    x = [y_val for i, y_val in enumerate(y) if min(y[i:]) > thresh]
 
                     # Create y as incremental cases per day
                     # TODO - will list comprehension apply here
@@ -592,6 +592,9 @@ class CovidData:
                     for i in range(lookback, len(y)):
                         y[i] = float(np.nansum(y_orig[i-lookback: i]))/float(lookback - 1)
 
+                    x = x[1:]
+                    y = y[1:]
+                    if self.args.debug: print('x = {}\ny = {}'.format(x[:10], y[:10]))
                     ax.plot(x, y, label=lname)
                     ax.text(x=x[-1], y=y[-1], s=pname,
                             bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
