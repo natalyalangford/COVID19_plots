@@ -19,6 +19,8 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ###########################################################################
 set -x
+# Download Data
+./covid19-vi --download
 # Global Reports
 ./covid19-vi --type confirmed --region country --length 30 --threshold 200 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 20 --saveplot --savetable --savedir daily_report
