@@ -85,9 +85,6 @@ class CovidData:
                              'deaths': None,
                              'recoveries': None}}
         self.args = args
-        if not self.chk_args():
-            print('Error: invalid arguments.')
-            sys.exit(-10)
         if not self.read_datafile(download=download):
             print('Error: error while downloading sources.')
             sys.exit(-20)
@@ -99,38 +96,38 @@ class CovidData:
         :return: True if check passes else False
         :rtype: bool
         """
-        if self.args.threshold:
-            if self.args.threshold <= 0:
-                print('Error in value for --threshold {}, must be a positive integer.'.format(self.args.threshold))
+        if cls.args.threshold:
+            if cls.args.threshold <= 0:
+                print('Error in value for --threshold {}, must be a positive integer.'.format(cls.args.threshold))
                 return False
-        if self.args.response not in self._valid_args['response']:
-            print('Error in value for --response {}, valid values are {}'.format(self.args.response,
-                                                                                 self._valid_args['response']))
+        if cls.args.response not in cls._valid_args['response']:
+            print('Error in value for --response {}, valid values are {}'.format(cls.args.response,
+                                                                                 cls._valid_args['response']))
             return False
-        if self.args.type not in self._valid_args['type']:
-            print('Error in value for --type {}, valid values are {}'.format(self.args.type,
-                                                                             self._valid_args['type']))
+        if cls.args.type not in cls._valid_args['type']:
+            print('Error in value for --type {}, valid values are {}'.format(cls.args.type,
+                                                                             cls._valid_args['type']))
             return False
-        if self.args.region not in self._valid_args['region']:
-            print('Error in value for --region {}, valid values are {}'.format(self.args.region,
-                                                                               self._valid_args['region']))
+        if cls.args.region not in cls._valid_args['region']:
+            print('Error in value for --region {}, valid values are {}'.format(cls.args.region,
+                                                                               cls._valid_args['region']))
             return False
-        if self.args.state not in ussa.us_state_abbrev.values():
-            print('Error in value for --state {}, {} is not a valid US state abbreviation'.format(self.args.state,
-                                                                                                  self.args.state))
+        if cls.args.state not in ussa.us_state_abbrev.values():
+            print('Error in value for --state {}, {} is not a valid US state abbreviation'.format(cls.args.state,
+                                                                                                  cls.args.state))
             print('Valid state abbreviations: {}'.format(list(ussa.abbrev_us_state.keys())))
             return False
-        if self.args.length <= 0:
-            print('Error in value for --length {}, must be positive integer.'.format(self.args.length))
+        if cls.args.length <= 0:
+            print('Error in value for --length {}, must be positive integer.'.format(cls.args.length))
             return False
-        if self.args.savedir:
-            if re.search(r'[\\/?%*:|\"<>]', self.args.savedir):
-                print('Error in value for --savedir {}, contains invalid characters'.format(self.args.savedir))
+        if cls.args.savedir:
+            if re.search(r'[\\/?%*:|\"<>]', cls.args.savedir):
+                print('Error in value for --savedir {}, contains invalid characters'.format(cls.args.savedir))
                 return False
-            if re.search(r'[\s]', self.args.savedir):
+            if re.search(r'[\s]', cls.args.savedir):
                 print('Error in value for --savedir ',
                       '{}, there is a special place in hell for people who use spaces in directory names.'.format(
-                          self.args.savedir))
+                          cls.args.savedir))
                 return False
         return True
 
@@ -706,6 +703,10 @@ def main():
         CovidData.print_args()
         print('')
         sys.exit(0)
+
+    if not CovidData.chk_args():
+        print('Error: invalid arguments.')
+        sys.exit(-10)
 
     plot = True if args.showplot or args.saveplot else False
     table = True if args.showtable or args.savetable else False
