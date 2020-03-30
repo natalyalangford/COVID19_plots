@@ -91,8 +91,9 @@ class CovidData:
         if not self.read_datafile(download=download):
             print('Error: error while downloading sources.')
             sys.exit(-20)
-
-    def chk_args(self):
+            
+    @classmethod
+    def chk_args(cls):
         """
         Argument error checking used by this utility.
         :return: True if check passes else False
