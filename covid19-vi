@@ -594,6 +594,8 @@ class CovidData:
 
                     x = x[1:]
                     y = y[1:]
+                    if not len(y):
+                        continue
                     if self.args.debug: print('x = {}\ny = {}'.format(x[:10], y[:10]))
                     ax.plot(x, y, label=lname)
                     ax.text(x=x[-1], y=y[-1], s=pname,
