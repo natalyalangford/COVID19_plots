@@ -461,8 +461,8 @@ class CovidData:
                 markup = ('\x1B[3m', '\x1B[23m') if fp == sys.stdout else ('', '')
                 print('', file=fp)
                 print('Top {} {} Report - {}'.format(self.args.length, self.args.region, self.args.type), file=fp)
-                print('  Top {} {} for regions with > {} {} cases'.format(self.args.length, name_2,
-                                                                          self.args.threshold, name_1), file=fp)
+                print('  Top {} {} for regions, threshold = {} {} cases'.format(self.args.length, name_2,
+                                                                                self.args.threshold, name_1), file=fp)
                 print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
                 print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
                 with pd.option_context('display.max_rows', None, 'show_dimensions', False):
@@ -566,20 +566,29 @@ class CovidData:
                 bar_l.append('{}'.format(lname))
             else:
                 if self.args.response == 'new-total':
-                    thresh = 5 if self.args.type == 'deaths' else 100
+                    if self.args.threshold:
+                        thresh = self.args.threshold
+                    else:
+                        thresh = 5 if self.args.type == 'deaths' else 100
                     start = False
-                    x = [y_val for i, y_val in enumerate(y) if min(y[i:]) > thresh]
-                    y = x[:]
+
+                    # Modify x from cumulative per day starting at 0 to starting at threshold
+                    x = [y_val for i, y_val in enumerate(y) if min(y[i:]) >= thresh]
+
+                    # Create y as incremental cases per day
                     # TODO - will list comprehension apply here
+                    y = x[:]
+                    # y = [x0 - xp for x0, xp in (x, x[1:])]
                     for i in range(0, len(x)):
                         if i == 0:
                             y[i] = x[i] if x[i] > 0 else np.NaN
                         else:
                             y[i] = (x[i] - x[i-1]) if (x[i] - x[i-1]) > 0 else np.NaN
 
+                    # Modify y to a moving average
+                    # TODO - will list comprehension apply here
                     lookback = 3
                     y_orig = y[:]
-                    # TODO - will list comprehension apply here
                     for i in range(lookback, len(y)):
                         y[i] = float(np.nansum(y_orig[i-lookback: i]))/float(lookback - 1)
 
@@ -598,14 +607,14 @@ class CovidData:
             ax.bar(np.arange(len(bar_y)), bar_y, tick_label=bar_l)
         else:
             ax.grid(True)
-            ax.legend(loc="upper left")
+            ax.legend(loc="upper left", fontsize=8)
 
         # Now add details to the plot
         name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
         name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
         y_axis_l = 'Highest Last 3 Day Median Growth' if self.args.response == 'growth' else 'Days Since Outbreak'
-        data_desc = 'Top {} {} for regions with > {} {} cases'.format(self.args.length, name_2,
-                                                                      self.args.threshold, name_1)
+        data_desc = 'Top {} {} for regions, threshold = {} {} cases'.format(self.args.length, name_2,
+                                                                            self.args.threshold, name_1)
         if self.args.region == 'country':
             name_region = 'Country'
             x_tick_adjust = 0.25 if self.args.response == 'growth' else 0.1
