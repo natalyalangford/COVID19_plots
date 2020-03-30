@@ -1,0 +1,30 @@
+
+Top 20 county-state Report - deaths
+  Top 20 Cases for regions, threshold = None Deaths cases
+  Extract downloaded: 2020-03-30 03:23:54.255468 UTC
+  Data last data point date: 3/29/20
+           County Name State  3/25/2020  3/26/2020  3/27/2020  3/28/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0        Queens County    NY         92        124        149        216        149    216           67          45.0
+1         Kings County    NY         64         81        102        167        102    167           65          63.7
+2         Bronx County    NY         60         79        101        152        101    152           51          50.5
+3          King County    WA        100        109        125        136        125    136           11           8.8
+4      New York County    NY         43         55         65         93         65     93           28          43.1
+5       Orleans Parish    LA         37         46         57         70         57     70           13          22.8
+6         Wayne County    MI         21         26         37         46         37     46            9          24.3
+7      Richmond County    NY         21         26         33         43         33     43           10          30.3
+8       Suffolk County    NY         20         22         30         37         30     37            7          23.3
+9        Nassau County    NY         17         19         27         35         27     35            8          29.6
+10  Los Angeles County    CA         13         21         26         32         26     32            6          23.1
+11       Bergen County    NJ         14         17         24         31         24     31            7          29.2
+12      Oakland County    MI         10         15         26         31         26     31            5          19.2
+13         Cook County    IL         13         18         20         28         20     28            8          40.0
+14    Jefferson Parish    LA          7         12         24         26         24     26            2           8.3
+15  Santa Clara County    CA         17         19         20         25         20     25            5          25.0
+16    Snohomish County    WA         16         16         23         23         23     23            0           0.0
+17    Fairfield County    CT         12         13         15         20         15     20            5          33.3
+18       Macomb County    MI          7         11         14         17         14     17            3          21.4
+19    Dougherty County    GA          6          6         13         17         13     17            4          30.8
+
+   Data from the 3/28/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Analytics: https://github.com/natalyalangford/COVID19_plots
+
