@@ -1,7 +1,7 @@
 
 Top 20 country Report - confirmed
   Top 20 Cases for regions, threshold = None Confirmed cases
-  Extract downloaded: 2020-03-30 03:23:54.255468 UTC
+  Extract downloaded: 2020-03-30 10:56:17.861737 UTC
   Data last data point date: 3/29/20
     Country/Region  3/23/20  3/24/20  3/25/20  3/26/20  3/27/20  3/28/20  3/29/20  Yesterday   Total  DayIncrease  %DayIncrease
 0           Global   378235   418045   467653   529591   593291   660706   720117     660706  720117        59411           9.0
