@@ -90,44 +90,45 @@ class CovidData:
             sys.exit(-20)
 
     @classmethod
-    def chk_args(cls):
+    def chk_args(cls, args):
         """
         Argument error checking used by this utility.
+        :param args: args from args.parser
         :return: True if check passes else False
         :rtype: bool
         """
-        if cls.args.threshold:
-            if cls.args.threshold <= 0:
-                print('Error in value for --threshold {}, must be a positive integer.'.format(cls.args.threshold))
+        if args.threshold:
+            if args.threshold <= 0:
+                print('Error in value for --threshold {}, must be a positive integer.'.format(args.threshold))
                 return False
-        if cls.args.response not in cls._valid_args['response']:
-            print('Error in value for --response {}, valid values are {}'.format(cls.args.response,
+        if args.response not in cls._valid_args['response']:
+            print('Error in value for --response {}, valid values are {}'.format(args.response,
                                                                                  cls._valid_args['response']))
             return False
-        if cls.args.type not in cls._valid_args['type']:
-            print('Error in value for --type {}, valid values are {}'.format(cls.args.type,
+        if args.type not in cls._valid_args['type']:
+            print('Error in value for --type {}, valid values are {}'.format(args.type,
                                                                              cls._valid_args['type']))
             return False
-        if cls.args.region not in cls._valid_args['region']:
-            print('Error in value for --region {}, valid values are {}'.format(cls.args.region,
+        if args.region not in cls._valid_args['region']:
+            print('Error in value for --region {}, valid values are {}'.format(args.region,
                                                                                cls._valid_args['region']))
             return False
-        if cls.args.state not in ussa.us_state_abbrev.values():
-            print('Error in value for --state {}, {} is not a valid US state abbreviation'.format(cls.args.state,
-                                                                                                  cls.args.state))
+        if args.state not in ussa.us_state_abbrev.values():
+            print('Error in value for --state {}, {} is not a valid US state abbreviation'.format(args.state,
+                                                                                                  args.state))
             print('Valid state abbreviations: {}'.format(list(ussa.abbrev_us_state.keys())))
             return False
-        if cls.args.length <= 0:
-            print('Error in value for --length {}, must be positive integer.'.format(cls.args.length))
+        if args.length <= 0:
+            print('Error in value for --length {}, must be positive integer.'.format(args.length))
             return False
-        if cls.args.savedir:
-            if re.search(r'[\\/?%*:|\"<>]', cls.args.savedir):
-                print('Error in value for --savedir {}, contains invalid characters'.format(cls.args.savedir))
+        if args.savedir:
+            if re.search(r'[\\/?%*:|\"<>]', args.savedir):
+                print('Error in value for --savedir {}, contains invalid characters'.format(args.savedir))
                 return False
-            if re.search(r'[\s]', cls.args.savedir):
+            if re.search(r'[\s]', args.savedir):
                 print('Error in value for --savedir ',
                       '{}, there is a special place in hell for people who use spaces in directory names.'.format(
-                          cls.args.savedir))
+                          args.savedir))
                 return False
         return True
 
@@ -140,12 +141,13 @@ class CovidData:
         print('Valid argument values:')
         [print(' {}: {}'.format(k2, v2)) for k2, v2 in cls._valid_args.items()]
 
-    def print_sources(self):
+    @classmethod
+    def print_sources(cls):
         """
         Formatted print of data sources used by this utility.
         :return: None
         """
-        for k, v in self._covid_data.items():
+        for k, v in cls._covid_data.items():
             print(k)
             [print(' {}: {}'.format(k2, v2)) for k2, v2 in v.items()]
 
@@ -704,17 +706,17 @@ def main():
         print('')
         sys.exit(0)
 
-    if not CovidData.chk_args():
+    if not CovidData.chk_args(args):
         print('Error: invalid arguments.')
         sys.exit(-10)
+
+    if args.sources:
+        CovidData.print_sources()
 
     plot = True if args.showplot or args.saveplot else False
     table = True if args.showtable or args.savetable else False
 
     covid_data = CovidData(args=args, download=args.download)
-
-    if args.sources:
-        covid_data.print_sources()
 
     if table or plot:
         covid_data.top_ten(plot=plot)
