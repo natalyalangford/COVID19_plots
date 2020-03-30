@@ -20,18 +20,18 @@
 ###########################################################################
 set -x
 # Global Reports
-./covid19-vi --type confirmed --region country --length 20 --threshold 1000 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region country --length 20 --threshold 200 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 20 --saveplot --savetable --savedir daily_report
-./covid19-vi --type deaths --region country --length 20 --threshold 100 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 20 --threshold 10 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type deaths --region country --length 20 --saveplot --savetable --savedir daily_report
 
 # US Reports by State
-./covid19-vi --type confirmed --region state --country US --length 20 --threshold 20 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region state --country US --length 20 --threshold 100 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 20 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region state --country US --length 20 --saveplot --savetable --savedir daily_report
 
 # US Reports by County
-./covid19-vi --type confirmed --region county-state --country US --length 20 --threshold 20 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region county-state --country US --length 20 --threshold 100 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region county-state --country US --length 20 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region county-state --country US --length 20 --saveplot --savetable --savedir daily_report
 

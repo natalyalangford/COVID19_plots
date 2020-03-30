@@ -33,7 +33,7 @@ optional arguments:
   --state STATE          name of state for county reports
   --region REGION        scope of report: country, state, province, county, county-state
   --type TYPE            type of report: confirmed, deaths
-  --response RESPONSE    response: log, linear, growth
+  --response RESPONSE    response: log, linear, growth, new-total
   --sources              list sources used by this utility
   --download             download data from sources and save local pickle
   --saveplot             save plot output to a file
@@ -81,6 +81,7 @@ seem to be lagging what others are reporting.
 * Data aggregation function is kludgy and should be rewritten using pivot.
 
 ## History
+* 29-Mar-20: Implemented new vs total plots
 * 26-Mar-20: Corrected error in downloading from USA Facts (removed urllib3)
 * 25-Mar-20: Started publishing
 [daily report](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md).
