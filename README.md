@@ -29,6 +29,7 @@ optional arguments:
   --about                display information about this utility
   --length LENGTH        data length for sorted reports
   --threshold THRESHOLD  threshold of case number to be included
+  --dsw DSW              integer size of the data smooting window
   --country COUNTRY      name of country for state/province reports
   --state STATE          name of state for county reports
   --region REGION        scope of report: country, state, province, county, county-state
