@@ -97,6 +97,9 @@ class CovidData:
         :return: True if check passes else False
         :rtype: bool
         """
+        if args.dsw < 1:
+            print('Error in value for --dsw {}, must be an integer > 0.'.format(args.dsw))
+            return False
         if args.threshold:
             if args.threshold <= 0:
                 print('Error in value for --threshold {}, must be a positive integer.'.format(args.threshold))
@@ -536,6 +539,7 @@ class CovidData:
         # Generate Plots
         bar_y = []
         bar_l = []
+        max_days = 0
         for pname in plot_item_names:
             # Get parameter values as y
             if self.args.region == 'country':
@@ -586,6 +590,7 @@ class CovidData:
                 y = self.start_at_threshold(y, thresh)
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 if len(y) < 10: continue
+                max_days = len(y) if len(y) > max_days else max_days
                 ax.set_yscale('log')
                 ax.plot(y, label=lname)
                 ax.text(x=len(y)-1, y=y[-1], s=pname,
@@ -606,16 +611,17 @@ class CovidData:
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
             plt.xlabel('Highest Last {} Day Median Growth'.format(self.args.dsw), fontsize=16)
         elif self.args.response == 'trajectory':
-            """
-            for d2d in [1, 2, 3, 4]:
+            # Plot reference rate lines
+            for d2d in [1, 2, 4, 7, 10]:
                 ref_y = [100]
-                for i in range(1, 10):
-                    ref_y.append(ref_y[-1]*(2**(1/d2d))**i)
+                for i in range(1, d2d*(10 + 1)):
+                    ref_y.append(ref_y[0]*(2**(1/d2d))**i)
                 lname = pname = '2x/{}Day'.format(d2d)
-                ax.plot(ref_y, label=lname, color='#333333')
-                ax.text(x=len(ref_y), y=ref_y[-1], s=pname,
-                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
-            """
+                if len(ref_y) > max_days: ref_y = ref_y[0:max_days]
+                ax.plot(ref_y, label=lname, color='#444444', linestyle=':', linewidth=2)
+                with plt.style.context({'text.color': '#ffffff'}):
+                    ax.text(x=len(ref_y)-1, y=ref_y[-1], s=pname,
+                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#444444'), fontsize=6)
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
             plt.xlabel('Days Since 100 {}'.format(name_1), fontsize=16)
             ax.grid(True)
