@@ -289,10 +289,9 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
         return df
 
-    @staticmethod
-    def day_percent_growth(df, file_zone):
+    def day_percent_growth(self, df, file_zone):
         """
-        Calculate daily percentage growth based on past growth numbers, and populate Median with 3 day median.
+        Calculate daily percentage growth based on past growth numbers, and populate Median with dsw day median.
         :param df: target dataset
         :type df: pandas.core.frame.DataFrame
         :param file_zone: Zone for data: usa or global
@@ -309,7 +308,9 @@ class CovidData:
         with pd.option_context('mode.use_inf_as_na', True):
             dpd_df.iloc[:, series_start:series_end] = dpd_df.iloc[:, series_start:series_end].fillna(0.0)
         dpd_df.loc[:, 'Cases'] = dpd_df.loc[:, 'Total']
-        dpd_df.loc[:, 'Total'] = dpd_df.iloc[:, series_end-3:series_end].median(axis=1, skipna=True, numeric_only=True)
+        dpd_df.loc[:, 'Total'] = dpd_df.iloc[:, series_end - self.args.dsw:series_end].median(axis=1,
+                                                                                              skipna=True,
+                                                                                              numeric_only=True)
         dpd_df = dpd_df.rename(columns={'Total': 'Median'})
         dpd_df = dpd_df.drop('%DayIncrease', axis=1)
         dpd_df = dpd_df.drop('Yesterday', axis=1)
@@ -559,51 +560,30 @@ class CovidData:
             y = list(y.iloc[0, col_select])
 
             # Construct legend name with values
-            lname = '{} ({})'.format(pname[:trunc_len], total)
+            if isinstance(total, int):
+                lname = '{} ({})'.format(pname[:trunc_len], total)
+            else:
+                lname = '{} ({})'.format(pname[:trunc_len], round(total, 1))
+            if self.args.debug: print('{}\ny_raw = {}'.format(lname, y[:10]))
 
             # Plot lines and label or collect bar plot details for later
             if self.args.response == 'growth':
+                # Just set label names, plot is after the loop
                 bar_l.append('{}'.format(lname))
+            elif self.args.response == 'new-total':
+                x, y = self.plot_prep_new_total(y, self.args.dsw)
+                if not len(x) or not len(y):
+                    continue
+                if self.args.debug: print('{}\nx = {}\ny = {}'.format(lname, x[:10], y[:10]))
+                ax.plot(x, y, label=lname)
+                ax.text(x=x[-1], y=y[-1], s=pname,
+                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+            elif self.args.response == 'trajectory':
+                pass
             else:
-                if self.args.response == 'new-total':
-                    if self.args.threshold:
-                        thresh = self.args.threshold
-                    else:
-                        thresh = 5 if self.args.type == 'deaths' else 100
-                    start = False
-
-                    # Modify x from cumulative per day starting at 0 to starting at threshold
-                    x = [y_val for i, y_val in enumerate(y) if min(y[i:]) > thresh]
-
-                    # Create y as incremental cases per day
-                    # TODO - will list comprehension apply here
-                    y = x[:]
-                    # y = [x0 - xp for x0, xp in (x, x[1:])]
-                    for i in range(0, len(x)):
-                        if i == 0:
-                            y[i] = x[i] if x[i] > 0 else np.NaN
-                        else:
-                            y[i] = (x[i] - x[i-1]) if (x[i] - x[i-1]) > 0 else np.NaN
-
-                    # Modify y to a moving average
-                    # TODO - will list comprehension apply here
-                    lookback = 3
-                    y_orig = y[:]
-                    for i in range(lookback, len(y)):
-                        y[i] = float(np.nansum(y_orig[i-lookback: i]))/float(lookback - 1)
-
-                    x = x[1:]
-                    y = y[1:]
-                    if not len(y):
-                        continue
-                    if self.args.debug: print('x = {}\ny = {}'.format(x[:10], y[:10]))
-                    ax.plot(x, y, label=lname)
-                    ax.text(x=x[-1], y=y[-1], s=pname,
-                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
-                else:
-                    ax.plot(y, label=lname)
-                    ax.text(x=len(y), y=y[-1], s=pname,
-                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+                ax.plot(y, label=lname)
+                ax.text(x=len(y), y=y[-1], s=pname,
+                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
 
         # plot the bar plot
         if self.args.response == 'growth':
@@ -655,6 +635,104 @@ class CovidData:
         if self.args.showplot:
             plt.show()
 
+    def plot_prep_new_total(self, y_list, lookback):
+        """
+        Prepare data for the new-total plot.
+        :param y_list:
+        :type y_list: list
+        :param lookback: The size of the moving average window.
+        :type lookback: int
+        :return: tuple of x and y lists
+        :rtype: tuple
+        """
+        if self.args.threshold:
+            thresh = self.args.threshold
+        else:
+            thresh = 5 if self.args.type == 'deaths' else 100
+
+        # Copy incoming list to y (new) and x (total
+        x = y_list[:]
+        y = y_list[:]
+
+        # Get index for threshold
+        start_index = self.threshold_index(y_list, thresh)
+
+        # Create y as incremental cases per day
+        y = self.total_to_increment(x)
+        y = self.moving_average(y, lookback)
+        return x[start_index:],  y[start_index:]
+
+    @staticmethod
+    def threshold_index(t_list, threshold):
+        """
+        Return the index of the first item >= threshold
+        :param t_list: List of numbers
+        :type t_list: list
+        :param threshold: The threshold
+        :type threshold: int
+        :return: The resultant index or None is never met
+        :rtype: int
+        """
+        # TODO Needs testing
+        for i, x in enumerate(t_list):
+            if x >= threshold:
+                return i
+        return None
+
+    @staticmethod
+    def start_at_threshold(t_list, threshold):
+        """
+        Return a list that starts at the first item >= threshold
+        :param t_list: List of numbers
+        :type t_list: list
+        :param threshold: The threshold
+        :type threshold: int
+        :return: The new list
+        :rtype: list
+        """
+        # TODO Needs testing
+        return [y_val for i, y_val in enumerate(t_list) if min(t_list[i:]) >= threshold]
+
+    @staticmethod
+    def moving_average(list_values, lookback):
+        """
+        Return a list that is the moving average of the original list with windows size of lookback
+        :param list_values: List of numbers
+        :type list_values: list
+        :param lookback: Size of the window
+        :type lookback: int
+        :return: The new list
+        :rtype: list
+        """
+        # TODO Needs testing
+        list_new = list_values[:]
+        for i in range(lookback - 1, len(list_values)):
+            win_e = i + 1
+            win_s = i - (lookback - 1)
+            list_new[i] = float(np.nansum(list_values[win_s: win_e])) / float(lookback)
+        for i in range(1, lookback - 1):
+            win_e = i + 1
+            list_new[i] = float(np.nansum(list_values[0: win_e])) / float(i+1)
+        return list_new
+
+    @staticmethod
+    def total_to_increment(list_orig):
+        """
+        Return a list that is the difference of subsequent items with the first item set to NAN
+        :param list_orig: List of numbers
+        :type list_orig: list
+        :return: The new list
+        :rtype: list
+        """
+        # TODO Needs testing
+        list_new = list_orig[:]
+        for i in range(0, len(list_orig)):
+            if i == 0:
+                list_new[i] = list_orig[i] if list_orig[i] > 0 else np.NaN
+            else:
+                list_new[i] = (list_orig[i] - list_orig[i - 1]) if (list_orig[i] - list_orig[i - 1]) > 0 else np.NaN
+        return list_new
+
 
 def main():
     """
@@ -668,6 +746,8 @@ def main():
                         type=int, default=10)
     parser.add_argument('--threshold', help='threshold of case number to be included',
                         type=int, default=None)
+    parser.add_argument('--dsw', help='size of data smoothing window',
+                        type=int, default=3)
     parser.add_argument('--country', help='name of country for state/province reports',
                         type=str, default='US')
     parser.add_argument('--state', help='name of state for county reports',
