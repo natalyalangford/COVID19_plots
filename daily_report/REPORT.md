@@ -6,10 +6,14 @@ US data posted, but still not available on their GitHub site.  I assume they are
 automation to distribute accurate and timely data.  We will update our toolset when available.
 
 ## List of reports
+ - [Country Trajectories](#country-trajectories)
  - [Top 20 Countries](#top-20-countries)
  - [Top 20 US Sates](#top-20-us-states)
  - [Top 20 US Counties](#top-20-us-counties)
  - [Selected US Sates](#selected-us-states)
+
+## Country Trajectories
+![](confirmed_country_global_trajectory.png)
 
 ## Top 20 Countries
 ![](confirmed_country_global_new-total.png)

@@ -1,8 +1,8 @@
 
 Top 20 county Report - confirmed
   Top 20 Cases for regions, threshold = None Confirmed cases
-  Extract downloaded: 2020-03-30 10:56:17.861737 UTC
-  Data last data point date: 3/29/20
+  Extract downloaded: 2020-03-31 00:04:35.792637 UTC
+  Data last data point date: 3/30/20
           County Name State  3/26/2020  3/27/2020  3/28/2020  3/29/2020  Yesterday  Total  DayIncrease  %DayIncrease
 0               Total    TX       1576       1915       2227       2654       2227   2654          427          19.2
 1       Dallas County    TX        303        367        439        488        439    488           49          11.2

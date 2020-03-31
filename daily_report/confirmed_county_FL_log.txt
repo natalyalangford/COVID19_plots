@@ -1,8 +1,8 @@
 
 Top 20 county Report - confirmed
   Top 20 Cases for regions, threshold = None Confirmed cases
-  Extract downloaded: 2020-03-30 10:56:17.861737 UTC
-  Data last data point date: 3/29/20
+  Extract downloaded: 2020-03-31 00:04:35.792637 UTC
+  Data last data point date: 3/30/20
             County Name State  3/26/2020  3/27/2020  3/28/2020  3/29/2020  Yesterday  Total  DayIncrease  %DayIncrease
 0                 Total    FL       2439       3198       4038       4950       4038   4950          912          22.6
 1     Miami-Dade County    FL        654        869       1121       1472       1121   1472          351          31.3
