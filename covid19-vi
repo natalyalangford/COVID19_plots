@@ -40,6 +40,7 @@ import re
 import os
 from datetime import datetime
 import io
+import math as math
 import pickle
 import requests
 import pandas as pd
@@ -65,7 +66,7 @@ class CovidData:
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
                    'region': ['country', 'state', 'province', 'county', 'county-state'],
-                   'response': ['log', 'linear', 'growth', 'new-total', 'trajectory']}
+                   'response': ['log', 'linear', 'growth', 'new-total', 'trajectory', 'rdtd']}
 
     def __init__(self, args, download=False):
         """
@@ -97,8 +98,14 @@ class CovidData:
         :return: True if check passes else False
         :rtype: bool
         """
-        if args.dsw < 1:
-            print('Error in value for --dsw {}, must be an integer > 0.'.format(args.dsw))
+        if args.rwindow < 2:
+            print('Error in value for --rwindow {}, must be an integer >= 2.'.format(args.rwindow))
+            return False
+        if args.mwindow < 1:
+            print('Error in value for --mwindow {}, must be an integer >= 1.'.format(args.mwindow))
+            return False
+        if args.minimum < 0:
+            print('Error in value for --minimum {}, must be an integer >= 0.'.format(args.minimum))
             return False
         if args.threshold:
             if args.threshold <= 0:
@@ -170,7 +177,6 @@ class CovidData:
             return True
 
         for zone, zone_dict in self._covid_data.items():
-            #if zone == 'global': continue
             for report_type, link in zone_dict.items():
                 print('Downloading: Zone: {}, Type: {}'.format(zone, report_type))
                 if self.args.debug:
@@ -294,7 +300,7 @@ class CovidData:
 
     def day_percent_growth(self, df, file_zone):
         """
-        Calculate daily percentage growth based on past growth numbers, and populate Median with dsw day median.
+        Calculate daily percentage growth based on past growth numbers, and populate Median with window day median.
         :param df: target dataset
         :type df: pandas.core.frame.DataFrame
         :param file_zone: Zone for data: usa or global
@@ -311,9 +317,9 @@ class CovidData:
         with pd.option_context('mode.use_inf_as_na', True):
             dpd_df.iloc[:, series_start:series_end] = dpd_df.iloc[:, series_start:series_end].fillna(0.0)
         dpd_df.loc[:, 'Cases'] = dpd_df.loc[:, 'Total']
-        dpd_df.loc[:, 'Total'] = dpd_df.iloc[:, series_end - self.args.dsw:series_end].median(axis=1,
-                                                                                              skipna=True,
-                                                                                              numeric_only=True)
+        dpd_df.loc[:, 'Total'] = dpd_df.iloc[:, series_end - self.args.mwindow:series_end].median(axis=1,
+                                                                                                  skipna=True,
+                                                                                                  numeric_only=True)
         dpd_df = dpd_df.rename(columns={'Total': 'Median'})
         dpd_df = dpd_df.drop('%DayIncrease', axis=1)
         dpd_df = dpd_df.drop('Yesterday', axis=1)
@@ -465,8 +471,8 @@ class CovidData:
                 markup = ('\x1B[3m', '\x1B[23m') if fp == sys.stdout else ('', '')
                 print('', file=fp)
                 print('Top {} {} Report - {}'.format(self.args.length, self.args.region, self.args.type), file=fp)
-                print('  Top {} {} for regions, threshold = {} {} cases'.format(self.args.length, name_2,
-                                                                                self.args.threshold, name_1), file=fp)
+                print('  Top {} regions by {}, threshold = {} {} cases'.format(self.args.length, name_2,
+                                                                               self.args.threshold, name_1), file=fp)
                 print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
                 print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
                 with pd.option_context('display.max_rows', None, 'show_dimensions', False):
@@ -541,6 +547,7 @@ class CovidData:
         bar_l = []
         max_days = 0
         max_cases = 0
+        thresh = 0
         for pname in plot_item_names:
             # Get parameter values as y
             if self.args.region == 'country':
@@ -565,14 +572,14 @@ class CovidData:
                 lname = '{} ({})'.format(pname[:trunc_len], total)
             else:
                 lname = '{} ({})'.format(pname[:trunc_len], round(total, 1))
-            if self.args.debug: print('{}\ny_raw = {}'.format(lname, y[:10]))
+            #if self.args.debug: print('{}\ny_raw = {}'.format(lname, y[:10]))
 
             # Plot lines and label or collect bar plot details for later
             if self.args.response == 'growth':
                 # Just set label names, plot is after the loop
                 bar_l.append('{}'.format(lname))
             elif self.args.response == 'new-total':
-                x, y = self.plot_prep_new_total(y, self.args.dsw)
+                x, y = self.plot_prep_new_total(y, self.args.mwindow)
                 if not len(x) or not len(y):
                     continue
                 if self.args.debug: print('{}\nx = {}\ny = {}'.format(lname, x[:10], y[:10]))
@@ -580,6 +587,27 @@ class CovidData:
                 ax.set_xscale('log')
                 ax.plot(x, y, label=lname)
                 ax.text(x=x[-1], y=y[-1], s=pname,
+                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+            elif self.args.response == 'rdtd':
+                if self.args.threshold:
+                    thresh = self.args.threshold
+                else:
+                    thresh = 5 if self.args.type == 'deaths' else 100
+                if re.search('[G,g]lobal', pname) or re.search('China', pname) or \
+                   re.search('Korea', pname) or re.search('Diamond Pri', pname):
+                    continue
+                y = self.start_at_threshold(y, thresh)
+                #if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
+                if len(y) < self.args.minimum: continue
+                if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
+                y = self.series_rolling_doubling_time(y, self.args.rwindow)
+                if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
+                max_days = len(y) if len(y) > max_days else max_days
+                max_cases = max(y) if max(y) > max_cases else max_cases
+                ax.set_yscale('log')
+                tname = '{} ({})'.format(pname, y[-1])
+                ax.plot(y, label=lname)
+                ax.text(x=len(y) - 1, y=y[-1], s=tname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             elif self.args.response == 'trajectory':
                 if self.args.threshold:
@@ -590,12 +618,13 @@ class CovidData:
                     continue
                 y = self.start_at_threshold(y, thresh)
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
-                if len(y) < 10: continue
+                if len(y) < self.args.minimum: continue
+                rdtd_val = self.series_rolling_doubling_time(y, self.args.rwindow)[-1]
                 max_days = len(y) if len(y) > max_days else max_days
                 max_cases = max(y) if max(y) > max_cases else max_cases
                 ax.set_yscale('log')
                 ax.plot(y, label=lname)
-                ax.text(x=len(y)-1, y=y[-1], s=pname,
+                ax.text(x=len(y)-1, y=y[-1], s='{} ({})'.format(pname, rdtd_val),
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             else:
                 ax.set_yscale('log')
@@ -604,29 +633,41 @@ class CovidData:
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
 
         # Finish plots
+        name_0 = 'Rolling Days to Double' if self.args.response == 'rdtd' else ''
         name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
         name_2 = 'Growth' if self.args.response == 'growth' else 'Cases'
+        data_desc = 'Top {} regions by {}, threshold = {} {} cases'.format(self.args.length, name_2,
+                                                                           self.args.threshold, name_1)
         if self.args.response == 'growth':
             ax.grid(False)
             plt.xticks(rotation=90)
             ax.bar(np.arange(len(bar_y)), bar_y, tick_label=bar_l)
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
-            plt.xlabel('Highest Last {} Day Median Growth'.format(self.args.dsw), fontsize=16)
+            plt.xlabel('Highest Last {} Day Median Growth'.format(self.args.mwindow), fontsize=16)
         elif self.args.response == 'trajectory':
             # Plot reference rate lines
             for d2d in [1, 2, 4, 7, 14]:
-                ref_y = [100]
-                for i in range(1, d2d*(20)):
+                ref_y = [thresh]
+                for i in range(1, d2d*20):
                     ref_y.append(ref_y[0]*(2**(1/d2d))**i)
                 lname = pname = '2x/{}Day'.format(d2d)
                 ref_y = self.truncate_series(ref_y, max_days, max_cases)
+                # print('Doubling time: {}, {}'.format(lname, self.series_doubling_time(ref_y)))
                 ax.plot(ref_y, label=lname, color='#444444', linestyle=':', linewidth=2)
                 with plt.style.context({'text.color': '#ffffff'}):
                     ax.text(x=len(ref_y)-1, y=ref_y[-1], s=pname,
                             bbox=dict(boxstyle='round,pad=0.2', facecolor='#444444'), fontsize=6)
+            data_desc = '{}, Rolling win size: {}, Moving Avg win size: {}'.format(data_desc, self.args.rwindow,
+                                                                                   self.args.mwindow)
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
-            plt.xlabel('Days Since 100 {}'.format(name_1), fontsize=16)
+            plt.xlabel('Days Since {} {}'.format(thresh, name_1), fontsize=16)
             ax.grid(True)
+        elif self.args.response == 'rdtd':
+            data_desc = '{}, Rolling win size: {}'.format(data_desc, self.args.rwindow)
+            plt.ylabel('Days to Double {}'.format(name_1), fontsize=16)
+            plt.xlabel('Days Since {} {}'.format(thresh, name_1), fontsize=16)
+            ax.grid(True)
+            ax.legend(loc="upper left", fontsize=8)
         elif self.args.response == 'new-total':
             plt.ylabel('New {}'.format(name_1), fontsize=16)
             plt.xlabel('Total {}'.format(name_1), fontsize=16)
@@ -656,12 +697,10 @@ class CovidData:
             state_name = ussa.abbrev_us_state[self.args.state]
             name_region = 'County for {}'.format(state_name)
             x_tick_adjust = 0.28 if self.args.response == 'growth' else 0.1
-        data_desc = 'Top {} {} for regions, threshold = {} {} cases'.format(self.args.length, name_2,
-                                                                            self.args.threshold, name_1)
         plt.figtext(0.99, 0.01, '{}\n{}\nAnalytics: {}'.format(data_desc, credit_str, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
         fig.subplots_adjust(bottom=x_tick_adjust)
-        ax.set_title('COVID-19 {} {} by {}'.format(name_1, name_2, name_region), fontsize=20)
+        ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region), fontsize=20)
 
         # Output plot
         if self.args.saveplot:
@@ -695,6 +734,66 @@ class CovidData:
         y = self.total_to_increment(x)
         y = self.moving_average(y, lookback)
         return x[start_index:],  y[start_index:]
+
+    @staticmethod
+    def series_rolling_doubling_time(t_list, lookback):
+        """
+        Returns truncated list with max length and max values
+        :param t_list: List of numbers
+        :type t_list: list
+        :param lookback: Size of the window
+        :type lookback: int
+        :return: Rolling double time as a list
+        :rtype: list
+        >>> CovidData.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
+        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
+        >>> CovidData.series_rolling_doubling_time([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
+        [nan, nan, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
+        """
+        list_new = [np.nan] * len(t_list)
+        for i in range(lookback - 1, len(t_list)):
+            win_e = i + 1
+            win_s = i - (lookback - 1)
+            while (t_list[win_s] == 0 or t_list[win_s] == np.nan) and t_list[win_e-1] != 0:
+                win_s += 1
+            if win_s >= win_e-1:
+                list_new[i] = np.nan
+            else:
+                list_new[i] = np.nan if t_list[win_e-1] == 0 else CovidData.series_doubling_time(t_list[win_s: win_e])
+        win_s = 0
+        for win_e in range(lookback, 0, -1):
+            print('win_s: {}, win_e: {}'.format(win_s, win_e))
+            if t_list[win_e] == 0 or not isinstance(t_list[win_e], int):
+                list_new[win_e] = np.nan
+                continue
+            while t_list[win_s] == 0 or not isinstance(t_list[win_s], int):
+                win_s += 1
+            if win_s > win_e:
+                list_new[win_e-1] = np.nan
+            else:
+                list_new[win_e-1] = np.nan if t_list[win_e] == 0 else CovidData.series_doubling_time(t_list[win_s: win_e])
+                print(t_list[win_s: win_e])
+        return list_new
+
+    @staticmethod
+    def series_doubling_time(t_list):
+        """
+        Returns truncated list with max length and max values
+        :param t_list: List of numbers
+        :type t_list: list
+        :return: Number of days to double
+        :rtype: float
+        .. note: https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
+        >>> CovidData.series_doubling_time([6235, 7284, 9134, 10836, 11899])
+        5.36
+        >>> CovidData.series_doubling_time([np.nan, 7284, 9134, 10836, 11899])
+        5.65
+        """
+        try:
+            ret_val = round(len(t_list)*math.log(2)/math.log(t_list[-1]/t_list[0]), 2)
+        except:
+            ret_val = np.nan
+        return ret_val
 
     @staticmethod
     def truncate_series(t_list, length, value):
@@ -731,16 +830,14 @@ class CovidData:
         :type t_list: list
         :param threshold: The threshold
         :type threshold: int
-        :return: The resultant index or None is never met
-        :rtype: int
+        :return: The resultant index or None if never met
+        :rtype: Union(int, None)
         >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 4)
         3
         >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 0)
         0
-        >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 10)
-        None
-
-        # TODO Figure out why this test fails, got Nothing instead of None
+        >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 10) is None
+        True
         """
         for i, x in enumerate(t_list):
             if x >= threshold:
@@ -781,7 +878,6 @@ class CovidData:
         >>> CovidData.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3)
         [0, 327.0, 313.67, 478.0, 488.0, 662.0, 1381.33, 1349.33, 1769.0, 1449.67]
         """
-        # TODO Needs testing
         list_new = list_values[:]
         for i in range(lookback - 1, len(list_values)):
             win_e = i + 1
@@ -822,12 +918,16 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--about', help='display information about this utility',
                         action='store_true', default=False)
+    parser.add_argument('--minimum', help='where applicable, excludes regions where times series shorter than minimum',
+                        type=int, default=0)
     parser.add_argument('--length', help='data length for sorted reports',
                         type=int, default=10)
     parser.add_argument('--threshold', help='threshold of case number to be included',
                         type=int, default=None)
-    parser.add_argument('--dsw', help='size of data smoothing window',
+    parser.add_argument('--mwindow', help='size of the window for moving avg',
                         type=int, default=3)
+    parser.add_argument('--rwindow', help='size of the window for rolling days to double',
+                        type=int, default=10)
     parser.add_argument('--country', help='name of country for state/province reports',
                         type=str, default='US')
     parser.add_argument('--state', help='name of state for county reports',
@@ -836,7 +936,7 @@ def main():
                         type=str, default='country')
     parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')
-    parser.add_argument('--response', help='response: log, linear, growth, new-total, trajectory',
+    parser.add_argument('--response', help='response: log, linear, growth, new-total, trajectory, rdtd',
                         type=str, default='log')
     parser.add_argument('--sources', help='list sources used by this utility',
                         action='store_true', default=False)
@@ -890,6 +990,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
-    # import doctest
-    # doctest.testmod()
+    #main()
+    import doctest
+    from typing import Union
+    doctest.testmod()
