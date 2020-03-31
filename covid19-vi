@@ -540,6 +540,7 @@ class CovidData:
         bar_y = []
         bar_l = []
         max_days = 0
+        max_cases = 0
         for pname in plot_item_names:
             # Get parameter values as y
             if self.args.region == 'country':
@@ -591,6 +592,7 @@ class CovidData:
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 if len(y) < 10: continue
                 max_days = len(y) if len(y) > max_days else max_days
+                max_cases = max(y) if max(y) > max_cases else max_cases
                 ax.set_yscale('log')
                 ax.plot(y, label=lname)
                 ax.text(x=len(y)-1, y=y[-1], s=pname,
@@ -614,10 +616,10 @@ class CovidData:
             # Plot reference rate lines
             for d2d in [1, 2, 4, 7, 10]:
                 ref_y = [100]
-                for i in range(1, d2d*(10 + 1)):
+                for i in range(1, d2d*(20)):
                     ref_y.append(ref_y[0]*(2**(1/d2d))**i)
                 lname = pname = '2x/{}Day'.format(d2d)
-                if len(ref_y) > max_days: ref_y = ref_y[0:max_days]
+                ref_y = self.truncate_series(ref_y, max_days, max_cases)
                 ax.plot(ref_y, label=lname, color='#444444', linestyle=':', linewidth=2)
                 with plt.style.context({'text.color': '#ffffff'}):
                     ax.text(x=len(ref_y)-1, y=ref_y[-1], s=pname,
@@ -692,6 +694,28 @@ class CovidData:
         y = self.total_to_increment(x)
         y = self.moving_average(y, lookback)
         return x[start_index:],  y[start_index:]
+
+    @staticmethod
+    def truncate_series(t_list, length, value):
+        """
+        Returns truncated list with max length and max values
+        :param t_list: List of numbers
+        :type t_list: list
+        :param length: max list length
+        :type length: int
+        :param value: max value in a time series
+        :type value: int
+        :return: The resultant index or None is never met
+        :rtype: list
+        """
+        # TODO Needs testing
+        if len(t_list) > length:
+            t_list = t_list[0:length]
+        i = len(t_list)
+        for i, t_item in enumerate(t_list):
+            if t_item >= value:
+                break
+        return t_list[:i]
 
     @staticmethod
     def threshold_index(t_list, threshold):
