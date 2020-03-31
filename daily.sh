@@ -29,6 +29,7 @@ set -x
 ./covid19-vi --type deaths --region country --length 20 --saveplot --savetable --savedir daily_report
 
 # US Reports by State
+./covid19-vi --type confirmed --region state --length 100 --threshold 100 --response trajectory --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 30 --threshold 100 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 20 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region state --country US --length 20 --saveplot --savetable --savedir daily_report
