@@ -990,7 +990,7 @@ def main():
 
 
 if __name__ == '__main__':
-    #main()
-    import doctest
-    from typing import Union
-    doctest.testmod()
+    main()
+    #import doctest
+    #from typing import Union
+    #doctest.testmod()
