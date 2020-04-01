@@ -1,12 +1,12 @@
 
 Top 20 state Report - deaths
-  Top 20 Cases for regions, threshold = None Deaths cases
-  Extract downloaded: 2020-03-31 06:06:57.967316 UTC
-  Data last data point date: 3/30/20
+  Top 20 regions by Cases, threshold = None Deaths cases
+  Extract downloaded: 2020-04-01 02:12:54.031368 UTC
+  Data last data point date: 3/31/20
    State  3/25/2020  3/26/2020  3/27/2020  3/28/2020  3/29/2020  3/30/2020  Yesterday   Total  DayIncrease  %DayIncrease
 0     NY        342        440        545        787        965     1218.0        965  1218.0        253.0          26.2
-1     NJ         62         80        108        140        161      198.0        161   198.0         37.0          23.0
-2     WA        132        147        181        184        195      195.0        195   195.0          0.0           0.0
+1     WA        132        147        181        184        195      218.0        195   218.0         23.0          11.8
+2     NJ         62         80        108        140        161      198.0        161   198.0         37.0          23.0
 3     LA         65         83        119        137        153      185.0        153   185.0         32.0          20.9
 4     MI         41         57         86        104        127      184.0        127   184.0         57.0          44.9
 5     CA         67         83        100        121        132      149.0        132   149.0         17.0          12.9

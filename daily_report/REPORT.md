@@ -14,7 +14,9 @@ automation to distribute accurate and timely data.  We will update our toolset w
 
 ## Trajectories
 ![](confirmed_country_global_trajectory.png)
+![](confirmed_country_global_rdtd.png)
 ![](confirmed_state_US_trajectory.png)
+![](confirmed_state_US_rdtd.png)
 
 ## Top 20 Countries
 ![](confirmed_country_global_new-total.png)
