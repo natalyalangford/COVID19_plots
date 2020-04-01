@@ -45,6 +45,7 @@ import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FormatStrFormatter
 import us_state_abbrev as ussa
 import covid19_math as cm
 
@@ -615,11 +616,12 @@ class CovidData:
                 if re.search('[G,g]lobal', pname) or re.search('China', pname) or re.search('Diamond Pri', pname):
                     continue
 
-                # Set starting point of each series an create rdtd series
+                # Set starting point of each series, get last element rdtd value, and smooth y
                 y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) < self.args.minimum: continue
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 rdtd_val = cm.CovidMath.series_doubling_time(y[-5:])
+                y = cm.CovidMath.moving_average(y, self.args.mwindow)
 
                 # Max values are used later to plot reference lines
                 max_days = len(y) if len(y) > max_days else max_days
@@ -656,12 +658,13 @@ class CovidData:
                     ref_y.append(ref_y[0]*(2**(1/d2d))**i)
                 lname = pname = '2x/{}Day'.format(d2d)
                 ref_y = cm.CovidMath.truncate_series(ref_y, max_days, max_cases)
-                # print('Doubling time: {}, {}'.format(lname, self.series_doubling_time(ref_y)))
                 ax.plot(ref_y, label=lname, color='#444444', linestyle=':', linewidth=2)
                 with plt.style.context({'text.color': '#ffffff'}):
                     ax.text(x=len(ref_y)-1, y=ref_y[-1], s=pname,
                             bbox=dict(boxstyle='round,pad=0.2', facecolor='#444444'), fontsize=6)
-            data_desc = '{}, Rolling win size: {}'.format(data_desc, self.args.rwindow)
+            data_desc = '{}, Rolling win size: {}, Moving Avg win size: {}'.format(data_desc,
+                                                                                   self.args.rwindow,
+                                                                                   self.args.mwindow)
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
             plt.xlabel('Days Since {} {}'.format(thresh, name_1), fontsize=16)
             ax.grid(True)
@@ -669,7 +672,12 @@ class CovidData:
             data_desc = '{}, Rolling win size: {}'.format(data_desc, self.args.rwindow)
             plt.ylabel('Days to Double {}'.format(name_1), fontsize=16)
             plt.xlabel('Days Since {} {}'.format(thresh, name_1), fontsize=16)
-            ax.grid(True)
+            ax.grid(b=True, which='major', color='#888888')
+            ax.grid(b=True, which='minor', color='#CCCCCC')
+            plt.tick_params(axis='y', which='minor')
+            ax.yaxis.set_minor_formatter(FormatStrFormatter("%d"))
+            for tick in ax.yaxis.get_minor_ticks():
+                tick.label.set_fontsize(6)
             ax.legend(loc="upper left", fontsize=8)
         elif self.args.response == 'new-total':
             data_desc = '{}, Moving Avg win size: {}'.format(data_desc, self.args.mwindow)
@@ -704,7 +712,7 @@ class CovidData:
         plt.figtext(0.99, 0.01, '{}\n{}\nAnalytics: {}'.format(data_desc, credit_str, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
         fig.subplots_adjust(bottom=x_tick_adjust)
-        ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region), fontsize=20)
+        ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region), fontsize=19)
 
         # Output plot
         if self.args.saveplot:
