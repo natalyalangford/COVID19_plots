@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-01 02:12:54.031368 UTC
+  Extract downloaded: 2020-04-01 08:46:12.155390 UTC
   Data last data point date: 3/31/20
-              County Name State  3/27/20  3/28/20  3/29/20  3/30/20  Yesterday  Total  DayIncrease  %DayIncrease
-0           Queens County    NY     8214     9831    10737    12756      10737  12756         2019          18.8
-1            Kings County    NY     6750     8129     8887    10171       8887  10171         1284          14.4
-2      Westchester County    NY     7187     7875     8519     9329       8519   9329          810           9.5
-3           Nassau County    NY     4657     5537     6445     7344       6445   7344          899          13.9
-4            Bronx County    NY     4655     5752     6250     6925       6250   6925          675          10.8
-5         New York County    NY     4478     5237     5582     6060       5582   6060          478           8.6
-6          Suffolk County    NY     3386     4138     5023     5791       5023   5791          768          15.3
-7   Statewide Unallocated    NJ     1984     2478     3020     3847       3020   3847          827          27.4
-8             Cook County    IL     2239     2613     3445     3727       3445   3727          282           8.2
-9            Wayne County    MI     1810     2316     2704     3195       2704   3195          491          18.2
-10        Rockland County    NY     1457     1896     2209     2511       2209   2511          302          13.7
-11          Bergen County    NJ     1505     1838     2169     2482       2169   2482          313          14.4
-12     Los Angeles County    CA     1465     1804     2136     2474       2136   2474          338          15.8
-13            King County    WA     1828     2077     2161     2330       2161   2330          169           7.8
-14        Richmond County    NY     1440     1781     1984     2140       1984   2140          156           7.9
-15      Miami-Dade County    FL      869     1121     1472     1701       1472   1701          229          15.6
-16           Essex County    NJ      826     1086     1227     1564       1227   1564          337          27.5
-17         Orleans Parish    LA     1170     1298     1350     1480       1350   1480          130           9.6
-18       Fairfield County    CT      752      908     1245     1445       1245   1445          200          16.1
-19          Orange County    NY      910     1101     1247     1435       1247   1435          188          15.1
+              County Name State  3/28/2020  3/29/2020  3/30/2020  3/31/2020  Yesterday  Total  DayIncrease  %DayIncrease
+0           Queens County    NY       9831      10737      12756      13869      12756  13869         1113           8.7
+1            Kings County    NY       8129       8887      10171      11160      10171  11160          989           9.7
+2      Westchester County    NY       7875       8519       9329       9967       9329   9967          638           6.8
+3           Nassau County    NY       5537       6445       7344       8544       7344   8544         1200          16.3
+4            Bronx County    NY       5752       6250       6925       7814       6925   7814          889          12.8
+5          Suffolk County    NY       4138       5023       5791       6713       5791   6713          922          15.9
+6         New York County    NY       5237       5582       6060       6539       6060   6539          479           7.9
+7             Cook County    IL       2613       3445       3727       4496       3727   4496          769          20.6
+8            Wayne County    MI       2316       2704       3195       3735       3195   3735          540          16.9
+9   Statewide Unallocated    NJ       2478       3020       3847       3686       3847   3686         -161          -4.2
+10     Los Angeles County    CA       1804       2136       2474       3011       2474   3011          537          21.7
+11          Bergen County    NJ       1838       2169       2482       2909       2482   2909          427          17.2
+12        Rockland County    NY       1896       2209       2511       2863       2511   2863          352          14.0
+13        Richmond County    NY       1781       1984       2140       2354       2140   2354          214          10.0
+14            King County    WA       2077       2161       2330       2330       2330   2330            0           0.0
+15      Miami-Dade County    FL       1121       1472       1701       2123       1701   2123          422          24.8
+16           Essex County    NJ       1086       1227       1564       1900       1564   1900          336          21.5
+17       Fairfield County    CT        908       1245       1445       1870       1445   1870          425          29.4
+18         Orleans Parish    LA       1298       1350       1480       1834       1480   1834          354          23.9
+19          Hudson County    NJ        771        974       1314       1606       1314   1606          292          22.2
 
-   Data from the 3/30/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the 3/31/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
