@@ -597,7 +597,6 @@ class CovidData:
                    re.search('Korea', pname) or re.search('Diamond Pri', pname):
                     continue
                 y = self.start_at_threshold(y, thresh)
-                #if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 if len(y) <= self.args.minimum: continue
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 y = self.series_rolling_doubling_time(y, self.args.rwindow)
@@ -657,8 +656,7 @@ class CovidData:
                 with plt.style.context({'text.color': '#ffffff'}):
                     ax.text(x=len(ref_y)-1, y=ref_y[-1], s=pname,
                             bbox=dict(boxstyle='round,pad=0.2', facecolor='#444444'), fontsize=6)
-            data_desc = '{}, Rolling win size: {}, Moving Avg win size: {}'.format(data_desc, self.args.rwindow,
-                                                                                   self.args.mwindow)
+            data_desc = '{}, Rolling win size: {}'.format(data_desc, self.args.rwindow)
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
             plt.xlabel('Days Since {} {}'.format(thresh, name_1), fontsize=16)
             ax.grid(True)
@@ -669,6 +667,7 @@ class CovidData:
             ax.grid(True)
             ax.legend(loc="upper left", fontsize=8)
         elif self.args.response == 'new-total':
+            data_desc = '{}, Moving Avg win size: {}'.format(data_desc, self.args.mwindow)
             plt.ylabel('New {}'.format(name_1), fontsize=16)
             plt.xlabel('Total {}'.format(name_1), fontsize=16)
             ax.grid(True)
