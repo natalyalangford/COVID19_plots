@@ -40,13 +40,13 @@ import re
 import os
 from datetime import datetime
 import io
-import math as math
 import pickle
 import requests
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import us_state_abbrev as ussa
+import covid19_math as cm
 
 
 class CovidData:
@@ -572,7 +572,6 @@ class CovidData:
                 lname = '{} ({})'.format(pname[:trunc_len], total)
             else:
                 lname = '{} ({})'.format(pname[:trunc_len], round(total, 1))
-            #if self.args.debug: print('{}\ny_raw = {}'.format(lname, y[:10]))
 
             # Plot lines and label or collect bar plot details for later
             if self.args.response == 'growth':
@@ -580,8 +579,7 @@ class CovidData:
                 bar_l.append('{}'.format(lname))
             elif self.args.response == 'new-total':
                 x, y = self.plot_prep_new_total(y, self.args.mwindow)
-                if not len(x) or not len(y):
-                    continue
+                if not x or not y: continue
                 if self.args.debug: print('{}\nx = {}\ny = {}'.format(lname, x[:10], y[:10]))
                 ax.set_yscale('log')
                 ax.set_xscale('log')
@@ -596,10 +594,10 @@ class CovidData:
                 if re.search('[G,g]lobal', pname) or re.search('China', pname) or \
                    re.search('Korea', pname) or re.search('Diamond Pri', pname):
                     continue
-                y = self.start_at_threshold(y, thresh)
+                y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) <= self.args.minimum: continue
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
-                y = self.series_rolling_doubling_time(y, self.args.rwindow)
+                y = cm.CovidMath.series_rolling_doubling_time(y, self.args.rwindow)
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 max_days = len(y) if len(y) > max_days else max_days
                 max_cases = max(y) if max(y) > max_cases else max_cases
@@ -615,10 +613,10 @@ class CovidData:
                     thresh = 5 if self.args.type == 'deaths' else 100
                 if re.search('[G,g]lobal', pname) or re.search('China', pname) or re.search('Diamond Pri', pname):
                     continue
-                y = self.start_at_threshold(y, thresh)
+                y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) < self.args.minimum: continue
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
-                rdtd_val = self.series_rolling_doubling_time(y, self.args.rwindow)[-1]
+                rdtd_val = cm.CovidMath.series_rolling_doubling_time(y, self.args.rwindow)[-1]
                 max_days = len(y) if len(y) > max_days else max_days
                 max_cases = max(y) if max(y) > max_cases else max_cases
                 ax.set_yscale('log')
@@ -650,7 +648,7 @@ class CovidData:
                 for i in range(1, d2d*20):
                     ref_y.append(ref_y[0]*(2**(1/d2d))**i)
                 lname = pname = '2x/{}Day'.format(d2d)
-                ref_y = self.truncate_series(ref_y, max_days, max_cases)
+                ref_y = cm.CovidMath.truncate_series(ref_y, max_days, max_cases)
                 # print('Doubling time: {}, {}'.format(lname, self.series_doubling_time(ref_y)))
                 ax.plot(ref_y, label=lname, color='#444444', linestyle=':', linewidth=2)
                 with plt.style.context({'text.color': '#ffffff'}):
@@ -727,196 +725,12 @@ class CovidData:
         y = y_list[:]
 
         # Get index for threshold
-        start_index = self.threshold_index(y_list, thresh)
+        start_index = cm.CovidMath.threshold_index(y_list, thresh)
 
         # Create y as incremental cases per day
-        y = self.total_to_increment(x)
-        y = self.moving_average(y, lookback)
+        y = cm.CovidMath.total_to_increment(x)
+        y = cm.CovidMath.moving_average(y, lookback)
         return x[start_index:],  y[start_index:]
-
-    @staticmethod
-    def series_rolling_doubling_time(t_list, lookback):
-        """
-        Returns truncated list with max length and max values
-        :param t_list: List of numbers
-        :type t_list: list
-        :param lookback: Size of the window
-        :type lookback: int
-        :return: Rolling double time as a list
-        :rtype: list
-        >>> CovidData.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
-        >>> CovidData.series_rolling_doubling_time([200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0, 1243.0], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34]
-        >>> CovidData.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34]
-        >>> CovidData.series_rolling_doubling_time([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
-        [nan, nan, 12.51, 7.62, 10.16, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
-        >>> CovidData.series_rolling_doubling_time([239, 267], 5)
-        [nan, 12.51]
-        >>> CovidData.series_rolling_doubling_time([239], 5)
-        [nan]
-        """
-        if len(t_list) <= 1: return [np.nan]
-        list_new = [np.nan] * len(t_list)
-        if lookback > len(t_list): lookback = len(t_list)
-        for i in range(lookback - 1, len(t_list)):
-            win_e = i + 1
-            win_s = i - (lookback - 1)
-            list_new[i] = CovidData.series_doubling_time(t_list[win_s: win_e])
-        win_s = 0
-        for win_e in range(lookback, 0, -1):
-            list_new[win_e-1] = CovidData.series_doubling_time(t_list[win_s: win_e])
-        return list_new
-
-    @staticmethod
-    def series_doubling_time(target_list):
-        """
-        Returns truncated list with max length and max values
-        :param target_list: List of numbers
-        :type target_list: list
-        :return: Number of days to double
-        :rtype: float
-        .. note: https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
-        >>> CovidData.series_doubling_time([6235, 7284, 9134, 10836, 11899])
-        5.36
-        >>> CovidData.series_doubling_time([np.nan, 7284, 9134, 10836, 11899])
-        5.65
-        """
-        #print(target_list)
-        if len(target_list) <= 1: return np.nan
-        t_list = target_list[:]
-        win_s = 0
-        win_e = len(t_list)
-        while (t_list[win_s] == 0 or t_list[win_s] is np.nan) or not isinstance(t_list[win_s], (int, float, np.int64)):
-            #print(type(t_list[win_s]))
-            win_s += 1
-        while (t_list[win_e-1] == 0 or t_list[win_e-1] is np.nan) or not isinstance(t_list[win_e-1], (int, float, np.int64)):
-            #print(type(t_list[win_e-1]))
-            # Maybe this should return 0 instead
-            win_e -= 1
-        if win_s >= win_e: return np.nan
-        t_list = t_list[win_s: win_e]
-        try:
-            ret_val = round(len(t_list)*math.log(2)/math.log(t_list[-1]/t_list[0]), 2)
-        except ArithmeticError:
-            ret_val = np.nan
-        return ret_val
-
-    @staticmethod
-    def truncate_series(target_list, length, value):
-        """
-        Returns truncated list with max length and max values
-        :param target_list: List of numbers
-        :type target_list: list
-        :param length: max list length
-        :type length: int
-        :param value: max value in a time series
-        :type value: int
-        :return: The resultant index or None is never met
-        :rtype: list
-        >>> CovidData.truncate_series([1, 2, 3, 4, 5, 6, 7], 4, 6)
-        [1, 2, 3, 4]
-        >>> CovidData.truncate_series([1, 2, 3, 4, 5, 6, 7], 6, 3)
-        [1, 2, 3]
-        >>> CovidData.truncate_series([1, 2, 3, 4, 5, 6, 7], 99, 99)
-        [1, 2, 3, 4, 5, 6, 7]
-        """
-        t_list = target_list[:]
-        if len(t_list) > length:
-            t_list = t_list[0:length]
-        i = len(t_list)
-        for i, t_item in enumerate(t_list):
-            if t_item >= value:
-                break
-        return t_list[:i+1]
-
-    @staticmethod
-    def threshold_index(t_list, threshold):
-        """
-        Return the index of the first item >= threshold
-        :param t_list: List of numbers
-        :type t_list: list
-        :param threshold: The threshold
-        :type threshold: int
-        :return: The resultant index or None if never met
-        :rtype: Union(int, None)
-        >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 4)
-        3
-        >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 0)
-        0
-        >>> CovidData.threshold_index([1, 2, 3, 4, 5, 6, 7], 10) is None
-        True
-        """
-        for i, x in enumerate(t_list):
-            if x >= threshold:
-                return i
-        return None
-
-    @staticmethod
-    def start_at_threshold(t_list, threshold):
-        """
-        Return a list that starts at the first item >= threshold
-        :param t_list: List of numbers
-        :type t_list: list
-        :param threshold: The threshold
-        :type threshold: int
-        :return: The new list
-        :rtype: list
-        >>> CovidData.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 4)
-        [4, 5, 6, 7]
-        >>> CovidData.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 0)
-        [1, 2, 3, 4, 5, 6, 7]
-        >>> CovidData.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 10)
-        []
-        """
-        return [y_val for i, y_val in enumerate(t_list) if min(t_list[i:]) >= threshold]
-
-    @staticmethod
-    def moving_average(list_values, lookback):
-        """
-        Return a list that is the moving average of the original list with windows size of lookback
-        :param list_values: List of numbers
-        :type list_values: list
-        :param lookback: Size of the window
-        :type lookback: int
-        :return: The new list
-        :rtype: list
-        >>> CovidData.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 2)
-        [0, 327.0, 470.5, 390.0, 588.5, 746.5, 1730.0, 1619.5, 1328.0, 1880.5]
-        >>> CovidData.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3)
-        [0, 327.0, 313.67, 478.0, 488.0, 662.0, 1381.33, 1349.33, 1769.0, 1449.67]
-        """
-        list_new = list_values[:]
-        for i in range(lookback - 1, len(list_values)):
-            win_e = i + 1
-            win_s = i - (lookback - 1)
-            list_new[i] = round(float(np.nansum(list_values[win_s: win_e])) / float(lookback), 2)
-        for i in range(1, lookback - 1):
-            win_e = i + 1
-            list_new[i] = round(float(np.nansum(list_values[0: win_e])) / float(i+1), 2)
-        return list_new
-
-    @staticmethod
-    def total_to_increment(list_orig):
-        """
-        Return a list that is the difference of subsequent items with the first item set to NAN
-        :param list_orig: List of numbers
-        :type list_orig: list
-        :return: The new list
-        :rtype: list
-        >>> CovidData.total_to_increment([0, 654, 941, 1434, 2118, 2927, 5578, 6166, 8234, 9927])
-        [nan, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693]
-        >>> CovidData.total_to_increment([0, 654, 941, 1434, 2118, 2000, 5578, 6166, 8234, 9927])
-        [nan, 654, 287, 493, 684, -118, 3578, 588, 2068, 1693]
-        """
-        list_new = list_orig[:]
-        for i in range(0, len(list_orig)):
-            if i == 0:
-                list_new[i] = list_orig[i] if list_orig[i] > 0 else np.NaN
-            else:
-                list_new[i] = (list_orig[i] - list_orig[i - 1])
-        return list_new
 
 
 def main():
@@ -1000,6 +814,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    #import doctest
-    #from typing import Union
-    #doctest.testmod()
