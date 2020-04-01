@@ -92,7 +92,8 @@ class CovidMath:
         win_e = len(t_list)
         while (t_list[win_s] == 0 or t_list[win_s] is np.nan) or not isinstance(t_list[win_s], (int, float, np.int64)):
             win_s += 1
-        while (t_list[win_e-1] == 0 or t_list[win_e-1] is np.nan) or not isinstance(t_list[win_e-1], (int, float, np.int64)):
+        while (t_list[win_e-1] == 0 or t_list[win_e-1] is np.nan) or \
+                not isinstance(t_list[win_e-1], (int, float, np.int64)):
             # Maybe this should return 0 instead
             win_e -= 1
         if win_s >= win_e: return np.nan

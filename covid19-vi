@@ -338,8 +338,6 @@ class CovidData:
         :rtype: pandas.core.frame.DataFrame
         """
         # Pre-process data
-        #rdf = rdf.loc[rdf['Total'] >= self.args.threshold] if self.args.threshold else \
-            #rdf.sort_values(['Total'], ascending=False).head(self.args.length)
         if self.args.threshold:
             rdf = rdf.loc[rdf['Total'] >= self.args.threshold]
         rdf.reset_index(drop=True, inplace=True)
@@ -549,7 +547,7 @@ class CovidData:
         max_cases = 0
         thresh = 0
         for pname in plot_item_names:
-            # Get parameter values as y
+            # Get time series values as y
             if self.args.region == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
                 total = pdf.loc[pdf['Country/Region'] == pname, plot_response].tolist()[0]
@@ -568,7 +566,7 @@ class CovidData:
             y = list(y.iloc[0, col_select])
 
             # Construct legend name with values
-            if isinstance(total, int):
+            if isinstance(total, (int, np.int64)):
                 lname = '{} ({})'.format(pname[:trunc_len], total)
             else:
                 lname = '{} ({})'.format(pname[:trunc_len], round(total, 1))
@@ -591,16 +589,19 @@ class CovidData:
                     thresh = self.args.threshold
                 else:
                     thresh = 5 if self.args.type == 'deaths' else 100
+
+                # Skip Regions that will distort the plot
                 if re.search('[G,g]lobal', pname) or re.search('China', pname) or \
                    re.search('Korea', pname) or re.search('Diamond Pri', pname):
                     continue
+
+                # Set starting point of each series an create rdtd series
                 y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) <= self.args.minimum: continue
-                if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 y = cm.CovidMath.series_rolling_doubling_time(y, self.args.rwindow)
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
-                max_days = len(y) if len(y) > max_days else max_days
-                max_cases = max(y) if max(y) > max_cases else max_cases
+
+                # Plot the lines
                 ax.set_yscale('log')
                 tname = '{} ({})'.format(pname, y[-1])
                 ax.plot(y, label=lname)
@@ -613,12 +614,18 @@ class CovidData:
                     thresh = 5 if self.args.type == 'deaths' else 100
                 if re.search('[G,g]lobal', pname) or re.search('China', pname) or re.search('Diamond Pri', pname):
                     continue
+
+                # Set starting point of each series an create rdtd series
                 y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) < self.args.minimum: continue
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
-                rdtd_val = cm.CovidMath.series_rolling_doubling_time(y, self.args.rwindow)[-1]
+                rdtd_val = cm.CovidMath.series_doubling_time(y[-5:])
+
+                # Max values are used later to plot reference lines
                 max_days = len(y) if len(y) > max_days else max_days
                 max_cases = max(y) if max(y) > max_cases else max_cases
+
+                # Plot the lines
                 ax.set_yscale('log')
                 ax.plot(y, label=lname)
                 ax.text(x=len(y)-1, y=y[-1], s='{} ({})'.format(pname, rdtd_val),
