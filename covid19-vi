@@ -598,7 +598,7 @@ class CovidData:
                     continue
                 y = self.start_at_threshold(y, thresh)
                 #if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
-                if len(y) < self.args.minimum: continue
+                if len(y) <= self.args.minimum: continue
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
                 y = self.series_rolling_doubling_time(y, self.args.rwindow)
                 if self.args.debug: print('{}: len: {}, y: {}'.format(pname, len(y), y))
@@ -747,14 +747,20 @@ class CovidData:
         :rtype: list
         >>> CovidData.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
         [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
-        >>> CovidData.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886, 1058], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85]
+        >>> CovidData.series_rolling_doubling_time([200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0, 1243.0], 5)
+        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34]
+        >>> CovidData.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886], 5)
+        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34]
         >>> CovidData.series_rolling_doubling_time([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
         [nan, nan, 12.51, 7.62, 10.16, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
+        >>> CovidData.series_rolling_doubling_time([239, 267], 5)
+        [nan, 12.51]
+        >>> CovidData.series_rolling_doubling_time([239], 5)
+        [nan]
         """
-        #print(t_list)
         if len(t_list) <= 1: return [np.nan]
         list_new = [np.nan] * len(t_list)
+        if lookback > len(t_list): lookback = len(t_list)
         for i in range(lookback - 1, len(t_list)):
             win_e = i + 1
             win_s = i - (lookback - 1)
@@ -778,13 +784,16 @@ class CovidData:
         >>> CovidData.series_doubling_time([np.nan, 7284, 9134, 10836, 11899])
         5.65
         """
+        #print(target_list)
         if len(target_list) <= 1: return np.nan
         t_list = target_list[:]
         win_s = 0
         win_e = len(t_list)
         while (t_list[win_s] == 0 or t_list[win_s] is np.nan) or not isinstance(t_list[win_s], (int, float, np.int64)):
+            #print(type(t_list[win_s]))
             win_s += 1
         while (t_list[win_e-1] == 0 or t_list[win_e-1] is np.nan) or not isinstance(t_list[win_e-1], (int, float, np.int64)):
+            #print(type(t_list[win_e-1]))
             # Maybe this should return 0 instead
             win_e -= 1
         if win_s >= win_e: return np.nan
@@ -920,7 +929,7 @@ def main():
     parser.add_argument('--about', help='display information about this utility',
                         action='store_true', default=False)
     parser.add_argument('--minimum', help='where applicable, excludes regions where times series shorter than minimum',
-                        type=int, default=0)
+                        type=int, default=1)
     parser.add_argument('--length', help='data length for sorted reports',
                         type=int, default=10)
     parser.add_argument('--threshold', help='threshold of case number to be included',
@@ -991,7 +1000,7 @@ def main():
 
 
 if __name__ == '__main__':
-    #main()
-    import doctest
-    from typing import Union
-    doctest.testmod()
+    main()
+    #import doctest
+    #from typing import Union
+    #doctest.testmod()
