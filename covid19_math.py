@@ -188,6 +188,7 @@ class CovidMath:
         >>> CovidMath.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3)
         [0, 327.0, 313.67, 478.0, 488.0, 662.0, 1381.33, 1349.33, 1769.0, 1449.67]
         """
+        if lookback == 1: return list_values
         list_new = list_values[:]
         for i in range(lookback - 1, len(list_values)):
             win_e = i + 1
