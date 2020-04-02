@@ -76,17 +76,21 @@ class CovidData:
         :type download: Bool
         :return None
         """
-        self.data = {'global': {'data_date': None,
-                                'download_date': None,
-                                'confirmed': None,
-                                'deaths': None,
-                                'recoveries': None},
+        self.data = {'global': {'data_date': None,         # Date of the last day of time series.
+                                'download_date': None,     # Date of data download.
+                                'summary_cols': 0,         # Number of summary columns in df.
+                                'header_cols': 0,          # Number of header columns in df.
+                                'confirmed': None,         # DataFrame for confirmed cases.
+                                'deaths': None,            # DataFrame for deaths.
+                                'recoveries': None},       # DataFrame for recoveries.
                      'usa': {'data_date': None,
                              'download_date': None,
+                             'summary_cols': 0,
+                             'header_cols': 0,
                              'confirmed': None,
                              'deaths': None,
                              'recoveries': None}}
-        self.args = args
+        self.args = args                                   # Command line argument object.
         if not self.read_datafile(download=download):
             print('Error: error while downloading sources.')
             sys.exit(-20)
@@ -138,7 +142,7 @@ class CovidData:
                 return False
             if re.search(r'[\s]', args.savedir):
                 print('Error in value for --savedir ',
-                      '{}, there is a special place in hell for people who use spaces in directory names.'.format(
+                      '{}, there is a special place in heck for those who use spaces in directory names!'.format(
                           args.savedir))
                 return False
         return True
@@ -147,7 +151,7 @@ class CovidData:
     def print_args(cls):
         """
         Prints valid arguments for command line options that require a string.
-        :return:
+        :return: None
         """
         print('Valid argument values:')
         [print(' {}: {}'.format(k2, v2)) for k2, v2 in cls._valid_args.items()]
@@ -165,12 +169,12 @@ class CovidData:
     def read_datafile(self, download=False):
         """
         Read covid-19 data from the repository datafiles or a pickle file depends on value of download.
-        Source: https://github.com/Ricks-Lab/amdgpu-utils/blob/c10dba61f11b9e5fb44d24acd1fa74122668afc2/GPUmodules/PCImodule.py
-
         :param download: Download from the interweb if True, else read pickled data.
         :type download: bool
-        :return: bool
+        :return: True if successful
+        :rtype: bool
         """
+        # If a valid pickle file does not exist, download data even if download is False.
         if not download and os.path.isfile(self._pickle_filename):
             # Read pickle file.
             with open(self._pickle_filename, 'rb') as f:
@@ -185,6 +189,7 @@ class CovidData:
                 else:
                     temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_type,
                                                                  datetime.utcnow().strftime('%m%d_%H%M%S'))
+                csv_data = None
                 if not self.args.debug or not os.path.isfile(temp_file_name):
                     try:
                         csv_data = requests.get(link).content
@@ -282,6 +287,7 @@ class CovidData:
                 df = pd.read_csv(file_name, encoding='ISO-8859-1')
 
         if zone == 'global':
+            self.data[zone]['header_cols'] = 5
             for ps_country in self._prov_state_countries:
                 df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == ps_country),
                        'Province/State'] = ps_country
@@ -289,6 +295,7 @@ class CovidData:
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         else:
+            self.data[zone]['header_cols'] = 4
             df = self.aggregate_state_prov(df, 'US')
         # TODO - add days to double metric
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
@@ -297,6 +304,11 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = (df.loc[:, 'DayIncrease'] / df.loc[:, 'Yesterday'])
         df.loc[df['%DayIncrease'].isna(), '%DayIncrease'] = 0.0
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
+        num_cols = df.shape[1]
+        col_select = np.r_[self.data[zone]['header_cols']:num_cols - self.data[zone]['summary_cols']]
+        #df['DaysToDouble'] = df.apply(lambda x: cm.CovidMath.series_doubling_time(x.iloc[:, col_select]), axis=0)
+        #self.data[zone]['summary_cols'] = 5
+        self.data[zone]['summary_cols'] = 4
         return df
 
     def day_percent_growth(self, df, file_zone):
@@ -312,7 +324,7 @@ class CovidData:
         # TODO - Need regression fit to calculate rate of increase instead of 3 day median
         dpd_df = df.copy(deep=True)
         series_start = 4 if file_zone == 'usa' else 5
-        series_end = df.shape[1] - 4
+        series_end = df.shape[1] - self.data[file_zone]['summary_cols']
         dpd_df.iloc[:, series_start:series_end] = \
             (df.iloc[:, series_start:series_end].pct_change(axis=1) * 100.0).round(1)
         with pd.option_context('mode.use_inf_as_na', True):
@@ -508,12 +520,12 @@ class CovidData:
         :return: None
         """
         # Basic report parameters
+        data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         plot_response = 'Median' if self.args.response == 'growth' else 'Total'
         num_cols = pdf.shape[1]
-        col_select = np.r_[4:num_cols-4]
+        col_select = np.r_[4:num_cols-self.data[data_src]['summary_cols']]
 
         # Set credit string base on data source
-        data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         credit_str = 'Data from the {} extract at {}, Credit: {}'.format(
                      self.data[data_src]['data_date'],
                      self._data_source[data_src]['link'],
@@ -524,7 +536,7 @@ class CovidData:
             pdf.loc[:, 'County Name'] = pdf.loc[:, 'County Name'] + ', ' + pdf.loc[:, 'State']
             trunc_len = 25
         if self.args.region == 'country':
-            col_select = np.r_[3:num_cols - 4]
+            col_select = np.r_[3:num_cols - self.data[data_src]['summary_cols']]
             plot_item_names = list(pdf['Country/Region'])
             trunc_len = 15
         else:
