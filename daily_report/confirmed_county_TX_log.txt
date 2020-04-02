@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-01 08:46:12.155390 UTC
-  Data last data point date: 3/31/20
-          County Name State  3/28/2020  3/29/2020  3/30/2020  3/31/2020  Yesterday  Total  DayIncrease  %DayIncrease
-0               Total    TX       2226       2664       3089       3266       3089   3266          177           5.7
-1       Harris County    TX        229        445        526        563        526    563           37           7.0
-2       Dallas County    TX        439        488        549        549        549    549            0           0.0
-3       Travis County    TX        160        179        200        206        200    206            6           3.0
-4       Denton County    TX        148        165        191        191        191    191            0           0.0
-5      Tarrant County    TX        128        139        155        175        155    175           20          12.9
-6        Bexar County    TX        140        157        168        168        168    168            0           0.0
-7       Collin County    TX        128        134        160        160        160    160            0           0.0
-8    Fort Bend County    TX        101        101        119        119        119    119            0           0.0
-9    Galveston County    TX         49         70         92         92         92     92            0           0.0
-10  Montgomery County    TX         63         65         70         81         70     81           11          15.7
-11    Brazoria County    TX         61         61         79         79         79     79            0           0.0
-12     Lubbock County    TX         41         41         51         77         51     77           26          51.0
-13      Brazos County    TX         36         40         44         46         44     46            2           4.5
-14     El Paso County    TX         35         35         40         46         40     46            6          15.0
-15  Williamson County    TX         34         37         42         42         42     42            0           0.0
-16    McLennan County    TX         36         36         36         39         36     39            3           8.3
-17     Hidalgo County    TX         27         28         38         38         38     38            0           0.0
-18        Webb County    TX         19         25         37         37         37     37            0           0.0
-19        Bell County    TX         28         28         36         36         36     36            0           0.0
+  Extract downloaded: 2020-04-02 04:10:13.226695 UTC
+  Data last data point date: Yesterday
+          County Name State  3/29/20  3/30/20  3/31/20  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
+0               Total    TX     2664     3089     3266       3089   3266          177           5.7          6.49
+1       Harris County    TX      445      526      563        526    563           37           7.0          3.40
+2       Dallas County    TX      488      549      549        549    549            0           0.0          8.61
+3       Travis County    TX      179      200      206        200    206            6           3.0         13.71
+4       Denton County    TX      165      191      191        191    191            0           0.0         10.43
+5      Tarrant County    TX      139      155      175        155    175           20          12.9          8.09
+6        Bexar County    TX      157      168      168        168    168            0           0.0         10.30
+7       Collin County    TX      134      160      160        160    160            0           0.0         11.38
+8    Fort Bend County    TX      101      119      119        119    119            0           0.0         10.67
+9    Galveston County    TX       70       92       92         92     92            0           0.0          4.16
+10  Montgomery County    TX       65       70       81         70     81           11          15.7          6.37
+11    Brazoria County    TX       61       79       79         79     79            0           0.0          4.91
+12     Lubbock County    TX       41       51       77         51     77           26          51.0          3.81
+13      Brazos County    TX       40       44       46         44     46            2           4.5          8.11
+14     El Paso County    TX       35       40       46         40     46            6          15.0          8.11
+15  Williamson County    TX       37       42       42         42     42            0           0.0         16.40
+16    McLennan County    TX       36       36       39         36     39            3           8.3         25.26
+17     Hidalgo County    TX       28       38       38         38     38            0           0.0          4.64
+18        Webb County    TX       25       37       37         37     37            0           0.0          3.31
+19        Bell County    TX       28       36       36         36     36            0           0.0          9.50
 
-   Data from the 3/31/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the Yesterday extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
