@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-02 04:10:13.226695 UTC
-  Data last data point date: Yesterday
-           County Name State  3/29/20  3/30/20  3/31/20  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
-0                Total    NY    59240    67194    74473      67194  74473         7279          10.8          6.82
-1        Queens County    NY    10737    12756    13869      12756  13869         1113           8.7          6.62
-2         Kings County    NY     8887    10171    11160      10171  11160          989           9.7          6.89
-3   Westchester County    NY     8519     9329     9967       9329   9967          638           6.8         10.60
-4        Nassau County    NY     6445     7344     8544       7344   8544         1200          16.3          5.71
-5         Bronx County    NY     6250     6925     7814       6925   7814          889          12.8          6.69
-6       Suffolk County    NY     5023     5791     6713       5791   6713          922          15.9          5.06
-7      New York County    NY     5582     6060     6539       6060   6539          479           7.9          9.15
-8      Rockland County    NY     2209     2511     2863       2511   2863          352          14.0          5.13
-9      Richmond County    NY     1984     2140     2354       2140   2354          214          10.0          7.05
-10       Orange County    NY     1247     1435     1560       1435   1560          125           8.7          6.43
-11     Dutchess County    NY      320      392      484        392    484           92          23.5          4.52
-12         Erie County    NY      358      376      438        376    438           62          16.5          5.00
-13       Monroe County    NY      219      242      300        242    300           58          24.0          5.51
-14       Albany County    NY      205      217      226        217    226            9           4.1         18.30
-15       Ulster County    NY      146      190      211        190    211           21          11.1          4.52
-16     Onondaga County    NY      152      180      194        180    194           14           7.8          6.63
-17       Putnam County    NY      144      167      187        167    187           20          12.0          6.64
-18     Sullivan County    NY       88      101      109        101    109            8           7.9          6.51
-19     Saratoga County    NY      102      105      108        105    108            3           2.9         12.58
+  Extract downloaded: 2020-04-02 10:18:07.895772 UTC
+  Data last data point date: 4/1/20
+           County Name State  3/30/2020  3/31/2020  4/1/2020  Yesterday    Total  DayIncrease  %DayIncrease  DaysToDouble
+0                Total    NY      67194      74447   82133.0      74447  82133.0       7686.0          10.3          8.02
+1        Queens County    NY      12756      13869   15217.0      13869  15217.0       1348.0           9.7          7.93
+2         Kings County    NY      10171      11160   12274.0      11160  12274.0       1114.0          10.0          8.41
+3   Westchester County    NY       9329       9967   10683.0       9967  10683.0        716.0           7.2         11.36
+4        Nassau County    NY       7344       8544    9554.0       8544   9554.0       1010.0          11.8          6.35
+5         Bronx County    NY       6925       7814    8607.0       7814   8607.0        793.0          10.1          8.60
+6       Suffolk County    NY       5791       6713    7605.0       6713   7605.0        892.0          13.3          5.69
+7      New York County    NY       6060       6539    7022.0       6539   7022.0        483.0           7.4         11.82
+8      Rockland County    NY       2511       2863    3321.0       2863   3321.0        458.0          16.0          6.18
+9      Richmond County    NY       2140       2354    2552.0       2354   2552.0        198.0           8.4          9.64
+10       Orange County    NY       1435       1560    1756.0       1560   1756.0        196.0          12.6          7.42
+11         Erie County    NY        376        438     603.0        438    603.0        165.0          37.7          5.42
+12     Dutchess County    NY        392        484     547.0        484    547.0         63.0          13.0          4.71
+13       Monroe County    NY        242        300     349.0        300    349.0         49.0          16.3          5.80
+14       Albany County    NY        217        226     240.0        226    240.0         14.0           6.2         16.69
+15       Ulster County    NY        190        211     221.0        211    221.0         10.0           4.7          6.35
+16     Onondaga County    NY        180        194     217.0        194    217.0         23.0          11.9          6.66
+17       Putnam County    NY        167        187     207.0        187    207.0         20.0          10.7          7.58
+18     Saratoga County    NY        105        108     122.0        108    122.0         14.0          13.0          8.72
+19     Sullivan County    NY        101        109     121.0        109    121.0         12.0          11.0          6.68
 
-   Data from the Yesterday extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the 4/1/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

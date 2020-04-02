@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-04-02 04:10:13.226695 UTC
-  Data last data point date: Yesterday
-              County Name State  3/29/20  3/30/20  3/31/20  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
-0           Queens County    NY      253      305      376        305    376           71          23.3          3.74
-1            Bronx County    NY      188      215      262        215    262           47          21.9          3.64
-2            Kings County    NY      185      215      261        215    261           46          21.4          3.69
-3   Statewide Unallocated    NY       65      135      244        135    244          109          80.7          1.57
-4             King County    WA      144      150      150        150    150            0           0.0         19.01
-5         New York County    NY      103      119      129        119    129           10           8.4          5.06
-6            Wayne County    MI       56       83      120         83    120           37          44.6          2.95
-7          Orleans Parish    LA       73       86      101         86    101           15          17.4          6.06
-8          Oakland County    MI       31       48       70         48     70           22          45.8          3.50
-9         Richmond County    NY       46       58       67         58     67            9          15.5          4.89
-10          Nassau County    NY       35       48       63         48     63           15          31.2          4.09
-11            Cook County    IL       40       44       61         44     61           17          38.6          3.11
-12       Jefferson Parish    LA       28       37       57         37     57           20          54.1          4.01
-13  Statewide Unallocated    NJ       22       57       57         57     57            0           0.0          2.86
-14     Los Angeles County    CA       37       44       54         44     54           10          22.7          4.74
-15         Suffolk County    NY       40       44       53         44     53            9          20.5          6.09
-16          Bergen County    NJ       32       32       45         32     45           13          40.6          5.51
-17          Macomb County    MI       20       27       38         27     38           11          40.7          3.47
-18       Fairfield County    CT       21       21       38         21     38           17          81.0          3.73
-19       Snohomish County    WA       21       31       33         31     33            2           6.5          7.67
+  Extract downloaded: 2020-04-02 10:18:07.895772 UTC
+  Data last data point date: 4/1/20
+              County Name State  3/30/2020  3/31/2020  4/1/2020  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
+0           Queens County    NY        305        376     447.0        376  447.0         71.0          18.9          4.77
+1            Bronx County    NY        215        262     360.0        262  360.0         98.0          37.4          4.02
+2            Kings County    NY        215        261     328.0        261  328.0         67.0          25.7          5.13
+3   Statewide Unallocated    NY        123        232     250.0        232  250.0         18.0           7.8          2.06
+4             King County    WA        150        150     165.0        150  165.0         15.0          10.0         17.93
+5         New York County    NY        119        129     165.0        129  165.0         36.0          27.9          6.04
+6            Wayne County    MI         83        120     146.0        120  146.0         26.0          21.7          3.00
+7          Orleans Parish    LA         86        101     115.0        101  115.0         14.0          13.9          6.98
+8          Oakland County    MI         48         70      99.0         70   99.0         29.0          41.4          2.98
+9             Cook County    IL         44         61      95.0         61   95.0         34.0          55.7          2.84
+10          Nassau County    NY         48         63      76.0         63   76.0         13.0          20.6          4.47
+11          Bergen County    NJ         32         45      75.0         45   75.0         30.0          66.7          4.07
+12        Richmond County    NY         58         67      73.0         67   73.0          6.0           9.0          6.55
+13           Essex County    NJ         20         31      69.0         31   69.0         38.0         122.6          2.80
+14         Suffolk County    NY         44         53      69.0         53   69.0         16.0          30.2          5.56
+15     Los Angeles County    CA         44         54      65.0         54   65.0         11.0          20.4          4.89
+16       Jefferson Parish    LA         37         57      64.0         57   64.0          7.0          12.3          3.85
+17     Westchester County    NY         19         25      64.0         25   64.0         39.0         156.0          1.87
+18          Macomb County    MI         27         38      51.0         38   51.0         13.0          34.2          3.15
+19       Fairfield County    CT         21         38      46.0         38   46.0          8.0          21.1          4.16
 
-   Data from the Yesterday extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the 4/1/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
