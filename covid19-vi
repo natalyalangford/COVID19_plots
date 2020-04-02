@@ -297,18 +297,18 @@ class CovidData:
         else:
             self.data[zone]['header_cols'] = 4
             df = self.aggregate_state_prov(df, 'US')
-        # TODO - add days to double metric
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
         df.loc[:, 'Total'] = df.iloc[:, -2]
         df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
         df.loc[:, '%DayIncrease'] = (df.loc[:, 'DayIncrease'] / df.loc[:, 'Yesterday'])
         df.loc[df['%DayIncrease'].isna(), '%DayIncrease'] = 0.0
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
+        self.data[zone]['summary_cols'] = 4
         num_cols = df.shape[1]
         col_select = np.r_[self.data[zone]['header_cols']:num_cols - self.data[zone]['summary_cols']]
-        #df['DaysToDouble'] = df.apply(lambda x: cm.CovidMath.series_doubling_time(
-                             #list(x[col_select])[-self.args.rwindow:]), axis=1)
-        self.data[zone]['summary_cols'] = 4
+        df.loc[:, 'DaysToDouble'] = df.iloc[:, col_select].apply(lambda x:
+                                    cm.CovidMath.series_doubling_time(x.tolist()[-5:]), axis=1)
+        self.data[zone]['summary_cols'] = 5
         return df
 
     def day_percent_growth(self, df, file_zone):
