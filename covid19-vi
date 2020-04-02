@@ -206,7 +206,7 @@ class CovidData:
                     with pd.option_context('display.max_rows', None, 'show_dimensions', False):
                         print(read_df.head(1))
                 self.data[zone][report_type] = self.read_csv_file(csv_data, zone, read_df)
-                self.data[zone]['data_date'] = self.data[zone][report_type].columns[-5]
+                self.data[zone]['data_date'] = self.data[zone][report_type].columns[-(self.data[zone]['summary_cols']+1)]
                 print('  Last data date: {}, Data size: {}'.format(self.data[zone]['data_date'], read_df.shape))
             self.data[zone]['download_date'] = datetime.utcnow()
 
@@ -288,7 +288,7 @@ class CovidData:
                 df = pd.read_csv(file_name, encoding='ISO-8859-1')
 
         if zone == 'global':
-            self.data[zone]['header_cols'] = 5
+            self.data[zone]['header_cols'] = 4
             for ps_country in self._prov_state_countries:
                 df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == ps_country),
                        'Province/State'] = ps_country
@@ -306,7 +306,7 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
         self.data[zone]['summary_cols'] = 4
         num_cols = df.shape[1]
-        col_select = np.r_[self.data[zone]['header_cols']-1:num_cols - self.data[zone]['summary_cols']]
+        col_select = np.r_[self.data[zone]['header_cols']:num_cols - self.data[zone]['summary_cols']]
         df.loc[:, 'DaysToDouble'] = df.iloc[:, col_select].apply(lambda x:
                                     cm.CovidMath.series_doubling_time(x.tolist()[-5:]), axis=1)
         self.data[zone]['summary_cols'] = 5
@@ -488,7 +488,7 @@ class CovidData:
         data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         plot_response = 'Total'
         num_cols = pdf.shape[1]
-        col_select = np.r_[self.data[data_src]['header_cols']-1:num_cols-self.data[data_src]['summary_cols']]
+        col_select = np.r_[self.data[data_src]['header_cols']:num_cols-self.data[data_src]['summary_cols']]
 
         # Set credit string base on data source
         credit_str = 'Data from the {} extract at {}, Credit: {}'.format(
@@ -511,10 +511,12 @@ class CovidData:
                 trunc_len = 25
 
         # Prepare matplotlib figure.
-        fig = plt.figure(figsize=(10, 10))
+        fig_size = 10
+        fig = plt.figure(figsize=(fig_size, fig_size))
         ax = fig.add_subplot(1, 1, 1)
         ax.set_facecolor('#d0dbd5')
         fig.patch.set_facecolor('#eeeeee')
+        plt.subplots_adjust(left=0.09, right=0.93, top=0.95)
 
         # Generate Plots
         max_days = max_cases = thresh = 0
@@ -545,7 +547,9 @@ class CovidData:
             if self.args.response == 'new-total':
                 x, y = self.plot_prep_new_total(y, self.args.mwindow)
                 if not x or not y: continue
-                if self.args.debug: print('{}\nx = {}..{}\ny = {}..{}'.format(lname, x[0:4], x[-4:], y[0:4], y[-4:]))
+                if self.args.debug:
+                    print('{}\nx = {}..{}\ny = {}..{}'.format(lname, x[0:4], x[-4:], y[0:4], y[-4:]))
+                    print(pdf)
                 ax.set_yscale('log')
                 ax.set_xscale('log')
                 ax.plot(x, y, label=lname)
@@ -566,13 +570,15 @@ class CovidData:
                 y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) <= self.args.minimum: continue
                 y = cm.CovidMath.series_rolling_doubling_time(y, self.args.rwindow)
-                if self.args.debug: print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
+                if self.args.debug:
+                    print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
+                    print(pdf)
 
                 # Plot the lines
                 ax.set_yscale('log')
                 tname = '{} ({})'.format(pname, y[-1])
                 ax.plot(y, label=lname)
-                ax.text(x=len(y) - 1, y=y[-1], s=tname,
+                ax.text(x=len(y)-1, y=y[-1], s=tname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             elif self.args.response == 'trajectory':
                 if self.args.threshold:
@@ -585,7 +591,9 @@ class CovidData:
                 # Set starting point of each series, get last element rdtd value, and smooth y
                 y = cm.CovidMath.start_at_threshold(y, thresh)
                 if len(y) < self.args.minimum: continue
-                if self.args.debug: print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
+                if self.args.debug:
+                    print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
+                    print(pdf)
                 rdtd_val = cm.CovidMath.series_doubling_time(y[-5:])
                 y = cm.CovidMath.moving_average(y, self.args.mwindow)
 
@@ -599,10 +607,12 @@ class CovidData:
                 ax.text(x=len(y)-1, y=y[-1], s='{} ({})'.format(pname, rdtd_val),
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             else:
-                if self.args.debug: print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
+                if self.args.debug:
+                    print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
+                    print(pdf)
                 ax.set_yscale('log')
                 ax.plot(y, label=lname)
-                ax.text(x=len(y), y=y[-1], s=pname,
+                ax.text(x=len(y)-1, y=y[-1], s=pname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
 
         # Finish plots
@@ -669,7 +679,8 @@ class CovidData:
         plt.figtext(0.99, 0.01, '{}\n{}\nAnalytics: {}'.format(data_desc, credit_str, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
         fig.subplots_adjust(bottom=x_tick_adjust)
-        ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region), fontsize=19)
+        ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region),
+                     fontsize=18, fontweight='bold')
 
         # Output plot
         if self.args.saveplot:
