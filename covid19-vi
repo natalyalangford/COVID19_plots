@@ -655,6 +655,10 @@ class CovidData:
             plt.ylabel('New {}'.format(name_1), fontsize=16)
             plt.xlabel('Total {}'.format(name_1), fontsize=16)
             ax.grid(True)
+            #plt.tick_params(axis='y', which='minor')
+            #ax.yaxis.set_minor_formatter(FormatStrFormatter("%d"))
+            #for tick in ax.yaxis.get_minor_ticks():
+                #tick.label.set_fontsize(5)
             ax.legend(loc="upper left", fontsize=8)
         else:
             plt.ylabel('{} {}'.format(name_1, name_2), fontsize=16)
@@ -679,8 +683,9 @@ class CovidData:
         plt.figtext(0.99, 0.01, '{}\n{}\nAnalytics: {}'.format(data_desc, credit_str, self._analytics_source),
                     horizontalalignment='right', fontsize=8)
         fig.subplots_adjust(bottom=x_tick_adjust)
+        title_fs = 17 if self.args.response == 'rdtd' else 19
         ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region),
-                     fontsize=18, fontweight='bold')
+                     fontsize=title_fs, fontweight='bold')
 
         # Output plot
         if self.args.saveplot:
