@@ -85,7 +85,10 @@ class CovidMath:
         5.36
         >>> CovidMath.series_doubling_time([np.nan, 7284, 9134, 10836, 11899])
         5.65
+        >>> CovidMath.series_doubling_time([0, 0, 0, 0, 0]) is np.nan
+        True
         """
+        if max(target_list) == 0: return np.nan
         if len(target_list) <= 1: return np.nan
         t_list = target_list[:]
         win_s = 0
