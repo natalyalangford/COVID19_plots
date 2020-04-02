@@ -37,7 +37,7 @@ optional arguments:
   --state STATE         name of state for county reports
   --region REGION       scope of report: country, state, province, county, county-state
   --type TYPE           type of report: confirmed, deaths
-  --response RESPONSE   response: log, linear, growth, new-total, trajectory, rdtd
+  --response RESPONSE   response: log, linear, new-total, trajectory, rdtd
   --sources             list sources used by this utility
   --download            download data from sources and save local pickle
   --saveplot            save plot output to a file
@@ -64,9 +64,10 @@ To display a plot of the confirmed cases for top 20 counties of New York, execut
 ```shell script
 covid19-vi --type confirmed --region county --country US --state NY --length 20 --showplot
 ```
-To display confirmed case growth rates for countries with more than 7000 cases, execute:
+To display confirmed case rolling days to double trends for countries with more than 200 cases
+using a rolling window size of 5 and displaying only trends longer than 10, execute:
 ```shell script
-covid19-vi --type confirmed --region country --threshold 7000 --response growth --showplot --showtable
+covid19-vi --type confirmed --region country --threshold 200 --response rdtd --rwindow 5 --minimum 10 --showplot
 ```
 
 ## daily.sh
