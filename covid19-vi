@@ -67,7 +67,7 @@ class CovidData:
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
                    'region': ['country', 'state', 'province', 'county', 'county-state'],
-                   'response': ['log', 'linear', 'growth', 'new-total', 'trajectory', 'rdtd']}
+                   'response': ['log', 'linear', 'new-total', 'trajectory', 'rdtd']}
 
     def __init__(self, args, download=False):
         """
@@ -216,8 +216,7 @@ class CovidData:
 
         return True
 
-    @staticmethod
-    def aggregate_world(df):
+    def aggregate_world(self, df):
         """
         Aggregate global total from country level data.
         :param df: Target dataframe
@@ -225,10 +224,11 @@ class CovidData:
         :return: Dataframe with aggregation row added
         :rtype: pandas.core.frame.DataFrame
         """
+        head_cols = self.data['global']['header_cols']
         ac_df = df.loc[df['Province/State'].isnull()].copy()
-        ac_df.iloc[:, 5:] = ac_df.iloc[:, 5:].fillna(0)
+        ac_df.iloc[:, head_cols:] = ac_df.iloc[:, head_cols:].fillna(0)
         world_df = ac_df.head(1).copy()
-        world_df.iloc[:, 5:] = ac_df.values[:, 5:].sum(axis=0)
+        world_df.iloc[:, head_cols:] = ac_df.values[:, head_cols:].sum(axis=0)
         world_df.loc[:, 'Country/Region'] = 'Global'
         world_df.loc[:, 'Province/State'] = np.NaN
         world_df.loc[:, 'Lat'] = 0.0
@@ -236,8 +236,7 @@ class CovidData:
         fdf = pd.concat([df, world_df], ignore_index=True)
         return fdf
 
-    @staticmethod
-    def aggregate_state_prov(df, target_country):
+    def aggregate_state_prov(self, df, target_country):
         """
         Aggregate state/province level data to country totals.
         :param df: Target dataframe
@@ -248,23 +247,25 @@ class CovidData:
         :rtype: pandas.core.frame.DataFrame
         """
         if target_country == 'US':
+            head_cols = self.data['usa']['header_cols']
             fdf = df.copy()
             state_list = df['State'].unique()
             # TODO - Need to replace with pivot
             for state in state_list:
                 sc_df = df.loc[df['State'] == state, :].copy()
                 state_df = sc_df.head(1).copy()
-                state_df.loc[0, 4:] = 0
-                sc_df.iloc[:, 4:] = sc_df.iloc[:, 4:].fillna(0)
-                state_df.loc[:, 4:] = sc_df.values[:, 4:].sum(axis=0)
+                state_df.loc[0, head_cols:] = 0
+                sc_df.iloc[:, head_cols:] = sc_df.iloc[:, head_cols:].fillna(0)
+                state_df.loc[:, head_cols:] = sc_df.values[:, head_cols:].sum(axis=0)
                 state_df = state_df.head(1).copy()
                 state_df.loc[:, 'County Name'] = np.NaN
                 fdf = pd.concat([fdf, state_df], ignore_index=True)
         else:
+            head_cols = self.data['global']['header_cols']
             sp_df = df.loc[df['Country/Region'] == target_country, :].copy()
-            sp_df.iloc[:, 5:] = sp_df.iloc[:, 5:].fillna(0)
+            sp_df.iloc[:, head_cols:] = sp_df.iloc[:, head_cols:].fillna(0)
             country_df = sp_df.head(1).copy()
-            country_df.loc[:, 5:] = sp_df.values[:, 5:].sum(axis=0)
+            country_df.loc[:, head_cols:] = sp_df.values[:, head_cols:].sum(axis=0)
             country_df.loc[:, 'Province/State'] = np.NaN
             fdf = pd.concat([df, country_df], ignore_index=True)
         return fdf
@@ -323,21 +324,29 @@ class CovidData:
         """
         # TODO - Need regression fit to calculate rate of increase instead of 3 day median
         dpd_df = df.copy(deep=True)
-        series_start = 4 if file_zone == 'usa' else 5
+        series_start = self.data[file_zone]['header_cols']
+        #series_start = 4 if file_zone == 'usa' else 5
         series_end = df.shape[1] - self.data[file_zone]['summary_cols']
         dpd_df.iloc[:, series_start:series_end] = \
             (df.iloc[:, series_start:series_end].pct_change(axis=1) * 100.0).round(1)
         with pd.option_context('mode.use_inf_as_na', True):
             dpd_df.iloc[:, series_start:series_end] = dpd_df.iloc[:, series_start:series_end].fillna(0.0)
         dpd_df.loc[:, 'Cases'] = dpd_df.loc[:, 'Total']
+        self.data[file_zone]['summary_cols'] += 1
         dpd_df.loc[:, 'Total'] = dpd_df.iloc[:, series_end - self.args.mwindow:series_end].median(axis=1,
                                                                                                   skipna=True,
                                                                                                   numeric_only=True)
         dpd_df = dpd_df.rename(columns={'Total': 'Median'})
         dpd_df = dpd_df.drop('%DayIncrease', axis=1)
+        self.data[file_zone]['summary_cols'] -= 1
         dpd_df = dpd_df.drop('Yesterday', axis=1)
+        self.data[file_zone]['summary_cols'] -= 1
         dpd_df.reset_index(drop=True, inplace=True)
-        dpd_df.loc[:, 'DayIncrease'] = dpd_df.iloc[:, -4] - dpd_df.iloc[:, -5]
+        print(self.data[file_zone]['header_cols'], self.data[file_zone]['summary_cols'])
+        print(dpd_df)
+        dpd_df.loc[:, 'DayIncrease'] = dpd_df.iloc[:, -(self.data[file_zone]['summary_cols'] + 1)] -\
+                                       dpd_df.iloc[:, -(self.data[file_zone]['summary_cols'] + 2)]
+        #dpd_df.loc[:, 'DayIncrease'] = dpd_df.iloc[:, -4] - dpd_df.iloc[:, -5]
         return dpd_df
 
     def report_process(self, rdf, glb_usa):
@@ -786,7 +795,7 @@ def main():
                         type=str, default='country')
     parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')
-    parser.add_argument('--response', help='response: log, linear, growth, new-total, trajectory, rdtd',
+    parser.add_argument('--response', help='response: log, linear, new-total, trajectory, rdtd',
                         type=str, default='log')
     parser.add_argument('--sources', help='list sources used by this utility',
                         action='store_true', default=False)
