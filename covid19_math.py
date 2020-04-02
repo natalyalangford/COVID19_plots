@@ -59,6 +59,8 @@ class CovidMath:
         [nan, 12.51]
         >>> CovidMath.series_rolling_doubling_time([239], 5)
         [nan]
+        >>> CovidMath.series_rolling_doubling_time([], 5)
+        [nan]
         """
         if len(t_list) <= 1: return [np.nan]
         list_new = [np.nan] * len(t_list)
@@ -87,9 +89,11 @@ class CovidMath:
         5.65
         >>> CovidMath.series_doubling_time([0, 0, 0, 0, 0]) is np.nan
         True
+        >>> CovidMath.series_doubling_time([]) is np.nan
+        True
         """
-        if max(target_list) == 0: return np.nan
         if len(target_list) <= 1: return np.nan
+        if max(target_list) == 0: return np.nan
         t_list = target_list[:]
         win_s = 0
         win_e = len(t_list)
@@ -125,6 +129,8 @@ class CovidMath:
         [1, 2, 3]
         >>> CovidMath.truncate_series([1, 2, 3, 4, 5, 6, 7], 99, 99)
         [1, 2, 3, 4, 5, 6, 7]
+        >>> CovidMath.truncate_series([], 6, 3)
+        []
         """
         t_list = target_list[:]
         if len(t_list) > length:
@@ -151,6 +157,8 @@ class CovidMath:
         0
         >>> CovidMath.threshold_index([1, 2, 3, 4, 5, 6, 7], 10) is None
         True
+        >>> CovidMath.threshold_index([], 10) is None
+        True
         """
         for i, x in enumerate(t_list):
             if x >= threshold:
@@ -173,6 +181,8 @@ class CovidMath:
         [1, 2, 3, 4, 5, 6, 7]
         >>> CovidMath.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 10)
         []
+        >>> CovidMath.start_at_threshold([], 10)
+        []
         """
         return [y_val for i, y_val in enumerate(t_list) if min(t_list[i:]) >= threshold]
 
@@ -190,8 +200,15 @@ class CovidMath:
         [0, 327.0, 470.5, 390.0, 588.5, 746.5, 1730.0, 1619.5, 1328.0, 1880.5]
         >>> CovidMath.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3)
         [0, 327.0, 313.67, 478.0, 488.0, 662.0, 1381.33, 1349.33, 1769.0, 1449.67]
+        >>> CovidMath.moving_average([2068, 1693], 3)
+        [2068, 1880.5]
+        >>> CovidMath.moving_average([1693], 3)
+        [1693]
+        >>> CovidMath.moving_average([], 3)
+        []
         """
-        if lookback == 1: return list_values
+        if not list_values: return list_values
+        if lookback == 1 or len(list_values) == 1: return list_values
         list_new = list_values[:]
         for i in range(lookback - 1, len(list_values)):
             win_e = i + 1
@@ -214,6 +231,10 @@ class CovidMath:
         [nan, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693]
         >>> CovidMath.total_to_increment([0, 654, 941, 1434, 2118, 2000, 5578, 6166, 8234, 9927])
         [nan, 654, 287, 493, 684, -118, 3578, 588, 2068, 1693]
+        >>> CovidMath.total_to_increment([654])
+        [654]
+        >>> CovidMath.total_to_increment([])
+        []
         """
         list_new = list_orig[:]
         for i in range(0, len(list_orig)):
