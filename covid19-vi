@@ -843,17 +843,17 @@ def main():
                         type=str, default='log')
     parser.add_argument('--sources', help='list sources used by this utility',
                         action='store_true', default=False)
-    parser.add_argument('--download', help='download data from sources and save local pickle',
+    parser.add_argument('--download', help='download data from sources and save to local pickle',
                         action='store_true', default=False)
-    parser.add_argument('--saveplot', help='save plot output to a file',
+    parser.add_argument('--saveplot', help='save plot to a file',
                         action='store_true', default=False)
-    parser.add_argument('--showplot', help='plot output',
+    parser.add_argument('--showplot', help='display plot',
                         action='store_true', default=False)
-    parser.add_argument('--savetable', help='write table to file',
+    parser.add_argument('--savetable', help='save table to a file',
                         action='store_true', default=False)
     parser.add_argument('--showtable', help='display table',
                         action='store_true', default=False)
-    parser.add_argument('--savedir', help='destination for saving output',
+    parser.add_argument('--savedir', help='destination for saving files',
                         type=str, default=None)
     parser.add_argument('--debug', help='debug output',
                         action='store_true', default=False)

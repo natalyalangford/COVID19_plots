@@ -41,12 +41,12 @@ optional arguments:
   --type TYPE           type of report: confirmed, deaths
   --response RESPONSE   response: log, linear, new-total, trajectory, rdtd
   --sources             list sources used by this utility
-  --download            download data from sources and save local pickle
-  --saveplot            save plot output to a file
-  --showplot            plot output
-  --savetable           write table to file
+  --download            download data from sources and save to local pickle
+  --saveplot            save plot to a file
+  --showplot            display plot
+  --savetable           save table to a file
   --showtable           display table
-  --savedir SAVEDIR     destination for saving output
+  --savedir SAVEDIR     destination for saving files
   --debug               debug output
 ```
 As an example, the command line arguments to only download and pre-process time series data, execute
