@@ -32,7 +32,7 @@ set -x
 # US Reports by State
 ./covid19-vi --type confirmed --region state --length 100 --threshold 200 --response trajectory --mwindow 2 --rwindow 5 --minimum 6 --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 30 --threshold 100 --response new-total --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region state --length 40 --threshold 300 --response rdtd --rwindow 5 --minimum 6 --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region state --length 40 --threshold 400 --response rdtd --rwindow 5 --minimum 6 --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 20 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region state --country US --length 20 --saveplot --savetable --savedir daily_report
 
@@ -44,8 +44,13 @@ set -x
 ./covid19-vi --type deaths --region county-state --country US --length 20 --saveplot --savetable --savedir daily_report
 
 # US State State Reports by County
-./covid19-vi --type confirmed --region county --country US --state NY --length 20 --saveplot --savetable --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state OR --length 20 --saveplot --savetable --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state CA --length 20 --saveplot --savetable --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state FL --length 20 --saveplot --savetable --savedir daily_report
-./covid19-vi --type confirmed --region county --country US --state TX --length 20 --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state NY --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state OR --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state CA --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state FL --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
+./covid19-vi --type confirmed --region county --country US --state TX --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
+#./covid19-vi --type confirmed --region county --country US --state NY --length 20 --saveplot --savetable --savedir daily_report
+#./covid19-vi --type confirmed --region county --country US --state OR --length 20 --saveplot --savetable --savedir daily_report
+#./covid19-vi --type confirmed --region county --country US --state CA --length 20 --saveplot --savetable --savedir daily_report
+#./covid19-vi --type confirmed --region county --country US --state FL --length 20 --saveplot --savetable --savedir daily_report
+#./covid19-vi --type confirmed --region county --country US --state TX --length 20 --saveplot --savetable --savedir daily_report
