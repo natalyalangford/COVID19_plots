@@ -58,25 +58,42 @@ class CovidData:
         'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
                       'src_name': 'Johns Hopkins University',
+                      'src_key': 'jhu',
                       'header_cols': 4,
                       'summary_cols': 0},
-           'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+        'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+                   'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                   'src_name': 'Johns Hopkins University',
+                   'src_key': 'jhu',
+                   'header_cols': 4,
+                   'summary_cols': 0}}
+    _covid_data_usa_jhu = {
+        'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv',
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
                       'src_name': 'Johns Hopkins University',
-                      'header_cols': 4,
+                      'src_key': 'jhu',
+                      'header_cols': 11,
+                      'summary_cols': 0},
+           'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv',
+                      'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                      'src_name': 'Johns Hopkins University',
+                      'src_key': 'jhu',
+                      'header_cols': 12,
                       'summary_cols': 0}}
-    _covid_data_global_usf = {
+    _covid_data_usa_usf = {
         'confirmed': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
                       'src_link': 'https://usafacts.org/issues/coronavirus/',
                       'src_name': 'USA Facts',
+                      'src_key': 'usf',
                       'header_cols': 4,
                       'summary_cols': 0},
            'deaths': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv',
                       'src_link': 'https://usafacts.org/issues/coronavirus/',
                       'src_name': 'USA Facts',
+                      'src_key': 'usf',
                       'header_cols': 4,
                       'summary_cols': 0}}
-    _covid_data = {'global': _covid_data_global_jhu, 'usa': _covid_data_global_usf}
+    _covid_data = {'global': _covid_data_global_jhu, 'usa': _covid_data_usa_usf}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
@@ -97,6 +114,7 @@ class CovidData:
                                 'header_cols': 0,          # Number of header columns in df.
                                 'src_name': '',            # Name of data source provider
                                 'src_link': '',            # link of data source provider
+                                'src_key': '',             # key of data source provider
                                 'confirmed': None,         # DataFrame for confirmed cases.
                                 'deaths': None,            # DataFrame for deaths.
                                 'recoveries': None},       # DataFrame for recoveries.
@@ -106,6 +124,7 @@ class CovidData:
                              'header_cols': 0,
                              'src_name': '',
                              'src_link': '',
+                             'src_key': '',
                              'confirmed': None,
                              'deaths': None,
                              'recoveries': None}}
@@ -220,7 +239,7 @@ class CovidData:
                 read_df = pd.read_csv(io.StringIO(csv_data.decode('utf-8', errors='replace')), sep=',')
                 # Delete unnamed columns
                 read_df = read_df.loc[:, ~read_df.columns.str.contains('^Unnamed')]
-                if zone == 'usa':
+                if zone == 'usa' and details['src_key'] == 'usf':
                     # Delete rows with null state or county name
                     read_df = read_df.loc[(~read_df['County Name'].isnull() | ~read_df['State'].isnull())].copy()
                 if self.args.debug:
@@ -279,7 +298,7 @@ class CovidData:
                 sc_df.iloc[:, head_cols:] = sc_df.iloc[:, head_cols:].fillna(0)
                 state_df.loc[:, head_cols:] = sc_df.values[:, head_cols:].sum(axis=0)
                 state_df = state_df.head(1).copy()
-                state_df.loc[:, 'County Name'] = np.NaN
+                state_df.loc[:, 'County'] = np.NaN
                 fdf = pd.concat([fdf, state_df], ignore_index=True)
         else:
             head_cols = self.data['global']['header_cols']
@@ -302,7 +321,8 @@ class CovidData:
         :type report_type: str
         :param df: dataframe to use instead of reading csv file.
         :type df: pandas.core.frame.DataFrame
-        :return: list
+        :return: Prepared dataframe
+        :rtype df: pandas.core.frame.DataFrame
         """
         if df is None:
             try:
@@ -314,6 +334,7 @@ class CovidData:
         self.data[zone]['summary_cols'] = self._covid_data[zone][report_type]['summary_cols']
         self.data[zone]['src_name'] = self._covid_data[zone][report_type]['src_name']
         self.data[zone]['src_link'] = self._covid_data[zone][report_type]['src_link']
+        self.data[zone]['src_key'] = self._covid_data[zone][report_type]['src_key']
         if zone == 'global':
             for ps_country in self._prov_state_countries:
                 df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == ps_country),
@@ -322,7 +343,14 @@ class CovidData:
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         else:
+            if self.data[zone]['src_key'] == 'usf':
+                df = df.rename(columns={'County Name': 'County'})
+            else:
+                df = df.rename(columns={'Admin2': 'County'})
+                df = df.rename(columns={'Province_State': 'State'})
             df = self.aggregate_state_prov(df, 'US')
+
+        # Add Summary columns
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
         df.loc[:, 'Total'] = df.iloc[:, -2]
         df.loc[:, 'DayIncrease'] = df.loc[:, 'Total'] - df.loc[:, 'Yesterday']
@@ -391,7 +419,7 @@ class CovidData:
             if self.args.country == 'US':
                 # Pre-process data
                 temp_df = self.data['usa'][self.args.type]
-                tdf = temp_df.loc[temp_df['County Name'].isnull()].copy()
+                tdf = temp_df.loc[temp_df['County'].isnull()].copy()
                 tdf = self.report_process(tdf)
 
                 # Set the plot data
@@ -424,7 +452,7 @@ class CovidData:
             # Pre-process data
             temp_df = self.data['usa'][self.args.type]
             tdf = temp_df.loc[temp_df['State'] == self.args.state].copy()
-            tdf.loc[(tdf['County Name'].isna()), 'County Name'] = 'Total'
+            tdf.loc[(tdf['County'].isna()), 'County'] = 'Total'
             tdf = self.report_process(tdf)
 
             # Set the plot data
@@ -441,7 +469,7 @@ class CovidData:
 
             # Pre-process data
             temp_df = self.data['usa'][self.args.type]
-            tdf = temp_df.loc[~temp_df['County Name'].isnull()].copy()
+            tdf = temp_df.loc[~temp_df['County'].isnull()].copy()
             tdf = self.report_process(tdf)
 
             # Set the plot data
@@ -523,13 +551,13 @@ class CovidData:
 
         # Select label names based on report type and region
         if self.args.region == 'county-state':
-            pdf.loc[:, 'County Name'] = pdf.loc[:, 'County Name'] + ', ' + pdf.loc[:, 'State']
+            pdf.loc[:, 'County'] = pdf.loc[:, 'County'] + ', ' + pdf.loc[:, 'State']
         if self.args.region == 'country':
             plot_item_names = list(pdf['Country/Region'])
             trunc_len = 15
         else:
             if self.args.country == 'US':
-                plot_item_names = list(pdf['State']) if self.args.region == 'state' else list(pdf['County Name'])
+                plot_item_names = list(pdf['State']) if self.args.region == 'state' else list(pdf['County'])
                 trunc_len = 5 if self.args.region == 'state' else 25
             else:
                 plot_item_names = list(pdf['Province/State'])
@@ -553,9 +581,9 @@ class CovidData:
             else:
                 if self.args.country == 'US':
                     y = pdf.loc[pdf['State'] == pname, :] if self.args.region == 'state' else \
-                        pdf.loc[pdf['County Name'] == pname, :]
+                        pdf.loc[pdf['County'] == pname, :]
                     total = pdf.loc[pdf['State'] == pname, plot_response].tolist()[0] if self.args.region == 'state' \
-                            else pdf.loc[pdf['County Name'] == pname, plot_response].tolist()[0]
+                            else pdf.loc[pdf['County'] == pname, plot_response].tolist()[0]
                 else:
                     y = pdf.loc[pdf['Province/State'] == pname, :]
                     total = pdf.loc[pdf['Province/State'] == pname, plot_response].tolist()[0]
