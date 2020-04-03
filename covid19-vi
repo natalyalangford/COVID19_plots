@@ -54,16 +54,28 @@ class CovidData:
     """
     Class for downloading, processing, and reporting on COVID-19 time series data.
     """
-    _covid_data = {'global': {'confirmed': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
-                              'deaths': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'},
-                   'usa': {'confirmed': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
-                           'deaths': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv'}}
+    _covid_data = {'global': {'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
+                                            'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                                            'src_name': 'Johns Hopkins University',
+                                            'header_cols': 4,
+                                            'summary_cols': 0},
+                              'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+                                         'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                                         'src_name': 'Johns Hopkins University',
+                                         'header_cols': 4,
+                                         'summary_cols': 0}},
+                   'usa': {'confirmed': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
+                                         'src_link': 'https://usafacts.org/issues/coronavirus/',
+                                         'src_name': 'USA Facts',
+                                         'header_cols': 4,
+                                         'summary_cols': 0},
+                           'deaths': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv',
+                                      'src_link': 'https://usafacts.org/issues/coronavirus/',
+                                      'src_name': 'USA Facts',
+                                      'header_cols': 4,
+                                      'summary_cols': 0}}}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
-    _data_source = {'global': {'link': 'https://github.com/CSSEGISandData/COVID-19',
-                               'name': 'Johns Hopkins University'},
-                    'usa': {'link': 'https://usafacts.org/issues/coronavirus/',
-                            'name': 'USA Facts'}}
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
                    'region': ['country', 'state', 'province', 'county', 'county-state'],
@@ -80,6 +92,8 @@ class CovidData:
                                 'download_date': None,     # Date of data download.
                                 'summary_cols': 0,         # Number of summary columns in df.
                                 'header_cols': 0,          # Number of header columns in df.
+                                'src_name': '',            # Name of data source provider
+                                'src_link': '',            # link of data source provider
                                 'confirmed': None,         # DataFrame for confirmed cases.
                                 'deaths': None,            # DataFrame for deaths.
                                 'recoveries': None},       # DataFrame for recoveries.
@@ -87,6 +101,8 @@ class CovidData:
                              'download_date': None,
                              'summary_cols': 0,
                              'header_cols': 0,
+                             'src_name': '',
+                             'src_link': '',
                              'confirmed': None,
                              'deaths': None,
                              'recoveries': None}}
@@ -164,7 +180,7 @@ class CovidData:
         """
         for k, v in cls._covid_data.items():
             print(k)
-            [print(' {}: {}'.format(k2, v2)) for k2, v2 in v.items()]
+            [print(' {}: {}\n    {}'.format(k2, v2['src_name'], v2['url'])) for k2, v2 in v.items()]
 
     def read_datafile(self, download=False):
         """
@@ -182,7 +198,9 @@ class CovidData:
             return True
 
         for zone, zone_dict in self._covid_data.items():
-            for report_type, link in zone_dict.items():
+            for report_type, details in zone_dict.items():
+                link = details['url']
+                print(link)
                 print('Downloading: Zone: {}, Type: {}'.format(zone, report_type))
                 if self.args.debug:
                     temp_file_name = 'covid_{}_{}_{}.csv'.format(zone, report_type, 'test')
@@ -205,7 +223,7 @@ class CovidData:
                 if self.args.debug:
                     with pd.option_context('display.max_rows', None, 'show_dimensions', False):
                         print(read_df.head(1))
-                self.data[zone][report_type] = self.read_csv_file(csv_data, zone, read_df)
+                self.data[zone][report_type] = self.read_csv_file(csv_data, zone, report_type, read_df)
                 self.data[zone]['data_date'] = self.data[zone][report_type].columns[-(self.data[zone]['summary_cols']+1)]
                 print('  Last data date: {}, Data size: {}'.format(self.data[zone]['data_date'], read_df.shape))
             self.data[zone]['download_date'] = datetime.utcnow()
@@ -270,13 +288,15 @@ class CovidData:
             fdf = pd.concat([df, country_df], ignore_index=True)
         return fdf
 
-    def read_csv_file(self, file_name, zone, df=None):
+    def read_csv_file(self, file_name, zone, report_type, df=None):
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
         :param file_name: File name of the csv file to be processed.
         :type file_name: str
         :param zone: global or usa file source.
         :type zone: str
+        :param report_type: confirmed or deaths
+        :type report_type: str
         :param df: dataframe to use instead of reading csv file.
         :type df: pandas.core.frame.DataFrame
         :return: list
@@ -287,8 +307,11 @@ class CovidData:
             except UnicodeDecodeError:
                 df = pd.read_csv(file_name, encoding='ISO-8859-1')
 
+        self.data[zone]['header_cols'] = self._covid_data[zone][report_type]['header_cols']
+        self.data[zone]['summary_cols'] = self._covid_data[zone][report_type]['summary_cols']
+        self.data[zone]['src_name'] = self._covid_data[zone][report_type]['src_name']
+        self.data[zone]['src_link'] = self._covid_data[zone][report_type]['src_link']
         if zone == 'global':
-            self.data[zone]['header_cols'] = 4
             for ps_country in self._prov_state_countries:
                 df.loc[(df['Province/State'].isna()) & (df['Country/Region'] == ps_country),
                        'Province/State'] = ps_country
@@ -296,7 +319,6 @@ class CovidData:
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
         else:
-            self.data[zone]['header_cols'] = 4
             df = self.aggregate_state_prov(df, 'US')
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
         df.loc[:, 'Total'] = df.iloc[:, -2]
@@ -304,12 +326,12 @@ class CovidData:
         df.loc[:, '%DayIncrease'] = (df.loc[:, 'DayIncrease'] / df.loc[:, 'Yesterday'])
         df.loc[df['%DayIncrease'].isna(), '%DayIncrease'] = 0.0
         df.loc[:, '%DayIncrease'] = round(100.0 * df.loc[:, '%DayIncrease'], 1)
-        self.data[zone]['summary_cols'] = 4
+        self.data[zone]['summary_cols'] += 4
         num_cols = df.shape[1]
         col_select = np.r_[self.data[zone]['header_cols']:num_cols - self.data[zone]['summary_cols']]
         df.loc[:, 'DaysToDouble'] = df.iloc[:, col_select].apply(lambda x:
                                     cm.CovidMath.series_doubling_time(x.tolist()[-5:]), axis=1)
-        self.data[zone]['summary_cols'] = 5
+        self.data[zone]['summary_cols'] += 1
         return df
 
     def report_process(self, rdf):
@@ -458,8 +480,8 @@ class CovidData:
                 data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
                 credit_str = 'Data from the {} extract at {}, Credit: {}'.format(
                              self.data[data_src]['data_date'],
-                             self._data_source[data_src]['link'],
-                             self._data_source[data_src]['name'])
+                             self.data[data_src]['src_link'],
+                             self.data[data_src]['src_name'])
                 print('{}   {}\n   Analytics: {}{}'.format(markup[0], credit_str, self._analytics_source,
                                                            markup[1]), file=fp)
                 print('', file=fp)
@@ -493,8 +515,8 @@ class CovidData:
         # Set credit string base on data source
         credit_str = 'Data from the {} extract at {}, Credit: {}'.format(
                      self.data[data_src]['data_date'],
-                     self._data_source[data_src]['link'],
-                     self._data_source[data_src]['name'])
+                     self.data[data_src]['src_link'],
+                     self.data[data_src]['src_name'])
 
         # Select label names based on report type and region
         if self.args.region == 'county-state':
