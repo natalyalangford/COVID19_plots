@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-03 00:00:43.161030 UTC
+  Extract downloaded: 2020-04-03 04:25:45.782723 UTC
   Data last data point date: 4/2/20
-              County Name State  3/30/2020  3/31/2020  4/1/2020  Yesterday    Total  DayIncrease  %DayIncrease  DaysToDouble
-0           Queens County    NY      12756      13869   15217.0      13869  15217.0       1348.0           9.7          7.93
-1            Kings County    NY      10171      11160   12274.0      11160  12274.0       1114.0          10.0          8.41
-2      Westchester County    NY       9329       9967   10683.0       9967  10683.0        716.0           7.2         11.36
-3           Nassau County    NY       7344       8544    9554.0       8544   9554.0       1010.0          11.8          6.35
-4            Bronx County    NY       6925       7814    8607.0       7814   8607.0        793.0          10.1          8.60
-5          Suffolk County    NY       5791       6713    7605.0       6713   7605.0        892.0          13.3          5.69
-6         New York County    NY       6060       6539    7022.0       6539   7022.0        483.0           7.4         11.82
-7             Cook County    IL       3727       4496    5152.0       4496   5152.0        656.0          14.6          5.11
-8   Statewide Unallocated    NJ       3847       3686    4512.0       3686   4512.0        826.0          22.4          5.78
-9            Wayne County    MI       3195       3735    4470.0       3735   4470.0        735.0          19.7          5.27
-10     Los Angeles County    CA       2474       3011    3518.0       3011   3518.0        507.0          16.8          5.19
-11          Bergen County    NJ       2482       2909    3494.0       2909   3494.0        585.0          20.1          5.40
-12        Rockland County    NY       2511       2863    3321.0       2863   3321.0        458.0          16.0          6.18
-13        Richmond County    NY       2140       2354    2552.0       2354   2552.0        198.0           8.4          9.64
-14            King County    WA       2330       2330    2496.0       2330   2496.0        166.0           7.1         18.86
-15         Orleans Parish    LA       1480       1834    2270.0       1834   2270.0        436.0          23.8          6.20
-16           Essex County    NJ       1564       1900    2262.0       1900   2262.0        362.0          19.1          4.72
-17      Miami-Dade County    FL       1701       2123    2202.0       2123   2202.0         79.0           3.7          5.13
-18       Fairfield County    CT       1445       1870    1986.0       1870   1986.0        116.0           6.2          4.43
-19          Hudson County    NJ       1314       1606    1910.0       1606   1910.0        304.0          18.9          3.82
+          County State  3/31/20  4/1/20  4/2/20  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
+0       New York    NY    43119   47439   51809      47439  51809         4370           9.2          8.10
+1    Westchester    NY     9967   10683   11567      10683  11567          884           8.3         11.33
+2         Nassau    NY     8544    9554   10587       9554  10587         1033          10.8          6.98
+3        Suffolk    NY     6713    7605    8746       7605   8746         1141          15.0          6.25
+4           Cook    IL     4496    5152    5575       5152   5575          423           8.2          7.20
+5          Wayne    MI     3735    4470    5069       4470   5069          599          13.4          5.52
+6     Unassigned    NJ     3686    4512    4866       4512   4866          354           7.8          7.27
+7         Bergen    NJ     2909    3494    4099       3494   4099          605          17.3          5.45
+8    Los Angeles    CA     3019    3518    4045       3518   4045          527          15.0          4.37
+9       Rockland    NY     2863    3321    3751       3321   3751          430          12.9          6.55
+10       Orleans    LA     1834    2270    3148       2270   3148          878          38.7          4.09
+11    Miami-Dade    FL     2123    2202    2886       2202   2886          684          31.1          3.92
+12          King    WA     2330    2330    2656       2330   2656          326          14.0         16.73
+13         Essex    NJ     1900    2262    2617       2262   2617          355          15.7          4.58
+14        Hudson    NJ     1606    1910    2270       1910   2270          360          18.8          4.10
+15       Oakland    MI     1591    1910    2183       1910   2183          273          14.3          5.56
+16     Jefferson    LA     1193    1433    2178       1433   2178          745          52.0          3.30
+17     Fairfield    CT     1870    1986    2132       1986   2132          146           7.4          6.44
+18  Philadelphia    PA     1315    1675    2100       1675   2100          425          25.4          4.04
+19         Union    NJ     1418    1661    2010       1661   2010          349          21.0          4.29
 
-   Data from the 4/1/2020 extract at https://usafacts.org/issues/coronavirus/, Credit: USA Facts
+   Data from the 4/2/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

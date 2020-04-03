@@ -1,0 +1,30 @@
+
+Top 20 county Report - confirmed
+  Top 20 regions by Cases, threshold = 10 Confirmed cases
+  Extract downloaded: 2020-04-03 04:25:45.782723 UTC
+  Data last data point date: 4/2/20
+        County State  3/31/20  4/1/20  4/2/20  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    TX     3809    4355    5069       4355   5069          714          16.4          5.81
+1       Harris    TX      680     847     955        847    955          108          12.8          5.81
+2       Dallas    TX      631     731     831        731    831          100          13.7          6.51
+3       Travis    TX      244     244     351        244    351          107          43.9          6.16
+4      Tarrant    TX      273     288     325        288    325           37          12.8          4.08
+5       Denton    TX      206     206     254        206    254           48          23.3          8.03
+6        Bexar    TX      168     207     229        207    229           22          10.6          7.04
+7       Collin    TX      160     184     207        184    207           23          12.5          7.97
+8    Fort Bend    TX      163     163     194        163    194           31          19.0          7.09
+9   Montgomery    TX       93     110     119        110    119            9           8.2          5.73
+10   Galveston    TX       92     106     118        106    118           12          11.3          6.64
+11    Brazoria    TX       95      95     109         95    109           14          14.7          5.97
+12     Lubbock    TX       77     100     108        100    108            8           8.0          3.58
+13     El Paso    TX       53      57      75         57     75           18          31.6          5.98
+14      Brazos    TX       53      63      68         63     68            5           7.9          7.96
+15  Williamson    TX       42      50      63         50     63           13          26.0          6.51
+16        Webb    TX       45      45      63         45     63           18          40.0          4.67
+17     Hidalgo    TX       38      46      62         46     62           16          34.8          4.17
+18        Bell    TX       44      46      51         46     51            5          10.9          5.78
+19    McLennan    TX       39      44      48         44     48            4           9.1         10.05
+
+   Data from the 4/2/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Analytics: https://github.com/natalyalangford/COVID19_plots
+

@@ -1,0 +1,30 @@
+
+Top 20 county Report - confirmed
+  Top 20 regions by Cases, threshold = 10 Confirmed cases
+  Extract downloaded: 2020-04-03 04:25:45.782723 UTC
+  Data last data point date: 4/2/20
+             County State  3/31/20  4/1/20  4/2/20  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
+0             Total    CA     8210    9399   10773       9399  10773         1374          14.6          5.68
+1       Los Angeles    CA     3019    3518    4045       3518   4045          527          15.0          4.37
+2       Santa Clara    CA      890     956    1019        956   1019           63           6.6          7.60
+3         San Diego    CA      603     733     849        733    849          116          15.8          6.17
+4            Orange    CA      502     606     656        606    656           50           8.3          8.25
+5         Riverside    CA      371     371     493        371    493          122          32.9          3.74
+6         San Mateo    CA      309     388     453        388    453           65          16.8          7.05
+7     San Francisco    CA      397     434     450        434    450           16           3.7         12.36
+8           Alameda    CA      313     313     359        313    359           46          14.7         12.16
+9        Sacramento    CA      224     224     314        224    314           90          40.2          5.34
+10   San Bernardino    CA      125     183     254        183    254           71          38.8          2.87
+11     Contra Costa    CA      212     249     250        249    250            1           0.4          8.72
+12      San Joaquin    CA      136     151     173        151    173           22          14.6          8.14
+13          Ventura    CA      126     149     160        149    160           11           7.4          7.07
+14             Kern    CA       83     110     142        110    142           32          29.1          3.38
+15    Santa Barbara    CA       88      99     111         99    111           12          12.1          6.29
+16            Marin    CA       99     107     108        107    108            1           0.9          9.17
+17           Sonoma    CA       73      78      91         78     91           13          16.7          7.69
+18           Placer    CA       57      78      90         78     90           12          15.4          6.55
+19  San Luis Obispo    CA       80      80      89         80     89            9          11.2         12.21
+
+   Data from the 4/2/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Analytics: https://github.com/natalyalangford/COVID19_plots
+

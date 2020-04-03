@@ -41,16 +41,16 @@ automation to distribute accurate and timely data.  We will update our toolset w
 ###### [Table for above plot](deaths_county-state_US_log.txt)
 
 ## Selected US States
-![](confirmed_county_NY_log.png)
-###### [Table for above plot](confirmed_county_NY_log.txt)
-![](confirmed_county_FL_log.png)
-###### [Table for above plot](confirmed_county_FL_log.txt)
-![](confirmed_county_OR_log.png)
-###### [Table for above plot](confirmed_county_OR_log.txt)
-![](confirmed_county_CA_log.png)
-###### [Table for above plot](confirmed_county_CA_log.txt)
-![](confirmed_county_TX_log.png)
-###### [Table for above plot](confirmed_county_TX_log.txt)
+![](confirmed_county_NY_new-total.png)
+###### [Table for above plot](confirmed_county_NY_new-total.txt)
+![](confirmed_county_FL_new-total.png)
+###### [Table for above plot](confirmed_county_FL_new-total.txt)
+![](confirmed_county_OR_new-total.png)
+###### [Table for above plot](confirmed_county_OR_new-total.txt)
+![](confirmed_county_CA_new-total.png)
+###### [Table for above plot](confirmed_county_CA_new-total.txt)
+![](confirmed_county_TX_new-total.png)
+###### [Table for above plot](confirmed_county_TX_new-total.txt)
 
 ## Development Team:
 * [@natalyalangford](https://github.com/natalyalangford)
