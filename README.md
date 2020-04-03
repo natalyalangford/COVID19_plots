@@ -18,17 +18,19 @@ utilities and then pickled for quicker use by the utility.
 
 Various reports can be generated from the pickled data set by using command line arguments:
 ```
-usage: covid19-vi [-h] [--about] [--minimum MINIMUM] [--length LENGTH]
-                  [--threshold THRESHOLD] [--mwindow MWINDOW]
-                  [--rwindow RWINDOW] [--country COUNTRY] [--state STATE]
-                  [--region REGION] [--type TYPE] [--response RESPONSE]
-                  [--sources] [--download] [--saveplot] [--showplot]
-                  [--savetable] [--showtable] [--savedir SAVEDIR] [--debug]
+usage: covid19-vi [-h] [--about] [--minimum MINIMUM] [--columns COLUMNS]
+                  [--length LENGTH] [--threshold THRESHOLD]
+                  [--mwindow MWINDOW] [--rwindow RWINDOW] [--country COUNTRY]
+                  [--state STATE] [--region REGION] [--type TYPE]
+                  [--response RESPONSE] [--sources] [--download] [--saveplot]
+                  [--showplot] [--savetable] [--showtable] [--savedir SAVEDIR]
+                  [--debug]
 
 optional arguments:
   -h, --help            show this help message and exit
   --about               display information about this utility
   --minimum MINIMUM     where applicable, excludes regions where times series shorter than minimum
+  --columns COLUMNS     number of columns in table report
   --length LENGTH       data length for sorted reports
   --threshold THRESHOLD threshold of case number to be included
   --mwindow MWINDOW     size of the window for moving avg

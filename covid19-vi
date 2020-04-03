@@ -54,6 +54,7 @@ class CovidData:
     """
     Class for downloading, processing, and reporting on COVID-19 time series data.
     """
+    # Define possible data sources.
     _covid_data_global_jhu = {
         'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
@@ -61,12 +62,12 @@ class CovidData:
                       'src_key': 'jhu',
                       'header_cols': 4,
                       'summary_cols': 0},
-        'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
-                   'src_link': 'https://github.com/CSSEGISandData/COVID-19',
-                   'src_name': 'Johns Hopkins University',
-                   'src_key': 'jhu',
-                   'header_cols': 4,
-                   'summary_cols': 0}}
+           'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+                      'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                      'src_name': 'Johns Hopkins University',
+                      'src_key': 'jhu',
+                      'header_cols': 4,
+                      'summary_cols': 0}}
     _covid_data_usa_jhu = {
         'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv',
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
@@ -93,7 +94,9 @@ class CovidData:
                       'src_key': 'usf',
                       'header_cols': 4,
                       'summary_cols': 0}}
+    # Choose which data sources are to be used.
     _covid_data = {'global': _covid_data_global_jhu, 'usa': _covid_data_usa_jhu}
+
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
@@ -108,7 +111,7 @@ class CovidData:
         :type download: Bool
         :return None
         """
-        null_df = pd.DataFrame()
+        null_df = pd.DataFrame()                           # Used to initialize data so type checking works.
         self.data = {'global': {'data_date': None,         # Date of the last day of time series.
                                 'download_date': None,     # Date of data download.
                                 'summary_cols': 0,         # Number of summary columns in df.
@@ -130,6 +133,9 @@ class CovidData:
                              'deaths': null_df,
                              'recoveries': null_df}}
         self.args = args                                   # Command line argument object.
+        self.table_columns = args.columns
+
+        # Initialize data with pickle file or reading from sources.
         if not self.read_datafile(download=download):
             print('Error: error while downloading sources.')
             sys.exit(-20)
@@ -150,6 +156,9 @@ class CovidData:
             return False
         if args.minimum < 0:
             print('Error in value for --minimum {}, must be an integer >= 0.'.format(args.minimum))
+            return False
+        if args.columns < 5:
+            print('Error in value for --columns {}, must be an integer >= 5.'.format(args.columns))
             return False
         if args.threshold:
             if args.threshold <= 0:
@@ -352,6 +361,7 @@ class CovidData:
 
                 # Convert state names to abbreviations
                 def get_state_abv(state_name):
+                    """Get abbreviation for given state name"""
                     return ussa.us_state_abbrev[state_name] if state_name in ussa.us_state_abbrev.keys() else state_name
                 df.loc[:, 'State'] = df.loc[:, 'State'].apply((lambda x: get_state_abv(x)))
             df = self.aggregate_state_prov(df, 'US')
@@ -386,6 +396,33 @@ class CovidData:
         rdf = rdf.sort_values(['Total'], ascending=False).head(self.args.length)
         return rdf
 
+    @staticmethod
+    def get_col_select(df, name_list, summ_cols, head_cols, total_cols=10):
+        """
+        Get a numpy array that selects appropriate columns for table report.
+        :param df:  Data frame for the table.
+        :type df: pandas.core.frame.DataFrame
+        :param name_list: List of column names.
+        :type name_list: list
+        :param summ_cols: Number of dataframe summary columns
+        :type summ_cols: int
+        :param head_cols: Number of dataframe header columns
+        :type head_cols: int
+        :param total_cols: Total number of columns for the table.
+        :type total_cols: int
+        :return: Object for column selection from dataframe
+        :rtype: numpy.ndarray
+        """
+        x_cols = df.shape[1]
+        index_list = []
+        for c_name in name_list:
+            if c_name in df.columns:
+                c_index = df.columns.get_loc(c_name)
+                index_list.append(c_index)
+        max_cols = x_cols - head_cols - summ_cols
+        if total_cols > max_cols: total_cols = max_cols
+        return np.r_[index_list, head_cols, x_cols - (total_cols - len(index_list) - 1):x_cols]
+
     def top_ten(self, plot=False):
         """
         Generate tabular data report.
@@ -393,36 +430,25 @@ class CovidData:
         :type plot: bool
         :return: None
         """
-        def get_col_select(df, name_list):
-            index_list = []
-            for c_name in name_list:
-                if c_name in df.columns:
-                    c_index = df.columns.get_loc(c_name)
-                    index_list.append(c_index)
-            return index_list[:]
-
         plot_file_name_suffix = 'png'
         table_file_name_suffix = 'txt'
         report_file_name = None
         table_df = plot_df = pd.DataFrame()
+        zone = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         if self.args.region == 'country':
-            report_file_name = '{}_{}_{}_{}'.format(self.args.type, self.args.region, 'global', self.args.response)
+            report_file_name = '{}_{}_{}_{}'.format(self.args.type, self.args.region, zone, self.args.response)
 
             # Pre-process data
-            temp_df = self.data['global'][self.args.type]
+            temp_df = self.data[zone][self.args.type]
             tdf = temp_df.loc[temp_df['Province/State'].isnull()].copy()
-            tdf = tdf.drop('Province/State', axis=1)
-            self.data['global']['header_cols'] -= 1
             tdf = self.report_process(tdf)
 
             # Set the plot data
-            if plot:
-                plot_df = tdf.copy()
+            if plot: plot_df = tdf.copy()
 
             # Select columns for table
-            head_cols = get_col_select(tdf, ['Country/Region'])
-            num_cols = tdf.shape[1]
-            col_select = np.r_[head_cols, num_cols-11:num_cols]
+            col_select = self.get_col_select(tdf, ['Country/Region'], self.data[zone]['summary_cols'],
+                                             self.data[zone]['header_cols'], self.table_columns)
             table_df = tdf.iloc[:, col_select]
 
         elif self.args.region == 'state' or self.args.region == 'province':
@@ -431,18 +457,16 @@ class CovidData:
 
             if self.args.country == 'US':
                 # Pre-process data
-                temp_df = self.data['usa'][self.args.type]
+                temp_df = self.data[zone][self.args.type]
                 tdf = temp_df.loc[temp_df['County'].isnull()].copy()
                 tdf = self.report_process(tdf)
 
                 # Set the plot data
-                if plot:
-                    plot_df = tdf.copy()
+                if plot: plot_df = tdf.copy()
 
                 # Select columns for table
-                head_cols = get_col_select(tdf, ['State'])
-                num_cols = tdf.shape[1]
-                col_select = np.r_[head_cols, num_cols-10:num_cols]
+                col_select = self.get_col_select(tdf, ['State'], self.data[zone]['summary_cols'],
+                                                 self.data[zone]['header_cols'], self.table_columns)
                 table_df = tdf.iloc[:, col_select]
 
             else:
@@ -453,51 +477,34 @@ class CovidData:
                 tdf = self.report_process(tdf)
 
                 # Set the plot data
-                if plot:
-                    plot_df = tdf.copy()
+                if plot: plot_df = tdf.copy()
 
                 # Select columns for table
-                head_cols = get_col_select(tdf, ['Province/State', 'Country/Region'])
-                num_cols = tdf.shape[1]
-                col_select = np.r_[head_cols, num_cols-8:num_cols]
+                col_select = self.get_col_select(tdf, ['Province/State', 'Country/Region'], self.data[zone]['summary_cols'],
+                                                 self.data[zone]['header_cols'], self.table_columns)
                 table_df = tdf.iloc[:, col_select].copy()
 
-        elif self.args.region == 'county':
-            report_file_name = '{}_{}_{}_{}'.format(self.args.type, 'county', self.args.state, self.args.response)
-
+        elif self.args.region == 'county' or self.args.region == 'county-state':
             # Pre-process data
-            temp_df = self.data['usa'][self.args.type]
-            tdf = temp_df.loc[temp_df['State'] == self.args.state].copy()
-            tdf.loc[(tdf['County'].isna()), 'County'] = 'Total'
+            temp_df = self.data[zone][self.args.type]
+            if self.args.region == 'county':
+                report_file_name = '{}_{}_{}_{}'.format(self.args.type, 'county',
+                                                        self.args.state, self.args.response)
+                tdf = temp_df.loc[temp_df['State'] == self.args.state].copy()
+                tdf.loc[(tdf['County'].isna()), 'County'] = 'Total'
+            else:
+                report_file_name = '{}_{}_{}_{}'.format(self.args.type, 'county-state',
+                                                        self.args.country, self.args.response)
+                temp_df = self.data[zone][self.args.type]
+                tdf = temp_df.loc[~temp_df['County'].isnull()].copy()
             tdf = self.report_process(tdf)
 
             # Set the plot data
-            if plot:
-                plot_df = tdf.copy()
+            if plot: plot_df = tdf.copy()
 
             # Select columns for table
-            head_cols = get_col_select(tdf, ['County', 'State'])
-            num_cols = tdf.shape[1]
-            col_select = np.r_[head_cols, num_cols-8:num_cols]
-            table_df = tdf.iloc[:, col_select].copy()
-
-        elif self.args.region == 'county-state':
-            report_file_name = '{}_{}_{}_{}'.format(self.args.type, 'county-state',
-                                                    self.args.country, self.args.response)
-
-            # Pre-process data
-            temp_df = self.data['usa'][self.args.type]
-            tdf = temp_df.loc[~temp_df['County'].isnull()].copy()
-            tdf = self.report_process(tdf)
-
-            # Set the plot data
-            if plot:
-                plot_df = tdf.copy()
-
-            # Select columns for table
-            head_cols = get_col_select(tdf, ['County', 'State'])
-            num_cols = tdf.shape[1]
-            col_select = np.r_[head_cols, num_cols - 8:num_cols]
+            col_select = self.get_col_select(tdf, ['County', 'State'], self.data[zone]['summary_cols'],
+                                             self.data[zone]['header_cols'], self.table_columns)
             table_df = tdf.iloc[:, col_select].copy()
 
         else:
@@ -804,6 +811,8 @@ def main():
                         action='store_true', default=False)
     parser.add_argument('--minimum', help='where applicable, excludes regions where times series shorter than minimum',
                         type=int, default=1)
+    parser.add_argument('--columns', help='number of columns in table report',
+                        type=int, default=10)
     parser.add_argument('--length', help='data length for sorted reports',
                         type=int, default=10)
     parser.add_argument('--threshold', help='threshold of case number to be included',
