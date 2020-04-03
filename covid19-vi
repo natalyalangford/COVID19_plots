@@ -414,14 +414,24 @@ class CovidData:
         :rtype: numpy.ndarray
         """
         x_cols = df.shape[1]
-        index_list = []
+        h_index_list = []
+        s_index_list = []
+        # Skip all but specified Header columns
         for c_name in name_list:
             if c_name in df.columns:
-                c_index = df.columns.get_loc(c_name)
-                index_list.append(c_index)
-        max_cols = x_cols - head_cols - summ_cols
+                h_index_list.append(df.columns.get_loc(c_name))
+        # Identify Summary columns, skipping Yesterday and Total
+        for c_name in df.columns[x_cols - summ_cols:]:
+            if c_name not in ['Yesterday', 'Total']:
+                s_index_list.append(df.columns.get_loc(c_name))
+        # Create a time series index list
+        max_cols = x_cols - head_cols - summ_cols + len(s_index_list) + len(h_index_list)
         if total_cols > max_cols: total_cols = max_cols
-        return np.r_[index_list, head_cols, x_cols - (total_cols - len(index_list) - 1):x_cols]
+        z = total_cols - len(s_index_list) - len(h_index_list) - 1
+        ts_length = x_cols - summ_cols - head_cols
+        ts_end_col = head_cols + ts_length
+
+        return np.r_[h_index_list, head_cols, (ts_end_col - z):ts_end_col, s_index_list]
 
     def top_ten(self, plot=False):
         """
@@ -798,7 +808,7 @@ class CovidData:
         # Create y as incremental cases per day
         y = cm.CovidMath.total_to_increment(x)
         y = cm.CovidMath.moving_average(y, lookback)
-        return x[start_index:],  y[start_index:]
+        return x[start_index:], y[start_index:]
 
 
 def main():
