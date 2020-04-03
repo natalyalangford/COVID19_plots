@@ -54,26 +54,29 @@ class CovidData:
     """
     Class for downloading, processing, and reporting on COVID-19 time series data.
     """
-    _covid_data = {'global': {'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
-                                            'src_link': 'https://github.com/CSSEGISandData/COVID-19',
-                                            'src_name': 'Johns Hopkins University',
-                                            'header_cols': 4,
-                                            'summary_cols': 0},
-                              'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
-                                         'src_link': 'https://github.com/CSSEGISandData/COVID-19',
-                                         'src_name': 'Johns Hopkins University',
-                                         'header_cols': 4,
-                                         'summary_cols': 0}},
-                   'usa': {'confirmed': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
-                                         'src_link': 'https://usafacts.org/issues/coronavirus/',
-                                         'src_name': 'USA Facts',
-                                         'header_cols': 4,
-                                         'summary_cols': 0},
-                           'deaths': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv',
-                                      'src_link': 'https://usafacts.org/issues/coronavirus/',
-                                      'src_name': 'USA Facts',
-                                      'header_cols': 4,
-                                      'summary_cols': 0}}}
+    _covid_data_global_jhu = {
+        'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
+                      'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                      'src_name': 'Johns Hopkins University',
+                      'header_cols': 4,
+                      'summary_cols': 0},
+           'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+                      'src_link': 'https://github.com/CSSEGISandData/COVID-19',
+                      'src_name': 'Johns Hopkins University',
+                      'header_cols': 4,
+                      'summary_cols': 0}}
+    _covid_data_global_usf = {
+        'confirmed': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_confirmed_usafacts.csv',
+                      'src_link': 'https://usafacts.org/issues/coronavirus/',
+                      'src_name': 'USA Facts',
+                      'header_cols': 4,
+                      'summary_cols': 0},
+           'deaths': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv',
+                      'src_link': 'https://usafacts.org/issues/coronavirus/',
+                      'src_name': 'USA Facts',
+                      'header_cols': 4,
+                      'summary_cols': 0}}
+    _covid_data = {'global': _covid_data_global_jhu, 'usa': _covid_data_global_usf}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
