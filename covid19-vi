@@ -93,7 +93,7 @@ class CovidData:
                       'src_key': 'usf',
                       'header_cols': 4,
                       'summary_cols': 0}}
-    _covid_data = {'global': _covid_data_global_jhu, 'usa': _covid_data_usa_usf}
+    _covid_data = {'global': _covid_data_global_jhu, 'usa': _covid_data_usa_jhu}
     _pickle_filename = 'covid_data.pickle'
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
@@ -108,6 +108,7 @@ class CovidData:
         :type download: Bool
         :return None
         """
+        null_df = pd.DataFrame()
         self.data = {'global': {'data_date': None,         # Date of the last day of time series.
                                 'download_date': None,     # Date of data download.
                                 'summary_cols': 0,         # Number of summary columns in df.
@@ -115,9 +116,9 @@ class CovidData:
                                 'src_name': '',            # Name of data source provider
                                 'src_link': '',            # link of data source provider
                                 'src_key': '',             # key of data source provider
-                                'confirmed': None,         # DataFrame for confirmed cases.
-                                'deaths': None,            # DataFrame for deaths.
-                                'recoveries': None},       # DataFrame for recoveries.
+                                'confirmed': null_df,      # DataFrame for confirmed cases.
+                                'deaths': null_df,         # DataFrame for deaths.
+                                'recoveries': null_df},    # DataFrame for recoveries.
                      'usa': {'data_date': None,
                              'download_date': None,
                              'summary_cols': 0,
@@ -125,9 +126,9 @@ class CovidData:
                              'src_name': '',
                              'src_link': '',
                              'src_key': '',
-                             'confirmed': None,
-                             'deaths': None,
-                             'recoveries': None}}
+                             'confirmed': null_df,
+                             'deaths': null_df,
+                             'recoveries': null_df}}
         self.args = args                                   # Command line argument object.
         if not self.read_datafile(download=download):
             print('Error: error while downloading sources.')
@@ -348,6 +349,11 @@ class CovidData:
             else:
                 df = df.rename(columns={'Admin2': 'County'})
                 df = df.rename(columns={'Province_State': 'State'})
+
+                # Convert state names to abbreviations
+                def get_state_abv(state_name):
+                    return ussa.us_state_abbrev[state_name] if state_name in ussa.us_state_abbrev.keys() else state_name
+                df.loc[:, 'State'] = df.loc[:, 'State'].apply((lambda x: get_state_abv(x)))
             df = self.aggregate_state_prov(df, 'US')
 
         # Add Summary columns
@@ -370,8 +376,6 @@ class CovidData:
         Prepare selected dataset for generation of plot/table reports.
         :param rdf: target dataset
         :type rdf: pandas.core.frame.DataFrame
-        :param glb_usa: process as global or usa dataset
-        :type glb_usa: str
         :return: new processed dataframe
         :rtype: pandas.core.frame.DataFrame
         """
@@ -389,6 +393,14 @@ class CovidData:
         :type plot: bool
         :return: None
         """
+        def get_col_select(df, name_list):
+            index_list = []
+            for c_name in name_list:
+                if c_name in df.columns:
+                    c_index = df.columns.get_loc(c_name)
+                    index_list.append(c_index)
+            return index_list[:]
+
         plot_file_name_suffix = 'png'
         table_file_name_suffix = 'txt'
         report_file_name = None
@@ -408,8 +420,9 @@ class CovidData:
                 plot_df = tdf.copy()
 
             # Select columns for table
+            head_cols = get_col_select(tdf, ['Country/Region'])
             num_cols = tdf.shape[1]
-            col_select = np.r_[0:1, num_cols-11:num_cols]
+            col_select = np.r_[head_cols, num_cols-11:num_cols]
             table_df = tdf.iloc[:, col_select]
 
         elif self.args.region == 'state' or self.args.region == 'province':
@@ -427,8 +440,9 @@ class CovidData:
                     plot_df = tdf.copy()
 
                 # Select columns for table
+                head_cols = get_col_select(tdf, ['State'])
                 num_cols = tdf.shape[1]
-                col_select = np.r_[2, num_cols-10:num_cols]
+                col_select = np.r_[head_cols, num_cols-10:num_cols]
                 table_df = tdf.iloc[:, col_select]
 
             else:
@@ -442,8 +456,10 @@ class CovidData:
                 if plot:
                     plot_df = tdf.copy()
 
+                # Select columns for table
+                head_cols = get_col_select(tdf, ['Province/State', 'Country/Region'])
                 num_cols = tdf.shape[1]
-                col_select = np.r_[0:2, num_cols-8:num_cols]
+                col_select = np.r_[head_cols, num_cols-8:num_cols]
                 table_df = tdf.iloc[:, col_select].copy()
 
         elif self.args.region == 'county':
@@ -459,8 +475,10 @@ class CovidData:
             if plot:
                 plot_df = tdf.copy()
 
+            # Select columns for table
+            head_cols = get_col_select(tdf, ['County', 'State'])
             num_cols = tdf.shape[1]
-            col_select = np.r_[1:3, num_cols-8:num_cols]
+            col_select = np.r_[head_cols, num_cols-8:num_cols]
             table_df = tdf.iloc[:, col_select].copy()
 
         elif self.args.region == 'county-state':
@@ -476,8 +494,10 @@ class CovidData:
             if plot:
                 plot_df = tdf.copy()
 
+            # Select columns for table
+            head_cols = get_col_select(tdf, ['County', 'State'])
             num_cols = tdf.shape[1]
-            col_select = np.r_[1:3, num_cols - 8:num_cols]
+            col_select = np.r_[head_cols, num_cols - 8:num_cols]
             table_df = tdf.iloc[:, col_select].copy()
 
         else:
