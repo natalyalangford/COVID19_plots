@@ -1,8 +1,8 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-02 10:18:07.895772 UTC
-  Data last data point date: 4/1/20
+  Extract downloaded: 2020-04-03 00:00:43.161030 UTC
+  Data last data point date: 4/2/20
           County Name State  3/30/2020  3/31/2020  4/1/2020  Yesterday  Total  DayIncrease  %DayIncrease  DaysToDouble
 0               Total    OR        605        689     736.0        689  736.0         47.0           6.8          8.07
 1   Washington County    OR        168        186     189.0        186  189.0          3.0           1.6         11.55
