@@ -235,6 +235,8 @@ class CovidData:
             # Read pickle file.
             with open(self._pickle_filename, 'rb') as f:
                 self.data = pickle.load(f)
+                print('Read of data pickle complete, age is {}hrs'.format(
+                      round((datetime.utcnow() - self.data['global']['download_date']).total_seconds()/3600, 1)))
             return True
 
         for zone, zone_dict in self._covid_data.items():
@@ -499,7 +501,8 @@ class CovidData:
                 if plot: plot_df = tdf.copy()
 
                 # Select columns for table
-                col_select = self.get_col_select(tdf, ['Province/State', 'Country/Region'], self.data[zone]['summary_cols'],
+                col_select = self.get_col_select(tdf, ['Province/State', 'Country/Region'],
+                                                 self.data[zone]['summary_cols'],
                                                  self.data[zone]['header_cols'], self.table_columns)
                 table_df = tdf.iloc[:, col_select].copy()
 
@@ -540,7 +543,6 @@ class CovidData:
                 table_file_name = os.path.join(self.args.savedir, table_file_name)
             if self.args.savetable: file_ptr_list.append(open(table_file_name, 'w'))
             for fp in file_ptr_list:
-                # TODO - display age of data.
                 name_1 = 'Confirmed' if self.args.type == 'confirmed' else 'Deaths'
                 name_2 = 'Cases'
                 markup = ('\x1B[3m', '\x1B[23m') if fp == sys.stdout else ('', '')
@@ -587,6 +589,8 @@ class CovidData:
         actual_exclude_list = []
         data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         plot_response = 'Total'
+
+        # Create time series column selection array.
         num_cols = pdf.shape[1]
         col_select = np.r_[self.data[data_src]['header_cols']:num_cols-self.data[data_src]['summary_cols']]
 
@@ -622,9 +626,10 @@ class CovidData:
         max_days = max_cases = thresh = 0
         for pname in plot_item_names:
             # Skip regions in exclude list
-            if pname.lower() in self.args.exclude:
-                actual_exclude_list.append(pname)
-                continue
+            if self.args.exclude:
+                if pname.lower() in self.args.exclude:
+                    actual_exclude_list.append(pname)
+                    continue
             # Get time series values as y
             if self.args.region == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
@@ -660,10 +665,7 @@ class CovidData:
                 ax.text(x=x[-1], y=y[-1], s=pname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             elif self.args.response == 'rdtd':
-                if self.args.threshold:
-                    thresh = self.args.threshold
-                else:
-                    thresh = 5 if self.args.type == 'deaths' else 100
+                thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
                 # Skip Global and Diamond Princess
                 if pname == 'Diamond Princess' or pname == 'Global':
@@ -685,10 +687,8 @@ class CovidData:
                 ax.text(x=len(y)-1, y=y[-1], s=tname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             elif self.args.response == 'trajectory':
-                if self.args.threshold:
-                    thresh = self.args.threshold
-                else:
-                    thresh = 5 if self.args.type == 'deaths' else 100
+                thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
+
                 # Skip Global and Diamond Princess
                 if pname == 'Diamond Princess' or pname == 'Global':
                     actual_exclude_list.append(pname)
@@ -784,7 +784,7 @@ class CovidData:
             state_name = ussa.abbrev_us_state[self.args.state]
             name_region = 'County for {}'.format(state_name)
 
-        # Plot parameters
+        # Add plot title and footer.
         x_tick_adjust = 0.11
         exclude_str = 'Excluded regions: {}\n'.format(actual_exclude_list) if actual_exclude_list else ''
         plt.figtext(0.99, 0.01, '{}{}\n{}\nAnalytics: {}'.format(exclude_str, data_desc, credit_str,
@@ -810,10 +810,7 @@ class CovidData:
         :return: tuple of x and y lists
         :rtype: tuple
         """
-        if self.args.threshold:
-            thresh = self.args.threshold
-        else:
-            thresh = 5 if self.args.type == 'deaths' else 100
+        thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
         # Copy incoming list to y (new) and x (total
         x = y_list[:]
