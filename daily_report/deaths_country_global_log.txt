@@ -1,7 +1,7 @@
 
 Top 20 country Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-04-04 00:07:24.387411 UTC
+  Extract downloaded: 2020-04-04 01:34:32.319850 UTC
   Data last data point date: 4/3/20
     Country/Region  1/22/20  3/30/20  3/31/20  4/1/20  4/2/20  4/3/20  DayIncrease  %DayIncrease  DaysToDouble
 0           Global       17    37582    42107   46809   52983   58787         5804          11.0          7.75

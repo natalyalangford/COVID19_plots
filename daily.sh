@@ -26,7 +26,9 @@ set -x
 ./covid19-vi --type confirmed --region country --length 30 --threshold 200 --response new-total --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 50 --threshold 500 --response rdtd --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 20 --saveplot --savetable --savedir daily_report
-./covid19-vi --type deaths --region country --length 30 --threshold 10 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 100 --threshold 20 --response trajectory --mwindow 2 --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 30 --threshold 20 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 50 --threshold 50 --response rdtd --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
 ./covid19-vi --type deaths --region country --length 20 --saveplot --savetable --savedir daily_report
 
 # US Reports by State
@@ -49,8 +51,3 @@ set -x
 ./covid19-vi --type confirmed --region county --country US --state CA --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
 ./covid19-vi --type confirmed --region county --country US --state FL --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
 ./covid19-vi --type confirmed --region county --country US --state TX --length 20 --threshold 10 --response new-total --saveplot --savetable --savedir daily_report
-#./covid19-vi --type confirmed --region county --country US --state NY --length 20 --saveplot --savetable --savedir daily_report
-#./covid19-vi --type confirmed --region county --country US --state OR --length 20 --saveplot --savetable --savedir daily_report
-#./covid19-vi --type confirmed --region county --country US --state CA --length 20 --saveplot --savetable --savedir daily_report
-#./covid19-vi --type confirmed --region county --country US --state FL --length 20 --saveplot --savetable --savedir daily_report
-#./covid19-vi --type confirmed --region county --country US --state TX --length 20 --saveplot --savetable --savedir daily_report

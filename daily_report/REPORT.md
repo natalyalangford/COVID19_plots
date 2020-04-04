@@ -6,39 +6,44 @@ US data posted, but still not available on their GitHub site.  I assume they are
 automation to distribute accurate and timely data.  We will update our toolset when available.
 
 ## List of reports
- - [Top Countries](#top-countries)
+ - [Top Country Confirmed Cases](#top-country-confirmed)
+ - [Top Country Deaths](#top-country-deaths)
  - [Top US Sates](#top-us-states)
  - [Top 20 US Counties](#top-us-counties)
  - [Selected US Sates](#selected-us-states)
 
 
-## Top Countries
+## Top Country Confirmed
+#### [Table of Confirmed Cases](confirmed_country_global_log.txt)
 ![](confirmed_country_global_trajectory.png)
 ![](confirmed_country_global_rdtd.png)
 ![](confirmed_country_global_new-total.png)
 ![](confirmed_country_global_log.png)
-###### [Table for above plot](confirmed_country_global_log.txt)
+
+## Top Country Deaths
+#### [Table of Deaths](deaths_country_global_log.txt)
+![](deaths_country_global_trajectory.png)
+![](deaths_country_global_rdtd.png)
 ![](deaths_country_global_new-total.png)
 ![](deaths_country_global_log.png)
-###### [Table for above plot](deaths_country_global_log.txt)
 
 ## Top US States
+#### [Table of Confirmed Cases](confirmed_state_US_log.txt)
+#### [Table Deaths](deaths_state_US_log.txt)
 ![](confirmed_state_US_trajectory.png)
 ![](confirmed_state_US_rdtd.png)
 ![](confirmed_state_US_new-total.png)
 ![](confirmed_state_US_log.png)
-###### [Table for above plot](confirmed_state_US_log.txt)
 ![](deaths_state_US_log.png)
-###### [Table for above plot](deaths_state_US_log.txt)
 
 ## Top US Counties
+#### [Table of Confirmed Cases](confirmed_county-state_US_log.txt)
+#### [Table of Deaths](deaths_county-state_US_log.txt)
 ![](confirmed_county-state_US_trajectory.png)
 ![](confirmed_county-state_US_rdtd.png)
 ![](confirmed_county-state_US_new-total.png)
 ![](confirmed_county-state_US_log.png)
-###### [Table for above plot](confirmed_county-state_US_log.txt)
 ![](deaths_county-state_US_log.png)
-###### [Table for above plot](deaths_county-state_US_log.txt)
 
 ## Selected US States
 ![](confirmed_county_NY_new-total.png)
