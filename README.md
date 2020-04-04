@@ -22,9 +22,9 @@ usage: covid19-vi [-h] [--about] [--minimum MINIMUM] [--columns COLUMNS]
                   [--length LENGTH] [--threshold THRESHOLD]
                   [--mwindow MWINDOW] [--rwindow RWINDOW] [--country COUNTRY]
                   [--state STATE] [--region REGION] [--type TYPE]
-                  [--response RESPONSE] [--sources] [--download] [--saveplot]
-                  [--showplot] [--savetable] [--showtable] [--savedir SAVEDIR]
-                  [--debug]
+                  [--exclude EXCLUDE] [--response RESPONSE] [--sources]
+                  [--download] [--saveplot] [--showplot] [--savetable]
+                  [--showtable] [--savedir SAVEDIR] [--debug]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -39,6 +39,7 @@ optional arguments:
   --state STATE         name of state for county reports
   --region REGION       scope of report: country, state, province, county, county-state
   --type TYPE           type of report: confirmed, deaths
+  --exclude EXCLUDE     comma separated list of regions to exclude
   --response RESPONSE   response: log, linear, new-total, trajectory, rdtd
   --sources             list sources used by this utility
   --download            download data from sources and save to local pickle

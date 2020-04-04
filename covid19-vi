@@ -122,16 +122,16 @@ class CovidData:
                                 'confirmed': null_df,      # DataFrame for confirmed cases.
                                 'deaths': null_df,         # DataFrame for deaths.
                                 'recoveries': null_df},    # DataFrame for recoveries.
-                     'usa': {'data_date': None,
-                             'download_date': None,
-                             'summary_cols': 0,
-                             'header_cols': 0,
-                             'src_name': '',
-                             'src_link': '',
-                             'src_key': '',
-                             'confirmed': null_df,
-                             'deaths': null_df,
-                             'recoveries': null_df}}
+                        'usa': {'data_date': None,
+                                'download_date': None,
+                                'summary_cols': 0,
+                                'header_cols': 0,
+                                'src_name': '',
+                                'src_link': '',
+                                'src_key': '',
+                                'confirmed': null_df,
+                                'deaths': null_df,
+                                'recoveries': null_df}}
         self.args = args                                   # Command line argument object.
         self.table_columns = args.columns
 
@@ -193,6 +193,12 @@ class CovidData:
                       '{}, there is a special place in heck for those who use spaces in directory names!'.format(
                           args.savedir))
                 return False
+        if args.exclude:
+            if not re.fullmatch(r'([a-zA-Z]+(\s[a-zA-Z]+)*)+((,[a-zA-Z]+)+(\s[a-zA-Z]+)*)*', args.exclude):
+                print('Invalid value for --exclude [{}], must be region names, separated by commas'.format(
+                    args.exclude))
+                return False
+            args.exclude = args.exclude.lower().split(',')
         return True
 
     @classmethod
@@ -352,6 +358,7 @@ class CovidData:
                 df = self.aggregate_state_prov(df, ps_country)
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
+            df.loc[df['Country/Region'] == 'Korea, South', 'Country/Region'] = 'Korea'
         else:
             if self.data[zone]['src_key'] == 'usf':
                 df = df.rename(columns={'County Name': 'County'})
@@ -575,6 +582,7 @@ class CovidData:
         :return: None
         """
         # Basic report parameters
+        actual_exclude_list = []
         data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         plot_response = 'Total'
         num_cols = pdf.shape[1]
@@ -611,6 +619,10 @@ class CovidData:
         # Generate Plots
         max_days = max_cases = thresh = 0
         for pname in plot_item_names:
+            # Skip regions in exclude list
+            if pname.lower() in self.args.exclude:
+                actual_exclude_list.append(pname)
+                continue
             # Get time series values as y
             if self.args.region == 'country':
                 y = pdf.loc[pdf['Country/Region'] == pname, :]
@@ -651,9 +663,9 @@ class CovidData:
                 else:
                     thresh = 5 if self.args.type == 'deaths' else 100
 
-                # Skip Regions that will distort the plot
-                if re.search('[G,g]lobal', pname) or re.search('China', pname) or \
-                   re.search('Korea', pname) or re.search('Diamond Pri', pname):
+                # Skip Global and Diamond Princess
+                if pname == 'Diamond Princess' or pname == 'Global':
+                    actual_exclude_list.append(pname)
                     continue
 
                 # Set starting point of each series an create rdtd series
@@ -675,7 +687,9 @@ class CovidData:
                     thresh = self.args.threshold
                 else:
                     thresh = 5 if self.args.type == 'deaths' else 100
-                if re.search('[G,g]lobal', pname) or re.search('China', pname) or re.search('Diamond Pri', pname):
+                # Skip Global and Diamond Princess
+                if pname == 'Diamond Princess' or pname == 'Global':
+                    actual_exclude_list.append(pname)
                     continue
 
                 # Set starting point of each series, get last element rdtd value, and smooth y
@@ -769,9 +783,10 @@ class CovidData:
             name_region = 'County for {}'.format(state_name)
 
         # Plot parameters
-        x_tick_adjust = 0.105
-        plt.figtext(0.99, 0.01, '{}\n{}\nAnalytics: {}'.format(data_desc, credit_str, self._analytics_source),
-                    horizontalalignment='right', fontsize=8)
+        x_tick_adjust = 0.11
+        exclude_str = 'Excluded regions: {}\n'.format(actual_exclude_list) if actual_exclude_list else ''
+        plt.figtext(0.99, 0.01, '{}{}\n{}\nAnalytics: {}'.format(exclude_str, data_desc, credit_str,
+                    self._analytics_source), horizontalalignment='right', fontsize=8)
         fig.subplots_adjust(bottom=x_tick_adjust)
         title_fs = 17 if self.args.response == 'rdtd' else 19
         ax.set_title('COVID-19 {} {} {} by {}'.format(name_0, name_1, name_2, name_region),
@@ -839,6 +854,8 @@ def main():
                         type=str, default='country')
     parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')
+    parser.add_argument('--exclude', help='comma separated list of regions to exclude',
+                        type=str, default='')
     parser.add_argument('--response', help='response: log, linear, new-total, trajectory, rdtd',
                         type=str, default='log')
     parser.add_argument('--sources', help='list sources used by this utility',
