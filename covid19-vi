@@ -55,6 +55,7 @@ class CovidData:
     Class for downloading, processing, and reporting on COVID-19 time series data.
     """
     # Define possible data sources.
+    # pylint: disable=bad-continuation
     _covid_data_global_jhu = {
         'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
@@ -139,6 +140,7 @@ class CovidData:
         if not self.read_datafile(download=download):
             print('Error: error while downloading sources.')
             sys.exit(-20)
+    # pylint: enable=bad-continuation
 
     @classmethod
     def chk_args(cls, args):
