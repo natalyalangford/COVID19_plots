@@ -27,9 +27,9 @@ __copyright__ = 'Copyright (C) 2020 Natalya Langford'
 __credits__ = ['Ricks-Lab - Collaborator']
 __license__ = 'GNU General Public License'
 __program_name__ = 'covid19-vi'
-__version__ = 'v0.0.1'
+__version__ = 'v1.0.0'
 __maintainer__ = 'Natalya Langford'
-__status__ = 'Under Development'
+__status__ = 'Stable Release'
 __docformat__ = 'reStructuredText'
 # pylint: disable=multiple-statements
 # pylint: disable=line-too-long
@@ -310,7 +310,7 @@ class CovidData:
             head_cols = self.data['usa']['header_cols']
             fdf = df.copy()
             state_list = df['State'].unique()
-            # TODO - Need to replace with pivot
+            # TODO - Need to replace with pivot/groupby
             for state in state_list:
                 sc_df = df.loc[df['State'] == state, :].copy()
                 state_df = sc_df.head(1).copy()
@@ -574,7 +574,8 @@ class CovidData:
                 if not os.path.isdir(self.args.savedir):
                     os.mkdir(self.args.savedir, 0o775)
                 plot_file_name = os.path.join(self.args.savedir, plot_file_name)
-            self.plot(plot_df, plot_file_name)
+            with np.errstate(invalid='ignore'):
+                self.plot(plot_df, plot_file_name)
 
     def plot(self, pdf, plot_fname):
         """

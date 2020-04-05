@@ -21,9 +21,9 @@ __copyright__ = 'Copyright (C) 2020 Natalya Langford'
 __credits__ = ['Ricks-Lab - Collaborator']
 __license__ = 'GNU General Public License'
 __program_name__ = 'covid19-math'
-__version__ = 'v0.0.1'
+__version__ = 'v1.0.0'
 __maintainer__ = 'Natalya Langford'
-__status__ = 'Under Development'
+__status__ = 'Stable Release'
 __docformat__ = 'reStructuredText'
 # pylint: disable=multiple-statements
 # pylint: disable=line-too-long
@@ -34,7 +34,7 @@ import numpy as np
 
 class CovidMath:
     """
-    Class for downloading, processing, and reporting on COVID-19 time series data.
+    Class for time series analytics.
     """
 
     @classmethod

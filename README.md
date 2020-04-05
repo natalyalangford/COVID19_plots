@@ -78,17 +78,19 @@ This bash script is used to generate the plots and tables found in the posted
 [daily report](https://github.com/natalyalangford/COVID19_plots/blob/master/daily_report/REPORT.md).
 
 ## Reference Material
-* Global COVID-19 Data Source:
+* US/Global COVID-19 Data Source:
 [CSSEGISandData](https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data)
 * US COVID-19 Data Source:
 [USA Facts](https://usafacts.org/issues/coronavirus/)
 
 ## Known Issues
-* USA Facts data is a day behind global data from JHU, could be that JHU is using UTC, but state reports 
-seem to be lagging what others are reporting.
-* Data aggregation function is kludgy and should be rewritten using pivot.
+* Data aggregation function is kludgy and should be rewritten using pivot/groupby.
+* Colors are random between plots, so color of a specific region will change between plots.
 
 ## History
+*  5-Apr-20: v1.0.0 release!
+*  4-Apr-20: Updated daily report format
+*  3-Apr-20: Optimized table reports, use JHU for state data
 *  1-Apr-20: Implemented rolling days to double plots and metrics
 * 31-Mar-20: Implemented trajectory plots and fixed smoothing of new vs total plots
 * 29-Mar-20: Implemented new vs total plots
