@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-05 23:56:12.912200 UTC
-  Data last data point date: 4/4/20
-          County State  1/23/20  3/31/20  4/1/20  4/2/20  4/3/20  4/4/20  DayIncrease  %DayIncrease  DaysToDouble
-0       New York    NY        0    43119   47439   51809   57159   63306         6147          10.8          9.02
-1         Nassau    NY        0     8544    9554   10587   12024   13346         1322          11.0          7.77
-2    Westchester    NY        0     9967   10683   11567   12351   13081          730           5.9         12.75
-3        Suffolk    NY        0     6713    7605    8746   10154   11370         1216          12.0          6.58
-4           Cook    IL        0     4496    5152    5575    6111    7439         1328          21.7          6.88
-5          Wayne    MI        0     3735    4470    5069    6096    6762          666          10.9          5.84
-6         Bergen    NJ        0     2909    3494    4099    4866    5760          894          18.4          5.07
-7       Rockland    NY        0     2863    3321    3751    4289    4872          583          13.6          6.52
-8    Los Angeles    CA        0     3019    3518    4045    4566    4605           39           0.9          8.21
-9        Orleans    LA        0     1834    2270    3148    3476    3966          490          14.1          4.49
-10    Unassigned    NJ        0     3686    4512    4866    4808    3935         -873         -18.2         53.02
-11    Miami-Dade    FL        0     2123    2202    2886    3364    3890          526          15.6          5.72
-12         Essex    NJ        0     1900    2262    2617    3067    3584          517          16.9          5.46
-13        Hudson    NJ        0     1606    1910    2270    2835    3491          656          23.1          4.46
-14  Philadelphia    PA        0     1315    1675    2100    2430    3008          578          23.8          4.19
-15     Jefferson    LA        0     1193    1433    2178    2495    3008          513          20.6          3.75
-16         Union    NJ        0     1418    1661    2010    2487    2916          429          17.2          4.81
-17          King    WA        1     2330    2330    2656    2787    2898          111           4.0         15.89
-18       Passaic    NJ        0     1294    1494    1750    2216    2856          640          28.9          4.38
-19     Fairfield    CT        0     1870    1986    2132    2716    2824          108           4.0          8.41
+  Extract downloaded: 2020-04-06 00:20:54.316663 UTC
+  Data last data point date: 4/5/20
+          County State  1/23/20  4/1/20  4/2/20  4/3/20  4/4/20  4/5/20  DayIncrease  %DayIncrease  DaysToDouble
+0       New York    NY        0   47439   51809   57159   63306   67551         4245           6.7          9.81
+1         Nassau    NY        0    9554   10587   12024   13346   14398         1052           7.9          8.45
+2    Westchester    NY        0   10683   11567   12351   13081   13723          642           4.9         13.84
+3        Suffolk    NY        0    7605    8746   10154   11370   13129         1759          15.5          6.35
+4           Cook    IL        0    5152    5575    6111    7439    8034          595           8.0          7.80
+5          Wayne    MI        0    4470    5069    6096    6762    7518          756          11.2          6.67
+6         Bergen    NJ        0    3494    4099    4866    5760    6187          427           7.4          6.07
+7    Los Angeles    CA        0    3518    4045    4566    4605    5955         1350          29.3          6.58
+8       Rockland    NY        0    3321    3751    4289    4872    5326          454           9.3          7.34
+9     Miami-Dade    FL        0    2202    2886    3364    3890    4146          256           6.6          5.48
+10         Essex    NJ        0    2262    2617    3067    3584    4082          498          13.9          5.87
+11       Orleans    LA        0    2270    3148    3476    3966    4066          100           2.5          5.95
+12        Hudson    NJ        0    1910    2270    2835    3491    3924          433          12.4          4.81
+13    Unassigned    NJ        0    4512    4866    4808    3935    3821         -114          -2.9        -20.85
+14       Passaic    NJ        0    1494    1750    2216    2856    3227          371          13.0          4.50
+15         Union    NJ        0    1661    2010    2487    2916    3216          300          10.3          5.25
+16  Philadelphia    PA        0    1675    2100    2430    3008    3189          181           6.0          5.38
+17        Orange    NY        0    1756    1993    2397    2741    3187          446          16.3          5.81
+18          King    WA        1    2330    2656    2787    2898    3167          269           9.3         11.29
+19     Jefferson    LA        0    1433    2178    2495    3008    3088           80           2.7          4.51
 
-   Data from the 4/4/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 4/5/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
