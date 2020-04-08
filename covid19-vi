@@ -41,6 +41,7 @@ import os
 from datetime import datetime
 import io
 import pickle
+import json
 import requests
 import pandas as pd
 import numpy as np
@@ -48,6 +49,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter
 import us_state_abbrev as ussa
 import covid19_math as cm
+import color_ugen as cug
 
 
 class CovidData:
@@ -56,6 +58,7 @@ class CovidData:
     """
     # Define possible data sources.
     # pylint: disable=bad-continuation
+    _config_color_json = {'global': 'config_color_global.json', 'usa': 'config_color_usa.json'}
     _covid_data_global_jhu = {
         'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
@@ -120,6 +123,7 @@ class CovidData:
                                 'src_name': '',            # Name of data source provider
                                 'src_link': '',            # link of data source provider
                                 'src_key': '',             # key of data source provider
+                                'colors': None,            # Dictionary of country/colors
                                 'confirmed': null_df,      # DataFrame for confirmed cases.
                                 'deaths': null_df,         # DataFrame for deaths.
                                 'recoveries': null_df},    # DataFrame for recoveries.
@@ -130,6 +134,7 @@ class CovidData:
                                 'src_name': '',
                                 'src_link': '',
                                 'src_key': '',
+                                'colors': None,
                                 'confirmed': null_df,
                                 'deaths': null_df,
                                 'recoveries': null_df}}
@@ -589,6 +594,7 @@ class CovidData:
         # Basic report parameters
         actual_exclude_list = []
         data_src = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
+        color_dict = self.read_color_json(data_src)
         plot_response = 'Total'
 
         # Create time series column selection array.
@@ -645,6 +651,12 @@ class CovidData:
                     y = pdf.loc[pdf['Province/State'] == pname, :]
                     total = pdf.loc[pdf['Province/State'] == pname, plot_response].tolist()[0]
             y = list(y.iloc[0, col_select])
+            color = None
+            if color_dict:
+                try:
+                    color = color_dict[pname]
+                except:
+                    color = None
 
             # Construct legend name with values
             if isinstance(total, (int, np.int64)):
@@ -662,7 +674,10 @@ class CovidData:
                     print(pdf)
                 ax.set_yscale('log')
                 ax.set_xscale('log')
-                ax.plot(x, y, label=lname)
+                if color:
+                    ax.plot(x, y, label=lname, color=color)
+                else:
+                    ax.plot(x, y, label=lname)
                 ax.text(x=x[-1], y=y[-1], s=pname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             elif self.args.response == 'rdtd':
@@ -684,7 +699,10 @@ class CovidData:
                 # Plot the lines
                 ax.set_yscale('log')
                 tname = '{} ({})'.format(pname, y[-1])
-                ax.plot(y, label=lname)
+                if color:
+                    ax.plot(y, label=lname, color=color)
+                else:
+                    ax.plot(y, label=lname)
                 ax.text(x=len(y)-1, y=y[-1], s=tname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             elif self.args.response == 'trajectory':
@@ -710,7 +728,10 @@ class CovidData:
 
                 # Plot the lines
                 ax.set_yscale('log')
-                ax.plot(y, label=lname)
+                if color:
+                    ax.plot(y, label=lname, color=color)
+                else:
+                    ax.plot(y, label=lname)
                 ax.text(x=len(y)-1, y=y[-1], s='{} ({})'.format(pname, rdtd_val),
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             else:
@@ -718,7 +739,10 @@ class CovidData:
                     print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
                     print(pdf)
                 ax.set_yscale('log')
-                ax.plot(y, label=lname)
+                if color:
+                    ax.plot(y, label=lname, color=color)
+                else:
+                    ax.plot(y, label=lname)
                 ax.text(x=len(y)-1, y=y[-1], s=pname,
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
 
@@ -825,6 +849,35 @@ class CovidData:
         y = cm.CovidMath.moving_average(y, lookback)
         return x[start_index:], y[start_index:]
 
+    def read_color_json(self, zone):
+        try:
+            with open(self._config_color_json[zone], 'r') as fp:
+                self.data[zone]['colors'] = json.load(fp)
+        except:
+            self.data[zone]['colors'] = None
+        return self.data[zone]['colors']
+
+    def gen_color_json(self):
+        color_gen = cug.ColorUgen()
+        if self.args.gen_color_json == 'global' or self.args.gen_color_json == 'both':
+            color_list = color_gen.color_gen_list(100, color_space='hsv')
+            file_name = self._config_color_json['global']
+            jdf = self.data['global']['confirmed']
+            jdf = jdf.loc[jdf['Province/State'].isnull()].copy()
+            jdf = jdf.sort_values(['Total'], ascending=False)
+            color_dict = dict(zip(list(jdf['Country/Region']), color_list))
+            with open(file_name, 'w') as fp:
+                json.dump(color_dict, fp)
+        if self.args.gen_color_json == 'usa' or self.args.gen_color_json == 'both':
+            color_list = color_gen.color_gen_list(75, color_space='hsv')
+            file_name = self._config_color_json['usa']
+            jdf = self.data['usa']['confirmed']
+            jdf = jdf.loc[jdf['County'].isnull()].copy()
+            jdf = jdf.sort_values(['Total'], ascending=False)
+            color_dict = dict(zip(list(jdf['State']), color_list))
+            with open(file_name, 'w') as fp:
+                json.dump(color_dict, fp)
+
 
 def main():
     """
@@ -872,6 +925,8 @@ def main():
                         action='store_true', default=False)
     parser.add_argument('--savedir', help='destination for saving files',
                         type=str, default=None)
+    parser.add_argument('--gen_color_json', help='global, usa, or both',
+                        type=str, default=None)
     parser.add_argument('--debug', help='debug output',
                         action='store_true', default=False)
     args = parser.parse_args()
@@ -902,6 +957,10 @@ def main():
     table = True if args.showtable or args.savetable else False
 
     covid_data = CovidData(args=args, download=args.download)
+
+    if args.gen_color_json:
+        covid_data.gen_color_json()
+        sys.exit(0)
 
     if table or plot:
         covid_data.top_ten(plot=plot)
