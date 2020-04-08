@@ -105,6 +105,7 @@ class CovidData:
     _prov_state_countries = ['China', 'Canada', 'Australia', 'France', 'United Kingdom', 'Netherlands', 'Denmark']
     _analytics_source = 'https://github.com/natalyalangford/COVID19_plots'
     _valid_args = {'type': ['deaths', 'confirmed'],
+                   'gen_color_json': ['global', 'usa', 'both'],
                    'region': ['country', 'state', 'province', 'county', 'county-state'],
                    'response': ['log', 'linear', 'new-total', 'trajectory', 'rdtd']}
 
@@ -175,6 +176,11 @@ class CovidData:
             print('Error in value for --response {}, valid values are {}'.format(args.response,
                                                                                  cls._valid_args['response']))
             return False
+        if args.gen_color_json:
+            if args.gen_color_json not in cls._valid_args['gen_color_json']:
+                print('Error in value for --gen_color_json {}, valid values are {}'.format(args.type,
+                                                                                cls._valid_args['gen_color_json']))
+                return False
         if args.type not in cls._valid_args['type']:
             print('Error in value for --type {}, valid values are {}'.format(args.type,
                                                                              cls._valid_args['type']))
@@ -655,7 +661,7 @@ class CovidData:
             if color_dict:
                 try:
                     color = color_dict[pname]
-                except:
+                except KeyError:
                     color = None
 
             # Construct legend name with values
@@ -774,7 +780,7 @@ class CovidData:
             data_desc = '{}, Rolling win size: {}'.format(data_desc, self.args.rwindow)
             plt.ylabel('Days to Double {}'.format(name_1), fontsize=16)
             plt.xlabel('Days Since {} {}'.format(thresh, name_1), fontsize=16)
-            ax.grid(b=True, which='major', color='#888888')
+            ax.grid(b=True, which='major', color='#AAAAAA')
             ax.grid(b=True, which='minor', color='#CCCCCC')
             plt.tick_params(axis='y', which='minor')
             ax.yaxis.set_minor_formatter(FormatStrFormatter("%d"))
@@ -850,6 +856,13 @@ class CovidData:
         return x[start_index:], y[start_index:]
 
     def read_color_json(self, zone):
+        """
+        Read color json file for given zone.
+        :param zone: global or usa
+        :type zone: str
+        :return: color dictionary
+        :rtype: dict
+        """
         try:
             with open(self._config_color_json[zone], 'r') as fp:
                 self.data[zone]['colors'] = json.load(fp)
@@ -858,6 +871,10 @@ class CovidData:
         return self.data[zone]['colors']
 
     def gen_color_json(self):
+        """
+        Generate json color files based on args.gen_color_json value.
+        :return: None
+        """
         color_gen = cug.ColorUgen()
         if self.args.gen_color_json == 'global' or self.args.gen_color_json == 'both':
             color_list = color_gen.color_gen_list(100, color_space='hsv')
