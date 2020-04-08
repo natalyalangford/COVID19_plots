@@ -1,5 +1,6 @@
 .idea/
 *.pickle
 *.csv
+*.json
 __pycache__/
 covid-19-env/
