@@ -866,7 +866,7 @@ class CovidData:
         try:
             with open(self._config_color_json[zone], 'r') as fp:
                 self.data[zone]['colors'] = json.load(fp)
-        except:
+        except Exception:
             self.data[zone]['colors'] = None
         return self.data[zone]['colors']
 
