@@ -1,8 +1,10 @@
 # COVID19_plots
-Visualization utilities for the COVID-19 data from Johns Hopkins University and US data from the USA Facts website.
+Visualization utilities for the COVID-19 data from Johns Hopkins University and/or US data
+from the USA Facts website.
 
-This project was developed in and for the Linux environment using Python 3.7.  It does have dependencies
-on other modules which can be met by installing those defined the the provided requirements file:
+This project was developed in and for the Linux environment using Python 3.7.  It does
+have dependencies on other modules which can be met by installing those defined the the
+provided requirements file:
 ```
 sudo -H pip install -r requirements.txt
 ```
@@ -24,7 +26,8 @@ usage: covid19-vi [-h] [--about] [--minimum MINIMUM] [--columns COLUMNS]
                   [--state STATE] [--region REGION] [--type TYPE]
                   [--exclude EXCLUDE] [--response RESPONSE] [--sources]
                   [--download] [--saveplot] [--showplot] [--savetable]
-                  [--showtable] [--savedir SAVEDIR] [--debug]
+                  [--showtable] [--savedir SAVEDIR]
+                  [--gen_color_json GEN_COLOR_JSON] [--debug]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -48,6 +51,8 @@ optional arguments:
   --savetable           save table to a file
   --showtable           display table
   --savedir SAVEDIR     destination for saving files
+  --gen_color_json GEN_COLOR_JSON
+                        global, usa, or both
   --debug               debug output
 ```
 As an example, the command line arguments to only download and pre-process time series data, execute
@@ -88,6 +93,7 @@ This bash script is used to generate the plots and tables found in the posted
 * Colors are random between plots, so color of a specific region will change between plots.
 
 ## History
+*  8-Apr-20: Added support for generation and use of custom country/state color json files.
 *  5-Apr-20: v1.0.0 release!
 *  4-Apr-20: Updated daily report format
 *  3-Apr-20: Optimized table reports, use JHU for state data
