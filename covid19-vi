@@ -877,21 +877,27 @@ class CovidData:
         """
         color_gen = cug.ColorUgen()
         if self.args.gen_color_json == 'global' or self.args.gen_color_json == 'both':
-            color_list = color_gen.color_gen_list(100, color_space='hsv')
+            color_list = color_gen.color_gen_list(200, color_space='hsv')
             file_name = self._config_color_json['global']
             jdf = self.data['global']['confirmed']
             jdf = jdf.loc[jdf['Province/State'].isnull()].copy()
             jdf = jdf.sort_values(['Total'], ascending=False)
-            color_dict = dict(zip(list(jdf['Country/Region']), color_list))
+            country_list = list(jdf['Country/Region'])
+            if len(country_list) > len(color_list):
+                print('WARNING: Country list is longer than color list.')
+            color_dict = dict(zip(country_list, color_list))
             with open(file_name, 'w') as fp:
                 json.dump(color_dict, fp)
         if self.args.gen_color_json == 'usa' or self.args.gen_color_json == 'both':
-            color_list = color_gen.color_gen_list(75, color_space='hsv')
+            color_list = color_gen.color_gen_list(70, color_space='hsv')
             file_name = self._config_color_json['usa']
             jdf = self.data['usa']['confirmed']
             jdf = jdf.loc[jdf['County'].isnull()].copy()
             jdf = jdf.sort_values(['Total'], ascending=False)
-            color_dict = dict(zip(list(jdf['State']), color_list))
+            state_list = list(jdf['State'])
+            if len(state_list) > len(color_list):
+                print('WARNING: State list is longer than color list.')
+            color_dict = dict(zip(state_list, color_list))
             with open(file_name, 'w') as fp:
                 json.dump(color_dict, fp)
 
