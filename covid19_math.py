@@ -30,23 +30,24 @@ __docformat__ = 'reStructuredText'
 
 import math as math
 import numpy as np
+from typing import List, Union
+
+TimeSeriesList = List[Union[int, float]]
 
 
 class CovidMath:
     """
     Class for time series analytics.
     """
-
     @classmethod
-    def series_rolling_doubling_time(cls, t_list, lookback):
+    def series_rolling_doubling_time(cls, t_list: TimeSeriesList, lookback: int) -> TimeSeriesList:
         """
-        Returns truncated list with max length and max values
-        :param t_list: List of numbers
-        :type t_list: list
+        Returns a new time series list which is the rolling dtd calc on the provided list.
+
+        :param t_list: A time series of numbers in a list
         :param lookback: Size of the window
-        :type lookback: int
         :return: Rolling double time as a list
-        :rtype: list
+
         >>> CovidMath.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
         [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
         >>> CovidMath.series_rolling_doubling_time([200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0, 1243.0], 5)
@@ -75,14 +76,15 @@ class CovidMath:
         return list_new
 
     @classmethod
-    def series_doubling_time(cls, target_list):
+    def series_doubling_time(cls, target_list: TimeSeriesList) -> float:
         """
-        Returns truncated list with max length and max values
+        Returns the overall days to double for the given list.
+        
         :param target_list: List of numbers
-        :type target_list: list
         :return: Number of days to double
-        :rtype: float
+
         .. note: https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
+        
         >>> CovidMath.series_doubling_time([6235, 7284, 9134, 10836, 11899])
         5.36
         >>> CovidMath.series_doubling_time([np.nan, 7284, 9134, 10836, 11899])
@@ -112,17 +114,15 @@ class CovidMath:
         return ret_val
 
     @classmethod
-    def truncate_series(cls, target_list, length, value):
+    def truncate_series(cls, target_list: TimeSeriesList, length: int, value: int) -> TimeSeriesList:
         """
-        Returns truncated list with max length and max values
+        Returns truncated list with max length and max values.
+        
         :param target_list: List of numbers
-        :type target_list: list
         :param length: max list length
-        :type length: int
         :param value: max value in a time series
-        :type value: int
         :return: The resultant index or None is never met
-        :rtype: list
+        
         >>> CovidMath.truncate_series([1, 2, 3, 4, 5, 6, 7], 4, 6)
         [1, 2, 3, 4]
         >>> CovidMath.truncate_series([1, 2, 3, 4, 5, 6, 7], 6, 3)
@@ -142,15 +142,14 @@ class CovidMath:
         return t_list[:i+1]
 
     @classmethod
-    def threshold_index(cls, t_list, threshold):
+    def threshold_index(cls, t_list: TimeSeriesList, threshold: int) -> Union[int, None]:
         """
-        Return the index of the first item >= threshold
+        Return the index of the first item >= threshold.
+        
         :param t_list: List of numbers
-        :type t_list: list
         :param threshold: The threshold
-        :type threshold: int
         :return: The resultant index or None if never met
-        :rtype: Union(int, None)
+        
         >>> CovidMath.threshold_index([1, 2, 3, 4, 5, 6, 7], 4)
         3
         >>> CovidMath.threshold_index([1, 2, 3, 4, 5, 6, 7], 0)
@@ -166,15 +165,14 @@ class CovidMath:
         return None
 
     @classmethod
-    def start_at_threshold(cls, t_list, threshold):
+    def start_at_threshold(cls, t_list: TimeSeriesList, threshold: int) -> TimeSeriesList:
         """
-        Return a list that starts at the first item >= threshold
+        Return a list that starts at the first item >= threshold.
+        
         :param t_list: List of numbers
-        :type t_list: list
         :param threshold: The threshold
-        :type threshold: int
         :return: The new list
-        :rtype: list
+        
         >>> CovidMath.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 4)
         [4, 5, 6, 7]
         >>> CovidMath.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 0)
@@ -187,15 +185,14 @@ class CovidMath:
         return [y_val for i, y_val in enumerate(t_list) if min(t_list[i:]) >= threshold]
 
     @classmethod
-    def moving_average(cls, list_values, lookback):
+    def moving_average(cls, list_values: TimeSeriesList, lookback: int) -> TimeSeriesList:
         """
-        Return a list that is the moving average of the original list with windows size of lookback
+        Return a list that is the moving average of the original list with windows size of lookback.
+        
         :param list_values: List of numbers
-        :type list_values: list
         :param lookback: Size of the window
-        :type lookback: int
         :return: The new list
-        :rtype: list
+        
         >>> CovidMath.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 2)
         [0, 327.0, 470.5, 390.0, 588.5, 746.5, 1730.0, 1619.5, 1328.0, 1880.5]
         >>> CovidMath.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3)
@@ -220,13 +217,13 @@ class CovidMath:
         return list_new
 
     @classmethod
-    def total_to_increment(cls, list_orig):
+    def total_to_increment(cls, list_orig: TimeSeriesList) -> TimeSeriesList:
         """
-        Return a list that is the difference of subsequent items with the first item set to NAN
+        Return a list that is the difference of subsequent items with the first item set to NAN.
+        
         :param list_orig: List of numbers
-        :type list_orig: list
         :return: The new list
-        :rtype: list
+
         >>> CovidMath.total_to_increment([0, 654, 941, 1434, 2118, 2927, 5578, 6166, 8234, 9927])
         [nan, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693]
         >>> CovidMath.total_to_increment([0, 654, 941, 1434, 2118, 2000, 5578, 6166, 8234, 9927])
