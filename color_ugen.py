@@ -258,12 +258,12 @@ class ColorUgen:
                 # Step from red to one step before red again
                 for t_hue in range(h_params[0] + start_hue, h_params[1] + start_hue, h_step):
                     # Green correct 120
-                    if 80 < t_hue/10.0 < 110 or 130 < t_hue/10.0 < 160: continue
-                    if hsv_val > 0.80:
-                        m_hsv_val = hsv_val * 1.00 if 85 < t_hue/10.0 < 140 else hsv_val
+                    if 800 < t_hue < 1100 or 1300 < t_hue < 1600: continue
+                    if hsv_val > 0.70:
+                        m_hsv_val = hsv_val * 0.95 if 500 < t_hue < 1800 else hsv_val
                     else:
                         m_hsv_val = hsv_val
-                    # Enf Green correct
+                    # End Green correct
                     hsv_hue = float(t_hue) / 3600.0
                     self.add_rgb(tuple([hsv_hue, hsv_sat, m_hsv_val]), color_space='hsv')
                 start_hue += int(h_step / total_sv_steps)
