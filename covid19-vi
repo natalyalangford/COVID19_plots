@@ -39,6 +39,7 @@ import sys
 import re
 import os
 from datetime import datetime
+from typing import Union, Tuple, List, Dict
 import io
 import pickle
 import json
@@ -149,12 +150,12 @@ class CovidData:
     # pylint: enable=bad-continuation
 
     @classmethod
-    def chk_args(cls, args):
+    def chk_args(cls, args: 'class argparse') -> bool:
         """
         Argument error checking used by this utility.
+
         :param args: args from args.parser
         :return: True if check passes else False
-        :rtype: bool
         """
         if args.rwindow < 2:
             print('Error in value for --rwindow {}, must be an integer >= 2.'.format(args.rwindow))
@@ -215,31 +216,28 @@ class CovidData:
         return True
 
     @classmethod
-    def print_args(cls):
+    def print_args(cls) -> None:
         """
         Prints valid arguments for command line options that require a string.
-        :return: None
         """
         print('Valid argument values:')
         [print(' {}: {}'.format(k2, v2)) for k2, v2 in cls._valid_args.items()]
 
     @classmethod
-    def print_sources(cls):
+    def print_sources(cls) -> None:
         """
         Formatted print of data sources used by this utility.
-        :return: None
         """
         for k, v in cls._covid_data.items():
             print(k)
             [print(' {}: {}\n    {}'.format(k2, v2['src_name'], v2['url'])) for k2, v2 in v.items()]
 
-    def read_datafile(self, download=False):
+    def read_datafile(self, download: bool = False) -> bool:
         """
         Read covid-19 data from the repository datafiles or a pickle file depends on value of download.
+
         :param download: Download from the interweb if True, else read pickled data.
-        :type download: bool
         :return: True if successful
-        :rtype: bool
         """
         # If a valid pickle file does not exist, download data even if download is False.
         if not download and os.path.isfile(self._pickle_filename):
@@ -287,13 +285,12 @@ class CovidData:
 
         return True
 
-    def aggregate_world(self, df):
+    def aggregate_world(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Aggregate global total from country level data.
+
         :param df: Target dataframe
-        :type df: pandas.core.frame.DataFrame
         :return: Dataframe with aggregation row added
-        :rtype: pandas.core.frame.DataFrame
         """
         head_cols = self.data['global']['header_cols']
         ac_df = df.loc[df['Province/State'].isnull()].copy()
@@ -307,15 +304,13 @@ class CovidData:
         fdf = pd.concat([df, world_df], ignore_index=True)
         return fdf
 
-    def aggregate_state_prov(self, df, target_country):
+    def aggregate_state_prov(self, df: pd.DataFrame, target_country: str) -> pd.DataFrame:
         """
         Aggregate state/province level data to country totals.
+
         :param df: Target dataframe
-        :type df: pandas.core.frame.DataFrame
         :param target_country: Country for aggregation
-        :type target_country: str
         :return: dataframe with aggregation row added
-        :rtype: pandas.core.frame.DataFrame
         """
         if target_country == 'US':
             head_cols = self.data['usa']['header_cols']
@@ -341,19 +336,16 @@ class CovidData:
             fdf = pd.concat([df, country_df], ignore_index=True)
         return fdf
 
-    def read_csv_file(self, file_name, zone, report_type, df=None):
+    def read_csv_file(self, file_name: str, zone: str, report_type: str,
+                      df: Union[pd.DataFrame, None] = None) -> pd.DataFrame:
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
+
         :param file_name: File name of the csv file to be processed.
-        :type file_name: str
         :param zone: global or usa file source.
-        :type zone: str
         :param report_type: confirmed or deaths
-        :type report_type: str
         :param df: dataframe to use instead of reading csv file.
-        :type df: pandas.core.frame.DataFrame
         :return: Prepared dataframe
-        :rtype df: pandas.core.frame.DataFrame
         """
         if df is None:
             try:
@@ -403,13 +395,12 @@ class CovidData:
         self.data[zone]['summary_cols'] += 1
         return df
 
-    def report_process(self, rdf):
+    def report_process(self, rdf: pd.DataFrame) -> pd.DataFrame:
         """
         Prepare selected dataset for generation of plot/table reports.
+
         :param rdf: target dataset
-        :type rdf: pandas.core.frame.DataFrame
         :return: new processed dataframe
-        :rtype: pandas.core.frame.DataFrame
         """
         # Pre-process data
         if self.args.threshold:
@@ -419,21 +410,17 @@ class CovidData:
         return rdf
 
     @staticmethod
-    def get_col_select(df, name_list, summ_cols, head_cols, total_cols=10):
+    def get_col_select(df: pd.DataFrame, name_list: list, summ_cols: int, head_cols: int,
+                       total_cols: int = 10) -> np.ndarray:
         """
         Get a numpy array that selects appropriate columns for table report.
+
         :param df:  Data frame for the table.
-        :type df: pandas.core.frame.DataFrame
         :param name_list: List of column names.
-        :type name_list: list
         :param summ_cols: Number of dataframe summary columns
-        :type summ_cols: int
         :param head_cols: Number of dataframe header columns
-        :type head_cols: int
         :param total_cols: Total number of columns for the table.
-        :type total_cols: int
-        :return: Object for column selection from dataframe
-        :rtype: numpy.ndarray
+        :return: numpy array Object for column selection from dataframe
         """
         x_cols = df.shape[1]
         h_index_list = []
@@ -455,11 +442,11 @@ class CovidData:
 
         return np.r_[h_index_list, head_cols, (ts_end_col - z):ts_end_col, s_index_list]
 
-    def top_ten(self, plot=False):
+    def top_ten(self, plot: bool = False) -> None:
         """
         Generate tabular data report.
+
         :param plot:  Flag to indicate if plot is requested.
-        :type plot: bool
         :return: None
         """
         plot_file_name_suffix = 'png'
@@ -588,13 +575,12 @@ class CovidData:
             with np.errstate(invalid='ignore'):
                 self.plot(plot_df, plot_file_name)
 
-    def plot(self, pdf, plot_fname):
+    def plot(self, pdf: pd.DataFrame, plot_fname: str) -> None:
         """
         Plot the target dataframe to file or display.
+
         :param pdf: Target dataframe
-        :type pdf: pandas.core.frame.DataFrame
         :param plot_fname: Plot filename used if saveplot is specified.
-        :type plot_fname: str
         :return: None
         """
         # Basic report parameters
@@ -831,15 +817,13 @@ class CovidData:
         if self.args.showplot:
             plt.show()
 
-    def plot_prep_new_total(self, y_list, lookback):
+    def plot_prep_new_total(self, y_list: cm.TimeSeriesList, lookback: int) -> Tuple[List[Union[int, float]], ...]:
         """
         Prepare data for the new-total plot.
+
         :param y_list:
-        :type y_list: list
         :param lookback: The size of the moving average window.
-        :type lookback: int
         :return: tuple of x and y lists
-        :rtype: tuple
         """
         thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
@@ -855,13 +839,12 @@ class CovidData:
         y = cm.CovidMath.moving_average(y, lookback)
         return x[start_index:], y[start_index:]
 
-    def read_color_json(self, zone):
+    def read_color_json(self, zone: str) -> Dict[str, str]:
         """
         Read color json file for given zone.
+
         :param zone: global or usa
-        :type zone: str
         :return: color dictionary
-        :rtype: dict
         """
         try:
             with open(self._config_color_json[zone], 'r') as fp:
@@ -870,10 +853,9 @@ class CovidData:
             self.data[zone]['colors'] = None
         return self.data[zone]['colors']
 
-    def gen_color_json(self):
+    def gen_color_json(self) -> None:
         """
         Generate json color files based on args.gen_color_json value.
-        :return: None
         """
         color_gen = cug.ColorUgen()
         if self.args.gen_color_json == 'global' or self.args.gen_color_json == 'both':
@@ -902,10 +884,9 @@ class CovidData:
                 json.dump(color_dict, fp)
 
 
-def main():
+def main() -> None:
     """
     Main flow for covid19-vi.
-    :return: None
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--about', help='display information about this utility',
