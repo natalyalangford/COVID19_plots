@@ -181,9 +181,9 @@ class ColorUgen:
         if debug: print('loops: y={}, iqx={}, iqy={}'.format(num_y, num_iqx, num_iqy))
 
         # Calculate range parameters, start, stop, index.  Subtract from hue stop, to allow drifting start
-        y_params = (10, 90, num_y)  # min, max, num_steps
-        iqx_params = (-100, 100, num_iqx)
-        iqy_params = (-100, 100, num_iqy)
+        y_params = (1000, 9000, num_y)  # min, max, num_steps
+        iqx_params = (-10000, 10000, num_iqx)
+        iqy_params = (-10000, 10000, num_iqy)
         if debug: print('params: y={}, iqx={}, iqy={}'.format(y_params, iqx_params, iqy_params))
 
         # Set parameters for jittering iqx and iqy values between y steps.
@@ -198,15 +198,15 @@ class ColorUgen:
         # https://hbfs.wordpress.com/2018/05/08/yuv-and-yiq-colorspaces-v/
         # Step from brightest to darkest
         for t_y in range(y_params[1], y_params[0], -y_step):
-            yiq_y = t_y / 100
+            yiq_y = float(t_y) / 10000.0
 
             # Step from lowest to highest iqx
             for t_iqx in range(iqx_params[0], iqx_params[1], iqx_step):
-                yiq_iqx = t_iqx / 100
+                yiq_iqx = float(t_iqx) / 10000.0
 
                 # Step from lowest to highest iqy
                 for t_iqy in range(iqy_params[0], iqy_params[1], iqy_step):
-                    yiq_iqy = t_iqy / 100
+                    yiq_iqy = float(t_iqy) / 10000.0
                     self.add_rgb(tuple([yiq_y, yiq_iqx, yiq_iqy]), color_space='yiq')
 
         return list(self.colors.keys())
@@ -233,8 +233,8 @@ class ColorUgen:
         # Calculate range parameters, start, stop, index.  Subtract from hue stop, to allow drifting start
         max_hue = 3600 - int(3600/num_hues)
         h_params = (0, max_hue, num_hues)  # min, max, num_steps
-        s_params = (40, 90, num_sats)
-        v_params = (40, 80, num_vals)
+        s_params = (4000, 9000, num_sats)
+        v_params = (4000, 8000, num_vals)
         if debug: print('params: h={}, s={}, v={}'.format(h_params, s_params, v_params))
 
         # Set parameters for drifting hue
@@ -249,11 +249,11 @@ class ColorUgen:
 
         # Step from brightest to darkest
         for t_val in range(v_params[1], v_params[0], -v_step):
-            hsv_val = t_val / 100.0
+            hsv_val = float(t_val) / 10000.0
 
             # Step from highest saturation to lowest
             for t_sat in range(s_params[1], s_params[0], -s_step):
-                hsv_sat = t_sat / 100.0
+                hsv_sat = float(t_sat) / 10000.0
 
                 # Step from red to one step before red again
                 for t_hue in range(h_params[0] + start_hue, h_params[1] + start_hue, h_step):
@@ -276,4 +276,4 @@ class ColorUgen:
         """
         print('Added hsv: {}, Resultant rgb: {}'.format(self.counter, len(self.colors)))
         for rgb, ocm in self.colors.items():
-            print('rgb: {}, {}: ({:.2f}, {:.2f}, {:.2f})'.format(rgb, self.maps[1], *ocm))
+            print('rgb: {}, {}: ({:.4f}, {:.4f}, {:.4f})'.format(rgb, self.maps[1], *ocm))
