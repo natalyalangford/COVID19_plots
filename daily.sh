@@ -22,26 +22,26 @@ set -x
 # Download Data
 ./covid19-vi --download
 # Global Reports
-./covid19-vi --type confirmed --region country --length 80 --threshold 200 --response trajectory --mwindow 2 --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region country --length 30 --threshold 200 --response new-total --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region country --length 50 --threshold 500 --response rdtd --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region country --length 70 --threshold 300 --response trajectory --mwindow 2 --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region country --length 30 --threshold 300 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region country --length 50 --threshold 600 --response rdtd --rwindow 5 --mwindow 3 --minimum 10 --exclude China,Korea --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region country --length 20 --columns 12 --saveplot --savetable --savedir daily_report
-./covid19-vi --type deaths --region country --length 100 --threshold 20 --response trajectory --mwindow 2 --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
-./covid19-vi --type deaths --region country --length 30 --threshold 20 --response new-total --saveplot --savedir daily_report
-./covid19-vi --type deaths --region country --length 50 --threshold 50 --response rdtd --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow 2 --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir daily_report
+./covid19-vi --type deaths --region country --length 50 --threshold 60 --response rdtd --rwindow 5 --minimum 10 --exclude China --saveplot --savedir daily_report
 ./covid19-vi --type deaths --region country --length 20 --columns 12 --saveplot --savetable --savedir daily_report
 
 # US Reports by State
 ./covid19-vi --type confirmed --region state --length 80 --threshold 200 --response trajectory --mwindow 2 --rwindow 5 --minimum 6 --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 40 --threshold 100 --response new-total --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region state --length 40 --threshold 400 --response rdtd --rwindow 5 --minimum 6 --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region state --length 40 --threshold 400 --response rdtd --rwindow 5 --mwindow 3 --minimum 6 --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region state --country US --length 20 --columns 12 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region state --country US --length 20 --columns 12 --saveplot --savetable --savedir daily_report
 
 # US Reports by County
 ./covid19-vi --type confirmed --region county-state --length 50 --threshold 200 --response trajectory --mwindow 2 --rwindow 5 --minimum 8 --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region county-state --country US --length 30 --threshold 100 --response new-total --saveplot --savedir daily_report
-./covid19-vi --type confirmed --region county-state --length 40 --threshold 300 --response rdtd --rwindow 5 --minimum 6 --saveplot --savedir daily_report
+./covid19-vi --type confirmed --region county-state --length 40 --threshold 300 --response rdtd --rwindow 5 --mwindow 3 --minimum 6 --saveplot --savedir daily_report
 ./covid19-vi --type confirmed --region county-state --country US --length 20 --columns 11 --saveplot --savetable --savedir daily_report
 ./covid19-vi --type deaths --region county-state --country US --length 20 --columns 11 --saveplot --savetable --savedir daily_report
 
