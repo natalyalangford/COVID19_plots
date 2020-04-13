@@ -111,6 +111,10 @@ class CovidMath:
             ret_val = round(len(t_list)*math.log(2)/math.log(t_list[-1]/t_list[0]), 2)
         except ArithmeticError:
             ret_val = np.nan
+        except ValueError as err:
+            # print('Warning: {}\n  {}'.format(err, target_list))
+            # Confirmed caused by negative value
+            ret_val = np.nan
         return ret_val
 
     @classmethod
