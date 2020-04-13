@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 10 Confirmed cases
-  Extract downloaded: 2020-04-12 00:01:21.149159 UTC
-  Data last data point date: 4/11/20
-         County State  1/23/20  4/6/20  4/7/20  4/8/20  4/9/20  4/10/20  4/11/20  DayIncrease  %DayIncrease  DaysToDouble
-0         Total    NY        0  131815  139875  151061  161779   172348   181026         8678           5.0         13.44
-1      New York    NY        0   72181   76876   81803   87028    92384    98308         5924           6.4         14.09
-2        Nassau    NY        0   15616   16610   18548   20140    21512    22584         1072           5.0         11.28
-3       Suffolk    NY        0   14185   15561   17008   18803    20320    20321            1           0.0         12.99
-4   Westchester    NY        0   14294   14294   15887   17004    18077    18729          652           3.6         12.82
-5      Rockland    NY        0    5703    5990    6413    6665     7122     7477          355           5.0         15.63
-6        Orange    NY        0    3533    3829    4075    4309     4532     4847          315           7.0         14.70
-7      Dutchess    NY        0    1189    1249    1395    1493     1598     1744          146           9.1         10.38
-8          Erie    NY        0    1148    1234    1335    1432     1498     1506            8           0.5         17.40
-9        Monroe    NY        0     574     596     651     698      742      767           25           3.4         13.74
-10       Ulster    NY        0     382     398     462     462      530      589           59          11.1          8.84
-11       Putnam    NY        0     345     402     427     456      487      494            7           1.4         16.82
-12     Onondaga    NY        0     377     397     422     422      456      456            0           0.0         25.01
-13       Albany    NY        0     319     333     342     379      426      446           20           4.7         11.86
-14     Sullivan    NY        0     253     270     296     296      318      340           22           6.9         15.03
-15  Schenectady    NY        0     138     145     149     167      191      194            3           1.6         11.90
-16     Saratoga    NY        0     153     155     162     172      182      187            5           2.7         18.47
-17       Oneida    NY        0     100     118     125     158      172      181            9           5.2          8.10
-18      Niagara    NY        0     120     126     155     155      156      167           11           7.1         12.30
-19      Steuben    NY        0      75      75      87      92      117      117            0           0.0          7.79
+  Extract downloaded: 2020-04-13 00:16:14.594872 UTC
+  Data last data point date: 4/12/20
+         County State  1/23/20  4/7/20  4/8/20  4/9/20  4/10/20  4/11/20  4/12/20  DayIncrease  %DayIncrease  DaysToDouble
+0         Total    NY        0  139875  151061  161779   172348   181026   189033         8007           4.4         15.46
+1      New York    NY        0   76876   81803   87028    92384    98308   103208         4900           5.0         14.91
+2        Nassau    NY        0   16610   18548   20140    21512    22584    23553          969           4.3         14.51
+3       Suffolk    NY        0   15561   17008   18803    20320    20321    20934          613           3.0         16.69
+4   Westchester    NY        0   14294   15887   17004    18077    18729    19313          584           3.1         17.75
+5      Rockland    NY        0    5990    6413    6665     7122     7477     7721          244           3.3         18.67
+6        Orange    NY        0    3829    4075    4309     4532     4847     5027          180           3.7         16.51
+7      Dutchess    NY        0    1249    1395    1493     1598     1744     1838           94           5.4         12.57
+8          Erie    NY        0    1234    1335    1432     1498     1506     1571           65           4.3         21.29
+9        Monroe    NY        0     596     651     698      742      767      798           31           4.0         17.02
+10       Ulster    NY        0     398     462     462      530      589      655           66          11.2          9.93
+11       Putnam    NY        0     402     427     456      487      494      507           13           2.6         20.18
+12     Onondaga    NY        0     397     422     422      456      456      494           38           8.3         22.00
+13       Albany    NY        0     333     342     379      426      446      478           32           7.2         10.35
+14     Sullivan    NY        0     270     296     296      318      340      358           18           5.3         18.22
+15  Schenectady    NY        0     145     149     167      191      194      199            5           2.6         11.98
+16     Saratoga    NY        0     155     162     172      182      187      196            9           4.8         18.19
+17       Oneida    NY        0     118     125     158      172      181      195           14           7.7          7.79
+18      Niagara    NY        0     126     155     155      156      167      194           27          16.2         15.44
+19      Steuben    NY        0      75      87      92      117      117      147           30          25.6          6.61
 
-   Data from the 4/11/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 4/12/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
