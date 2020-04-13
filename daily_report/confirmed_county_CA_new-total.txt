@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 10 Confirmed cases
-  Extract downloaded: 2020-04-13 00:16:14.594872 UTC
+  Extract downloaded: 2020-04-13 00:41:44.041318 UTC
   Data last data point date: 4/12/20
             County State  1/23/20  4/7/20  4/8/20  4/9/20  4/10/20  4/11/20  4/12/20  DayIncrease  %DayIncrease  DaysToDouble
 0            Total    CA        0   17351   18897   19710    21081    21706    22795         1089           5.0         18.48

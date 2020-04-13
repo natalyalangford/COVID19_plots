@@ -1,7 +1,7 @@
 
 Top 20 state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-04-13 00:16:14.594872 UTC
+  Extract downloaded: 2020-04-13 00:41:44.041318 UTC
   Data last data point date: 4/12/20
    State  1/23/20  4/6/20  4/7/20  4/8/20  4/9/20  4/10/20  4/11/20  4/12/20  DayIncrease  %DayIncrease  DaysToDouble
 0     NY        0  131815  139875  151061  161779   172348   181026   189033         8007           4.4         15.46

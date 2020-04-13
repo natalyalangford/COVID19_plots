@@ -1,7 +1,7 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-04-13 00:16:14.594872 UTC
+  Extract downloaded: 2020-04-13 00:41:44.041318 UTC
   Data last data point date: 4/12/20
           County State  1/22/20  4/8/20  4/9/20  4/10/20  4/11/20  4/12/20  DayIncrease  %DayIncrease  DaysToDouble
 0       New York    NY        0    4571    5150     5820     6367     6898          531           8.3          8.42
