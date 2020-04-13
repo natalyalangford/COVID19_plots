@@ -391,7 +391,8 @@ class CovidData:
         num_cols = df.shape[1]
         col_select = np.r_[self.data[zone]['header_cols']:num_cols - self.data[zone]['summary_cols']]
         df.loc[:, 'DaysToDouble'] = df.iloc[:, col_select].apply(lambda x:
-                                    cm.CovidMath.series_doubling_time(x.tolist()[-self.args.rwindow:]), axis=1)
+                                                                 cm.CovidMath.series_doubling_time_mwin(x.tolist(),
+                                                                     self.args.rwindow, self.args.mwindow), axis=1)
         self.data[zone]['summary_cols'] += 1
         return df
 
@@ -712,8 +713,8 @@ class CovidData:
                 if self.args.debug:
                     print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
                     print(pdf)
-                rdtd_val = cm.CovidMath.series_doubling_time(y[-5:])
                 y = cm.CovidMath.moving_average(y, self.args.mwindow)
+                rdtd_val = cm.CovidMath.series_doubling_time(y[-self.args.rwindow:])
 
                 # Max values are used later to plot reference lines
                 max_days = len(y) if len(y) > max_days else max_days
