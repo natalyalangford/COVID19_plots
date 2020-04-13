@@ -76,6 +76,20 @@ class CovidMath:
         return list_new
 
     @classmethod
+    def series_doubling_time_mwin(cls, target_list: TimeSeriesList, rwin: int, mwin: int) -> float:
+        """
+        Calculate days to double for last rwin of the moving avg of the given time series.
+        :param target_list:  Target time series data
+        :param rwin: Window size for doubling time
+        :param mwin: Window size for moving average
+        :return: The days to double value
+        """
+        if rwin < 1 or mwin < 1:
+            return np.nan
+        m_list = cls.moving_average(target_list, mwin)
+        return cls.series_doubling_time(m_list[-rwin:])
+
+    @classmethod
     def series_doubling_time(cls, target_list: TimeSeriesList) -> float:
         """
         Returns the overall days to double for the given list.
