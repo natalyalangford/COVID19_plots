@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-04-14 01:00:45.386746 UTC
-  Data last data point date: 4/13/20
-          County State  1/22/20  4/8/20  4/9/20  4/10/20  4/11/20  4/12/20  4/13/20  DayIncrease  %DayIncrease  DaysToDouble
-0       New York    NY        0    4571    5150     5820     6367     6898     7349          451           6.5          8.53
-1         Nassau    NY        0     500     633      723      792      846      910           64           7.6          7.79
-2          Wayne    MI        0     446     504      609      652      704      760           56           8.0          7.74
-3        Suffolk    NY        0     323     362      414      458      518      568           50           9.7          7.11
-4    Westchester    NY        0     283     359      389      461      511      557           46           9.0          5.94
-5           Cook    IL        0     310     310      399      455      485      543           58          12.0          5.96
-6         Bergen    NJ        0     314     345      390      435      453      482           29           6.4          8.75
-7          Essex    NJ        0     276     321      352      412      428      433            5           1.2          8.08
-8        Oakland    MI        0     234     246      282      316      329      347           18           5.5          9.36
-9    Los Angeles    CA        0     198     223      242      244      269      322           53          19.7          9.98
-10          King    WA        0     244     258      277      284      292      292            0           0.0         20.34
-11     Fairfield    CT        0     132     178      203      220      248      262           14           5.6          6.91
-12       Orleans    LA        0     208     224      225      232      235      244            9           3.8         24.44
-13      Rockland    NY        0     154     172      200      200      200      241           41          20.5         10.51
-14        Macomb    MI        0     141     165      197      209      217      240           23          10.6          7.80
-15        Hudson    NJ        0     122     132      163      183      226      236           10           4.4          5.86
-16         Union    NJ        0     125     145      161      195      209      217            8           3.8          6.52
-17     Middlesex    NJ        0     139     152      168      177      193      204           11           5.7          9.03
-18  Philadelphia    PA        0      87      87      110      137      176      190           14           8.0          4.66
-19     Jefferson    LA        0     149     158      165      166      173      186           13           7.5         20.68
+  Extract downloaded: 2020-04-15 00:25:01.308310 UTC
+  Data last data point date: 4/14/20
+          County State  1/22/20  4/9/20  4/10/20  4/11/20  4/12/20  4/13/20  4/14/20  DayIncrease  %DayIncrease  DaysToDouble
+0       New York    NY        0    5150     5820     6367     6898     7349     7905          556           7.6          9.78
+1         Nassau    NY        0     633      723      792      846      910     1001           91          10.0          8.76
+2          Wayne    MI        0     504      609      652      704      760      820           60           7.9          9.08
+3        Suffolk    NY        0     362      414      458      518      568      608           40           7.0          8.01
+4    Westchester    NY        0     359      389      461      511      557      596           39           7.0          7.24
+5           Cook    IL        0     310      399      455      485      543      577           34           6.3          7.63
+6         Bergen    NJ        0     345      390      435      453      482      550           68          14.1          9.97
+7          Essex    NJ        0     321      352      412      428      433      535          102          23.6          8.98
+8        Oakland    MI        0     246      282      316      329      347      364           17           4.9         11.14
+9    Los Angeles    CA        0     223      242      244      269      322      360           38          11.8          9.61
+10          King    WA        0     258      277      284      292      292      296            4           1.4         28.43
+11        Macomb    MI        0     165      197      209      217      240      293           53          22.1          8.68
+12     Fairfield    CT        0     178      203      220      248      262      287           25           9.5          7.87
+13        Hudson    NJ        0     132      163      183      226      236      277           41          17.4          6.06
+14       Orleans    LA        0     224      225      232      235      244      276           32          13.1         24.92
+15      Rockland    NY        0     172      200      200      200      241      263           22           9.1         11.89
+16         Union    NJ        0     145      161      195      209      217      238           21           9.7          8.02
+17     Middlesex    NJ        0     152      168      177      193      204      216           12           5.9         11.98
+18     Jefferson    LA        0     158      165      166      173      186      210           24          12.9         18.54
+19  Philadelphia    PA        0      87      110      137      176      190      206           16           8.4          4.95
 
-   Data from the 4/13/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 4/14/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
