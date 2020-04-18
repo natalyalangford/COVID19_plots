@@ -30,36 +30,40 @@ then
 fi
 echo "Using directory: ${SDIR}, rwindow: ${RWIN}, mwindow: ${MWIN}, table columns: ${TCOLS}"
 # Download Data
-./covid19-vi --download --mwindow $MWIN --rwindow $RWIN
+./covid19-vi --download --mwindow ${MWIN} --rwindow ${RWIN}
 
 set -x
 # Global Reports
-./covid19-vi --type confirmed --region country --length 70 --threshold 300 --response trajectory --mwindow $MWIN --rwindow $RWIN --minimum 10 --exclude China --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region country --length 30 --threshold 300 --response new-total --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region country --length 50 --threshold 600 --response rdtd --rwindow $RWIN --mwindow $MWIN --minimum 10 --exclude China,Korea --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region country --length 20 --columns $TCOLS --saveplot --savetable --savedir $SDIR
-./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow $MWIN --rwindow $RWIN --minimum 10 --exclude China --saveplot --savedir $SDIR
-./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir $SDIR
-./covid19-vi --type deaths --region country --length 50 --threshold 60 --response rdtd --rwindow $RWIN --minimum 10 --exclude China --saveplot --savedir $SDIR
-./covid19-vi --type deaths --region country --length 20 --columns $TCOLS --saveplot --savetable --savedir $SDIR
+./covid19-vi --type confirmed --region country --length 70 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 30 --threshold 300 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 50 --threshold 600 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 10 --exclude China,Korea --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 50 --threshold 60 --response rdtd --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
 # US Reports by State
-./covid19-vi --type confirmed --region state --length 80 --threshold 300 --response trajectory --mwindow $MWIN --rwindow $RWIN --minimum 6 --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region state --country US --length 40 --threshold 100 --response new-total --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region state --length 40 --threshold 400 --response rdtd --rwindow $RWIN --mwindow $MWIN --minimum 6 --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region state --country US --length 20 --columns $TCOLS --saveplot --savetable --savedir $SDIR
-./covid19-vi --type deaths --region state --country US --length 20 --columns $TCOLS --saveplot --savetable --savedir $SDIR
+./covid19-vi --type confirmed --region state --length 80 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 6 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region state --country US --length 40 --threshold 100 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region state --length 40 --threshold 400 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 6 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type deaths --region state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
 # US Reports by County
-./covid19-vi --type confirmed --region county-state --length 50 --threshold 300 --response trajectory --mwindow $MWIN --rwindow $RWIN --minimum 8 --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region county-state --country US --length 30 --threshold 100 --response new-total --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region county-state --length 40 --threshold 300 --response rdtd --rwindow $RWIN --mwindow $MWIN --minimum 6 --saveplot --savedir $SDIR
-./covid19-vi --type confirmed --region county-state --country US --length 20 --columns $TCOLS --saveplot --savetable --savedir $SDIR
-./covid19-vi --type deaths --region county-state --country US --length 20 --columns $TCOLS --saveplot --savetable --savedir $SDIR
+./covid19-vi --type confirmed --region county-state --length 50 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 8 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region county-state --country US --length 30 --threshold 100 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region county-state --length 40 --threshold 300 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 6 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region county-state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type deaths --region county-state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
 # US State State Reports by County
-./covid19-vi --type confirmed --region county --country US --state NY --length 20 --columns $TCOLS --threshold 10 --response new-total --saveplot --savetable --savedir $SDIR
-./covid19-vi --type confirmed --region county --country US --state OR --length 20 --columns $TCOLS --threshold 10 --response new-total --saveplot --savetable --savedir $SDIR
-./covid19-vi --type confirmed --region county --country US --state CA --length 20 --columns $TCOLS --threshold 10 --response new-total --saveplot --savetable --savedir $SDIR
-./covid19-vi --type confirmed --region county --country US --state FL --length 20 --columns $TCOLS --threshold 10 --response new-total --saveplot --savetable --savedir $SDIR
-./covid19-vi --type confirmed --region county --country US --state TX --length 20 --columns $TCOLS --threshold 10 --response new-total --saveplot --savetable --savedir $SDIR
+set +x
+THRESH=40
+LEN=20
+set -x
+./covid19-vi --type confirmed --region county --country US --state NY --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --response new-total --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region county --country US --state OR --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --response new-total --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region county --country US --state CA --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --response new-total --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region county --country US --state FL --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --response new-total --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region county --country US --state TX --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --response new-total --saveplot --savetable --savedir ${SDIR}
