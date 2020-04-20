@@ -1,19 +1,19 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-04-19 02:15:11.521578 UTC
-  Data last data point date: 4/18/20
-       County State  1/23/20  4/13/20  4/14/20  4/15/20  4/16/20  4/17/20  4/18/20  DayIncrease  %DayIncrease  DaysToDouble
-0       Total    OR        0     1584     1633     1663     1736     1785     1844           59           3.3         28.17
-1   Multnomah    OR        0      398      420      430      448      467      493           26           5.6         20.81
-2  Washington    OR        0      360      365      364      376      383      387            4           1.0         52.66
-3      Marion    OR        0      280      289      294      309      317      335           18           5.7         26.95
-4   Clackamas    OR        0      132      135      142      150      153      154            1           0.7         22.60
-5   Deschutes    OR        0       54       55       55       59       61       63            2           3.3         29.93
-6        Linn    OR        0       52       52       53       54       57       59            2           3.5         40.30
-7     Jackson    OR        0       47       47       47       47       48       49            1           2.1        123.34
-8        Lane    OR        0       41       42       44       45       46       46            0           0.0         26.14
+  Extract downloaded: 2020-04-20 00:09:20.293417 UTC
+  Data last data point date: 4/19/20
+       County State  1/23/20  4/14/20  4/15/20  4/16/20  4/17/20  4/18/20  4/19/20  DayIncrease  %DayIncrease  DaysToDouble
+0       Total    OR        0     1633     1663     1736     1785     1844     1910           66           3.6         27.36
+1   Multnomah    OR        0      420      430      448      467      493      514           21           4.3         20.82
+2  Washington    OR        0      365      364      376      383      387      399           12           3.1         48.88
+3      Marion    OR        0      289      294      309      317      335      358           23           6.9         22.03
+4   Clackamas    OR        0      135      142      150      153      154      161            7           4.5         25.71
+5   Deschutes    OR        0       55       55       59       61       63       64            1           1.6         25.38
+6        Linn    OR        0       52       53       54       57       59       59            0           0.0         31.93
+7     Jackson    OR        0       47       47       47       48       49       49            0           0.0         99.26
+8        Lane    OR        0       42       44       45       46       46       48            2           4.3         35.51
 
-   Data from the 4/18/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 4/19/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
