@@ -110,12 +110,11 @@ class CovidData:
                    'region': ['country', 'state', 'province', 'county', 'county-state'],
                    'response': ['log', 'linear', 'new-total', 'trajectory', 'rdtd']}
 
-    def __init__(self, args, download=False):
+    def __init__(self, args: 'class argsparse', download: bool = False):
         """
         Initialize a CovidData object and populate from interweb if download is True.
+
         :param download: Flag to force actual download instead of using pickled data.
-        :type download: Bool
-        :return None
         """
         null_df = pd.DataFrame()                           # Used to initialize data so type checking works.
         self.data = {'global': {'data_date': None,         # Date of the last day of time series.
