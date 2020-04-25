@@ -20,7 +20,7 @@ us_state_abbrev = {
     'District of Columbia': 'DC',
     'Florida': 'FL',
     'Georgia': 'GA',
-    'Guam': 'GM',
+    'Guam': 'GU',
     'Hawaii': 'HI',
     'Idaho': 'ID',
     'Illinois': 'IL',
