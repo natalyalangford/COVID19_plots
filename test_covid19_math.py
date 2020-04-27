@@ -55,6 +55,19 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
             print('Running test value: {}'.format(test_name))
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
+            
+class Test_1_series_doubling_time(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_function = cvm.CovidMath.series_doubling_time
+        self.test_equal = {'test1': {'argument': ([6235, 7284, 9134, 10836, 11899]),
+                                     'response': 5.36},
+                           'test2': {'argument': ([np.nan, 7284, 9134, 10836, 11899]),
+                                     'response': 5.65},
+                           'test3': {'argument': ([0, 0, 0, 0, 0]) is np.nan,
+                                     'response': True},
+                           'test4': {'argument':([]) is np.nan,
+                                     'response': True}}
+
 
 if __name__ == "__main__":
     unittest.main()
