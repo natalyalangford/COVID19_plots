@@ -109,7 +109,10 @@ class CovidMath:
         True
         """
         if len(target_list) <= 1: return np.nan
-        if max(target_list) == 0: return np.nan
+        try:
+            if max(target_list) == 0: return np.nan
+        except TypeError:
+            assert TypeError, 'Non numeric values in time series not allowed'
         t_list = target_list[:]
         win_s = 0
         win_e = len(t_list)
