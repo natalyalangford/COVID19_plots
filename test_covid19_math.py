@@ -4,8 +4,8 @@ import unittest
 import numpy as np
 import covid19_math as cvm
 
-class Test_0_series_rolling_doubling_time(unittest.TestCase):
 
+class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
         self.test_cases = {'test1': {'expr': cvm.CovidMath.series_rolling_doubling_time(
                                                  [200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
@@ -18,7 +18,7 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
                            'test2': {'expr': cvm.CovidMath.series_rolling_doubling_time(
                                                  [200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0,
                                                   1243.0], 5),
-                                     'response':[np.nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34]
+                                     'response': [np.nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34]
                                      },
                            'test3': {'expr': cvm.CovidMath.series_rolling_doubling_time(
                                                  [200, 239, 267, 314, 314, 559, 689, 886], 5),
@@ -44,12 +44,12 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
                                                   [], 5),
                                      'response': [np.nan]
 
-        }
+                                     }}
 
     def test_1(self):
         for test_name, test_case in self.test_cases.items():
+            print('Running test 1: {}'.format(test_name))
             self.assertEqual(test_case['expr'], test_case['response'])
-
 
 
 if __name__ == "__main__":
