@@ -63,6 +63,12 @@ class CovidMath:
         >>> CovidMath.series_rolling_doubling_time([], 5)
         [nan]
         """
+        if not isinstance(lookback, (int, float, np.int64)):
+            raise TypeError('Window size must be numeric')
+        if not all(isinstance(n, (int, float, np.int64)) for n in t_list):
+            raise TypeError('Non numeric values in time series not allowed')
+        if lookback <= 1:
+            raise ValueError('Window size must be >= 1')
         if len(t_list) <= 1: return [np.nan]
         list_new = [np.nan] * len(t_list)
         if lookback > len(t_list): lookback = len(t_list)
@@ -110,9 +116,12 @@ class CovidMath:
         """
         if len(target_list) <= 1: return np.nan
         try:
-            if max(target_list) == 0: return np.nan
-        except TypeError:
-            assert TypeError, 'Non numeric values in time series not allowed'
+            try:
+                if max(target_list) == 0: return np.nan
+            except TypeError:
+                pass
+        except:
+            raise TypeError('Non numeric values in time series not allowed')
         t_list = target_list[:]
         win_s = 0
         win_e = len(t_list)
