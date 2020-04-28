@@ -8,6 +8,7 @@ import covid19_math as cvm
 class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.series_rolling_doubling_time
+        self.test_func_name = 'series_rolling_doubling_time'
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
                                                   1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
                                                   9134, 10836, 11899], 5),
@@ -42,23 +43,24 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test equals: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
     def test_3_value(self):
         for test_name, test_case in self.test_value.items():
-            print('Running test value: {}'.format(test_name))
+            print('Running {} test_value type: {}'.format(self.test_func_name, test_name))
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
 class Test_1_series_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.series_doubling_time
+        self.test_func_name = 'series_doubling_time'
         self.test_equal = {'test1': {'argument': ([6235, 7284, 9134, 10836, 11899]),
                                      'response': 5.36},
                            'test2': {'argument': ([np.nan, 7284, 9134, 10836, 11899]),
@@ -70,18 +72,19 @@ class Test_1_series_doubling_time(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(test_case['argument']), test_case['response'])
 
     def test_2_is(self):
         for test_name, test_case in self.test_is.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_is type: {}'.format(self.test_func_name, test_name))
             self.assertIs(self.test_func(test_case['argument']), test_case['response'])
 
 
 class Test_2_truncate_series(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.truncate_series
+        self.test_func_name = 'truncate_series'
         self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4, 6),
                                      'response': [1, 2, 3, 4]},
                            'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 6, 3),
@@ -93,13 +96,14 @@ class Test_2_truncate_series(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
 
 class Test_3_threshold_index(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.threshold_index
+        self.test_func_name = 'threshold_index'
         self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4),
                                      'response': 3},
                            'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 0),
@@ -111,18 +115,19 @@ class Test_3_threshold_index(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
     def test_2_is(self):
         for test_name, test_case in self.test_is.items():
-            print('Running test value: {}'.format(test_name))
+            print('Running {} test_is type: {}'.format(self.test_func_name, test_name))
             self.assertIs(self.test_func(*test_case['argument']), test_case['response'])
 
 
 class Test_4_start_at_threshold(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.start_at_threshold
+        self.test_func_name = 'start_at_threshold'
         self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4),
                                      'response': [4, 5, 6, 7]},
                            'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 0),
@@ -134,13 +139,14 @@ class Test_4_start_at_threshold(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
 
 class Test_5_moving_average(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.moving_average
+        self.test_func_name = 'moving_average'
         self.test_equal = {'test1': {'argument': ([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 2),
                                      'response': [0, 327.0, 470.5, 390.0, 588.5, 746.5, 1730.0, 1619.5, 1328.0,
                                                   1880.5]},
@@ -156,13 +162,14 @@ class Test_5_moving_average(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
 
 class Test_6_total_to_increment(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.total_to_increment
+        self.test_func_name = 'total_to_increment'
         self.test_equal = {'test1': {'argument': ([0, 654, 941, 1434, 2118, 2927, 5578, 6166, 8234, 9927]),
                                      'response': [np.nan, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693]},
                            'test2': {'argument': ([0, 654, 941, 1434, 2118, 2000, 5578, 6166, 8234, 9927]),
@@ -174,8 +181,9 @@ class Test_6_total_to_increment(unittest.TestCase):
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
-            print('Running test type: {}'.format(test_name))
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(test_case['argument']), test_case['response'])
+
 
 if __name__ == "__main__":
     unittest.main()
