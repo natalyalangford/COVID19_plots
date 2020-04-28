@@ -85,11 +85,18 @@ class CovidMath:
     def series_doubling_time_mwin(cls, target_list: TimeSeriesList, rwin: int, mwin: int) -> float:
         """
         Calculate days to double for last rwin of the moving avg of the given time series.
+
         :param target_list:  Target time series data
         :param rwin: Window size for doubling time
         :param mwin: Window size for moving average
         :return: The days to double value
         """
+        if not isinstance(rwin, (int, float, np.int64)) or not isinstance(mwin, (int, float, np.int64)):
+            raise TypeError('Window size must be numeric')
+        if not all(isinstance(n, (int, float, np.int64)) for n in target_list):
+            raise TypeError('Non numeric values in time series not allowed')
+        if rwin < 1 or mwin < 1:
+            raise ValueError('Window size must be >= 1')
         if rwin < 1 or mwin < 1:
             return np.nan
         m_list = cls.moving_average(target_list, mwin)
@@ -114,14 +121,10 @@ class CovidMath:
         >>> CovidMath.series_doubling_time([]) is np.nan
         True
         """
-        if len(target_list) <= 1: return np.nan
-        try:
-            try:
-                if max(target_list) == 0: return np.nan
-            except TypeError:
-                pass
-        except:
+        if not all(isinstance(n, (int, float, np.int64)) for n in target_list):
             raise TypeError('Non numeric values in time series not allowed')
+        if len(target_list) <= 1: return np.nan
+        if max(target_list) == 0: return np.nan
         t_list = target_list[:]
         win_s = 0
         win_e = len(t_list)

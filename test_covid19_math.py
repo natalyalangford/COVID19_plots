@@ -4,6 +4,9 @@ import unittest
 import numpy as np
 import covid19_math as cvm
 
+# pylint: disable=line-too-long
+# pylint: disable=bad-continuation
+
 
 class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
