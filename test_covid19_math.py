@@ -88,7 +88,7 @@ class Test_1_series_doubling_time(unittest.TestCase):
     def test_3_type(self):
         for test_name, test_case in self.test_type.items():
             print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
-            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
+            self.assertRaises(test_case['response'], self.test_func, test_case['argument'])
 
 
 class Test_2_truncate_series(unittest.TestCase):
@@ -190,11 +190,18 @@ class Test_5_moving_average(unittest.TestCase):
                                      'response': [1693]},
                            'test5': {'argument': ([], 3),
                                      'response': []}}
+        self.test_type = {'test1': {'argument': ([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 'three'),
+                                    'response': TypeError}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_2_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
 class Test_6_total_to_increment(unittest.TestCase):
@@ -209,11 +216,18 @@ class Test_6_total_to_increment(unittest.TestCase):
                                      'response': [654]},
                            'test4': {'argument': ([]),
                                      'response': []}}
+        self.test_type = {'test1': {'argument': ([0, 654, 941, 1434, 2118, 2000, 5578, 6166, '8234', 9927]),
+                                    'response': TypeError}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(test_case['argument']), test_case['response'])
+
+    def test_2_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, test_case['argument'])
 
 
 if __name__ == "__main__":
