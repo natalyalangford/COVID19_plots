@@ -688,6 +688,8 @@ class CovidData:
                 if self.args.debug:
                     print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
                     print(pdf)
+                if y[-1] is np.nan:
+                    continue
 
                 # Plot the lines
                 ax.set_yscale('log')
