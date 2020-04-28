@@ -97,5 +97,29 @@ class Test_2_truncate_series(unittest.TestCase):
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
 
+class Test_3_threshold_index(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_func = cvm.CovidMath.threshold_index
+        self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4),
+                                     'response': 3},
+                           'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 0),
+                                     'response': 0}}
+        self.test_is = {'test3': {'argument': ([1, 2, 3, 4, 5, 6, 7], 10),
+                                  'response': None},
+                        'test4': {'argument': ([], 10),
+                                  'response': None}}
+
+    def test_1_equal(self):
+        for test_name, test_case in self.test_equal.items():
+            print('Running test type: {}'.format(test_name))
+            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_2_is(self):
+        for test_name, test_case in self.test_is.items():
+            print('Running test value: {}'.format(test_name))
+            self.assertIs(self.test_func(*test_case['argument']), test_case['response'])
+
+
+
 if __name__ == "__main__":
     unittest.main()
