@@ -55,19 +55,28 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
             print('Running test value: {}'.format(test_name))
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
-            
+
 class Test_1_series_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
-        self.test_function = cvm.CovidMath.series_doubling_time
+        self.test_func = cvm.CovidMath.series_doubling_time
         self.test_equal = {'test1': {'argument': ([6235, 7284, 9134, 10836, 11899]),
                                      'response': 5.36},
                            'test2': {'argument': ([np.nan, 7284, 9134, 10836, 11899]),
-                                     'response': 5.65},
-                           'test3': {'argument': ([0, 0, 0, 0, 0]) is np.nan,
-                                     'response': True},
-                           'test4': {'argument':([]) is np.nan,
-                                     'response': True}}
+                                     'response': 5.65}}
+        self.test_is = {'test3': {'argument': ([0, 0, 0, 0, 0]) is np.nan,
+                                  'response': True},
+                        'test4': {'argument':([]) is np.nan,
+                                  'response': True}}
 
+    def test_1_equal(self):
+        for test_name, test_case in self.test_equal.items():
+            print('Running test type: {}'.format(test_name))
+            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_2_is(self):
+        for test_name, test_case in self.test_is.items():
+            print('Running test type: {}'.format(test_name))
+            self.assertIs(test_case['response'], self.test_func, *test_case['argument'])
 
 if __name__ == "__main__":
     unittest.main()
