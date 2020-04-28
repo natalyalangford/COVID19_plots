@@ -68,10 +68,12 @@ class Test_1_series_doubling_time(unittest.TestCase):
                                      'response': 5.36},
                            'test2': {'argument': ([np.nan, 7284, 9134, 10836, 11899]),
                                      'response': 5.65}}
-        self.test_is = {'test3': {'argument': ([0, 0, 0, 0, 0]),
+        self.test_is = {'test1': {'argument': ([0, 0, 0, 0, 0]),
                                   'response': np.nan},
-                        'test4': {'argument': ([]),
+                        'test2': {'argument': ([]),
                                   'response': np.nan}}
+        self.test_type = {'test1': {'argument': ([6235, '7284', 9134, 10836, 11899]),
+                                    'response': TypeError}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
@@ -82,6 +84,11 @@ class Test_1_series_doubling_time(unittest.TestCase):
         for test_name, test_case in self.test_is.items():
             print('Running {} test_is type: {}'.format(self.test_func_name, test_name))
             self.assertIs(self.test_func(test_case['argument']), test_case['response'])
+
+    def test_3_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
 class Test_2_truncate_series(unittest.TestCase):
@@ -96,11 +103,18 @@ class Test_2_truncate_series(unittest.TestCase):
                                      'response': [1, 2, 3, 4, 5, 6, 7]},
                            'test4': {'argument': ([], 6, 3),
                                      'response': []}}
+        self.test_type = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 99, 'ninety-nine'),
+                                    'response': TypeError}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_2_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
 class Test_3_threshold_index(unittest.TestCase):
@@ -111,10 +125,12 @@ class Test_3_threshold_index(unittest.TestCase):
                                      'response': 3},
                            'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 0),
                                      'response': 0}}
-        self.test_is = {'test3': {'argument': ([1, 2, 3, 4, 5, 6, 7], 10),
+        self.test_is = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 10),
                                   'response': None},
-                        'test4': {'argument': ([], 10),
+                        'test2': {'argument': ([], 10),
                                   'response': None}}
+        self.test_type = {'test1': {'argument': (['1', 2, 3, 4, 5, 6, 7], 10),
+                                    'response': TypeError}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
@@ -125,6 +141,11 @@ class Test_3_threshold_index(unittest.TestCase):
         for test_name, test_case in self.test_is.items():
             print('Running {} test_is type: {}'.format(self.test_func_name, test_name))
             self.assertIs(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_3_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
 class Test_4_start_at_threshold(unittest.TestCase):
@@ -139,11 +160,18 @@ class Test_4_start_at_threshold(unittest.TestCase):
                                      'response': []},
                            'test4': {'argument': ([], 10),
                                      'response': []}}
+        self.test_type = {'test1': {'argument': ([1, 2, '3b', 4, 5, 6, 7], 10),
+                                    'response': TypeError}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_2_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
 class Test_5_moving_average(unittest.TestCase):
