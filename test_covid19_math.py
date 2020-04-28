@@ -137,5 +137,45 @@ class Test_4_start_at_threshold(unittest.TestCase):
             print('Running test type: {}'.format(test_name))
             self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
+
+class Test_5_moving_average(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_func = cvm.CovidMath.moving_average
+        self.test_equal = {'test1': {'argument': ([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 2),
+                                     'response': [0, 327.0, 470.5, 390.0, 588.5, 746.5, 1730.0, 1619.5, 1328.0,
+                                                  1880.5]},
+                           'test2': {'argument': ([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3),
+                                     'response': [0, 327.0, 313.67, 478.0, 488.0, 662.0, 1381.33, 1349.33, 1769.0,
+                                                  1449.67]},
+                           'test3': {'argument': ([2068, 1693], 3),
+                                     'response': [2068, 1880.5]},
+                           'test4': {'argument': ([1693], 3),
+                                     'response': [1693]},
+                           'test5': {'argument': ([], 3),
+                                     'response': []}}
+
+    def test_1_equal(self):
+        for test_name, test_case in self.test_equal.items():
+            print('Running test type: {}'.format(test_name))
+            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+
+class Test_6_total_to_increment(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_func = cvm.CovidMath.total_to_increment
+        self.test_equal = {'test1': {'argument': ([0, 654, 941, 1434, 2118, 2927, 5578, 6166, 8234, 9927]),
+                                     'response': [np.nan, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693]},
+                           'test2': {'argument': ([0, 654, 941, 1434, 2118, 2000, 5578, 6166, 8234, 9927]),
+                                     'response': [np.nan, 654, 287, 493, 684, -118, 3578, 588, 2068, 1693]},
+                           'test3': {'argument': ([654]),
+                                     'response': [654]},
+                           'test4': {'argument': ([]),
+                                     'response': []}}
+
+    def test_1_equal(self):
+        for test_name, test_case in self.test_equal.items():
+            print('Running test type: {}'.format(test_name))
+            self.assertEqual(self.test_func(test_case['argument']), test_case['response'])
+
 if __name__ == "__main__":
     unittest.main()
