@@ -63,20 +63,32 @@ class Test_1_series_doubling_time(unittest.TestCase):
                                      'response': 5.36},
                            'test2': {'argument': ([np.nan, 7284, 9134, 10836, 11899]),
                                      'response': 5.65}}
-        self.test_is = {'test3': {'argument': ([0, 0, 0, 0, 0]) is np.nan,
-                                  'response': True},
-                        'test4': {'argument':([]) is np.nan,
-                                  'response': True}}
+        self.test_is = {'test3': {'argument': ([0, 0, 0, 0, 0]),
+                                  'response': np.nan},
+                        'test4': {'argument': ([]),
+                                  'response': np.nan}}
 
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running test type: {}'.format(test_name))
-            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+            self.assertEqual(self.test_func(test_case['argument']), test_case['response'])
 
     def test_2_is(self):
         for test_name, test_case in self.test_is.items():
             print('Running test type: {}'.format(test_name))
-            self.assertIs(test_case['response'], self.test_func, *test_case['argument'])
+            self.assertIs(self.test_func(test_case['argument']), test_case['response'])
+
+
+class Test_2_truncate_series(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_func = cvm.CovidMath.truncate_series
+        self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4, 6),
+                                     'response': [1, 2, 3, 4]},
+                           'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 6, 3),
+                                     'response': [1, 2, 3]},
+                           'test3': {'argument': ([1, 2, 3, 4, 5, 6, 7], 99, 99),
+                                     }}
+
 
 if __name__ == "__main__":
     unittest.main()
