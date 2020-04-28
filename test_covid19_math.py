@@ -120,6 +120,22 @@ class Test_3_threshold_index(unittest.TestCase):
             self.assertIs(self.test_func(*test_case['argument']), test_case['response'])
 
 
+class Test_4_start_at_threshold(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_func = cvm.CovidMath.start_at_threshold
+        self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4),
+                                     'response': [4, 5, 6, 7]},
+                           'test2': {'argument': ([1, 2, 3, 4, 5, 6, 7], 0),
+                                     'response': [1, 2, 3, 4, 5, 6, 7]},
+                           'test3': {'argument': ([1, 2, 3, 4, 5, 6, 7], 10),
+                                     'response': []},
+                           'test4': {'argument': ([], 10),
+                                     'response': []}}
+
+    def test_1_equal(self):
+        for test_name, test_case in self.test_equal.items():
+            print('Running test type: {}'.format(test_name))
+            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
 
 if __name__ == "__main__":
     unittest.main()
