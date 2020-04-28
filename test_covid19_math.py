@@ -60,7 +60,46 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
-class Test_1_series_doubling_time(unittest.TestCase):
+class Test_1_series_doubling_time_mwin(unittest.TestCase):
+    def setUp(self) -> None:
+        self.test_func = cvm.CovidMath.series_doubling_time_mwin
+        self.test_func_name = 'series_doubling_time_mwin'
+        self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
+                                                  1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
+                                                  9134, 10836, 11899], 2, 5),
+                                     'response': (8.33)},
+                           'test2': {'argument': (),
+                                     'response': None}}
+        self.test_type = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 'three', 5),
+                                    'response': TypeError},
+                          'test2': {'argument': ([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243,
+                                                 '1486', 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235,
+                                                  7284, 9134, 10836, 11899], 5),
+                                    'response': TypeError}}
+        self.test_value = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 0, 1),
+                                     'response': ValueError},
+                           'test2': {'argument': ([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243,
+                                                   1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235,
+                                                   7284, 9134, 10836, 11899], 3, -2),
+                                     'response': ValueError}}
+
+    def test_1_equal(self):
+        for test_name, test_case in self.test_equal.items():
+            print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
+            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+
+    def test_2_type(self):
+        for test_name, test_case in self.test_type.items():
+            print('Running {} test_type type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
+
+    def test_3_value(self):
+        for test_name, test_case in self.test_value.items():
+            print('Running {} test_value type: {}'.format(self.test_func_name, test_name))
+            self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
+
+
+class Test_2_series_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.series_doubling_time
         self.test_func_name = 'series_doubling_time'
@@ -91,7 +130,7 @@ class Test_1_series_doubling_time(unittest.TestCase):
             self.assertRaises(test_case['response'], self.test_func, test_case['argument'])
 
 
-class Test_2_truncate_series(unittest.TestCase):
+class Test_3_truncate_series(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.truncate_series
         self.test_func_name = 'truncate_series'
@@ -117,7 +156,7 @@ class Test_2_truncate_series(unittest.TestCase):
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
-class Test_3_threshold_index(unittest.TestCase):
+class Test_4_threshold_index(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.threshold_index
         self.test_func_name = 'threshold_index'
@@ -148,7 +187,7 @@ class Test_3_threshold_index(unittest.TestCase):
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
-class Test_4_start_at_threshold(unittest.TestCase):
+class Test_5_start_at_threshold(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.start_at_threshold
         self.test_func_name = 'start_at_threshold'
@@ -174,7 +213,7 @@ class Test_4_start_at_threshold(unittest.TestCase):
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
-class Test_5_moving_average(unittest.TestCase):
+class Test_6_moving_average(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.moving_average
         self.test_func_name = 'moving_average'
@@ -204,7 +243,7 @@ class Test_5_moving_average(unittest.TestCase):
             self.assertRaises(test_case['response'], self.test_func, *test_case['argument'])
 
 
-class Test_6_total_to_increment(unittest.TestCase):
+class Test_7_total_to_increment(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.total_to_increment
         self.test_func_name = 'total_to_increment'
