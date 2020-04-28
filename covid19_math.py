@@ -47,21 +47,6 @@ class CovidMath:
         :param t_list: A time series of numbers in a list
         :param lookback: Size of the window
         :return: Rolling double time as a list
-
-        >>> CovidMath.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
-        >>> CovidMath.series_rolling_doubling_time([200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0, 1243.0], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34]
-        >>> CovidMath.series_rolling_doubling_time([200, 239, 267, 314, 314, 559, 689, 886], 5)
-        [nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34]
-        >>> CovidMath.series_rolling_doubling_time([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284, 9134, 10836, 11899], 5)
-        [nan, nan, 12.51, 7.62, 10.16, 4.08, 3.66, 3.34, 2.85, 4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21, 4.56, 4.41, 5.36]
-        >>> CovidMath.series_rolling_doubling_time([239, 267], 5)
-        [nan, 12.51]
-        >>> CovidMath.series_rolling_doubling_time([239], 5)
-        [nan]
-        >>> CovidMath.series_rolling_doubling_time([], 5)
-        [nan]
         """
         if not isinstance(lookback, (int, float, np.int64)):
             raise TypeError('Window size must be numeric')
@@ -111,15 +96,6 @@ class CovidMath:
         :return: Number of days to double
 
         .. note: https://blog.datawrapper.de/weekly-chart-coronavirus-doublingtimes/
-        
-        >>> CovidMath.series_doubling_time([6235, 7284, 9134, 10836, 11899])
-        5.36
-        >>> CovidMath.series_doubling_time([np.nan, 7284, 9134, 10836, 11899])
-        5.65
-        >>> CovidMath.series_doubling_time([0, 0, 0, 0, 0]) is np.nan
-        True
-        >>> CovidMath.series_doubling_time([]) is np.nan
-        True
         """
         if not all(isinstance(n, (int, float, np.int64)) for n in target_list):
             raise TypeError('Non numeric values in time series not allowed')
@@ -155,15 +131,6 @@ class CovidMath:
         :param length: max list length
         :param value: max value in a time series
         :return: The resultant index or None is never met
-        
-        >>> CovidMath.truncate_series([1, 2, 3, 4, 5, 6, 7], 4, 6)
-        [1, 2, 3, 4]
-        >>> CovidMath.truncate_series([1, 2, 3, 4, 5, 6, 7], 6, 3)
-        [1, 2, 3]
-        >>> CovidMath.truncate_series([1, 2, 3, 4, 5, 6, 7], 99, 99)
-        [1, 2, 3, 4, 5, 6, 7]
-        >>> CovidMath.truncate_series([], 6, 3)
-        []
         """
         t_list = target_list[:]
         if len(t_list) > length:
@@ -182,15 +149,6 @@ class CovidMath:
         :param t_list: List of numbers
         :param threshold: The threshold
         :return: The resultant index or None if never met
-        
-        >>> CovidMath.threshold_index([1, 2, 3, 4, 5, 6, 7], 4)
-        3
-        >>> CovidMath.threshold_index([1, 2, 3, 4, 5, 6, 7], 0)
-        0
-        >>> CovidMath.threshold_index([1, 2, 3, 4, 5, 6, 7], 10) is None
-        True
-        >>> CovidMath.threshold_index([], 10) is None
-        True
         """
         for i, x in enumerate(t_list):
             if x >= threshold:
@@ -205,15 +163,6 @@ class CovidMath:
         :param t_list: List of numbers
         :param threshold: The threshold
         :return: The new list
-        
-        >>> CovidMath.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 4)
-        [4, 5, 6, 7]
-        >>> CovidMath.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 0)
-        [1, 2, 3, 4, 5, 6, 7]
-        >>> CovidMath.start_at_threshold([1, 2, 3, 4, 5, 6, 7], 10)
-        []
-        >>> CovidMath.start_at_threshold([], 10)
-        []
         """
         return [y_val for i, y_val in enumerate(t_list) if min(t_list[i:]) >= threshold]
 
@@ -225,17 +174,6 @@ class CovidMath:
         :param list_values: List of numbers
         :param lookback: Size of the window
         :return: The new list
-        
-        >>> CovidMath.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 2)
-        [0, 327.0, 470.5, 390.0, 588.5, 746.5, 1730.0, 1619.5, 1328.0, 1880.5]
-        >>> CovidMath.moving_average([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 3)
-        [0, 327.0, 313.67, 478.0, 488.0, 662.0, 1381.33, 1349.33, 1769.0, 1449.67]
-        >>> CovidMath.moving_average([2068, 1693], 3)
-        [2068, 1880.5]
-        >>> CovidMath.moving_average([1693], 3)
-        [1693]
-        >>> CovidMath.moving_average([], 3)
-        []
         """
         if not list_values: return list_values
         if lookback == 1 or len(list_values) == 1: return list_values
@@ -256,15 +194,6 @@ class CovidMath:
         
         :param list_orig: List of numbers
         :return: The new list
-
-        >>> CovidMath.total_to_increment([0, 654, 941, 1434, 2118, 2927, 5578, 6166, 8234, 9927])
-        [nan, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693]
-        >>> CovidMath.total_to_increment([0, 654, 941, 1434, 2118, 2000, 5578, 6166, 8234, 9927])
-        [nan, 654, 287, 493, 684, -118, 3578, 588, 2068, 1693]
-        >>> CovidMath.total_to_increment([654])
-        [654]
-        >>> CovidMath.total_to_increment([])
-        []
         """
         list_new = list_orig[:]
         for i in range(0, len(list_orig)):
