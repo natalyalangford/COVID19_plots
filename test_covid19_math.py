@@ -14,6 +14,7 @@ def round_list(l: list, ndigits: int) -> list:
 
 class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_0')
         self.test_func = cvm.CovidMath.series_rolling_doubling_time
         self.test_func_name = 'series_rolling_doubling_time'
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
@@ -51,7 +52,6 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            #self.assertEqual(round_list(self.test_func(*test_case['argument']), 2), round_list(test_case['response'], 2))
             np.testing.assert_equal(round_list(self.test_func(*test_case['argument']), 2),
                                     round_list(test_case['response'], 2))
 
@@ -68,6 +68,7 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
 
 class Test_1_series_doubling_time_mwin(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_1')
         self.test_func = cvm.CovidMath.series_doubling_time_mwin
         self.test_func_name = 'series_doubling_time_mwin'
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
@@ -105,6 +106,7 @@ class Test_1_series_doubling_time_mwin(unittest.TestCase):
 
 class Test_2_series_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_2')
         self.test_func = cvm.CovidMath.series_doubling_time
         self.test_func_name = 'series_doubling_time'
         self.test_equal = {'test1': {'argument': ([6235, 7284, 9134, 10836, 11899]),
@@ -136,6 +138,7 @@ class Test_2_series_doubling_time(unittest.TestCase):
 
 class Test_3_truncate_series(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_3')
         self.test_func = cvm.CovidMath.truncate_series
         self.test_func_name = 'truncate_series'
         self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4, 6),
@@ -162,6 +165,7 @@ class Test_3_truncate_series(unittest.TestCase):
 
 class Test_4_threshold_index(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_4')
         self.test_func = cvm.CovidMath.threshold_index
         self.test_func_name = 'threshold_index'
         self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4),
@@ -193,6 +197,7 @@ class Test_4_threshold_index(unittest.TestCase):
 
 class Test_5_start_at_threshold(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_5')
         self.test_func = cvm.CovidMath.start_at_threshold
         self.test_func_name = 'start_at_threshold'
         self.test_equal = {'test1': {'argument': ([1, 2, 3, 4, 5, 6, 7], 4),
@@ -219,6 +224,7 @@ class Test_5_start_at_threshold(unittest.TestCase):
 
 class Test_6_moving_average(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_6')
         self.test_func = cvm.CovidMath.moving_average
         self.test_func_name = 'moving_average'
         self.test_equal = {'test1': {'argument': ([0, 654, 287, 493, 684, 809, 2651, 588, 2068, 1693], 2),
@@ -250,6 +256,7 @@ class Test_6_moving_average(unittest.TestCase):
 
 class Test_7_total_to_increment(unittest.TestCase):
     def setUp(self) -> None:
+        print('Test_7')
         self.test_func = cvm.CovidMath.total_to_increment
         self.test_func_name = 'total_to_increment'
         self.test_equal = {'test1': {'argument': ([0, 654, 941, 1434, 2118, 2927, 5578, 6166, 8234, 9927]),
