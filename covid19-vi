@@ -693,7 +693,7 @@ class CovidData:
 
                 # Plot the lines
                 ax.set_yscale('log')
-                tname = '{} ({})'.format(pname, y[-1])
+                tname = '{} ({:0.2f})'.format(pname, y[-1])
                 if color:
                     ax.plot(y, label=lname, color=color)
                 else:
@@ -727,7 +727,7 @@ class CovidData:
                     ax.plot(y, label=lname, color=color)
                 else:
                     ax.plot(y, label=lname)
-                ax.text(x=len(y)-1, y=y[-1], s='{} ({})'.format(pname, rdtd_val),
+                ax.text(x=len(y)-1, y=y[-1], s='{} ({:0.2f})'.format(pname, rdtd_val),
                         bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             else:
                 if self.args.debug:

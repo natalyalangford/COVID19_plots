@@ -85,7 +85,6 @@ class CovidMath:
         if rwin < 1 or mwin < 1:
             return np.nan
         m_list = cls.moving_average(target_list, mwin)
-        print(m_list)
         return cls.series_doubling_time(m_list[-rwin:])
 
     @classmethod
