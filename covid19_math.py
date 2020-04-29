@@ -85,6 +85,7 @@ class CovidMath:
         if rwin < 1 or mwin < 1:
             return np.nan
         m_list = cls.moving_average(target_list, mwin)
+        print(m_list)
         return cls.series_doubling_time(m_list[-rwin:])
 
     @classmethod
@@ -113,7 +114,7 @@ class CovidMath:
         if win_s >= win_e: return np.nan
         t_list = t_list[win_s: win_e]
         try:
-            ret_val = round(len(t_list)*math.log(2)/math.log(t_list[-1]/t_list[0]), 2)
+            ret_val = len(t_list)*math.log(2)/math.log(t_list[-1]/t_list[0])
         except ArithmeticError:
             ret_val = np.nan
         except ValueError as err:
@@ -181,10 +182,10 @@ class CovidMath:
         for i in range(lookback - 1, len(list_values)):
             win_e = i + 1
             win_s = i - (lookback - 1)
-            list_new[i] = round(float(np.nansum(list_values[win_s: win_e])) / float(lookback), 2)
+            list_new[i] = float(np.nansum(list_values[win_s: win_e])) / float(lookback)
         for i in range(1, lookback - 1):
             win_e = i + 1
-            list_new[i] = round(float(np.nansum(list_values[0: win_e])) / float(i+1), 2)
+            list_new[i] = float(np.nansum(list_values[0: win_e])) / float(i+1)
         return list_new
 
     @classmethod

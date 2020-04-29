@@ -8,6 +8,10 @@ import covid19_math as cvm
 # pylint: disable=bad-continuation
 
 
+def round_list(l: list, ndigits: int) -> list:
+    return [round(e, ndigits=ndigits) for e in l]
+
+
 class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def setUp(self) -> None:
         self.test_func = cvm.CovidMath.series_rolling_doubling_time
@@ -15,7 +19,7 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
                                                   1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
                                                   9134, 10836, 11899], 5),
-                                     'response': [np.nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34,
+                                     'response': [np.nan, 7.78, 7.20, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34,
                                                   4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21,
                                                   4.56, 4.41, 5.36]},
                            'test2': {'argument': ([200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0,
@@ -47,7 +51,7 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+            self.assertEqual(round_list(self.test_func(*test_case['argument']), 2), test_case['response'])
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
@@ -66,15 +70,15 @@ class Test_1_series_doubling_time_mwin(unittest.TestCase):
         self.test_func_name = 'series_doubling_time_mwin'
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
                                                   1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
-                                                  9134, 10836, 11899], 2, 5),
-                                     'response': (8.33)},
+                                                  9134, 10836, 11899], 5, 3),
+                                     'response': 4.782915143},
                            'test2': {'argument': (),
                                      'response': None}}
         self.test_type = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 'three', 5),
                                     'response': TypeError},
                           'test2': {'argument': ([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243,
                                                  '1486', 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235,
-                                                  7284, 9134, 10836, 11899], 5),
+                                                  7284, 9134, 10836, 11899], 5, 3),
                                     'response': TypeError}}
         self.test_value = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 0, 1),
                                      'response': ValueError},
@@ -86,7 +90,7 @@ class Test_1_series_doubling_time_mwin(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+            self.assertEqual(round(self.test_func(*test_case['argument']), 7), round(test_case['response'], 7))
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
