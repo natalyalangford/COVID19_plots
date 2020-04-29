@@ -52,7 +52,8 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
             #self.assertEqual(round_list(self.test_func(*test_case['argument']), 2), round_list(test_case['response'], 2))
-            np.testing.assert_equal(round_list(self.test_func(*test_case['argument']), 2), round_list(test_case['response'], 2))
+            np.testing.assert_equal(round_list(self.test_func(*test_case['argument']), 2),
+                                    round_list(test_case['response'], 2))
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
@@ -72,9 +73,7 @@ class Test_1_series_doubling_time_mwin(unittest.TestCase):
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
                                                   1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
                                                   9134, 10836, 11899], 5, 3),
-                                     'response': 4.782915143},
-                           'test2': {'argument': (),
-                                     'response': None}}
+                                     'response': 4.782915143}}
         self.test_type = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 'three', 5),
                                     'response': TypeError},
                           'test2': {'argument': ([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243,
@@ -122,7 +121,7 @@ class Test_2_series_doubling_time(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            self.assertEqual(self.test_func(test_case['argument']), test_case['response'])
+            self.assertEqual(round(self.test_func(test_case['argument']), 2), round(test_case['response'], 2))
 
     def test_2_is(self):
         for test_name, test_case in self.test_is.items():
@@ -240,7 +239,8 @@ class Test_6_moving_average(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            self.assertEqual(self.test_func(*test_case['argument']), test_case['response'])
+            self.assertEqual(round_list(self.test_func(*test_case['argument']), 2),
+                             round_list(test_case['response'], 2))
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
