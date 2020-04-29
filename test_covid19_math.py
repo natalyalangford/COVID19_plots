@@ -51,7 +51,8 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            self.assertEqual(round_list(self.test_func(*test_case['argument']), 2), test_case['response'])
+            #self.assertEqual(round_list(self.test_func(*test_case['argument']), 2), round_list(test_case['response'], 2))
+            np.testing.assert_equal(round_list(self.test_func(*test_case['argument']), 2), round_list(test_case['response'], 2))
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
