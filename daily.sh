@@ -35,25 +35,25 @@ echo "Using directory: ${SDIR}, rwindow: ${RWIN}, mwindow: ${MWIN}, table column
 set -x
 # Global Reports
 ./covid19-vi --type confirmed --region country --length 70 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region country --length 30 --threshold 300 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 30 --threshold 300 --response new-total --saveplot --savedir ${SDIR} --exclude China
 ./covid19-vi --type confirmed --region country --length 50 --threshold 600 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 10 --exclude China,Korea --saveplot --savedir ${SDIR}
 ./covid19-vi --type confirmed --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
-./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir ${SDIR} --exclude China
 ./covid19-vi --type deaths --region country --length 50 --threshold 60 --response rdtd --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
 ./covid19-vi --type deaths --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
 # US Reports by State
-./covid19-vi --type confirmed --region state --length 80 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 6 --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region state --country US --length 40 --threshold 100 --response new-total --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region state --length 40 --threshold 400 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 6 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region state --length 80 --threshold 400 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 6 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region state --country US --length 40 --threshold 200 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region state --length 50 --threshold 400 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 6 --saveplot --savedir ${SDIR}
 ./covid19-vi --type confirmed --region state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type deaths --region state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
 # US Reports by County
-./covid19-vi --type confirmed --region county-state --length 50 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 8 --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region county-state --country US --length 30 --threshold 100 --response new-total --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region county-state --length 40 --threshold 300 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 6 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region county-state --length 50 --threshold 400 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 8 --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region county-state --country US --length 30 --threshold 200 --response new-total --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region county-state --length 50 --threshold 400 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 6 --saveplot --savedir ${SDIR}
 ./covid19-vi --type confirmed --region county-state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type deaths --region county-state --country US --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
