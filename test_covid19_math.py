@@ -20,22 +20,28 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
                                                   1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
                                                   9134, 10836, 11899], 5),
-                                     'response': [np.nan, 7.78, 7.20, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34,
-                                                  4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72, 5.21,
-                                                  4.56, 4.41, 5.36]},
+                                     'response': [np.nan, 3.890889828, 4.798007001, 4.609962171, 6.146616228,
+                                                  3.263074806, 2.924694439, 2.672828178, 2.282449518, 3.469493284,
+                                                  3.607314172, 3.926938369, 3.659428713, 3.391817809, 3.348611681,
+                                                  3.772833172, 4.35022938, 4.935226858, 4.574405574, 4.164342122,
+                                                  3.645149683, 3.52694576, 4.290101519]},
                            'test2': {'argument': ([200.0, 239.0, 267.0, 314.0, 314.0, 559.0, 689.0, 886.0, 1058.0,
                                                   1243.0], 5),
-                                     'response': [np.nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34, 2.85, 4.34]},
+                                     'response': [np.nan, 3.890889828, 4.798007001, 4.609962171, 6.146616228,
+                                                  3.263074806, 2.924694439, 2.672828178, 2.282449518, 3.469493284]},
                            'test3': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 5),
-                                     'response': [np.nan, 7.78, 7.2, 6.15, 7.68, 4.08, 3.66, 3.34]},
+                                     'response': [np.nan, 3.890889828, 4.798007001, 4.609962171, 6.146616228,
+                                                  3.263074806, 2.924694439, 2.672828178]},
                            'test4': {'argument': ([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243,
                                                    1486, 1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235,
                                                    7284, 9134, 10836, 11899], 5),
-                                     'response': [np.nan, np.nan, 12.51, 7.62, 10.16, 4.08, 3.66, 3.34, 2.85,
-                                                  4.34, 4.51, 4.91, 4.57, 4.24, 4.19, 4.72, 5.44, 6.17, 5.72,
-                                                  5.21, 4.56, 4.41, 5.36]},
+                                     'response': [np.nan, np.nan, 6.256681991, 5.079314242, 7.618971363, 3.263074806,
+                                                  2.924694439, 2.672828178, 2.282449518, 3.469493284, 3.607314172,
+                                                  3.926938369, 3.659428713, 3.391817809, 3.348611681, 3.772833172,
+                                                  4.35022938, 4.935226858, 4.574405574, 4.164342122, 3.645149683,
+                                                  3.52694576, 4.290101519]},
                            'test5': {'argument': ([239, 267], 5),
-                                     'response': [np.nan, 12.51]},
+                                     'response': [np.nan, 6.256681991]},
                            'test6': {'argument': ([239], 5),
                                      'response': [np.nan]},
                            'test7': {'argument': ([], 5),
@@ -52,8 +58,8 @@ class Test_0_series_rolling_doubling_time(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            np.testing.assert_equal(round_list(self.test_func(*test_case['argument']), 2),
-                                    round_list(test_case['response'], 2))
+            np.testing.assert_equal(round_list(self.test_func(*test_case['argument']), 7),
+                                    round_list(test_case['response'], 7))
 
     def test_2_type(self):
         for test_name, test_case in self.test_type.items():
@@ -74,7 +80,7 @@ class Test_1_series_doubling_time_mwin(unittest.TestCase):
         self.test_equal = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886, 1058, 1243, 1486,
                                                   1795, 2257, 2815, 3401, 3743, 4269, 4937, 6235, 7284,
                                                   9134, 10836, 11899], 5, 3),
-                                     'response': 4.782915143}}
+                                     'response': 3.826332114}}
         self.test_type = {'test1': {'argument': ([200, 239, 267, 314, 314, 559, 689, 886], 'three', 5),
                                     'response': TypeError},
                           'test2': {'argument': ([np.nan, 239, 267, 314, 314, 559, 689, 886, 1058, 1243,
@@ -110,9 +116,9 @@ class Test_2_series_doubling_time(unittest.TestCase):
         self.test_func = cvm.CovidMath.series_doubling_time
         self.test_func_name = 'series_doubling_time'
         self.test_equal = {'test1': {'argument': ([6235, 7284, 9134, 10836, 11899]),
-                                     'response': 5.36},
+                                     'response': 4.290101519},
                            'test2': {'argument': ([np.nan, 7284, 9134, 10836, 11899]),
-                                     'response': 5.65}}
+                                     'response': 4.237063678}}
         self.test_is = {'test1': {'argument': ([0, 0, 0, 0, 0]),
                                   'response': np.nan},
                         'test2': {'argument': ([]),
@@ -123,7 +129,7 @@ class Test_2_series_doubling_time(unittest.TestCase):
     def test_1_equal(self):
         for test_name, test_case in self.test_equal.items():
             print('Running {} test_equal type: {}'.format(self.test_func_name, test_name))
-            self.assertEqual(round(self.test_func(test_case['argument']), 2), round(test_case['response'], 2))
+            self.assertEqual(round(self.test_func(test_case['argument']), 7), round(test_case['response'], 7))
 
     def test_2_is(self):
         for test_name, test_case in self.test_is.items():

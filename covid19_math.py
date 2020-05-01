@@ -82,8 +82,6 @@ class CovidMath:
             raise TypeError('Non numeric values in time series not allowed')
         if rwin < 1 or mwin < 1:
             raise ValueError('Window size must be >= 1')
-        if rwin < 1 or mwin < 1:
-            return np.nan
         m_list = cls.moving_average(target_list, mwin)
         return cls.series_doubling_time(m_list[-rwin:])
 
@@ -113,7 +111,7 @@ class CovidMath:
         if win_s >= win_e: return np.nan
         t_list = t_list[win_s: win_e]
         try:
-            ret_val = len(t_list)*math.log(2)/math.log(t_list[-1]/t_list[0])
+            ret_val = (len(t_list) - 1) * math.log(2) / math.log(t_list[-1]/t_list[0])
         except ArithmeticError:
             ret_val = np.nan
         except ValueError as err:
