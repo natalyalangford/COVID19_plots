@@ -7,6 +7,7 @@ automation to distribute accurate and timely data.  We will update our toolset w
 
 ## List of reports
  - [Top Country Confirmed Cases](#top-country-confirmed)
+ - [Top Spreading Country Confirmed Cases](#top-spreading-country-confirmed)
  - [Top Country Deaths](#top-country-deaths)
  - [Top US Sates](#top-us-states)
  - [Top 20 US Counties](#top-us-counties)
@@ -15,33 +16,37 @@ automation to distribute accurate and timely data.  We will update our toolset w
 
 ## Top Country Confirmed
 #### [Table of Confirmed Cases](confirmed_country_global_log.txt)
+![](confirmed_country_global_new-total.png)
 ![](confirmed_country_global_trajectory.png)
 ![](confirmed_country_global_rdtd.png)
-![](confirmed_country_global_new-total.png)
 ![](confirmed_country_global_log.png)
+
+## Top Spreading Country Confirmed
+#### [Table of Top Spreading Confirmed Cases](confirmed_country_global_w-new-total.txt)
+![](confirmed_country_global_w-new-total.png)
 
 ## Top Country Deaths
 #### [Table of Deaths](deaths_country_global_log.txt)
+![](deaths_country_global_new-total.png)
 ![](deaths_country_global_trajectory.png)
 ![](deaths_country_global_rdtd.png)
-![](deaths_country_global_new-total.png)
 ![](deaths_country_global_log.png)
 
 ## Top US States
 #### [Table of Confirmed Cases](confirmed_state_US_log.txt)
 #### [Table Deaths](deaths_state_US_log.txt)
+![](confirmed_state_US_new-total.png)
 ![](confirmed_state_US_trajectory.png)
 ![](confirmed_state_US_rdtd.png)
-![](confirmed_state_US_new-total.png)
 ![](confirmed_state_US_log.png)
 ![](deaths_state_US_log.png)
 
 ## Top US Counties
 #### [Table of Confirmed Cases](confirmed_county-state_US_log.txt)
 #### [Table of Deaths](deaths_county-state_US_log.txt)
+![](confirmed_county-state_US_new-total.png)
 ![](confirmed_county-state_US_trajectory.png)
 ![](confirmed_county-state_US_rdtd.png)
-![](confirmed_county-state_US_new-total.png)
 ![](confirmed_county-state_US_log.png)
 ![](deaths_county-state_US_log.png)
 
