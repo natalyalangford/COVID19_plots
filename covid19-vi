@@ -688,13 +688,11 @@ class CovidData:
                 if len(y) <= self.args.minimum + self.args.rwindow: continue
                 y = cm.CovidMath.moving_average(y, self.args.mwindow)
                 y = cm.CovidMath.series_rolling_doubling_time(y, self.args.rwindow)
-                if y[-1] < 0: continue
+                if y[-1] <= 0 or y[-1] is np.nan: continue
                 y = y[self.args.rwindow:]
                 if self.args.debug:
                     print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
                     print(pdf)
-                if y[-1] is np.nan:
-                    continue
 
                 # Plot the lines
                 ax.set_yscale('log')
