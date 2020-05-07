@@ -1,22 +1,23 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-05-06 05:10:17.716441 UTC
-  Data last data point date: 5/5/20
-        County State  1/23/20  4/30/20  5/1/20  5/2/20  5/3/20  5/4/20  5/5/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    OR        0     2510    2579    2635    2680    2759    2839           80           2.9     29.482276
-1    Multnomah    OR        0      707     720     734     739     754     769           15           2.0     43.718447
-2       Marion    OR        0      491     508     523     544     561     574           13           2.3     21.181415
-3   Washington    OR        0      491     500     509     516     526     531            5           1.0     41.779384
-4    Clackamas    OR        0      214     222     224     225     226     231            5           2.2     45.872379
-5         Linn    OR        0       86      87      87      87      97      98            1           1.0     27.548605
-6    Deschutes    OR        0       76      76      78      78      79      80            1           1.3     64.314098
-7     Umatilla    OR        0       50      57      61      64      70      73            3           4.3      8.977478
-8         Polk    OR        0       39      42      41      41      49      68           19          38.8     10.078355
-9         Lane    OR        0       50      50      54      54      55      55            0           0.0     31.071988
-10     Jackson    OR        0       49      49      49      49      49      49            0           0.0           NaN
-11     Yamhill    OR        0       39      39      39      39      40      41            1           2.5    109.511405
+  Extract downloaded: 2020-05-07 03:13:07.804136 UTC
+  Data last data point date: 5/6/20
+        County State  1/23/20  5/1/20  5/2/20  5/3/20  5/4/20  5/5/20  5/6/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    OR        0    2579    2635    2680    2759    2839    2916           77           2.7     28.471995
+1    Multnomah    OR        0     720     734     739     754     769     793           24           3.1     40.025544
+2       Marion    OR        0     508     523     544     561     574     592           18           3.1     21.941887
+3   Washington    OR        0     500     509     516     526     531     537            6           1.1     45.615689
+4    Clackamas    OR        0     222     224     225     226     231     235            4           1.7     58.559998
+5         Linn    OR        0      87      87      87      97      98      99            1           1.0     22.560055
+6    Deschutes    OR        0      76      78      78      79      80      81            1           1.2     65.146002
+7     Umatilla    OR        0      57      61      64      70      73      77            4           5.5     10.281659
+8         Polk    OR        0      42      41      41      49      68      75            7          10.3      6.114103
+9         Lane    OR        0      50      54      54      55      55      57            2           3.6     34.212084
+10     Jackson    OR        0      49      49      49      49      49      49            0           0.0           NaN
+11     Yamhill    OR        0      39      39      39      40      41      42            1           2.4     55.440220
+12      Benton    OR        0      32      32      32      36      39      40            1           2.6     13.750373
 
-   Data from the 5/5/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 5/6/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
