@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-05-11 05:25:38.681566 UTC
-  Data last data point date: 5/10/20
-        County State  1/23/20  5/5/20  5/6/20  5/7/20  5/8/20  5/9/20  5/10/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    TX        0   33912   34928   36036   37246   38394    39258          864           2.3     22.582702
-1       Harris    TX        0    7128    7244    7377    7594    7803     7878           75           1.0     31.926289
-2       Dallas    TX        0    4623    4869    5120    5369    5619     5870          251           4.5     14.169426
-3      Tarrant    TX        0    2624    2686    2956    2956    3127     3210           83           2.7     16.993228
-4       Travis    TX        0    1876    1946    2002    2071    2095     2127           32           1.5     25.226333
-5        Bexar    TX        0    1652    1677    1761    1805    1805     1835           30           1.7     27.020785
-6    Fort Bend    TX        0    1187    1245    1287    1332    1357     1370           13           1.0     23.933652
-7      El Paso    TX        0    1029    1080    1119    1190    1276     1322           46           3.6     13.990216
-8       Potter    TX        0     876     907     971    1027    1101     1124           23           2.1     12.412305
-9       Collin    TX        0     804     828     839     857     887      918           31           3.5     29.216809
-10      Denton    TX        0     806     832     846     872     902      914           12           1.3     28.764388
-11  Montgomery    TX        0     662     672     689     699     699      699            0           0.0     45.868997
-12   Galveston    TX        0     648     659     669     672     676      680            4           0.6     64.754518
-13    Brazoria    TX        0     566     588     588     613     644      656           12           1.9     24.086934
-14     Lubbock    TX        0     560     567     575     582     583      589            6           1.0     64.321593
-15       Moore    TX        0     434     448     454     487     494      527           33           6.7     16.994811
-16     Cameron    TX        0     443     454     469     483     494      512           18           3.6     24.389850
-17        Webb    TX        0     396     400     410     414     424      434           10           2.4     40.088702
-18     Hidalgo    TX        0     353     353     359     368     377      387           10           2.7     35.520031
-19  Williamson    TX        0     333     341     352     361     368      377            9           2.4     28.076307
+  Extract downloaded: 2020-05-12 13:07:15.777124 UTC
+  Data last data point date: 5/11/20
+        County State  1/23/20  5/6/20  5/7/20  5/8/20  5/9/20  5/10/20  5/11/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    TX        0   34928   36036   37246   38394    39258    40555         1297           3.3     23.170822
+1       Harris    TX        0    7244    7377    7594    7803     7878     8176          298           3.8     29.970726
+2       Dallas    TX        0    4869    5120    5369    5619     5870     6123          253           4.3     14.847529
+3      Tarrant    TX        0    2686    2956    2956    3127     3210     3695          485          15.1     14.319058
+4       Travis    TX        0    1946    2002    2071    2095     2127     2171           44           2.1     29.743594
+5        Bexar    TX        0    1677    1761    1805    1805     1835     1901           66           3.6     32.658204
+6    Fort Bend    TX        0    1245    1287    1332    1357     1370     1385           15           1.1     27.600385
+7      El Paso    TX        0    1080    1119    1190    1276     1322     1340           18           1.4     13.945906
+8       Potter    TX        0     907     971    1027    1101     1124     1124            0           0.0     14.174253
+9       Denton    TX        0     832     846     872     902      914      922            8           0.9     28.478411
+10      Collin    TX        0     828     839     857     887      918      918            0           0.0     28.550633
+11  Montgomery    TX        0     672     689     699     699      699      724           25           3.6     58.031286
+12   Galveston    TX        0     659     669     672     676      680      685            5           0.7     85.665514
+13    Brazoria    TX        0     588     588     613     644      656      661            5           0.8     23.413047
+14     Lubbock    TX        0     567     575     582     583      589      592            3           0.5     77.490060
+15       Moore    TX        0     448     454     487     494      527      526           -1          -0.2     18.907775
+16     Cameron    TX        0     454     469     483     494      512      512            0           0.0     26.278739
+17        Webb    TX        0     400     410     414     424      434      435            1           0.2     39.804018
+18     Hidalgo    TX        0     353     359     368     377      387      389            2           0.5     34.922578
+19   Jefferson    TX        0     335     336     353     360      376      381            5           1.3     25.995985
 
-   Data from the 5/10/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 5/11/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
