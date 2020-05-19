@@ -1,24 +1,24 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-05-18 04:49:49.311458 UTC
-  Data last data point date: 5/17/20
-        County State  1/23/20  5/12/20  5/13/20  5/14/20  5/15/20  5/16/20  5/17/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    OR        0     3358     3416     3479     3541     3612     3623           11           0.3     40.326056
-1    Multnomah    OR        0      908      921      940      957      979      984            5           0.5     40.764446
-2       Marion    OR        0      723      746      779      797      824      827            3           0.4     22.400193
-3   Washington    OR        0      601      614      616      620      628      628            0           0.0     68.893278
-4    Clackamas    OR        0      274      274      271      277      281      281            0           0.0     99.746498
-5         Linn    OR        0      104      105      107      109      110      109           -1          -0.9     55.440220
-6    Deschutes    OR        0       90       89       91       94       95       96            1           1.1     38.106285
-7         Polk    OR        0       89       90       91       92       92       93            1           1.1     68.423169
-8     Umatilla    OR        0       85       86       88       91       93       93            0           0.0     35.167257
-9         Lane    OR        0       61       61       61       61       64       64            0           0.0     73.464881
-10     Yamhill    OR        0       50       50       55       55       57       57            0           0.0     22.012987
-11      Benton    OR        0       50       50       50       51       51       51            0           0.0    104.659103
-12     Jackson    OR        0       50       50       50       50       50       50            0           0.0    414.500468
-13     Klamath    OR        0       41       41       41       41       41       41            0           0.0    339.640232
+  Extract downloaded: 2020-05-19 05:22:53.197380 UTC
+  Data last data point date: 5/18/20
+        County State  1/23/20  5/13/20  5/14/20  5/15/20  5/16/20  5/17/20  5/18/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    OR        0     3416     3479     3541     3612     3623     3687           64           1.8     43.863996
+1    Multnomah    OR        0      921      940      957      979      984      996           12           1.2     41.777794
+2       Marion    OR        0      746      779      797      824      827      843           16           1.9     26.698807
+3   Washington    OR        0      614      616      620      628      628      638           10           1.6     81.959589
+4    Clackamas    OR        0      274      271      277      281      281      286            5           1.8     79.679985
+5         Linn    OR        0      105      107      109      110      109      109            0           0.0     74.389186
+6    Deschutes    OR        0       89       91       94       95       96      101            5           5.2     35.395423
+7     Umatilla    OR        0       86       88       91       93       93       98            5           5.4     30.089026
+8         Polk    OR        0       90       91       92       92       93       93            0           0.0     94.954417
+9         Lane    OR        0       61       61       61       64       64       65            1           1.6     52.112376
+10     Yamhill    OR        0       50       55       55       57       57       59            2           3.5     25.235984
+11      Benton    OR        0       50       50       51       51       51       54            3           5.9     70.691951
+12     Jackson    OR        0       50       50       50       50       50       51            1           2.0    417.273067
+13     Klamath    OR        0       41       41       41       41       41       41            0           0.0           NaN
 
-   Data from the 5/17/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 5/18/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
