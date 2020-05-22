@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-05-21 14:08:34.198248 UTC
-  Data last data point date: 5/20/20
-            County State  1/23/20  5/15/20  5/16/20  5/17/20  5/18/20  5/19/20  5/20/20  DayIncrease  %DayIncrease  DaysToDouble
-0            Total    CA        0    76693    78725    80166    81457    83752    85997         2245           2.7     31.891461
-1      Los Angeles    CA        0    36316    37360    38011    38458    39573    40895         1322           3.3     32.041969
-2        Riverside    CA        0     5618     5618     5618     5952     6053     6184          131           2.2     31.925180
-3        San Diego    CA        0     5391     5662     5836     5836     6026     6140          114           1.9     30.628828
-4           Orange    CA        0     4125     4222     4376     4434     4500     4742          242           5.4     26.449831
-5   San Bernardino    CA        0     3311     3463     3511     3593     3707     3795           88           2.4     25.981638
-6          Alameda    CA        0     2367     2351     2392     2457     2522     2560           38           1.5     34.204087
-7      Santa Clara    CA        0     2391     2418     2453     2453     2483     2492            9           0.4     88.934525
-8    San Francisco    CA        0     2026     2054     2091     2131     2179     2185            6           0.3     41.886787
-9        San Mateo    CA        0     1575     1602     1602     1671     1687     1697           10           0.6     39.578328
-10            Kern    CA        0     1428     1473     1515     1537     1571     1605           34           2.2     29.778857
-11          Tulare    CA        0     1338     1426     1430     1436     1539     1552           13           0.8     25.407962
-12   Santa Barbara    CA        0     1387     1418     1474     1474     1517     1520            3           0.2     37.804121
-13          Fresno    CA        0     1074     1156     1192     1192     1287     1338           51           4.0     19.209943
-14      Sacramento    CA        0     1211     1222     1237     1245     1250     1255            5           0.4     83.136144
-15    Contra Costa    CA        0     1100     1121     1146     1155     1192     1209           17           1.4     38.675703
-16        Imperial    CA        0      786      786      786      876      902      985           83           9.2     14.562776
-17         Ventura    CA        0      764      764      764      764      825      837           12           1.5     43.440962
-18     San Joaquin    CA        0      659      670      689      699      709      716            7           1.0     37.596526
-19      Stanislaus    CA        0      537      559      571      571      593      598            5           0.8     36.466693
+  Extract downloaded: 2020-05-22 06:15:49.467909 UTC
+  Data last data point date: 5/21/20
+            County State  1/23/20  5/16/20  5/17/20  5/18/20  5/19/20  5/20/20  5/21/20  DayIncrease  %DayIncrease  DaysToDouble
+0            Total    CA        0    78725    80166    81457    83752    85997    88031         2034           2.4     30.793208
+1      Los Angeles    CA        0    37360    38011    38458    39573    40895    42037         1142           2.8     29.989647
+2        Riverside    CA        0     5618     5618     5952     6053     6184     6343          159           2.6     28.437474
+3        San Diego    CA        0     5662     5836     5836     6026     6140     6140            0           0.0     34.413730
+4           Orange    CA        0     4222     4376     4434     4500     4742     4841           99           2.1     27.300809
+5   San Bernardino    CA        0     3463     3511     3593     3707     3795     3984          189           5.0     25.104391
+6          Alameda    CA        0     2351     2392     2457     2522     2560     2609           49           1.9     35.297762
+7      Santa Clara    CA        0     2418     2453     2453     2483     2492     2492            0           0.0     99.597127
+8    San Francisco    CA        0     2054     2091     2131     2179     2185     2198           13           0.6     45.130784
+9        San Mateo    CA        0     1602     1602     1671     1687     1697     1738           41           2.4     40.000606
+10            Kern    CA        0     1473     1515     1537     1571     1605     1644           39           2.4     31.672387
+11          Tulare    CA        0     1426     1430     1436     1539     1552     1603           51           3.3     24.616751
+12   Santa Barbara    CA        0     1418     1474     1474     1517     1520     1520            0           0.0     44.047677
+13          Fresno    CA        0     1156     1192     1192     1287     1338     1338            0           0.0     18.889915
+14      Sacramento    CA        0     1222     1237     1245     1250     1255     1266           11           0.9    102.126562
+15    Contra Costa    CA        0     1121     1146     1155     1192     1209     1234           25           2.1     36.201833
+16        Imperial    CA        0      786      786      876      902      985     1076           91           9.2     12.139793
+17         Ventura    CA        0      764      764      764      825      837      858           21           2.5     29.236199
+18     San Joaquin    CA        0      670      689      699      709      716      733           17           2.4     41.335684
+19      Stanislaus    CA        0      559      571      571      593      598      598            0           0.0     39.254447
 
-   Data from the 5/20/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 5/21/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
