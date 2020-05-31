@@ -9,9 +9,9 @@ automation to distribute accurate and timely data.  We will update our toolset w
  - [Top Country Confirmed Cases](#top-country-confirmed)
  - [Top Spreading Country Confirmed Cases](#top-spreading-country-confirmed)
  - [Top Country Deaths](#top-country-deaths)
- - [Top US Sates](#top-us-states)
+ - [Top US States](#top-us-states)
  - [Top 20 US Counties](#top-us-counties)
- - [Selected US Sates](#selected-us-states)
+ - [Selected US States](#selected-us-states)
 
 
 ## Top Country Confirmed
