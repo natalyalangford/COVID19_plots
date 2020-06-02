@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-06-01 05:08:45.169695 UTC
-  Data last data point date: 5/31/20
-          County State  1/22/20  5/26/20  5/27/20  5/28/20  5/29/20  5/30/20  5/31/20  DayIncrease  %DayIncrease  DaysToDouble
-0       New York    NY        0    21314    21362    21415    21477    21512    21569           57           0.3    285.919303
-1           Cook    IL        0     3354     3455     3519     3570     3603     3642           39           1.1     42.565735
-2          Wayne    MI        0     2368     2406     2410     2425     2452     2461            9           0.4    100.333601
-3    Los Angeles    CA        0     2145     2201     2241     2294     2339     2362           23           1.0     34.982371
-4         Nassau    NY        0     2108     2137     2114     2118     2121     2122            1           0.0   1355.262222
-5        Suffolk    NY        0     1851     1861     1871     1879     1892     1901            9           0.5    129.659792
-6          Essex    NJ        0     1608     1624     1636     1647     1657     1664            7           0.4     98.420391
-7      Middlesex    MA        0     1535     1549     1564     1583     1596     1615           19           1.2     71.237447
-8         Bergen    NJ        0     1528     1547     1553     1567     1573     1579            6           0.4    108.556092
-9    Westchester    NY        0     1345     1352     1357     1359     1364     1371            7           0.5    208.813938
-10  Philadelphia    PA        0     1243     1262     1282     1300     1308     1316            8           0.6     57.095164
-11     Fairfield    CT        0     1231     1242     1246     1257     1267     1277           10           0.8     97.098788
-12      Hartford    CT        0     1193     1203     1208     1222     1238     1250           12           1.0     79.600179
-13        Hudson    NJ        0     1143     1158     1161     1168     1173     1183           10           0.9    112.219656
-14         Union    NJ        0     1030     1042     1047     1060     1067     1073            6           0.6     83.916494
-15     Middlesex    NJ        0      959      964      968      972      989      994            5           0.5    105.010198
-16       Oakland    MI        0      958      961      971      975      983      988            5           0.5    112.053077
-17     New Haven    CT        0      925      934      946      957      966      972            6           0.6     69.013585
-18       Passaic    NJ        0      892      899      903      917      925      928            3           0.3     85.879778
-19         Essex    MA        0      870      878      895      906      909      925           16           1.8     57.493208
+  Extract downloaded: 2020-06-02 08:26:57.036638 UTC
+  Data last data point date: 6/1/20
+          County State  1/22/20  5/27/20  5/28/20  5/29/20  5/30/20  5/31/20  6/1/20  DayIncrease  %DayIncrease  DaysToDouble
+0       New York    NY        0    21362    21415    21477    21512    21569   21607           38           0.2    299.035716
+1           Cook    IL        0     3455     3519     3570     3603     3642    3658           16           0.4     51.174292
+2          Wayne    MI        0     2406     2410     2425     2452     2461    2463            2           0.1    105.121229
+3    Los Angeles    CA        0     2201     2241     2294     2339     2362    2386           24           1.0     37.895475
+4         Nassau    NY        0     2137     2114     2118     2121     2122    2125            3           0.1   1960.373933
+5        Suffolk    NY        0     1861     1871     1879     1892     1901    1906            5           0.3    134.824326
+6          Essex    NJ        0     1624     1636     1647     1657     1664    1667            3           0.2    113.855350
+7      Middlesex    MA        0     1549     1564     1583     1596     1615    1650           35           2.2     61.878254
+8         Bergen    NJ        0     1547     1553     1567     1573     1579    1580            1           0.1    124.761358
+9    Westchester    NY        0     1352     1357     1359     1364     1371    1374            3           0.2    205.748175
+10  Philadelphia    PA        0     1262     1282     1300     1308     1316    1320            4           0.3     68.254575
+11     Fairfield    CT        0     1242     1246     1257     1267     1277    1288           11           0.9     92.629445
+12      Hartford    CT        0     1203     1208     1222     1238     1250    1259            9           0.7     71.254295
+13        Hudson    NJ        0     1158     1161     1168     1173     1183    1183            0           0.0    126.039681
+14         Union    NJ        0     1042     1047     1060     1067     1073    1074            1           0.1     92.407828
+15     Middlesex    NJ        0      964      968      972      989      994     996            2           0.2     92.465207
+16       Oakland    MI        0      961      971      975      983      988     992            4           0.4    111.144660
+17     New Haven    CT        0      934      946      957      966      972     974            2           0.2     74.060929
+18         Essex    MA        0      878      895      906      909      925     968           43           4.6     47.460546
+19       Passaic    NJ        0      899      903      917      925      928     929            1           0.1     86.257891
 
-   Data from the 5/31/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 6/1/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
