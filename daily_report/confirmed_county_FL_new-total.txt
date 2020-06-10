@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-06-09 05:11:08.396256 UTC
-  Data last data point date: 6/8/20
-          County State  1/23/20  6/3/20  6/4/20  6/5/20  6/6/20  6/7/20  6/8/20  DayIncrease  %DayIncrease  DaysToDouble
-0          Total    FL        0   58764   60183   61488   62758   63938   64904          966           1.5     33.530023
-1     Miami-Dade    FL        0   18456   18779   19056   19299   19547   19756          209           1.1     50.296561
-2        Broward    FL        0    7339    7462    7572    7690    7804    7924          120           1.5     46.027460
-3     Palm Beach    FL        0    6477    6688    6859    7074    7230    7329           99           1.4     25.257717
-4   Hillsborough    FL        0    2384    2479    2554    2643    2748    2861          113           4.1     19.304629
-5         Orange    FL        0    2121    2169    2210    2256    2316    2378           62           2.7     30.078508
-6            Lee    FL        0    2087    2147    2200    2253    2289    2315           26           1.1     27.571635
-7        Collier    FL        0    1679    1814    1874    1968    2039    2070           31           1.5     15.783581
-8          Duval    FL        0    1669    1702    1736    1764    1792    1806           14           0.8     43.513247
-9       Pinellas    FL        0    1361    1397    1478    1532    1584    1638           54           3.4     18.519956
-10       Manatee    FL        0    1110    1134    1162    1177    1189    1219           30           2.5     35.823280
-11          Polk    FL        0    1074    1100    1127    1145    1178    1206           28           2.4     30.991931
-12        Martin    FL        0     729     764     810     849     907     917           10           1.1     13.388151
-13      Escambia    FL        0     853     866     871     879     888     891            3           0.3     76.179411
-14       Volusia    FL        0     771     784     791     804     819     829           10           1.2     45.485054
-15       Osceola    FL        0     715     726     732     741     745     749            4           0.5     71.507521
-16      Sarasota    FL        0     649     652     658     669     680     686            6           0.9     63.456692
-17     St. Lucie    FL        0     508     535     561     607     627     654           27           4.3     13.394945
-18        Hendry    FL        0     476     501     521     552     558     565            7           1.3     17.004964
-19      Seminole    FL        0     505     512     515     521     532     542           10           1.9     50.627865
+  Extract downloaded: 2020-06-10 11:31:54.026780 UTC
+  Data last data point date: 6/9/20
+          County State  1/23/20  6/4/20  6/5/20  6/6/20  6/7/20  6/8/20  6/9/20  DayIncrease  %DayIncrease  DaysToDouble
+0          Total    FL        0   60183   61488   62758   63938   64904   66000         1096           1.7     36.092782
+1     Miami-Dade    FL        0   18779   19056   19299   19547   19756   19980          224           1.1     53.537361
+2        Broward    FL        0    7462    7572    7690    7804    7924    8035          111           1.4     45.999079
+3     Palm Beach    FL        0    6688    6859    7074    7230    7329    7518          189           2.6     28.406278
+4   Hillsborough    FL        0    2479    2554    2643    2748    2861    2923           62           2.2     19.797257
+5         Orange    FL        0    2169    2210    2256    2316    2378    2449           71           3.0     29.392227
+6            Lee    FL        0    2147    2200    2253    2289    2315    2388           73           3.2     33.336320
+7        Collier    FL        0    1814    1874    1968    2039    2070    2128           58           2.8     18.455601
+8          Duval    FL        0    1702    1736    1764    1792    1806    1824           18           1.0     46.323611
+9       Pinellas    FL        0    1397    1478    1532    1584    1638    1679           41           2.5     19.013796
+10          Polk    FL        0    1100    1127    1145    1178    1206    1243           37           3.1     29.439124
+11       Manatee    FL        0    1134    1162    1177    1189    1219    1229           10           0.8     42.251814
+12        Martin    FL        0     764     810     849     907     917     934           17           1.9     15.378225
+13      Escambia    FL        0     866     871     879     888     891     907           16           1.8     76.180019
+14       Volusia    FL        0     784     791     804     819     829     837            8           1.0     48.167910
+15       Osceola    FL        0     726     732     741     745     749     762           13           1.7     73.966011
+16      Sarasota    FL        0     652     658     669     680     686     694            8           1.2     55.151920
+17     St. Lucie    FL        0     535     561     607     627     654     669           15           2.3     14.194465
+18        Hendry    FL        0     501     521     552     558     565     572            7           1.2     22.440689
+19      Seminole    FL        0     512     515     521     532     542     556           14           2.6     44.714886
 
-   Data from the 6/8/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 6/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
