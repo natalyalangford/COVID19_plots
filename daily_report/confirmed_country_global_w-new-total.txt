@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 900 Confirmed cases
-  Extract downloaded: 2020-06-11 05:19:26.994129 UTC
+  Extract downloaded: 2020-06-12 05:13:30.384795 UTC
   Data last data point date: 6/10/20
               Country/Region  1/22/20  6/6/20  6/7/20  6/8/20  6/9/20  6/10/20  DayIncrease  %DayIncrease  DaysToDouble
 0                South Sudan        0     994    1317    1604    1604     1604            0           0.0      5.794109
