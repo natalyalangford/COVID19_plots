@@ -38,8 +38,6 @@ automation to distribute accurate and timely data.  We will update our toolset w
 ![](confirmed_state_US_new-total.png)
 ![](confirmed_state_US_trajectory.png)
 ![](confirmed_state_US_rdtd.png)
-![](confirmed_state_US_log.png)
-![](deaths_state_US_log.png)
 
 ## Top US Counties
 #### [Table of Confirmed Cases](confirmed_county-state_US_log.txt)
@@ -47,8 +45,6 @@ automation to distribute accurate and timely data.  We will update our toolset w
 ![](confirmed_county-state_US_new-total.png)
 ![](confirmed_county-state_US_trajectory.png)
 ![](confirmed_county-state_US_rdtd.png)
-![](confirmed_county-state_US_log.png)
-![](deaths_county-state_US_log.png)
 
 ## Selected US States
 ![](confirmed_county_NY_new-total.png)
