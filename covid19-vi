@@ -673,8 +673,17 @@ class CovidData:
                     ax.plot(x, y, label=lname, color=color)
                 else:
                     ax.plot(x, y, label=lname)
-                ax.text(x=x[-1], y=y[-1], s=pname,
-                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
+                # Show last point label if on chart
+                print_label = True
+                if self.args.ymin and self.args.ymin > y[-1]:
+                    print_label = False
+                if self.args.ymax and self.args.ymax < y[-1]:
+                    print_label = False
+                if print_label:
+                    ax.text(x=x[-1], y=y[-1], s=pname,
+                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
             elif re.fullmatch(r'.*rdtd.*', self.args.response):
                 thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
@@ -701,8 +710,17 @@ class CovidData:
                     ax.plot(y, label=lname, color=color)
                 else:
                     ax.plot(y, label=lname)
-                ax.text(x=len(y)-1, y=y[-1], s=tname,
-                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
+                # Show last point label if on chart
+                print_label = True
+                if self.args.ymin and self.args.ymin > y[-1]:
+                    print_label = False
+                if self.args.ymax and self.args.ymax < y[-1]:
+                    print_label = False
+                if print_label:
+                    ax.text(x=len(y) - 1, y=y[-1], s=tname,
+                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
             elif self.args.response == 'trajectory':
                 thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
@@ -730,8 +748,16 @@ class CovidData:
                     ax.plot(y, label=lname, color=color)
                 else:
                     ax.plot(y, label=lname)
-                ax.text(x=len(y)-1, y=y[-1], s='{} ({:0.2f})'.format(pname, rdtd_val),
-                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
+                # Show last point label if on chart
+                print_label = True
+                if self.args.ymin and self.args.ymin > y[-1]:
+                    print_label = False
+                if self.args.ymax and self.args.ymax < y[-1]:
+                    print_label = False
+                if print_label:
+                    ax.text(x=len(y) - 1, y=y[-1], s='{} ({:0.2f})'.format(pname, rdtd_val),
+                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
             else:
                 if self.args.debug:
                     print('{} {}\ny = {}..{}'.format(lname, len(y), y[0:4], y[-4:]))
@@ -741,8 +767,16 @@ class CovidData:
                     ax.plot(y, label=lname, color=color)
                 else:
                     ax.plot(y, label=lname)
-                ax.text(x=len(y)-1, y=y[-1], s=pname,
-                        bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
+
+                # Show last point label if on chart
+                print_label = True
+                if self.args.ymin and self.args.ymin > y[-1]:
+                    print_label = False
+                if self.args.ymax and self.args.ymax < y[-1]:
+                    print_label = False
+                if print_label:
+                    ax.text(x=len(y) - 1, y=y[-1], s=pname,
+                            bbox=dict(boxstyle='round,pad=0.2', facecolor='#dddddd'), fontsize=6)
 
         # Finish plots
         if self.args.ymin:
