@@ -49,14 +49,18 @@ automation to distribute accurate and timely data.  We will update our toolset w
 ## Selected US States
 ![](confirmed_county_NY_new-total.png)
 ###### [Table for above plot](confirmed_county_NY_new-total.txt)
-![](confirmed_county_FL_new-total.png)
-###### [Table for above plot](confirmed_county_FL_new-total.txt)
-![](confirmed_county_OR_new-total.png)
-###### [Table for above plot](confirmed_county_OR_new-total.txt)
 ![](confirmed_county_CA_new-total.png)
 ###### [Table for above plot](confirmed_county_CA_new-total.txt)
 ![](confirmed_county_TX_new-total.png)
 ###### [Table for above plot](confirmed_county_TX_new-total.txt)
+![](confirmed_county_FL_new-total.png)
+###### [Table for above plot](confirmed_county_FL_new-total.txt)
+![](confirmed_county_AZ_new-total.png)
+###### [Table for above plot](confirmed_county_AZ_new-total.txt)
+![](confirmed_county_OR_new-total.png)
+###### [Table for above plot](confirmed_county_OR_new-total.txt)
+![](confirmed_county_OK_new-total.png)
+###### [Table for above plot](confirmed_county_OK_new-total.txt)
 
 ## Development Team:
 * [@natalyalangford](https://github.com/natalyalangford)
