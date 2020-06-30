@@ -206,6 +206,12 @@ class CovidData:
                       '{}, there is a special place in heck for those who use spaces in directory names!'.format(
                           args.savedir))
                 return False
+        if args.include:
+            if not re.fullmatch(r'([a-zA-Z]+(\s[a-zA-Z]+)*)+((,[a-zA-Z]+)+(\s[a-zA-Z]+)*)*', args.include):
+                print('Invalid value for --include [{}], must be region names, separated by commas'.format(
+                    args.include))
+                return False
+            args.include = args.include.split(',')
         if args.exclude:
             if not re.fullmatch(r'([a-zA-Z]+(\s[a-zA-Z]+)*)+((,[a-zA-Z]+)+(\s[a-zA-Z]+)*)*', args.exclude):
                 print('Invalid value for --exclude [{}], must be region names, separated by commas'.format(
@@ -365,6 +371,7 @@ class CovidData:
             df = self.aggregate_world(df)
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
             df.loc[df['Country/Region'] == 'Korea, South', 'Country/Region'] = 'Korea'
+            df.loc[df['Country/Region'] == 'New Zealand', 'Country/Region'] = 'NewZealand'
         else:
             if self.data[zone]['src_key'] == 'usf':
                 df = df.rename(columns={'County Name': 'County'})
@@ -389,10 +396,10 @@ class CovidData:
         self.data[zone]['summary_cols'] += 4
         num_cols = df.shape[1]
         col_select = np.r_[self.data[zone]['header_cols']:num_cols - self.data[zone]['summary_cols']]
-        df.loc[:, 'DaysToDouble'] = df.iloc[:, col_select].apply(lambda x:
-                                                                 cm.CovidMath.series_doubling_time_mwin(x.tolist(),
-                                                                     self.args.rwindow, self.args.mwindow), axis=1)
+        df.loc[:, 'DaysToDouble'] = df.iloc[:, col_select].apply(lambda x: cm.CovidMath.series_doubling_time_mwin(
+            x.tolist(), self.args.rwindow, self.args.mwindow), axis=1)
         self.data[zone]['summary_cols'] += 1
+
         return df
 
     def report_process(self, rdf: pd.DataFrame) -> pd.DataFrame:
@@ -458,11 +465,17 @@ class CovidData:
         table_df = plot_df = pd.DataFrame()
         zone = 'usa' if self.args.region != 'country' and self.args.country == 'US' else 'global'
         if self.args.region == 'country':
-            report_file_name = '{}_{}_{}_{}'.format(self.args.type, self.args.region, zone, self.args.response)
+            if self.args.include:
+                report_file_name = 'include_{}_{}_{}_{}'.format(self.args.type, self.args.region, zone, self.args.response)
+            else:
+                report_file_name = '{}_{}_{}_{}'.format(self.args.type, self.args.region, zone, self.args.response)
 
             # Pre-process data
             temp_df = self.data[zone][self.args.type]
             tdf = temp_df.loc[temp_df['Province/State'].isnull()].copy()
+            print('args --include: {}'.format(self.args.include))
+            if self.args.include:
+                tdf = tdf[tdf['Country/Region'].isin(self.args.include)]
             tdf = self.report_process(tdf)
 
             # Set the plot data
@@ -961,6 +974,8 @@ def main() -> None:
                         type=str, default='country')
     parser.add_argument('--type', help='type of report: confirmed, deaths',
                         type=str, default='confirmed')
+    parser.add_argument('--include', help='comma separated list of regions to include',
+                        type=str, default=None)
     parser.add_argument('--exclude', help='comma separated list of regions to exclude',
                         type=str, default='')
     parser.add_argument('--response', help='response: log, linear, new-total, trajectory, rdtd, w-rdtd, w-new-total',
