@@ -68,6 +68,13 @@ class CovidMath:
 
     @classmethod
     def series_smooth_na(cls, t_list: TimeSeriesList) -> TimeSeriesList:
+        """
+        Since rdtd can result in nan for zero cases, this function will smooth those out in order to
+        produce better plots.
+
+        :param t_list:  imput time series list
+        :return: series with nan smoothed out
+        """
         max_index = len(t_list)
         if max_index <= 1: return t_list
         for index, value in enumerate(t_list):
