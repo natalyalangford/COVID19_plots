@@ -23,6 +23,7 @@ RWIN=5
 MWIN=3
 TCOLS=12
 SDIR="daily_report"
+ASIA="Taiwan,Korea,Singapore,Malaysia,Japan,Thailand,Indonesia,Cambodia,Philippines,Vietnam,Cambodia,Laos,Myanmar,Australia,NewZealand"
 if [[ ! -d  $SDIR ]]
 then
     echo "${SDIR} does not exist, exiting..."
@@ -41,6 +42,11 @@ set -x
 
 # Global Reports Confirmed Top Spreading
 ./covid19-vi --type confirmed --region country --length 35 --threshold 900 --response w-new-total --ymin 30 --saveplot --savetable --savedir ${SDIR} --exclude China
+
+# Asia reports
+./covid19-vi --type confirmed --region country --length 70 --threshold 100 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 1 --include ${ASIA}  --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 35 --threshold 100 --response new-total --ymin 1 --include ${ASIA} --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 50 --threshold 100 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 1 --include ${ASIA} --saveplot --savedir ${SDIR}
 
 # Global Reports Deaths
 ./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
