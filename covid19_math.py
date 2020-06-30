@@ -64,7 +64,21 @@ class CovidMath:
         win_s = 0
         for win_e in range(lookback, 0, -1):
             list_new[win_e-1] = CovidMath.series_doubling_time(t_list[win_s: win_e])
-        return list_new
+        return cls.series_smooth_na(list_new)
+
+    @classmethod
+    def series_smooth_na(cls, t_list: TimeSeriesList) -> TimeSeriesList:
+        max_index = len(t_list)
+        if max_index <= 1: return t_list
+        for index, value in enumerate(t_list):
+            new_value = 0
+            if value is np.nan:
+                if index > 0:
+                    new_value = t_list[index - 1]
+                else:
+                    new_value = t_list[index + 1]
+                t_list[index] = new_value
+        return t_list
 
     @classmethod
     def series_doubling_time_mwin(cls, target_list: TimeSeriesList, rwin: int, mwin: int) -> float:
