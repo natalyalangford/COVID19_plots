@@ -1,0 +1,22 @@
+
+Top 35 country Report - confirmed
+  Top 35 regions by Cases, threshold = 100 Confirmed cases
+  Extract downloaded: 2020-06-30 06:33:25.990763 UTC
+  Data last data point date: 6/29/20
+   Country/Region  1/22/20  6/25/20  6/26/20  6/27/20  6/28/20  6/29/20  DayIncrease  %DayIncrease  DaysToDouble
+0       Indonesia        0    50187    51427    52812    54010    55092         1082           2.0     28.879000
+1       Singapore        0    42736    42955    43246    43459    43661          202           0.5    138.978534
+2     Philippines        0    33069    34073    34803    35455    36438          983           2.8     29.708600
+3           Japan        2    18055    18162    18254    18366    18477          111           0.6    125.909719
+4           Korea        1    12602    12653    12715    12757    12800           43           0.3    184.121617
+5        Malaysia        0     8600     8606     8616     8634     8637            3           0.0    709.246508
+6       Australia        0     7595     7601     7686     7764     7834           70           0.9    104.438647
+7        Thailand        2     3158     3162     3162     3162     3171            9           0.3   1143.210098
+8      NewZealand        0     1520     1522     1526     1528     1528            0           0.0    469.130915
+9          Taiwan        1      447      447      447      447      447            0           0.0   1857.634099
+10        Vietnam        0      352      353      355      355      355            0           0.0    244.678337
+11       Cambodia        0      130      139      141      141      141            0           0.0     34.134487
+
+   Data from the 6/29/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Analytics: https://github.com/natalyalangford/COVID19_plots
+

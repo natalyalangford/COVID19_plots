@@ -1,12 +1,10 @@
 # COVID-19 Daily Reports
-This daily report is based on the latest time series extracts provided by Johns Hopkins University for
-global data and from USA Facts for US data.  Unfortunately, the US data lags the global data and lags 
-typical reported data.  I am still looking for a more timely source.  JHU indicates they will have the
-US data posted, but still not available on their GitHub site.  I assume they are working on some cool
-automation to distribute accurate and timely data.  We will update our toolset when available.
+This daily report is based on the latest time series extracts provided by Johns Hopkins University US and
+global data.
 
 ## List of reports
  - [Top Country Confirmed Cases](#top-country-confirmed)
+ - [Top Asia Confirmed Cases](#top-asia-confirmed)
  - [Top Spreading Country Confirmed Cases](#top-spreading-country-confirmed)
  - [Top Country Deaths](#top-country-deaths)
  - [Top US States](#top-us-states)
@@ -20,6 +18,12 @@ automation to distribute accurate and timely data.  We will update our toolset w
 ![](confirmed_country_global_trajectory.png)
 ![](confirmed_country_global_rdtd.png)
 ![](confirmed_country_global_log.png)
+
+## Top Asia Confirmed
+#### [Table of Confirmed Cases](include_confirmed_country_global_new-total.txt)
+![](include_confirmed_country_global_new-total.png)
+![](include_confirmed_country_global_trajectory.png)
+![](include_confirmed_country_global_rdtd.png)
 
 ## Top Spreading Country Confirmed
 #### [Table of Top Spreading Confirmed Cases](confirmed_country_global_w-new-total.txt)

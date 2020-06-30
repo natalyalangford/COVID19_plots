@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 900 Confirmed cases
-  Extract downloaded: 2020-06-30 05:03:07.167994 UTC
+  Extract downloaded: 2020-06-30 06:33:25.990763 UTC
   Data last data point date: 6/29/20
         Country/Region  1/22/20  6/25/20  6/26/20  6/27/20  6/28/20  6/29/20  DayIncrease  %DayIncrease  DaysToDouble
 0   West Bank and Gaza        0     1382     1557     1815     1990     2185          195           9.8      6.380896
@@ -23,7 +23,7 @@ Top 35 country Report - confirmed
 16               India        0   490401   508953   528859   548318   566840        18522           3.4     18.899100
 17         El Salvador        0     5336     5517     5727     5934     6173          239           4.0     19.400211
 18          Azerbaijan        0    14852    15369    15890    16424    16968          544           3.3     19.898014
-19          Uzbekistan        0     7177     7427     7682     7948     8222          274           3.4     20.458614
+19          Uzbekistan        0     7177     7427     7682     7948     8298          350           4.4     19.989382
 20             Bolivia        0    28503    29423    30676    31524    32125          601           1.9     20.474645
 21          Cabo Verde        0     1003     1027     1091     1155     1165           10           0.9     20.731058
 22            Ethiopia        0     5175     5425     5570     5689     5846          157           2.8     21.741050
