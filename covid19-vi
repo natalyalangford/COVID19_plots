@@ -61,26 +61,30 @@ class CovidData:
     # pylint: disable=bad-continuation
     _config_color_json = {'global': 'config_color_global.json', 'usa': 'config_color_usa.json'}
     _covid_data_global_jhu = {
-        'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv',
+        'confirmed': {'url': ('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'
+                              'csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv'),
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
                       'src_name': 'Johns Hopkins University',
                       'src_key': 'jhu',
                       'header_cols': 4,
                       'summary_cols': 0},
-           'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv',
+        'deaths':    {'url': ('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'
+                              'csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv'),
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
                       'src_name': 'Johns Hopkins University',
                       'src_key': 'jhu',
                       'header_cols': 4,
                       'summary_cols': 0}}
     _covid_data_usa_jhu = {
-        'confirmed': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv',
+        'confirmed': {'url': ('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'
+                              'csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_US.csv'),
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
                       'src_name': 'Johns Hopkins University',
                       'src_key': 'jhu',
                       'header_cols': 11,
                       'summary_cols': 0},
-           'deaths': {'url': 'https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv',
+        'deaths':    {'url': ('https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/'
+                              'csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_US.csv'),
                       'src_link': 'https://github.com/CSSEGISandData/COVID-19',
                       'src_name': 'Johns Hopkins University',
                       'src_key': 'jhu',
@@ -93,7 +97,7 @@ class CovidData:
                       'src_key': 'usf',
                       'header_cols': 4,
                       'summary_cols': 0},
-           'deaths': {'url': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv',
+        'deaths':    {'url': 'https://static.usafacts.org/public/data/covid-19/covid_deaths_usafacts.csv',
                       'src_link': 'https://usafacts.org/issues/coronavirus/',
                       'src_name': 'USA Facts',
                       'src_key': 'usf',
@@ -128,7 +132,7 @@ class CovidData:
                                 'confirmed': null_df,      # DataFrame for confirmed cases.
                                 'deaths': null_df,         # DataFrame for deaths.
                                 'recoveries': null_df},    # DataFrame for recoveries.
-                        'usa': {'data_date': None,
+                     'usa':    {'data_date': None,
                                 'download_date': None,
                                 'summary_cols': 0,
                                 'header_cols': 0,
