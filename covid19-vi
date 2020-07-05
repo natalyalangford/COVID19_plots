@@ -39,7 +39,7 @@ import sys
 import re
 import os
 from datetime import datetime
-from typing import Union, Tuple, List, Dict
+from typing import Union, Tuple, List, Dict, TextIO
 import io
 import pickle
 import json
@@ -230,16 +230,18 @@ class CovidData:
         Prints valid arguments for command line options that require a string.
         """
         print('Valid argument values:')
-        [print(' {}: {}'.format(k2, v2)) for k2, v2 in cls._valid_args.items()]
+        for arg_name, arg_value in cls._valid_args.items():
+            print(' {}: {}'.format(arg_name, arg_value))
 
     @classmethod
     def print_sources(cls) -> None:
         """
         Formatted print of data sources used by this utility.
         """
-        for k, v in cls._covid_data.items():
-            print(k)
-            [print(' {}: {}\n    {}'.format(k2, v2['src_name'], v2['url'])) for k2, v2 in v.items()]
+        for report_name, report_details in cls._covid_data.items():
+            print(report_name)
+            for report_item, report_item_value in report_details.items():
+                print(' {}: {}\n    {}'.format(report_item, report_item_value['src_name'], report_item_value['url']))
 
     def read_datafile(self, download: bool = False) -> bool:
         """
@@ -345,12 +347,12 @@ class CovidData:
             fdf = pd.concat([df, country_df], ignore_index=True)
         return fdf
 
-    def read_csv_file(self, file_name: str, zone: str, report_type: str,
+    def read_csv_file(self, get_stream: Union[str, bytes], zone: str, report_type: str,
                       df: Union[pd.DataFrame, None] = None) -> pd.DataFrame:
         """
         Read and pre-process the csv data files.  Format is from Johns Hopkins GitHub repo.
 
-        :param file_name: File name of the csv file to be processed.
+        :param get_stream: File name of the csv file to be processed.
         :param zone: global or usa file source.
         :param report_type: confirmed or deaths
         :param df: dataframe to use instead of reading csv file.
@@ -358,9 +360,9 @@ class CovidData:
         """
         if df is None:
             try:
-                df = pd.read_csv(file_name)
+                df = pd.read_csv(get_stream)
             except UnicodeDecodeError:
-                df = pd.read_csv(file_name, encoding='ISO-8859-1')
+                df = pd.read_csv(get_stream, encoding='ISO-8859-1')
 
         self.data[zone]['header_cols'] = self._covid_data[zone][report_type]['header_cols']
         self.data[zone]['summary_cols'] = self._covid_data[zone][report_type]['summary_cols']
@@ -477,7 +479,7 @@ class CovidData:
             # Pre-process data
             temp_df = self.data[zone][self.args.type]
             tdf = temp_df.loc[temp_df['Province/State'].isnull()].copy()
-            print('args --include: {}'.format(self.args.include))
+            # print('args --include: {}'.format(self.args.include))
             if self.args.include:
                 tdf = tdf[tdf['Country/Region'].isin(self.args.include)]
             tdf = self.report_process(tdf)
