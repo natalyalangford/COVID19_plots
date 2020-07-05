@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 900 Confirmed cases
-  Extract downloaded: 2020-07-05 05:29:54.507341 UTC
+  Extract downloaded: 2020-07-05 05:44:56.516629 UTC
   Data last data point date: 7/4/20
             Country/Region  1/22/20  6/30/20   7/1/20   7/2/20   7/3/20   7/4/20  DayIncrease  %DayIncrease  DaysToDouble
 0               Kazakhstan        0    22308    41065    42574    45719    47171         1452           3.2      3.811861

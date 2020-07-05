@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-07-05 05:29:54.507341 UTC
+  Extract downloaded: 2020-07-05 05:44:56.516629 UTC
   Data last data point date: 7/4/20
         County State  1/23/20  6/29/20  6/30/20  7/1/20  7/2/20  7/3/20  7/4/20  DayIncrease  %DayIncrease  DaysToDouble
 0        Total    TX        0   156706   163060  172368  179137  185591  192153         6562           3.5     16.329194
