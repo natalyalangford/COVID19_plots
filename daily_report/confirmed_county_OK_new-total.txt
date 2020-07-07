@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-07-06 06:14:15.864653 UTC
-  Data last data point date: 7/5/20
-        County State  1/23/20  6/30/20  7/1/20  7/2/20  7/3/20  7/4/20  7/5/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    OK        0    13757   14119   14531   15069   15648   15931          283           1.8     21.692226
-1        Tulsa    OK        0     3424    3544    3680    3792    3974    4035           61           1.5     19.980818
-2     Oklahoma    OK        0     2913    3029    3135    3263    3393    3479           86           2.5     17.811284
-3    Cleveland    OK        0      886     911     935    1003    1035    1052           17           1.6     18.978294
-4        Texas    OK        0      987     987     986     990     993     993            0           0.0    514.313962
-5    McCurtain    OK        0      471     483     501     522     534     542            8           1.5     19.882443
-6     Comanche    OK        0      406     408     418     427     443     447            4           0.9     33.705272
-7        Payne    OK        0      382     387     398     407     417     426            9           2.2     26.766492
-8   Washington    OK        0      398     400     401     401     403     407            4           1.0    196.116612
-9     Canadian    OK        0      280     289     293     307     325     337           12           3.7     18.628871
-10     Wagoner    OK        0      266     269     277     289     308     310            2           0.6     18.537399
-11      Rogers    OK        0      178     186     192     202     214     217            3           1.4     15.779489
-12     McClain    OK        0      159     167     170     191     196     198            2           1.0     14.015308
-13       Caddo    OK        0      186     189     190     191     193     195            2           1.0     83.096990
-14       Osage    OK        0      165     168     174     176     182     185            3           1.6     28.701703
-15    Delaware    OK        0      152     153     162     165     172     175            3           1.7     18.573107
-16       Creek    OK        0      144     147     151     158     169     174            5           3.0     18.422760
-17       Grady    OK        0      137     139     144     153     169     173            4           2.4     15.516039
-18    Muskogee    OK        0      118     123     127     133     137     138            1           0.7     17.120833
-19      Carter    OK        0       92      95      96     120     127     128            1           0.8      8.345775
+  Extract downloaded: 2020-07-07 05:00:20.146634 UTC
+  Data last data point date: 7/6/20
+        County State  1/23/20  7/1/20  7/2/20  7/3/20  7/4/20  7/5/20  7/6/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    OK        0   14119   14531   15069   15648   15931   16362          431           2.7     22.604288
+1        Tulsa    OK        0    3544    3680    3792    3974    4035    4104           69           1.7     21.508413
+2     Oklahoma    OK        0    3029    3135    3263    3393    3479    3607          128           3.7     19.303754
+3    Cleveland    OK        0     911     935    1003    1035    1052    1107           55           5.2     17.745691
+4        Texas    OK        0     987     986     990     993     993     993            0           0.0    433.324954
+5    McCurtain    OK        0     483     501     522     534     542     561           19           3.5     23.524545
+6     Comanche    OK        0     408     418     427     443     447     447            0           0.0     33.899107
+7        Payne    OK        0     387     398     407     417     426     438           12           2.8     29.747316
+8   Washington    OK        0     400     401     401     403     407     410            3           0.7    159.683896
+9     Canadian    OK        0     289     293     307     325     337     360           23           6.8     16.284296
+10     Wagoner    OK        0     269     277     289     308     310     314            4           1.3     20.115642
+11      Rogers    OK        0     186     192     202     214     217     222            5           2.3     17.241520
+12     McClain    OK        0     167     170     191     196     198     204            6           3.0     14.825502
+13       Grady    OK        0     139     144     153     169     173     198           25          14.5     11.032350
+14       Caddo    OK        0     189     190     191     193     195     197            2           1.0     79.703889
+15       Osage    OK        0     168     174     176     182     185     186            1           0.5     31.924981
+16    Delaware    OK        0     153     162     165     172     175     181            6           3.4     22.584148
+17       Creek    OK        0     147     151     158     169     174     175            1           0.6     17.474443
+18    Muskogee    OK        0     123     127     133     137     138     143            5           3.6     21.763120
+19       Bryan    OK        0     100     108     113     123     124     134           10           8.1     11.931663
 
-   Data from the 7/5/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 7/6/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
