@@ -1,7 +1,7 @@
 
 Top 20 country Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-07-10 04:56:59.752499 UTC
+  Extract downloaded: 2020-07-10 05:19:19.017269 UTC
   Data last data point date: 7/9/20
     Country/Region  1/22/20    7/3/20    7/4/20    7/5/20  ...    7/8/20    7/9/20  DayIncrease  %DayIncrease  DaysToDouble
 0           Global      555  11076086  11269114  11452196  ...  12041480  12268518       227038           1.9     41.378550

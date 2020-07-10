@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
-  Top 20 regions by Cases, threshold = 40 Confirmed cases
-  Extract downloaded: 2020-07-10 04:56:59.752499 UTC
+  Top 20 regions by Cases, threshold = 10 Confirmed cases
+  Extract downloaded: 2020-07-10 05:19:19.017269 UTC
   Data last data point date: 7/9/20
           County State  1/23/20  7/4/20  7/5/20  7/6/20  7/7/20  7/8/20  7/9/20  DayIncrease  %DayIncrease  DaysToDouble
 0          Total    FL        0  190052  200111  206447  213794  223783  232718         8935           4.0     16.878793
