@@ -31,17 +31,17 @@ then
 fi
 echo "Using directory: ${SDIR}, rwindow: ${RWIN}, mwindow: ${MWIN}, table columns: ${TCOLS}"
 # Download Data
-./covid19-vi --download --mwindow ${MWIN} --rwindow ${RWIN}
+#./covid19-vi --download --mwindow ${MWIN} --rwindow ${RWIN}
 
 set -x
 # Global Reports Confirmed
 ./covid19-vi --type confirmed --region country --length 70 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region country --length 30 --threshold 300 --response new-total --saveplot --savedir ${SDIR} --exclude China
+./covid19-vi --type confirmed --region country --length 30 --threshold 10000 --ymin 100 --response new-total --saveplot --savedir ${SDIR} --exclude China
 ./covid19-vi --type confirmed --region country --length 50 --threshold 600 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 10 --exclude China,Korea --saveplot --savedir ${SDIR}
 ./covid19-vi --type confirmed --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
 
 # Global Reports Confirmed Top Spreading
-./covid19-vi --type confirmed --region country --length 35 --threshold 900 --response w-new-total --ymin 30 --saveplot --savetable --savedir ${SDIR} --exclude China
+./covid19-vi --type confirmed --region country --length 35 --threshold 1000 --response w-new-total --ymin 10 --saveplot --savetable --savedir ${SDIR} --exclude China
 
 # Asia reports
 ./covid19-vi --type confirmed --region country --length 70 --threshold 100 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 1 --include ${ASIA}  --saveplot --savedir ${SDIR}
@@ -70,9 +70,9 @@ set -x
 
 # US State State Reports by County
 set +x
-THRESH=10
+THRESH=100
 LEN=20
-YMIN=10
+YMIN=1
 set -x
 ./covid19-vi --type confirmed --region county --country US --state NY --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type confirmed --region county --country US --state AZ --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
