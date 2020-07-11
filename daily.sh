@@ -31,7 +31,7 @@ then
 fi
 echo "Using directory: ${SDIR}, rwindow: ${RWIN}, mwindow: ${MWIN}, table columns: ${TCOLS}"
 # Download Data
-#./covid19-vi --download --mwindow ${MWIN} --rwindow ${RWIN}
+./covid19-vi --download --mwindow ${MWIN} --rwindow ${RWIN}
 
 set -x
 # Global Reports Confirmed
