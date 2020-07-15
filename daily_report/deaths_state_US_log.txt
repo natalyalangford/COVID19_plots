@@ -1,7 +1,7 @@
 
 Top 20 state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-07-14 05:13:19.345326 UTC
+  Extract downloaded: 2020-07-15 03:19:43.337214 UTC
   Data last data point date: 7/13/20
    State  1/22/20  7/7/20  7/8/20  7/9/20  7/10/20  7/11/20  7/12/20  7/13/20  DayIncrease  %DayIncrease  DaysToDouble
 0     NY        0   32243   32251   32283    32331    32343    32350    32395           45           0.1    864.159890
