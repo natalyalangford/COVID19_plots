@@ -1,25 +1,25 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-07-15 03:19:43.337214 UTC
-  Data last data point date: 7/13/20
-        County State  1/23/20  7/8/20  7/9/20  7/10/20  7/11/20  7/12/20  7/13/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    AZ        0  108614  112671   116892   119930   122467   123824         1357           1.1     24.072272
-1     Maricopa    AZ        0   70128   73165    76328    78481    80146    81216         1070           1.3     21.508949
-2         Pima    AZ        0   10485   10835    11172    11443    11767    11856           89           0.8     25.883626
-3         Yuma    AZ        0    7775    7899     7994     8143     8302     8384           82           1.0     42.840788
-4        Pinal    AZ        0    4959    5156     5332     5513     5614     5627           13           0.2     23.736670
-5       Navajo    AZ        0    4089    4150     4255     4279     4337     4355           18           0.4     48.758515
-6       Apache    AZ        0    2499    2520     2534     2551     2579     2580            1           0.0     95.773649
-7     Coconino    AZ        0    2250    2338     2379     2427     2457     2475           18           0.7     36.805067
-8   Santa Cruz    AZ        0    2061    2095     2133     2162     2180     2186            6           0.3     54.464473
-9       Mohave    AZ        0    1509    1595     1696     1759     1825     1831            6           0.3     15.970564
-10     Yavapai    AZ        0    1016    1037     1058     1082     1123     1156           33           2.9     26.077849
-11     Cochise    AZ        0     884     905      980     1020     1049     1062           13           1.2     16.400074
-12        Gila    AZ        0     373     385      424      439      445      446            1           0.2     16.050320
-13      La Paz    AZ        0     381     384      394      398      407      410            3           0.7     42.923721
-14      Graham    AZ        0     179     180      184      201      204      207            3           1.5     19.529363
+  Extract downloaded: 2020-07-15 05:28:04.167422 UTC
+  Data last data point date: 7/14/20
+        County State  1/23/20  7/9/20  7/10/20  7/11/20  7/12/20  7/13/20  7/14/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    AZ        0  112671   116892   119930   122467   123824   128097         4273           3.5     27.256191
+1     Maricopa    AZ        0   73165    76328    78481    80146    81216    84233         3017           3.7     24.803867
+2         Pima    AZ        0   10835    11172    11443    11767    11856    12114          258           2.2     29.126076
+3         Yuma    AZ        0    7899     7994     8143     8302     8384     8629          245           2.9     41.213879
+4        Pinal    AZ        0    5156     5332     5513     5614     5627     5945          318           5.7     25.989700
+5       Navajo    AZ        0    4150     4255     4279     4337     4355     4482          127           2.9     52.316291
+6       Apache    AZ        0    2520     2534     2551     2579     2580     2611           31           1.2     97.883725
+7     Coconino    AZ        0    2338     2379     2427     2457     2475     2523           48           1.9     40.953903
+8   Santa Cruz    AZ        0    2095     2133     2162     2180     2186     2208           22           1.0     62.557846
+9       Mohave    AZ        0    1595     1696     1759     1825     1831     1937          106           5.8     18.133359
+10     Yavapai    AZ        0    1037     1058     1082     1123     1156     1189           33           2.9     25.522330
+11     Cochise    AZ        0     905      980     1020     1049     1062     1095           33           3.1     18.920637
+12        Gila    AZ        0     385      424      439      445      446      468           22           4.9     19.869317
+13      La Paz    AZ        0     384      394      398      407      410      412            2           0.5     47.278893
+14      Graham    AZ        0     180      184      201      204      207      218           11           5.3     18.858334
 
-   Data from the 7/13/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 7/14/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
