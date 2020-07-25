@@ -378,6 +378,7 @@ class CovidData:
             df.loc[df['Country/Region'] == 'Taiwan*', 'Country/Region'] = 'Taiwan'
             df.loc[df['Country/Region'] == 'Korea, South', 'Country/Region'] = 'Korea'
             df.loc[df['Country/Region'] == 'New Zealand', 'Country/Region'] = 'NewZealand'
+            df.loc[df['Country/Region'] == 'Hong Kong', 'Country/Region'] = 'HongKong'
         else:
             if self.data[zone]['src_key'] == 'usf':
                 df = df.rename(columns={'County Name': 'County'})

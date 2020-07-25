@@ -23,7 +23,7 @@ RWIN=5
 MWIN=3
 TCOLS=12
 SDIR="daily_report"
-ASIA="Taiwan,Korea,Singapore,Malaysia,Japan,Thailand,Indonesia,Cambodia,Philippines,Vietnam,Cambodia,Laos,Myanmar,Australia,NewZealand"
+ASIA="Taiwan,Korea,Singapore,Malaysia,Japan,Thailand,Indonesia,Cambodia,Philippines,Vietnam,Cambodia,Laos,Myanmar,Australia,NewZealand,HongKong"
 if [[ ! -d  $SDIR ]]
 then
     echo "${SDIR} does not exist, exiting..."
