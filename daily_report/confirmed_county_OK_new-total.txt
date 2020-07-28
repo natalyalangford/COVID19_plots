@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-07-28 11:59:58.816717 UTC
+  Extract downloaded: 2020-07-28 12:01:17.976237 UTC
   Data last data point date: 7/27/20
         County State  1/23/20  7/22/20  7/23/20  7/24/20  7/25/20  7/26/20  7/27/20  DayIncrease  %DayIncrease  DaysToDouble
 0        Total    OK        0    27298    27969    29116    30081    31285    32685         1400           4.5     19.512395
