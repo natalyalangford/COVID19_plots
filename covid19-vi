@@ -329,6 +329,9 @@ class CovidData:
             state_list = df['State'].unique()
             # TODO - Need to replace with pivot/groupby
             for state in state_list:
+                if state in ['GU', 'VI', 'MP', 'AS']:
+                    state_df.loc[:, 'County'] = np.NaN
+                    continue
                 sc_df = df.loc[df['State'] == state, :].copy()
                 state_df = sc_df.head(1).copy()
                 state_df.loc[0, head_cols:] = 0
@@ -364,6 +367,8 @@ class CovidData:
             except UnicodeDecodeError:
                 df = pd.read_csv(get_stream, encoding='ISO-8859-1')
 
+        del_row_values = ['Diamond Princess', 'Grand Princess']
+
         self.data[zone]['header_cols'] = self._covid_data[zone][report_type]['header_cols']
         self.data[zone]['summary_cols'] = self._covid_data[zone][report_type]['summary_cols']
         self.data[zone]['src_name'] = self._covid_data[zone][report_type]['src_name']
@@ -379,6 +384,8 @@ class CovidData:
             df.loc[df['Country/Region'] == 'Korea, South', 'Country/Region'] = 'Korea'
             df.loc[df['Country/Region'] == 'New Zealand', 'Country/Region'] = 'NewZealand'
             df.loc[df['Country/Region'] == 'Hong Kong', 'Country/Region'] = 'HongKong'
+            # Delete rows based on values
+            df = df[~df['Province/State'].isin(del_row_values)]
         else:
             if self.data[zone]['src_key'] == 'usf':
                 df = df.rename(columns={'County Name': 'County'})
@@ -392,6 +399,8 @@ class CovidData:
                     return ussa.us_state_abbrev[state_name] if state_name in ussa.us_state_abbrev.keys() else state_name
                 df.loc[:, 'State'] = df.loc[:, 'State'].apply((lambda x: get_state_abv(x)))
             df = self.aggregate_state_prov(df, 'US')
+            # Delete rows based on values
+            df = df[~df['State'].isin(del_row_values)]
 
         # Add Summary columns
         df.loc[:, 'Yesterday'] = df.iloc[:, -2]
@@ -707,8 +716,8 @@ class CovidData:
             elif re.fullmatch(r'.*rdtd.*', self.args.response):
                 thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
-                # Skip Global and Diamond Princess
-                if pname == 'Diamond Princess' or pname == 'Global':
+                # Skip Global
+                if pname == 'Global':
                     actual_exclude_list.append(pname)
                     continue
 
@@ -744,8 +753,8 @@ class CovidData:
             elif self.args.response == 'trajectory':
                 thresh = self.args.threshold if self.args.threshold else (5 if self.args.type == 'deaths' else 100)
 
-                # Skip Global and Diamond Princess
-                if pname == 'Diamond Princess' or pname == 'Global':
+                # Skip Global
+                if pname == 'Global':
                     actual_exclude_list.append(pname)
                     continue
 
