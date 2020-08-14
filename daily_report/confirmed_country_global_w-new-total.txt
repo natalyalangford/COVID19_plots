@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 1000 Confirmed cases
-  Extract downloaded: 2020-08-14 08:17:43.800702 UTC
+  Extract downloaded: 2020-08-14 08:29:39.079603 UTC
   Data last data point date: 8/13/20
             Country/Region  1/22/20   8/9/20  8/10/20  8/11/20  8/12/20  8/13/20  DayIncrease  %DayIncrease  DaysToDouble
 0                 Botswana        0      804     1066     1066     1066     1214          148          13.9      8.470852
