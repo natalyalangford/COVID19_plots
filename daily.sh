@@ -76,7 +76,7 @@ YMIN=1
 set -x
 ./covid19-vi --type confirmed --region county --country US --state NY --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type confirmed --region county --country US --state AZ --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
-./covid19-vi --type confirmed --region county --country US --state OK --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region county --country US --state IL --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type confirmed --region county --country US --state OR --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type confirmed --region county --country US --state CA --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type confirmed --region county --country US --state FL --length ${LEN} --columns ${TCOLS} --threshold ${THRESH} --ymin ${YMIN} --response new-total --saveplot --savetable --savedir ${SDIR}
