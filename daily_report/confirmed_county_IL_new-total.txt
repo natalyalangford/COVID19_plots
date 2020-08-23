@@ -1,0 +1,30 @@
+
+Top 20 county Report - confirmed
+  Top 20 regions by Cases, threshold = 100 Confirmed cases
+  Extract downloaded: 2020-08-23 06:16:30.106562 UTC
+  Data last data point date: 8/22/20
+         County State  1/23/20  8/17/20  8/18/20  8/19/20  8/20/20  8/21/20  8/22/20  DayIncrease  %DayIncrease  DaysToDouble
+0         Total    IL        0   209185   210924   213220   215052   217345   219701         2356           1.1     72.169527
+1          Cook    IL        0   116620   117171   118012   118757   119644   120567          923           0.8    106.589754
+2          Lake    IL        0    13375    13485    13591    13668    13741    13808           67           0.5    104.912520
+3        DuPage    IL        0    13032    13151    13289    13410    13530    13686          156           1.2     71.228303
+4          Kane    IL        0    10314    10384    10466    10516    10620    10702           82           0.8     90.943147
+5          Will    IL        0    10013    10102    10239    10357    10501    10614          113           1.1     57.442009
+6     St. Clair    IL        0     4484     4551     4626     4664     4723     4814           91           1.9     51.736996
+7     Winnebago    IL        0     3885     3901     3966     3981     3998     4018           20           0.5     93.643285
+8       McHenry    IL        0     3417     3446     3471     3496     3526     3561           35           1.0     87.253815
+9       Madison    IL        0     3152     3241     3289     3366     3441     3503           62           1.8     34.060644
+10       Peoria    IL        0     1917     1966     2015     2050     2095     2142           47           2.2     32.506969
+11     Kankakee    IL        0     1900     1909     1935     1960     1986     2017           31           1.6     60.293180
+12  Rock Island    IL        0     1884     1897     1933     1944     1957     1986           29           1.5     67.474380
+13    Champaign    IL        0     1776     1793     1827     1835     1881     1929           48           2.6     49.088603
+14     Sangamon    IL        0     1462     1487     1532     1544     1570     1593           23           1.5     40.561177
+15      Kendall    IL        0     1479     1495     1518     1535     1556     1568           12           0.8     56.269691
+16   Unassigned    IL        0     1378     1370     1388     1384     1478     1464          -14          -0.9     56.826796
+17      LaSalle    IL        0      960      992     1008     1031     1063     1085           22           2.1     30.760984
+18       DeKalb    IL        0      993     1004     1013     1017     1030     1038            8           0.8     81.648930
+19       McLean    IL        0      782      834      876      896      936     1004           68           7.3     16.164837
+
+   Data from the 8/22/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Analytics: https://github.com/natalyalangford/COVID19_plots
+

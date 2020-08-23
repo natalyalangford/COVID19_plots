@@ -63,8 +63,8 @@ global data.
 ###### [Table for above plot](confirmed_county_AZ_new-total.txt)
 ![](confirmed_county_OR_new-total.png)
 ###### [Table for above plot](confirmed_county_OR_new-total.txt)
-![](confirmed_county_OK_new-total.png)
-###### [Table for above plot](confirmed_county_OK_new-total.txt)
+![](confirmed_county_IL_new-total.png)
+###### [Table for above plot](confirmed_county_IL_new-total.txt)
 
 ## Development Team:
 * [@natalyalangford](https://github.com/natalyalangford)

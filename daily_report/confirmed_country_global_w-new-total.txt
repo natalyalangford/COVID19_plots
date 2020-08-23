@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 1000 Confirmed cases
-  Extract downloaded: 2020-08-23 05:56:53.278498 UTC
+  Extract downloaded: 2020-08-23 06:16:30.106562 UTC
   Data last data point date: 8/22/20
         Country/Region  1/22/20  8/18/20  8/19/20  8/20/20  8/21/20  8/22/20  DayIncrease  %DayIncrease  DaysToDouble
 0               Gambia        0     2116     2288     2401     2437     2437            0           0.0     12.818599
