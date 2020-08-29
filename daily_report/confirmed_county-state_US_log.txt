@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-08-26 23:46:10.743957 UTC
-  Data last data point date: 8/25/20
-            County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0  ...          884           0.4    118.590887
-1         New York    NY        0  ...          231           0.1    613.681732
-2       Miami-Dade    FL        0  ...          773           0.5    120.434972
-3         Maricopa    AZ        0  ...          328           0.2    296.267620
-4             Cook    IL        0  ...          546           0.4    108.850411
-5           Harris    TX        0  ...          881           0.9     73.694992
-6          Broward    FL        0  ...          201           0.3    144.349109
-7           Dallas    TX        0  ...            0           0.0     88.964796
-8            Clark    NV        0  ...          335           0.6     81.168583
-9        Riverside    CA        0  ...          456           0.9     85.976163
-10          Orange    CA        0  ...          335           0.7     91.362207
-11  San Bernardino    CA        0  ...          420           0.9     66.056606
-12           Bexar    TX        0  ...          124           0.3    170.531923
-13         Suffolk    NY        0  ...           42           0.1    710.837528
-14          Nassau    NY        0  ...           64           0.1    680.859564
-15      Palm Beach    FL        0  ...          107           0.3    136.078313
-16         Tarrant    TX        0  ...           90           0.2    126.395674
-17       San Diego    CA        0  ...          267           0.7     89.455996
-18     Westchester    NY        0  ...           32           0.1    821.728005
-19    Hillsborough    FL        0  ...          139           0.4    129.147517
+  Extract downloaded: 2020-08-29 05:14:36.152844 UTC
+  Data last data point date: 8/28/20
+            County State  1/23/20  8/23/20  8/24/20  8/25/20  8/26/20  8/27/20  8/28/20  DayIncrease  %DayIncrease  DaysToDouble
+0      Los Angeles    CA        0   231695   232893   233777   235386   236986   238458         1472           0.6    125.106611
+1         New York    NY        0   232120   232334   232565   232825   233140   233410          270           0.1    628.183867
+2       Miami-Dade    FL        0   151986   152612   153385   154135   154757   155418          661           0.4    150.096925
+3         Maricopa    AZ        0   131787   131962   132290   132434   132704   132986          282           0.2    408.959393
+4             Cook    IL        0   121308   121877   122423   123172   123691   124573          882           0.7    132.632726
+5           Harris    TX        0    98506    99290   100171   101077   101670   103088         1418           1.4     80.979476
+6          Broward    FL        0    69136    69383    69584    69883    70147    70513          366           0.5    184.932983
+7           Dallas    TX        0    68904    69086    69086    69881    69881    70100          219           0.3    131.272076
+8            Clark    NV        0    56464    56796    57131    57283    57756    58292          536           0.9    116.947449
+9        Riverside    CA        0    49944    50744    51200    51538    51734    51860          126           0.2     85.288426
+10          Orange    CA        0    45954    46307    46642    47090    47459    47782          323           0.7     91.046427
+11  San Bernardino    CA        0    45035    45246    45666    46051    46407    46892          485           1.0     85.117653
+12           Bexar    TX        0    45255    45364    45488    45622    45811    46083          272           0.6    181.651615
+13         Suffolk    NY        0    44498    44519    44561    44605    44641    44678           37           0.1    821.930381
+14          Nassau    NY        0    44245    44284    44348    44403    44450    44503           53           0.1    593.052081
+15      Palm Beach    FL        0    40570    40746    40853    41013    41195    41558          363           0.9    164.946330
+16         Tarrant    TX        0    37622    37834    37924    38283    38451    38644          193           0.5    125.803739
+17       San Diego    CA        0    36540    36727    36994    37222    37499    37784          285           0.8    101.385013
+18     Westchester    NY        0    36689    36710    36742    36780    36825    36863           38           0.1    731.345679
+19    Hillsborough    FL        0    35721    35814    35953    36157    36354    36574          220           0.6    151.670130
 
-   Data from the 8/25/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 8/28/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
