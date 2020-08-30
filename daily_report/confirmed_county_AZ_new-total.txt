@@ -1,25 +1,25 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-08-29 05:14:36.152844 UTC
-  Data last data point date: 8/28/20
-        County State  1/23/20  8/23/20  8/24/20  8/25/20  8/26/20  8/27/20  8/28/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    AZ        0   198103   198414   199273   199459   200139   200658          519           0.3    283.392933
-1     Maricopa    AZ        0   131787   131962   132290   132434   132704   132986          282           0.2    408.959393
-2         Pima    AZ        0    20475    20535    20919    20911    21001    21072           71           0.3    112.893848
-3         Yuma    AZ        0    12048    12072    12085    12103    12142    12165           23           0.2    407.316406
-4        Pinal    AZ        0     9187     9211     9232     9247     9435     9488           53           0.6    123.975833
-5       Navajo    AZ        0     5498     5496     5523     5529     5546     5569           23           0.4    306.258059
-6       Mohave    AZ        0     3489     3500     3534     3541     3566     3585           19           0.5    133.972023
-7       Apache    AZ        0     3302     3301     3309     3315     3323     3329            6           0.2    437.253380
-8     Coconino    AZ        0     3244     3249     3264     3266     3269     3287           18           0.6    291.432652
-9   Santa Cruz    AZ        0     2742     2745     2728     2718     2718     2720            2           0.1   -344.009184
-10     Yavapai    AZ        0     2242     2249     2259     2260     2277     2284            7           0.3    197.682335
-11     Cochise    AZ        0     1795     1795     1798     1802     1805     1809            4           0.2    427.650508
-12        Gila    AZ        0     1073     1076     1083     1081     1095     1101            6           0.5    166.864927
-13      Graham    AZ        0      669      669      694      698      702      707            5           0.7     54.238509
-14      La Paz    AZ        0      494      495      496      496      498      498            0           0.0    515.700260
+  Extract downloaded: 2020-08-30 05:22:56.089389 UTC
+  Data last data point date: 8/29/20
+        County State  1/23/20  8/24/20  8/25/20  8/26/20  8/27/20  8/28/20  8/29/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    AZ        0   198414   199273   199459   200139   200658   201287          629           0.3    263.837097
+1     Maricopa    AZ        0   131962   132290   132434   132704   132986   133389          403           0.3    362.586259
+2         Pima    AZ        0    20535    20919    20911    21001    21072    21133           61           0.3    135.840190
+3         Yuma    AZ        0    12072    12085    12103    12142    12165    12213           48           0.4    320.055959
+4        Pinal    AZ        0     9211     9232     9247     9435     9488     9514           26           0.3     96.307309
+5       Navajo    AZ        0     5496     5523     5529     5546     5569     5592           23           0.4    242.409167
+6       Mohave    AZ        0     3500     3534     3541     3566     3585     3597           12           0.3    131.052300
+7       Apache    AZ        0     3301     3309     3315     3323     3329     3340           11           0.3    344.908180
+8     Coconino    AZ        0     3249     3264     3266     3269     3287     3311           24           0.7    247.312324
+9   Santa Cruz    AZ        0     2745     2728     2718     2718     2720     2722            2           0.1   -412.736087
+10     Yavapai    AZ        0     2249     2259     2260     2277     2284     2287            3           0.1    192.352085
+11     Cochise    AZ        0     1795     1798     1802     1805     1809     1815            6           0.3    365.743275
+12        Gila    AZ        0     1076     1083     1081     1095     1101     1104            3           0.3    133.160995
+13      Graham    AZ        0      669      694      698      702      707      714            7           1.0     63.287165
+14      La Paz    AZ        0      495      496      496      498      498      498            0           0.0    458.862037
 
-   Data from the 8/28/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 8/29/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
