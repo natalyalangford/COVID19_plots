@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-09-07 05:32:23.977168 UTC
-  Data last data point date: 9/6/20
-          County State  1/22/20  9/1/20  9/2/20  9/3/20  9/4/20  9/5/20  9/6/20  DayIncrease  %DayIncrease  DaysToDouble
-0          Kings    NY        0    7290    7290    7289    7290    7293    7293            0           0.0  10107.472124
-1         Queens    NY        0    7224    7228    7230    7231    7234    7234            0           0.0   2405.109547
-2    Los Angeles    CA        0    5829    5878    5932    5977    6000    6005            5           0.1    100.148430
-3           Cook    IL        0    5065    5073    5080    5086    5092    5094            2           0.0    555.756960
-4          Bronx    NY        0    4912    4913    4916    4917    4918    4918            0           0.0   2151.455588
-5       New York    NY        0    3170    3170    3170    3172    3172    3172            0           0.0   4395.939273
-6       Maricopa    AZ        0    2976    2995    3030    3064    3088    3093            5           0.2     80.498983
-7          Wayne    MI        0    2889    2889    2893    2895    2896    2896            0           0.0    924.977560
-8     Miami-Dade    FL        0    2537    2554    2600    2632    2650    2655            5           0.2     52.405973
-9         Harris    TX        0    2208    2247    2281    2300    2327    2335            8           0.3     59.881620
+  Extract downloaded: 2020-09-08 05:27:58.650365 UTC
+  Data last data point date: 9/7/20
+          County State  1/22/20  9/2/20  9/3/20  9/4/20  9/5/20  9/6/20  9/7/20  DayIncrease  %DayIncrease  DaysToDouble
+0          Kings    NY        0    7290    7289    7290    7293    7293    7297            4           0.1   4332.367773
+1         Queens    NY        0    7228    7230    7231    7234    7234    7234            0           0.0   3007.149515
+2    Los Angeles    CA        0    5878    5932    5977    6000    6005    6030           25           0.4    124.880388
+3           Cook    IL        0    5073    5080    5086    5092    5094    5097            3           0.1    650.512312
+4          Bronx    NY        0    4913    4916    4917    4918    4918    4924            6           0.1   2152.477068
+5       New York    NY        0    3170    3170    3172    3172    3172    3173            1           0.0   3768.145946
+6       Maricopa    AZ        0    2995    3030    3064    3088    3093    3091           -2          -0.1     93.468264
+7          Wayne    MI        0    2889    2893    2895    2896    2896    2896            0           0.0   1415.569184
+8     Miami-Dade    FL        0    2554    2600    2632    2650    2655    2658            3           0.1     79.775249
+9         Harris    TX        0    2247    2281    2300    2327    2335    2335            0           0.0     72.933671
 10        Nassau    NY        0    2198    2198    2198    2198    2198    2198            0           0.0           NaN
-11         Essex    NJ        0    2116    2117    2119    2119    2120    2120            0           0.0   1601.421641
-12     Middlesex    MA        0    2071    2070    2071    2075    2082    2083            1           0.0    595.197237
-13        Bergen    NJ        0    2035    2035    2036    2036    2037    2038            1           0.0   2116.524613
-14       Suffolk    NY        0    2002    2003    2005    2005    2005    2005            0           0.0   2083.253544
-15  Philadelphia    PA        0    1751    1758    1759    1759    1759    1759            0           0.0    768.662908
-16        Hudson    NJ        0    1508    1508    1508    1509    1511    1511            0           0.0   1793.270420
-17   Westchester    NY        0    1452    1452    1452    1452    1452    1452            0           0.0  12076.010127
-18      Hartford    CT        0    1425    1426    1426    1426    1426    1426            0           0.0   5929.180874
-19     Middlesex    NJ        0    1417    1417    1418    1418    1419    1419            0           0.0   2948.647889
+11         Essex    NJ        0    2117    2119    2119    2120    2120    2120            0           0.0   2202.821449
+12     Middlesex    MA        0    2070    2071    2075    2082    2083    2086            3           0.1    443.008467
+13        Bergen    NJ        0    2035    2036    2036    2037    2038    2038            0           0.0   2419.875564
+14       Suffolk    NY        0    2003    2005    2005    2005    2005    2005            0           0.0   3334.037746
+15  Philadelphia    PA        0    1758    1759    1759    1759    1759    1763            4           0.2   1124.923986
+16        Hudson    NJ        0    1508    1508    1509    1511    1511    1512            1           0.1   1255.704922
+17   Westchester    NY        0    1452    1452    1452    1452    1452    1452            0           0.0           NaN
+18      Hartford    CT        0    1426    1426    1426    1426    1426    1426            0           0.0  11859.748205
+19     Middlesex    NJ        0    1417    1418    1418    1419    1419    1419            0           0.0   2359.195472
 
-   Data from the 9/6/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 9/7/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

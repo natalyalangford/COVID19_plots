@@ -1,25 +1,25 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-09-07 05:32:23.977168 UTC
-  Data last data point date: 9/6/20
-        County State  1/23/20  9/1/20  9/2/20  9/3/20  9/4/20  9/5/20  9/6/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    AZ        0  202342  202861  203953  204681  205517  205767          250           0.1    189.919576
-1     Maricopa    AZ        0  134004  134346  135109  135495  135856  135964          108           0.1    214.252682
-2         Pima    AZ        0   21286   21294   21443   21574   21834   21888           54           0.2    119.704644
-3         Yuma    AZ        0   12257   12264   12269   12297   12311   12325           14           0.1    561.250033
-4        Pinal    AZ        0    9616    9690    9744    9839    9939    9965           26           0.3     91.577518
-5       Navajo    AZ        0    5602    5625    5631    5641    5650    5653            3           0.1    393.391433
-6       Mohave    AZ        0    3639    3651    3675    3700    3747    3761           14           0.4    101.165705
-7     Coconino    AZ        0    3334    3346    3355    3373    3392    3390           -2          -0.1    185.071426
-8       Apache    AZ        0    3341    3351    3355    3360    3359    3369           10           0.3    480.851598
-9   Santa Cruz    AZ        0    2732    2732    2761    2771    2773    2775            2           0.1    180.225628
-10     Yavapai    AZ        0    2321    2324    2342    2345    2354    2365           11           0.5    179.957986
-11     Cochise    AZ        0    1824    1830    1832    1838    1842    1841           -1          -0.1    298.757882
-12        Gila    AZ        0    1113    1117    1122    1125    1128    1131            3           0.3    194.077910
-13      Graham    AZ        0     717     735     744     750     756     763            7           0.9     59.680679
-14      La Paz    AZ        0     498     498     512     514     517     517            0           0.0     78.086379
+  Extract downloaded: 2020-09-08 05:27:58.650365 UTC
+  Data last data point date: 9/7/20
+        County State  1/23/20  9/2/20  9/3/20  9/4/20  9/5/20  9/6/20  9/7/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    AZ        0  202861  203953  204681  205517  205767  205964          197           0.1    210.100380
+1     Maricopa    AZ        0  134346  135109  135495  135856  135964  136004           40           0.0    257.655486
+2         Pima    AZ        0   21294   21443   21574   21834   21888   22000          112           0.5    105.859023
+3         Yuma    AZ        0   12264   12269   12297   12311   12325   12333            8           0.1    571.237347
+4        Pinal    AZ        0    9690    9744    9839    9939    9965    9981           16           0.2     97.839271
+5       Navajo    AZ        0    5625    5631    5641    5650    5653    5659            6           0.1    450.810841
+6       Mohave    AZ        0    3651    3675    3700    3747    3761    3762            1           0.0    101.056793
+7     Coconino    AZ        0    3346    3355    3373    3392    3390    3394            4           0.1    198.708800
+8       Apache    AZ        0    3351    3355    3360    3359    3369    3372            3           0.1    526.973737
+9   Santa Cruz    AZ        0    2732    2761    2771    2773    2775    2775            0           0.0    234.082968
+10     Yavapai    AZ        0    2324    2342    2345    2354    2365    2369            4           0.2    193.185725
+11     Cochise    AZ        0    1830    1832    1838    1842    1841    1841            0           0.0    401.658956
+12        Gila    AZ        0    1117    1122    1125    1128    1131    1132            1           0.1    239.684068
+13      Graham    AZ        0     735     744     750     756     763     766            3           0.4     69.788406
+14      La Paz    AZ        0     498     512     514     517     517     517            0           0.0     98.613840
 
-   Data from the 9/6/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 9/7/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
