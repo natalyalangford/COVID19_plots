@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-09-29 03:23:02.999516 UTC
-  Data last data point date: 9/27/20
-            County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0  ...          813           0.3    161.196511
-1       Miami-Dade    FL        0  ...          282           0.2    291.848748
-2             Cook    IL        0  ...          550           0.4    136.110999
-3           Harris    TX        0  ...          485           0.3    158.801034
-4         Maricopa    AZ        0  ...          248           0.2    532.098685
-5           Dallas    TX        0  ...          570           0.7    108.728847
-6          Broward    FL        0  ...          154           0.2    290.824319
-7           Queens    NY        0  ...           91           0.1    614.059110
-8            Kings    NY        0  ...          184           0.3    263.506320
-9            Clark    NV        0  ...          253           0.4    129.189030
-10       Riverside    CA        0  ...            0           0.0    248.307204
-11           Bexar    TX        0  ...         2850           5.2    221.650025
-12  San Bernardino    CA        0  ...           92           0.2    114.453138
-13          Orange    CA        0  ...          246           0.5    202.413085
-14           Bronx    NY        0  ...           48           0.1    717.161798
-15         Tarrant    TX        0  ...            0           0.0    371.100205
-16          Nassau    NY        0  ...           67           0.1    513.768292
-17       San Diego    CA        0  ...          279           0.6    110.430553
-18         Suffolk    NY        0  ...           42           0.1    723.160089
-19      Palm Beach    FL        0  ...          100           0.2    221.980825
+  Extract downloaded: 2020-10-03 05:02:25.417891 UTC
+  Data last data point date: 10/2/20
+            County State  1/23/20  9/27/20  9/28/20  9/29/20  9/30/20  10/1/20  10/2/20  DayIncrease  %DayIncrease  DaysToDouble
+0      Los Angeles    CA        0   267801   268455   269284   270299   271371   272653         1282           0.5    202.399941
+1       Miami-Dade    FL        0   169426   169466   170086   170400   170882   171391          509           0.3    305.152770
+2             Cook    IL        0   143634   144315   144697   145462   146152   146917          765           0.5    160.768444
+3           Harris    TX        0   141353   141707   142315   142681   143530   146234         2704           1.9    139.385455
+4         Maricopa    AZ        0   141211   141377   141738   141856   142287   142566          279           0.2    373.244213
+5           Dallas    TX        0    81175    81372    82161    82410    82410    82410            0           0.0    166.698904
+6          Broward    FL        0    76854    76874    77122    77220    77433    77631          198           0.3    345.609696
+7           Queens    NY        0    72233    72323    72465    72556    72692    72863          171           0.2    426.589627
+8            Kings    NY        0    68279    68462    68658    68844    69062    69319          257           0.4    239.109016
+9            Clark    NV        0    66262    66620    66899    67176    67499    68162          663           1.0    141.129080
+10       Riverside    CA        0    58178    58932    59173    59405    59488    59934          446           0.7    138.709037
+11           Bexar    TX        0    57145    57208    57677    57832    57936    58039          103           0.2     92.015414
+12  San Bernardino    CA        0    54478    54482    54849    55203    55394    55671          277           0.5    156.375790
+13          Orange    CA        0    53315    53448    53557    53751    53909    54118          209           0.4    229.106212
+14           Bronx    NY        0    52920    52956    53025    53091    53169    53232           63           0.1    592.975153
+15         Tarrant    TX        0    47917    47917    47917    50417    50729    51081          352           0.7     48.395522
+16       San Diego    CA        0    46610    46734    46985    47180    47485    47791          306           0.6    140.634285
+17          Nassau    NY        0    46643    46711    46791    46857    46929    47034          105           0.2    437.304313
+18      Palm Beach    FL        0    46283    46310    46485    46552    46698    46833          135           0.3    295.774926
+19         Suffolk    NY        0    46387    46428    46464    46517    46563    46667          104           0.2    658.682505
 
-   Data from the 9/27/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/2/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
