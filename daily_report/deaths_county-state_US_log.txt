@@ -1,7 +1,7 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-10-04 05:28:13.033181 UTC
+  Extract downloaded: 2020-10-05 04:02:43.340881 UTC
   Data last data point date: 10/3/20
           County State  1/22/20  9/28/20  9/29/20  9/30/20  10/1/20  10/2/20  10/3/20  DayIncrease  %DayIncrease  DaysToDouble
 0          Kings    NY        0     7327     7329     7330     7329     7337     7338            1           0.0   2771.706304

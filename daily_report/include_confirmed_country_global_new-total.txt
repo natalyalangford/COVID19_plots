@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-10-04 05:28:13.033181 UTC
+  Extract downloaded: 2020-10-05 04:02:43.340881 UTC
   Data last data point date: 10/3/20
    Country/Region  1/22/20  9/29/20  9/30/20  10/1/20  10/2/20  10/3/20  DayIncrease  %DayIncrease  DaysToDouble
 0     Philippines        0   309303   311694   314079   316678   319330         2652           0.8     88.603076
