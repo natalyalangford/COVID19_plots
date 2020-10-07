@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-10-05 16:50:44.230294 UTC
-  Data last data point date: 10/4/20
-            County State  1/23/20  9/29/20  9/30/20  10/1/20  10/2/20  10/3/20  10/4/20  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0   269284   270299   271371   272653   273638   274565          927           0.3    176.164765
-1       Miami-Dade    FL        0   170086   170400   170882   171391   171876   172205          329           0.2    257.522786
-2             Cook    IL        0   144697   145462   146152   146917   147841   148381          540           0.4    140.402818
-3           Harris    TX        0   142315   142681   143530   146234   147298   147808          510           0.3     82.205989
-4         Maricopa    AZ        0   141738   141856   142287   142566   142968   143183          215           0.2    315.925057
-5           Dallas    TX        0    82161    82410    82410    82410    82918    83178          260           0.3    267.438830
-6          Broward    FL        0    77122    77220    77433    77631    77762    77934          172           0.2    305.063434
-7           Queens    NY        0    72465    72556    72692    72863    73012    73131          119           0.2    363.963068
-8            Kings    NY        0    68658    68844    69062    69319    69677    69933          256           0.4    193.981125
-9            Clark    NV        0    66899    67176    67499    68162    68580    68851          271           0.4    114.987235
-10       Riverside    CA        0    59173    59405    59488    59934    59934    59991           57           0.1    210.903148
-11           Bexar    TX        0    57677    57832    57936    58039    58184    58678          494           0.8    220.647680
-12  San Bernardino    CA        0    54849    55203    55394    55671    56011    56275          264           0.5    134.652093
-13          Orange    CA        0    53557    53751    53909    54118    54357    54640          283           0.5    190.323273
-14           Bronx    NY        0    53025    53091    53169    53232    53298    53353           55           0.1    545.209081
-15         Tarrant    TX        0    47917    50417    50729    51081    51499    52100          601           1.2     49.480345
-16       San Diego    CA        0    46985    47180    47485    47791    48200    48436          236           0.5    112.110450
-17          Nassau    NY        0    46791    46857    46929    47034    47167    47246           79           0.2    359.066294
-18      Palm Beach    FL        0    46485    46552    46698    46833    46962    47079          117           0.2    254.397477
-19         Suffolk    NY        0    46464    46517    46563    46667    46770    46842           72           0.2    445.665111
+  Extract downloaded: 2020-10-07 03:05:12.593903 UTC
+  Data last data point date: 10/5/20
+            County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0      Los Angeles    CA        0  ...          377           0.1    185.817423
+1       Miami-Dade    FL        0  ...          193           0.1    278.788252
+2             Cook    IL        0  ...          746           0.5    135.228753
+3           Harris    TX        0  ...          427           0.3     81.575968
+4         Maricopa    AZ        0  ...          228           0.2    322.164762
+5           Dallas    TX        0  ...         1067           1.3    205.185772
+6          Broward    FL        0  ...           78           0.1    333.829668
+7           Queens    NY        0  ...          114           0.2    361.759812
+8            Kings    NY        0  ...          198           0.3    181.652524
+9            Clark    NV        0  ...          300           0.4    112.978428
+10       Riverside    CA        0  ...          747           1.2    191.488372
+11           Bexar    TX        0  ...           68           0.1    223.709668
+12  San Bernardino    CA        0  ...          125           0.2    142.960120
+13          Orange    CA        0  ...          120           0.2    177.362382
+14           Bronx    NY        0  ...           64           0.1    565.410442
+15         Tarrant    TX        0  ...          266           0.5     61.255639
+16       San Diego    CA        0  ...          224           0.5    109.097700
+17          Nassau    NY        0  ...           56           0.1    343.881975
+18      Palm Beach    FL        0  ...           74           0.2    266.927202
+19         Suffolk    NY        0  ...           49           0.1    404.823837
 
-   Data from the 10/4/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/5/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

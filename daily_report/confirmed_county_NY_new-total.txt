@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-10-05 16:50:44.230294 UTC
-  Data last data point date: 10/4/20
-         County State  1/23/20  9/29/20  9/30/20  10/1/20  10/2/20  10/3/20  10/4/20  DayIncrease  %DayIncrease  DaysToDouble
-0         Total    NY        0   457649   458649   460031   461629   463360   464582         1222           0.3    227.761484
-1        Queens    NY        0    72465    72556    72692    72863    73012    73131          119           0.2    363.963068
-2         Kings    NY        0    68658    68844    69062    69319    69677    69933          256           0.4    193.981125
-3         Bronx    NY        0    53025    53091    53169    53232    53298    53353           55           0.1    545.209081
-4        Nassau    NY        0    46791    46857    46929    47034    47167    47246           79           0.2    359.066294
-5       Suffolk    NY        0    46464    46517    46563    46667    46770    46842           72           0.2    445.665111
-6   Westchester    NY        0    38182    38239    38300    38346    38431    38475           44           0.1    456.415161
-7      New York    NY        0    33497    33561    33626    33698    33791    33863           72           0.2    319.396417
-8      Richmond    NY        0    15950    15989    16025    16061    16107    16137           30           0.2    294.262518
-9      Rockland    NY        0    15342    15452    15636    15849    15973    16016           43           0.3     73.667319
-10       Orange    NY        0    12122    12143    12199    12273    12360    12394           34           0.3    145.267357
-11         Erie    NY        0    11445    11500    11574    11637    11697    11767           70           0.6    120.717103
-12       Monroe    NY        0     6074     6085     6121     6160     6186     6206           20           0.3    146.416991
-13     Dutchess    NY        0     5130     5137     5148     5165     5169     5179           10           0.2    351.162446
-14     Onondaga    NY        0     4409     4424     4456     4494     4528     4537            9           0.2    106.946420
-15       Albany    NY        0     3116     3120     3133     3153     3175     3190           15           0.5    146.864959
-16       Oneida    NY        0     2432     2436     2460     2462     2468     2478           10           0.4    169.771076
-17       Ulster    NY        0     2272     2280     2282     2293     2303     2315           12           0.5    200.309041
-18       Broome    NY        0     1642     1673     1729     1786     1896     1947           51           2.7     20.626304
-19      Niagara    NY        0     1783     1788     1799     1809     1813     1828           15           0.8    151.241879
+  Extract downloaded: 2020-10-07 03:05:12.593903 UTC
+  Data last data point date: 10/5/20
+         County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0         Total    NY        0  ...          933           0.2    224.176189
+1        Queens    NY        0  ...          114           0.2    361.759812
+2         Kings    NY        0  ...          198           0.3    181.652524
+3         Bronx    NY        0  ...           64           0.1    565.410442
+4        Nassau    NY        0  ...           56           0.1    343.881975
+5       Suffolk    NY        0  ...           49           0.1    404.823837
+6   Westchester    NY        0  ...           40           0.1    455.776533
+7      New York    NY        0  ...           72           0.2    309.843147
+8      Richmond    NY        0  ...           20           0.1    305.696431
+9      Rockland    NY        0  ...           55           0.3     80.354577
+10       Orange    NY        0  ...           44           0.4    140.254907
+11         Erie    NY        0  ...           31           0.3    130.192935
+12       Monroe    NY        0  ...           14           0.2    154.041539
+13     Dutchess    NY        0  ...            8           0.2    357.546629
+14     Onondaga    NY        0  ...           19           0.4    112.359302
+15       Albany    NY        0  ...           11           0.3    133.241302
+16       Oneida    NY        0  ...            2           0.1    208.704961
+17       Ulster    NY        0  ...            9           0.4    176.825925
+18       Broome    NY        0  ...           27           1.4     19.445130
+19      Niagara    NY        0  ...            6           0.3    143.179929
 
-   Data from the 10/4/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/5/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
