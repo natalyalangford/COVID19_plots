@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-10-09 18:42:15.427904 UTC
-  Data last data point date: 10/8/20
+  Extract downloaded: 2020-10-10 23:55:46.965464 UTC
+  Data last data point date: 10/9/20
         County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    OR        0  ...          482           1.4     80.063525
-1    Multnomah    OR        0  ...           81           1.1     95.223935
-2       Marion    OR        0  ...           25           0.5     92.918540
-3   Washington    OR        0  ...           58           1.2    103.649850
-4     Umatilla    OR        0  ...           18           0.6    209.733139
-5    Clackamas    OR        0  ...           29           1.1     75.844469
-6      Malheur    OR        0  ...           16           0.9    126.172465
-7         Lane    OR        0  ...           71           4.4     22.617810
-8      Jackson    OR        0  ...           16           1.2     68.933935
-9    Deschutes    OR        0  ...           16           1.7     56.092728
-10     Yamhill    OR        0  ...           12           1.4     68.703266
-11        Linn    OR        0  ...           19           3.1     34.918269
-12   Jefferson    OR        0  ...           11           1.9    120.460107
-13        Polk    OR        0  ...            4           0.7     70.481879
-14      Morrow    OR        0  ...            5           1.0    217.090746
-15     Lincoln    OR        0  ...            3           0.6    224.884903
-16       Union    OR        0  ...            2           0.4    619.210447
-17      Benton    OR        0  ...           11           3.0     50.993510
-18     Klamath    OR        0  ...           57          18.5     31.695501
-19       Wasco    OR        0  ...            3           1.0    159.593124
+0        Total    OR        0  ...          410           1.1     74.683389
+1    Multnomah    OR        0  ...           98           1.3     89.675137
+2       Marion    OR        0  ...           47           0.9    100.890308
+3   Washington    OR        0  ...           35           0.7     99.515806
+4     Umatilla    OR        0  ...            9           0.3    208.902550
+5    Clackamas    OR        0  ...           31           1.2     71.472414
+6      Malheur    OR        0  ...           28           1.6    105.444716
+7         Lane    OR        0  ...           34           2.0     22.622534
+8      Jackson    OR        0  ...           24           1.8     61.041910
+9    Deschutes    OR        0  ...           13           1.4     56.043081
+10     Yamhill    OR        0  ...           15           1.8     62.499024
+11        Linn    OR        0  ...           18           2.9     27.054271
+12   Jefferson    OR        0  ...            6           1.0    100.780193
+13        Polk    OR        0  ...            7           1.2     69.988367
+14      Morrow    OR        0  ...            1           0.2    207.610998
+15     Lincoln    OR        0  ...            1           0.2    202.950338
+16       Union    OR        0  ...            2           0.4    413.576269
+17      Benton    OR        0  ...            4           1.1     44.740230
+18     Klamath    OR        0  ...            4           1.1     19.981934
+19       Wasco    OR        0  ...            3           1.0    111.801924
 
-   Data from the 10/8/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

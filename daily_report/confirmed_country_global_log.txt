@@ -1,30 +1,30 @@
 
 Top 20 country Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-10-09 18:42:15.427904 UTC
-  Data last data point date: 10/8/20
-    Country/Region  1/22/20   10/2/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0           Global      555  34585720  ...       359337           1.0     77.058433
-1               US        1   7332297  ...        56191           0.7    118.844047
-2            India        0   6473544  ...        70496           1.0     65.295738
-3           Brazil        0   4847092  ...        27750           0.6    124.978930
-4           Russia        0   1188928  ...        11345           0.9     77.786983
-5         Colombia        0    841532  ...         8495           1.0     80.707033
-6        Argentina        0    779689  ...        15454           1.8     44.369280
-7            Spain        0    789932  ...        12423           1.5     48.359008
-8             Peru        0    818297  ...         2733           0.3    185.010417
-9           Mexico        0    753090  ...         5300           0.7     51.552920
-10          France        0    629431  ...        18101           2.6     28.550026
-11    South Africa        0    677833  ...         1736           0.3    345.023298
-12  United Kingdom        0    469769  ...        17550           3.2     23.070382
-13            Iran        0    464596  ...         4392           0.9     83.500703
-14           Chile        0    466590  ...         1576           0.3    211.735962
-15            Iraq        0    372259  ...         3522           0.9     70.223543
-16      Bangladesh        0    366383  ...         1441           0.4    184.052608
-17           Italy        0    319908  ...         4458           1.3     78.916461
-18    Saudi Arabia        0    335578  ...          421           0.1    546.791851
-19     Philippines        0    316678  ...         2232           0.7     90.456780
+  Extract downloaded: 2020-10-10 23:55:46.965464 UTC
+  Data last data point date: 10/9/20
+    Country/Region  1/22/20   10/3/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0           Global      555  34905722  ...       360685           1.0     74.354973
+1               US        1   7382341  ...        57420           0.8    111.331610
+2            India        0   6549373  ...        73272           1.1     65.178820
+3           Brazil        0   4906833  ...        27444           0.5    123.209149
+4           Russia        0   1198663  ...        11969           1.0     76.470761
+5         Colombia        0    848147  ...         8121           0.9     78.018386
+6        Argentina        0    790818  ...        15099           1.8     40.561694
+7            Spain        0    789932  ...        12788           1.5     45.009616
+8             Peru        0    821564  ...         2952           0.4    192.200890
+9           Mexico        0    757953  ...         5532           0.7     62.767590
+10          France        0    629509  ...        20730           2.9     26.229851
+11    South Africa        0    679716  ...         1461           0.2    331.167148
+12  United Kingdom        0    482654  ...        13888           2.5     24.140859
+13            Iran        0    468119  ...         4142           0.8     81.651280
+14           Chile        0    468471  ...         1753           0.4    220.714148
+15            Iraq        0    375931  ...         3214           0.8     70.923961
+16      Bangladesh        0    367565  ...         1278           0.3    179.459824
+17           Italy        0    322751  ...         5372           1.6     68.265802
+18    Saudi Arabia        0    335997  ...          407           0.1    536.162987
+19     Philippines        0    319330  ...         2901           0.9     91.652952
 
-   Data from the 10/8/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

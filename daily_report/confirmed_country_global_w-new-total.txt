@@ -1,45 +1,45 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 1000 Confirmed cases
-  Extract downloaded: 2020-10-09 18:42:15.427904 UTC
-  Data last data point date: 10/8/20
-    Country/Region  1/22/20  10/4/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0           Jordan        0    15640  ...         1317           6.5      8.632922
-1        Sri Lanka        0     3402  ...           29           0.7     10.695683
-2          Georgia        0     8118  ...          472           4.8     11.121824
-3            Burma        0    17794  ...         1012           4.7     11.133337
-4         Slovakia        0    13139  ...         1037           7.1     15.723093
-5          Czechia        0    82446  ...         5397           5.7     16.189578
-6          Andorra        0     2110  ...            0           0.0     16.270825
-7          Tunisia        0    22230  ...         2357           9.6     17.532210
-8         Malaysia        0    12381  ...          375           2.7     19.215834
-9      Netherlands        0   141226  ...         5867           3.8     21.872596
-10        Slovenia        0     6498  ...          387           5.4     22.694610
-11          Latvia        0     2086  ...          109           4.8     23.002532
-12  United Kingdom        0   505619  ...        17550           3.2     23.070382
-13         Hungary        0    30575  ...          932           2.8     24.763079
-14           Nepal        0    86823  ...         4364           4.6     24.945695
-15         Lebanon        0    44482  ...         1367           2.8     25.595633
-16         Iceland        0     2921  ...           95           3.0     27.343053
-17          France        0   629509  ...        18101           2.6     28.550026
-18          Belize        0     2131  ...           63           2.7     28.832356
-19          Poland        0   100074  ...         4280           4.0     29.234082
-20          Angola        0     5402  ...          233           4.1     32.464308
-21           Libya        0    36809  ...          779           2.0     32.540438
-22         Belgium        0   130235  ...         5728           4.2     32.837066
-23          Guyana        0     3093  ...           37           1.1     33.461644
-24       Lithuania        0     5185  ...          142           2.6     35.077575
-25         Bahamas        0     4409  ...            0           0.0     36.462011
-26         Ukraine        0   232424  ...         5545           2.3     36.622704
-27         Austria        0    48146  ...         1209           2.4     37.906206
-28           Malta        0     3270  ...           64           1.9     38.962090
-29      Montenegro        0    12127  ...          210           1.6     39.044849
-30          Uganda        0     8808  ...          182           2.0     40.854530
-31        Paraguay        0    44182  ...          881           1.9     41.163488
-32          Greece        0    19842  ...          434           2.1     41.447287
-33         Morocco        0   133272  ...         2929           2.1     41.496321
-34         Finland        0    10538  ...          296           2.7     41.570843
+  Extract downloaded: 2020-10-10 23:55:46.965464 UTC
+  Data last data point date: 10/9/20
+    Country/Region  1/22/20  10/5/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0           Jordan        0    17464  ...         1246           5.8      9.297085
+1        Sri Lanka        0     3513  ...           35           0.8     10.370606
+2            Burma        0    18781  ...         1461           6.5     11.336880
+3          Georgia        0     8696  ...          527           5.2     11.973610
+4          Czechia        0    85566  ...         8617           8.6     13.458727
+5         Slovakia        0    13492  ...         1184           7.5     14.239684
+6          Tunisia        0    22230  ...            0           0.0     15.362738
+7          Andorra        0     2370  ...          128           5.0     16.057660
+8         Malaysia        0    12813  ...          354           2.5     19.171829
+9         Slovenia        0     6673  ...          365           4.9     19.388038
+10     Netherlands        0   141258  ...         6016           3.7     19.402749
+11          Latvia        0     2126  ...          137           5.8     20.402315
+12           Nepal        0    89263  ...         2059           2.1     23.331842
+13  United Kingdom        0   518222  ...        13888           2.5     24.140859
+14         Iceland        0     2980  ...          106           3.2     24.771335
+15         Lebanon        0    45657  ...         1426           2.9     25.023322
+16          Poland        0   102080  ...         4739           4.2     25.175045
+17         Hungary        0    31480  ...         1176           3.5     25.342738
+18          France        0   664289  ...        20730           2.9     26.229851
+19          Belize        0     2196  ...           54           2.3     26.631058
+20         Belgium        0   132203  ...         5385           3.8     28.143417
+21           Libya        0    37437  ...         1076           2.7     29.584943
+22          Angola        0     5530  ...           73           1.2     33.377544
+23       Lithuania        0     5285  ...          133           2.4     34.155775
+24         Ukraine        0   236329  ...         5961           2.4     35.130461
+25         Austria        0    48896  ...         1131           2.2     35.843592
+26          Guyana        0     3188  ...           29           0.9     36.497063
+27         Croatia        0    17797  ...          457           2.4     37.779457
+28         Morocco        0   134695  ...         3445           2.4     38.042868
+29          Greece        0    20142  ...          391           1.8     38.064552
+30        Bulgaria        0    21870  ...          612           2.6     38.149609
+31      Montenegro        0    12359  ...          344           2.6     38.412055
+32     Switzerland        0    55932  ...         1487           2.5     38.622554
+33           Malta        0     3327  ...           75           2.1     38.696860
+34         Finland        0    10702  ...          235           2.1     38.800325
 
-   Data from the 10/8/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
