@@ -1,30 +1,30 @@
 
 Top 20 country Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2020-10-10 23:55:46.965464 UTC
-  Data last data point date: 10/9/20
-    Country/Region  1/22/20  10/3/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0           Global       17  1033319  ...         6163           0.6    122.818967
-1               US        0   209384  ...          990           0.5    194.621597
-2           Brazil        0   145987  ...          682           0.5    157.234367
-3            India        0   101782  ...          926           0.9     76.321490
-4           Mexico        0    78880  ...          401           0.5     71.568556
-5   United Kingdom        0    42407  ...           87           0.2    472.007844
-6            Italy        0    35968  ...           28           0.1   1002.447823
-7             Peru        0    32609  ...           89           0.3    257.371356
-8            Spain        0    32086  ...          241           0.7    151.364798
-9           France        0    32171  ...           62           0.2    285.277749
-10            Iran        0    26746  ...          210           0.8     82.967720
-11        Colombia        0    26556  ...          315           1.2    128.815416
-12       Argentina        0    20795  ...          515           2.3     37.322449
-13          Russia        0    21153  ...          198           0.9     87.946749
-14    South Africa        0    16938  ...          139           0.8    112.305919
-15           Chile        0    12919  ...           53           0.4    200.554211
-16         Ecuador        0    11597  ...           34           0.3     86.769265
-17       Indonesia        0    11055  ...           97           0.8     74.423393
-18         Belgium        0    10044  ...           25           0.2    421.954440
-19            Iraq        0     9347  ...           52           0.5     97.703294
+  Extract downloaded: 2020-10-11 05:30:37.963266 UTC
+  Data last data point date: 10/10/20
+    Country/Region  1/22/20  10/4/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0           Global       17  1037083  ...         3348           0.3    124.943351
+1               US        0   209721  ...          618           0.3    174.611201
+2           Brazil        0   146352  ...            0           0.0    159.715646
+3            India        0   102685  ...            0           0.0     83.348125
+4           Mexico        0    79088  ...          145           0.2     98.838189
+5   United Kingdom        0    42440  ...           81           0.2    408.907301
+6            Italy        0    35986  ...           29           0.1    949.137166
+7             Peru        0    32609  ...          125           0.4    239.136125
+8            Spain        0    32086  ...            0           0.0    154.828852
+9           France        0    32171  ...            0           0.0    310.100829
+10            Iran        0    26957  ...          195           0.7     84.799809
+11        Colombia        0    26712  ...          165           0.6    128.166649
+12       Argentina        0    21018  ...          356           1.5     35.639607
+13          Russia        0    21260  ...          194           0.9     81.804835
+14    South Africa        0    16976  ...          126           0.7     93.790045
+15           Chile        0    12979  ...           52           0.4    190.509289
+16         Ecuador        0    11647  ...           13           0.1     67.268076
+17       Indonesia        0    11151  ...           88           0.8     76.661300
+18         Belgium        0    10064  ...           24           0.2    385.909623
+19            Iraq        0     9399  ...           55           0.6     98.093381
 
-   Data from the 10/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/10/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
