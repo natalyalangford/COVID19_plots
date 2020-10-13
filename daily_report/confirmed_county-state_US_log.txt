@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-10-11 05:30:37.963266 UTC
-  Data last data point date: 10/10/20
+  Extract downloaded: 2020-10-13 02:07:15.781325 UTC
+  Data last data point date: 10/11/20
             County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0  ...         1256           0.4    160.563728
-1       Miami-Dade    FL        0  ...            0           0.0    320.699138
-2             Cook    IL        0  ...         1127           0.7    122.024677
-3           Harris    TX        0  ...          450           0.3    215.457394
-4         Maricopa    AZ        0  ...          549           0.4    218.367535
-5           Dallas    TX        0  ...          492           0.6    139.936352
-6          Broward    FL        0  ...            0           0.0    307.233933
-7           Queens    NY        0  ...          140           0.2    321.900519
-8            Kings    NY        0  ...          236           0.3    188.671045
-9            Clark    NV        0  ...          595           0.8    124.416252
-10       Riverside    CA        0  ...            0           0.0    146.563879
-11           Bexar    TX        0  ...           80           0.1    217.414730
-12  San Bernardino    CA        0  ...          317           0.6    141.123696
-13          Orange    CA        0  ...          186           0.3    260.061163
-14         Tarrant    TX        0  ...          418           0.8     82.474942
-15           Bronx    NY        0  ...           71           0.1    557.537294
-16       San Diego    CA        0  ...          320           0.6    116.478328
-17          Nassau    NY        0  ...          105           0.2    305.747110
-18      Palm Beach    FL        0  ...            0           0.0    293.023336
-19         Suffolk    NY        0  ...           72           0.2    348.174923
+0      Los Angeles    CA        0  ...          970           0.3    154.821767
+1       Miami-Dade    FL        0  ...         1006           0.6    299.964037
+2             Cook    IL        0  ...         1005           0.7    111.527493
+3           Harris    TX        0  ...          535           0.4    223.787396
+4         Maricopa    AZ        0  ...          431           0.3    209.421368
+5           Dallas    TX        0  ...            0           0.0    168.533091
+6          Broward    FL        0  ...          537           0.7    272.314380
+7           Queens    NY        0  ...          121           0.2    322.155192
+8            Kings    NY        0  ...          200           0.3    186.135458
+9            Clark    NV        0  ...          308           0.4    111.717735
+10       Riverside    CA        0  ...           21           0.0    185.287490
+11           Bexar    TX        0  ...           90           0.2    229.498983
+12  San Bernardino    CA        0  ...          140           0.2    132.843224
+13          Orange    CA        0  ...          244           0.4    235.440653
+14         Tarrant    TX        0  ...          794           1.5     78.308222
+15           Bronx    NY        0  ...           74           0.1    547.309544
+16       San Diego    CA        0  ...          408           0.8    106.694139
+17      Palm Beach    FL        0  ...          307           0.6    268.799150
+18          Nassau    NY        0  ...           92           0.2    304.684070
+19         Suffolk    NY        0  ...           74           0.2    352.529227
 
-   Data from the 10/10/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/11/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

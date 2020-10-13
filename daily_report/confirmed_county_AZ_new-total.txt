@@ -1,25 +1,25 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-10-11 05:30:37.963266 UTC
-  Data last data point date: 10/10/20
+  Extract downloaded: 2020-10-13 02:07:15.781325 UTC
+  Data last data point date: 10/11/20
         County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    AZ        0  ...          894           0.4    212.793731
-1     Maricopa    AZ        0  ...          549           0.4    218.367535
-2         Pima    AZ        0  ...           76           0.3    238.903062
-3         Yuma    AZ        0  ...           45           0.3    341.397392
-4        Pinal    AZ        0  ...           32           0.3    151.646144
-5       Navajo    AZ        0  ...           13           0.2    289.601281
-6     Coconino    AZ        0  ...           44           1.0    108.440497
-7       Mohave    AZ        0  ...           12           0.3    428.433654
-8       Apache    AZ        0  ...           59           1.6    126.460943
-9   Santa Cruz    AZ        0  ...            4           0.1    752.323770
-10     Yavapai    AZ        0  ...           11           0.4    124.659535
-11     Cochise    AZ        0  ...           10           0.5    233.075525
-12        Gila    AZ        0  ...           23           1.5     84.843225
-13      Graham    AZ        0  ...           11           1.2     80.367607
-14      La Paz    AZ        0  ...            5           0.9    107.447971
+0        Total    AZ        0  ...          597           0.3    204.272025
+1     Maricopa    AZ        0  ...          431           0.3    209.421368
+2         Pima    AZ        0  ...           39           0.1    234.794904
+3         Yuma    AZ        0  ...           35           0.3    288.120291
+4        Pinal    AZ        0  ...           19           0.2    154.488559
+5       Navajo    AZ        0  ...           11           0.2    293.558176
+6     Coconino    AZ        0  ...           37           0.8    100.406396
+7       Mohave    AZ        0  ...           -1          -0.0    529.606558
+8       Apache    AZ        0  ...           -7          -0.2    133.261859
+9   Santa Cruz    AZ        0  ...            5           0.2    651.519899
+10     Yavapai    AZ        0  ...           13           0.5    121.041689
+11     Cochise    AZ        0  ...           11           0.6    196.850545
+12        Gila    AZ        0  ...            2           0.1     74.567365
+13      Graham    AZ        0  ...            2           0.2     68.668443
+14      La Paz    AZ        0  ...            0           0.0     96.745172
 
-   Data from the 10/10/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 10/11/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
