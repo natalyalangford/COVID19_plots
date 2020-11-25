@@ -1,26 +1,26 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-11-19 22:53:10.377151 UTC
-  Data last data point date: 11/18/20
-        County State  1/23/20  11/13/20  11/14/20  11/15/20  11/16/20  11/17/20  11/18/20  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    AZ        0    269577    273053    275436    276912    279896    283102         3206           1.1     74.414883
-1     Maricopa    AZ        0    172864    174957    176204    176993    178639    180608         1969           1.1     83.192282
-2         Pima    AZ        0     31874     32207     32802     33087     33444     33822          378           1.1     57.376854
-3         Yuma    AZ        0     15004     15236     15362     15522     15642     15788          146           0.9     71.862296
-4        Pinal    AZ        0     13220     13565     13632     13730     13936     14154          218           1.6     60.908218
-5       Navajo    AZ        0      7051      7104      7142      7159      7231      7295           64           0.9    109.536984
-6     Coconino    AZ        0      6221      6248      6318      6383      6476      6537           61           0.9     65.574212
-7       Mohave    AZ        0      4973      5062      5105      5105      5208      5271           63           1.2     64.469658
-8       Apache    AZ        0      4293      4364      4391      4393      4488      4564           76           1.7     70.568828
-9      Yavapai    AZ        0      3501      3570      3637      3637      3791      3864           73           1.9     37.153204
-10  Santa Cruz    AZ        0      3235      3262      3291      3316      3337      3363           26           0.8     87.899822
-11     Cochise    AZ        0      2622      2679      2705      2704      2777      2807           30           1.1     53.973440
-12        Gila    AZ        0      2302      2347      2362      2366      2388      2435           47           2.0     69.537377
-13      Graham    AZ        0      1620      1648      1675      1704      1720      1745           25           1.5     40.873878
-14      La Paz    AZ        0       670       676       681       684       687       707           20           2.9     85.900784
-15    Greenlee    AZ        0       127       128       129       129       132       142           10           7.6     41.573423
+  Extract downloaded: 2020-11-25 23:24:52.077928 UTC
+  Data last data point date: 11/24/20
+        County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    AZ        0  ...         4544           1.5     52.406126
+1     Maricopa    AZ        0  ...         2907           1.5     58.675926
+2         Pima    AZ        0  ...          327           0.9     45.202802
+3         Yuma    AZ        0  ...          106           0.6     48.298234
+4        Pinal    AZ        0  ...          268           1.7     48.734313
+5       Navajo    AZ        0  ...          102           1.3     67.357225
+6     Coconino    AZ        0  ...          126           1.8     51.130494
+7       Mohave    AZ        0  ...          165           2.9     45.563288
+8       Apache    AZ        0  ...          115           2.3     41.974444
+9      Yavapai    AZ        0  ...          109           2.4     22.022772
+10  Santa Cruz    AZ        0  ...           40           1.1     46.012795
+11     Cochise    AZ        0  ...          135           4.3     28.296044
+12        Gila    AZ        0  ...           58           2.2     40.604766
+13      Graham    AZ        0  ...           75           3.9     29.877559
+14      La Paz    AZ        0  ...            5           0.7     71.304577
+15    Greenlee    AZ        0  ...            6           3.3     13.594045
 
-   Data from the 11/18/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 11/24/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

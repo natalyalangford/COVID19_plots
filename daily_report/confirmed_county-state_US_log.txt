@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-11-19 22:53:10.377151 UTC
-  Data last data point date: 11/18/20
-            County State  1/23/20  11/13/20  11/14/20  ...  11/17/20  11/18/20  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0    332865    336549  ...    344523    348336         3813           1.1     79.826729
-1             Cook    IL        0    242662    246392  ...    260004    262429         2425           0.9     39.867731
-2       Miami-Dade    FL        0    199072    200259  ...    205536    207221         1685           0.8     84.557356
-3         Maricopa    AZ        0    172864    174957  ...    178639    180608         1969           1.1     83.192282
-4           Harris    TX        0    172763    173436  ...    175959    177466         1507           0.9    135.335291
-5           Dallas    TX        0    106287    107741  ...    111174    111960          786           0.7     73.234779
-6            Clark    NV        0     93073     94640  ...     97608     98930         1322           1.4     59.407867
-7          Broward    FL        0     93514     93868  ...     96700     97475          775           0.8     80.044246
-8          Tarrant    TX        0     79431     80492  ...     83647     85759         2112           2.5     47.287080
-9           Queens    NY        0     81486     81971  ...     83311     83809          498           0.6    126.229935
-10           Kings    NY        0     80491     80946  ...     82090     82543          453           0.6    138.728350
-11  San Bernardino    CA        0     73001     73915  ...     76685     78298         1613           2.1     55.777880
-12       Riverside    CA        0     74180     74180  ...     76724     77636          912           1.2     75.440667
-13         El Paso    TX        0     70575     72238  ...     76075     77186         1111           1.5     36.677665
-14           Bexar    TX        0     69404     69404  ...     70528     70894          366           0.5    151.591905
-15       Salt Lake    UT        0     61673     63768  ...     66727     67942         1215           1.8     38.133431
-16       San Diego    CA        0     62945     63681  ...     66319     67241          922           1.4     52.732677
-17          Orange    CA        0     64058     64586  ...     65957     66585          628           1.0     89.518371
-18       Milwaukee    WI        0     57779     58485  ...     61106     62175         1069           1.7     46.697258
-19      Palm Beach    FL        0     57361     57661  ...     59154     59656          502           0.8     85.973059
+  Extract downloaded: 2020-11-25 23:24:52.077928 UTC
+  Data last data point date: 11/24/20
+            County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0      Los Angeles    CA        0  ...         3498           0.9     59.783491
+1             Cook    IL        0  ...         2907           1.0     47.029154
+2       Miami-Dade    FL        0  ...         1852           0.9     80.352621
+3         Maricopa    AZ        0  ...         2907           1.5     58.675926
+4           Harris    TX        0  ...         2052           1.1    103.483731
+5           Dallas    TX        0  ...         1716           1.3     51.183728
+6            Clark    NV        0  ...         2219           2.1     49.143914
+7          Broward    FL        0  ...          891           0.9     81.050369
+8          Tarrant    TX        0  ...         1710           1.8     43.463254
+9   San Bernardino    CA        0  ...         2366           2.8     39.813779
+10          Queens    NY        0  ...          438           0.5    122.578080
+11           Kings    NY        0  ...          453           0.5    115.712886
+12         El Paso    TX        0  ...         1298           1.6     59.518260
+13       Riverside    CA        0  ...          610           0.7     64.807909
+14           Bexar    TX        0  ...         1127           1.5     63.305308
+15       Salt Lake    UT        0  ...         1189           1.6     40.801560
+16       San Diego    CA        0  ...         1546           2.1     41.288098
+17          Orange    CA        0  ...          837           1.2     53.862168
+18       Milwaukee    WI        0  ...         1078           1.6     47.641643
+19      Palm Beach    FL        0  ...          419           0.7     82.839536
 
-   Data from the 11/18/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 11/24/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
