@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-12-06 21:22:10.623174 UTC
-  Data last data point date: 12/5/20
+  Extract downloaded: 2020-12-10 17:32:38.549638 UTC
+  Data last data point date: 12/9/20
           County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0          Total    FL        0  ...        10431           1.0     72.032019
-1     Miami-Dade    FL        0  ...         2238           0.9     71.776112
-2        Broward    FL        0  ...         1100           1.0     73.919012
-3     Palm Beach    FL        0  ...          645           1.0     80.218379
-4         Orange    FL        0  ...          638           1.1     79.369036
-5   Hillsborough    FL        0  ...          520           0.9     86.912578
-6          Duval    FL        0  ...          494           1.1     59.795079
-7       Pinellas    FL        0  ...          451           1.3     79.891651
-8            Lee    FL        0  ...          326           1.0     60.057439
-9           Polk    FL        0  ...          278           1.0     76.923948
-10       Osceola    FL        0  ...          232           1.2     60.059255
-11       Collier    FL        0  ...          203           1.1     66.494665
-12       Manatee    FL        0  ...          156           0.9     78.797844
-13      Escambia    FL        0  ...          179           1.0     81.032486
-14       Volusia    FL        0  ...          206           1.2     78.045586
-15       Brevard    FL        0  ...          153           0.9     57.321871
-16         Pasco    FL        0  ...          248           1.6     52.932815
-17          Leon    FL        0  ...          132           0.8     76.232821
-18      Sarasota    FL        0  ...          191           1.3     62.033869
-19        Marion    FL        0  ...          166           1.2     64.751475
+0          Total    FL        0  ...         9592           0.9     83.675102
+1     Miami-Dade    FL        0  ...         2128           0.9     81.283863
+2        Broward    FL        0  ...         1014           0.9     82.873399
+3     Palm Beach    FL        0  ...          459           0.7     91.144090
+4   Hillsborough    FL        0  ...          290           0.5     94.629997
+5         Orange    FL        0  ...          764           1.3    232.491690
+6          Duval    FL        0  ...          432           0.9     75.213636
+7       Pinellas    FL        0  ...          378           1.1     72.896077
+8            Lee    FL        0  ...          342           1.0     72.599237
+9           Polk    FL        0  ...          204           0.7     78.831340
+10       Osceola    FL        0  ...          268           1.3     58.150981
+11       Collier    FL        0  ...          218           1.1     83.556267
+12       Manatee    FL        0  ...          174           1.0     91.583149
+13      Escambia    FL        0  ...          172           1.0    101.970459
+14       Volusia    FL        0  ...          155           0.9     80.114598
+15       Brevard    FL        0  ...          198           1.2     88.444365
+16         Pasco    FL        0  ...          173           1.0     54.297365
+17          Leon    FL        0  ...          137           0.8     92.497865
+18      Sarasota    FL        0  ...          144           1.0     66.567201
+19      Seminole    FL        0  ...          147           1.0     45.665553
 
-   Data from the 12/5/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 12/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
