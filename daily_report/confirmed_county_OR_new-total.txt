@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2020-12-10 17:32:38.549638 UTC
-  Data last data point date: 12/9/20
-        County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    OR        0  ...         1205           1.4     40.734908
-1    Multnomah    OR        0  ...          190           1.0     46.702357
-2   Washington    OR        0  ...          147           1.2     37.734753
-3       Marion    OR        0  ...          189           1.8     41.068945
-4    Clackamas    OR        0  ...          118           1.6     36.885196
-5         Lane    OR        0  ...           85           1.7     35.673662
-6     Umatilla    OR        0  ...           27           0.6     89.497281
-7      Jackson    OR        0  ...           52           1.2     37.070374
-8    Deschutes    OR        0  ...           50           1.7     30.185595
-9      Malheur    OR        0  ...           19           0.7    147.379102
-10     Yamhill    OR        0  ...           57           2.9     39.153251
-11        Linn    OR        0  ...           33           1.8     32.160195
-12        Polk    OR        0  ...           25           1.7     42.830048
-13     Klamath    OR        0  ...           36           3.0     19.471139
-14     Douglas    OR        0  ...           27           2.4     36.442535
-15   Jefferson    OR        0  ...           21           2.1     25.472929
-16      Benton    OR        0  ...           11           1.2     43.007761
-17       Union    OR        0  ...            7           0.8     76.569329
-18     Lincoln    OR        0  ...           14           1.9     45.821060
-19   Josephine    OR        0  ...           17           2.4     21.818647
+  Extract downloaded: 2020-12-18 03:36:37.969595 UTC
+  Data last data point date: 12/16/20
+        County State  1/23/20  12/11/20  12/12/20  12/13/20  12/14/20  12/15/20  12/16/20  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    OR        0     91420     92839     93853     95010     96092     97622         1530           1.6     53.330135
+1    Multnomah    OR        0     20852     21156     21323     21560     21764     22210          446           2.0     60.175012
+2   Washington    OR        0     12970     13226     13324     13558     13636     13776          140           1.0     55.200487
+3       Marion    OR        0     11114     11246     11389     11577     11714     11892          178           1.5     50.350580
+4    Clackamas    OR        0      7934      8031      8147      8247      8374      8539          165           2.0     46.808958
+5         Lane    OR        0      5378      5485      5565      5629      5737      5836           99           1.7     44.283217
+6      Jackson    OR        0      4704      4769      4857      4897      4978      5039           61           1.2     49.213160
+7     Umatilla    OR        0      4810      4845      4881      4904      4946      4981           35           0.7    100.390155
+8    Deschutes    OR        0      3122      3181      3220      3262      3293      3342           49           1.5     45.992370
+9      Malheur    OR        0      2605      2617      2619      2625      2642      2658           16           0.6    186.411685
+10     Yamhill    OR        0      2121      2152      2169      2207      2238      2273           35           1.6     48.138300
+11        Linn    OR        0      2007      2050      2067      2099      2128      2180           52           2.4     42.897965
+12        Polk    OR        0      1548      1566      1582      1608      1629      1657           28           1.7     51.813300
+13     Klamath    OR        0      1313      1360      1388      1415      1436      1457           21           1.5     31.588766
+14     Douglas    OR        0      1168      1179      1199      1204      1214      1228           14           1.2     67.371942
+15   Jefferson    OR        0      1107      1130      1147      1151      1166      1195           29           2.5     50.121198
+16      Benton    OR        0      1010      1046      1069      1080      1097      1127           30           2.7     32.648485
+17       Union    OR        0       883       901       903       907       912       921            9           1.0     89.045715
+18   Josephine    OR        0       768       811       822       839       854       883           29           3.4     25.540283
+19     Lincoln    OR        0       752       758       770       777       780       785            5           0.6     69.960624
 
-   Data from the 12/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 12/16/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

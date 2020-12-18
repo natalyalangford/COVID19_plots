@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2020-12-10 17:32:38.549638 UTC
-  Data last data point date: 12/9/20
-            County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0  ...         8950           1.9     34.656192
-1             Cook    IL        0  ...         2889           0.9     68.806417
-2       Miami-Dade    FL        0  ...         2128           0.9     81.283863
-3         Maricopa    AZ        0  ...         2599           1.1     50.310641
-4           Harris    TX        0  ...         1099           0.5    114.620944
-5           Dallas    TX        0  ...         1348           0.9     73.565860
-6            Clark    NV        0  ...         2132           1.6     46.250245
-7          Broward    FL        0  ...         1014           0.9     82.873399
-8          Tarrant    TX        0  ...         1536           1.4     52.231677
-9   San Bernardino    CA        0  ...         2572           2.4     35.622807
-10       Riverside    CA        0  ...         4399           4.3     24.635515
-11          Queens    NY        0  ...         1147           1.2     74.992235
-12       San Diego    CA        0  ...         2104           2.2     34.183422
-13           Kings    NY        0  ...         1073           1.1     75.353443
-14          Orange    CA        0  ...         2613           2.9     31.314914
-15         El Paso    TX        0  ...          402           0.4    149.837501
-16           Bexar    TX        0  ...          730           0.8     56.071771
-17       Salt Lake    UT        0  ...          911           1.0     63.667953
-18       Milwaukee    WI        0  ...          767           1.0     79.764829
-19    Philadelphia    PA        0  ...         1012           1.3     43.492827
+  Extract downloaded: 2020-12-18 03:36:37.969595 UTC
+  Data last data point date: 12/16/20
+            County State  1/23/20  12/11/20  12/12/20  12/13/20  12/14/20  12/15/20  12/16/20  DayIncrease  %DayIncrease  DaysToDouble
+0      Los Angeles    CA        0    501635    512872    525486    532730    543769    566005        22236           4.1     31.103021
+1             Cook    IL        0    346004    349461    352409    355467    358014    360117         2103           0.6     82.504746
+2         Maricopa    AZ        0    245671    250319    253686    260661    263191    266196         3005           1.1     40.578797
+3       Miami-Dade    FL        0    253403    255462    257857    260138    262298    264673         2375           0.9     79.549592
+4           Harris    TX        0    204850    205928    207406    208737    210362    212686         2324           1.1     95.139540
+5           Dallas    TX        0    156225    158336    160146    161845    163792    166230         2438           1.5     58.076941
+6            Clark    NV        0    137100    139053    141231    142937    144834    146723         1889           1.3     50.875932
+7   San Bernardino    CA        0    120186    124264    126738    127791    129522    137548         8026           6.2     30.078956
+8        Riverside    CA        0    112950    115329    118335    119691    123715    131822         8107           6.6     27.572896
+9          Tarrant    TX        0    116931    118207    119630    120899    122443    124420         1977           1.6     58.064580
+10         Broward    FL        0    118512    119429    120166    120840    121512    122883         1371           1.1    102.266613
+11       San Diego    CA        0     99601    102468    107372    109578    111441    114248         2807           2.5     26.255537
+12          Orange    CA        0     97302     99393    102514    105764    108602    112893         4291           4.0     23.849390
+13          Queens    NY        0    100265    101449    102510    103435    104668    105740         1072           1.0     66.516161
+14           Kings    NY        0     98914    100141    101002    101832    102995    103969          974           0.9     71.806247
+15           Bexar    TX        0     92484     93476     94182     94781     96140     97536         1396           1.5     70.636757
+16       Salt Lake    UT        0     91795     93065     93761     94415     94942     95917          975           1.0     83.126995
+17         El Paso    TX        0     91868     92584     92810     93223     93455     93859          404           0.4    167.077214
+18       Milwaukee    WI        0     81590     82328     82954     83394     84196     84661          465           0.6     92.233036
+19    Philadelphia    PA        0     79646     79646     79646     81779     83113     84061          948           1.1     60.809758
 
-   Data from the 12/9/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 12/16/20 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
