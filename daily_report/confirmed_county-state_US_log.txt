@@ -1,7 +1,7 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2021-01-08 20:05:54.543448 UTC
+  Extract downloaded: 2021-01-08 20:20:46.226863 UTC
   Data last data point date: 1/7/21
             County State  1/23/20  1/2/21  1/3/21  1/4/21  1/5/21  1/6/21  1/7/21  DayIncrease  %DayIncrease  DaysToDouble
 0      Los Angeles    CA        0  806210  818639  827498  840611  852165  871404        19239           2.3     46.394617
