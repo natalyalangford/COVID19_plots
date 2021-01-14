@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2021-01-13 03:01:16.408316 UTC
-  Data last data point date: 1/11/21
-          County State  1/22/20  1/6/21  1/7/21  1/8/21  1/9/21  1/10/21  1/11/21  DayIncrease  %DayIncrease  DaysToDouble
-0    Los Angeles    CA        0   11328   11554   11863   12090    12252    12388          136           1.1     35.267197
-1           Cook    IL        0    8574    8630    8684    8701     8760     8811           51           0.6    132.262901
-2          Kings    NY        0    7807    7832    7860    7878     7895     7914           19           0.2    251.204652
-3         Queens    NY        0    7602    7612    7622    7635     7652     7664           12           0.2    463.091766
-4       Maricopa    AZ        0    5416    5575    5695    5767     5818     5823            5           0.1     43.664605
-5          Bronx    NY        0    5165    5173    5181    5188     5195     5208           13           0.3    444.255880
-6     Miami-Dade    FL        0    4260    4297    4332    4365     4413     4441           28           0.6     89.102443
-7          Wayne    MI        0    3709    3740    3743    3787     3787     3792            5           0.1    145.182518
-8         Harris    TX        0    3482    3522    3581    3581     3588     3591            3           0.1     97.066032
-9       New York    NY        0    3367    3371    3369    3375     3384     3395           11           0.3    519.961842
-10     Middlesex    MA        0    2802    2807    2819    2837     2851     2863           12           0.4    148.662600
-11         Clark    NV        0    2496    2524    2566    2603     2610     2637           27           1.0     55.727727
-12  Philadelphia    PA        0    2553    2576    2599    2599     2599     2606            7           0.3    141.902452
-13        Nassau    NY        0    2445    2452    2462    2470     2482     2489            7           0.3    181.183911
-14       Suffolk    NY        0    2388    2410    2423    2438     2453     2466           13           0.5    110.072013
-15         Essex    NJ        0    2421    2422    2425    2429     2429     2429            0           0.0    592.843626
-16        Bergen    NJ        0    2355    2361    2368    2376     2376     2376            0           0.0    293.581858
-17       Hidalgo    TX        0    2229    2237    2247    2247     2247     2253            6           0.3    295.542587
-18     Riverside    CA        0    2151    2189    2218    2218     2218     2250           32           1.4     73.353070
-19        Dallas    TX        0    2117    2151    2220    2220     2239     2242            3           0.1     52.298327
+  Extract downloaded: 2021-01-14 00:34:48.103771 UTC
+  Data last data point date: 1/12/21
+          County State  1/22/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0    Los Angeles    CA        0  ...          318           2.6     38.406754
+1           Cook    IL        0  ...           30           0.3    138.360246
+2          Kings    NY        0  ...            9           0.1    281.010892
+3         Queens    NY        0  ...           28           0.4    369.494073
+4       Maricopa    AZ        0  ...          189           3.2     49.215487
+5          Bronx    NY        0  ...           10           0.2    423.226000
+6     Miami-Dade    FL        0  ...           11           0.2     87.076530
+7          Wayne    MI        0  ...           13           0.3    163.001182
+8         Harris    TX        0  ...           27           0.8    139.814975
+9       New York    NY        0  ...            8           0.2    375.018642
+10     Middlesex    MA        0  ...           16           0.6    143.002286
+11         Clark    NV        0  ...           37           1.4     64.160961
+12  Philadelphia    PA        0  ...           39           1.5    177.010263
+13        Nassau    NY        0  ...            7           0.3    190.304043
+14       Suffolk    NY        0  ...           21           0.9    109.601332
+15         Essex    NJ        0  ...           21           0.9    505.164397
+16        Bergen    NJ        0  ...            7           0.3    386.502647
+17     Riverside    CA        0  ...           44           2.0     90.509789
+18        Dallas    TX        0  ...           26           1.2     70.298851
+19       Hidalgo    TX        0  ...            7           0.3    397.392940
 
-   Data from the 1/11/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 1/12/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

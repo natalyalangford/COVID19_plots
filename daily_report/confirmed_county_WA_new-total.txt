@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-01-13 03:01:16.408316 UTC
-  Data last data point date: 1/11/21
-         County State  1/23/20  1/6/21  1/7/21  1/8/21  1/9/21  1/10/21  1/11/21  DayIncrease  %DayIncrease  DaysToDouble
-0         Total    WA        1  260752  264012  268607  271595   271595   276686         5091           1.9     61.147705
-1          King    WA        1   66286   66998   67932   68799    68799    70059         1260           1.8     66.029634
-2        Pierce    WA        0   27436   27769   28427   28743    28743    29205          462           1.6     54.590438
-3       Spokane    WA        0   27230   27667   28247   28492    28492    29176          684           2.4     54.507932
-4     Snohomish    WA        0   23710   24038   24382   24616    24616    25186          570           2.3     62.207140
-5        Yakima    WA        0   20799   21021   21467   21655    21655    22005          350           1.6     63.674300
-6         Clark    WA        0   14531   14657   14846   15010    15010    15301          291           1.9     72.433589
-7        Benton    WA        0   12150   12356   12582   12717    12717    12908          191           1.5     58.561366
-8      Franklin    WA        0    9082    9156    9267    9321     9321     9432          111           1.2     96.393060
-9         Grant    WA        0    6191    6251    6313    6381     6381     6445           64           1.0     84.498240
-10     Thurston    WA        0    5060    5134    5261    5334     5334     5440          106           2.0     48.278813
-11       Chelan    WA        0    5074    5100    5163    5204     5204     5262           58           1.1     90.849681
-12       Kitsap    WA        0    4136    4203    4271    4355     4355     4450           95           2.2     47.576440
-13      Whatcom    WA        0    3773    3944    4066    4134     4134     4373          239           5.8     28.343480
-14  Walla Walla    WA        0    3622    3649    3699    3841     3841     4008          167           4.3     38.960356
-15       Skagit    WA        0    3420    3476    3526    3552     3552     3610           58           1.6     68.830204
-16      Whitman    WA        0    2859    2884    2899    2902     2902     2902            0           0.0    194.855600
-17      Cowlitz    WA        0    2603    2646    2696    2766     2766     2832           66           2.4     41.944101
-18      Douglas    WA        0    2728    2744    2774    2785     2785     2815           30           1.1    105.250539
-19        Lewis    WA        0    2586    2637    2677    2731     2731     2758           27           1.0     53.386994
+  Extract downloaded: 2021-01-14 00:34:48.103771 UTC
+  Data last data point date: 1/12/21
+         County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
+0         Total    WA        1  ...         1858           0.7     67.129472
+1          King    WA        1  ...          486           0.7     69.520382
+2        Pierce    WA        0  ...          358           1.2     61.153375
+3       Spokane    WA        0  ...          156           0.5     61.159046
+4     Snohomish    WA        0  ...           57           0.2     69.983256
+5        Yakima    WA        0  ...          143           0.6     70.980134
+6         Clark    WA        0  ...          289           1.9     66.769401
+7        Benton    WA        0  ...           74           0.6     69.072722
+8      Franklin    WA        0  ...           45           0.5    106.566563
+9         Grant    WA        0  ...           28           0.4     96.967742
+10     Thurston    WA        0  ...           23           0.4     56.170745
+11       Chelan    WA        0  ...           23           0.4    104.093167
+12       Kitsap    WA        0  ...           40           0.9     52.413991
+13      Whatcom    WA        0  ...          -16          -0.4     31.587490
+14  Walla Walla    WA        0  ...          -72          -1.8     38.689122
+15       Skagit    WA        0  ...           13           0.4     80.981468
+16      Whitman    WA        0  ...           28           1.0    261.826367
+17      Cowlitz    WA        0  ...           68           2.4     41.204777
+18      Douglas    WA        0  ...           12           0.4    127.694905
+19        Lewis    WA        0  ...           31           1.1     59.321133
 
-   Data from the 1/11/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 1/12/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
