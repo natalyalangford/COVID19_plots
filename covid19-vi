@@ -582,7 +582,8 @@ class CovidData:
                                                                                self.args.threshold, name_1), file=fp)
                 print('  Extract downloaded: {} UTC'.format(self.data['global']['download_date']), file=fp)
                 print('  Data last data point date: {}'.format(self.data['global']['data_date']), file=fp)
-                with pd.option_context('display.max_rows', None, 'show_dimensions', False):
+                with pd.option_context('display.max_rows', None, 'show_dimensions', False,
+                                       'display.max_columns', None, 'display.expand_frame_repr', False):
                     table_df.reset_index(drop=True, inplace=True)
                     print(table_df, file=fp)
                 print('', file=fp)
