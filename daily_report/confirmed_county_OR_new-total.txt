@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-01-15 04:26:59.256981 UTC
-  Data last data point date: 1/13/21
-        County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0        Total    OR        0  ...         1329           1.0     69.076110
-1    Multnomah    OR        0  ...          305           1.1     89.896672
-2   Washington    OR        0  ...          111           0.6     58.453340
-3       Marion    OR        0  ...           97           0.6     75.511786
-4    Clackamas    OR        0  ...          101           0.9     72.345677
-5         Lane    OR        0  ...           97           1.2     62.595689
-6      Jackson    OR        0  ...           55           0.8     72.959694
-7     Umatilla    OR        0  ...           49           0.8     80.124052
-8    Deschutes    OR        0  ...           88           1.9     52.721400
-9      Malheur    OR        0  ...           25           0.8    136.758875
-10     Yamhill    OR        0  ...           25           0.8     65.542145
-11        Linn    OR        0  ...           50           1.7     70.539679
-12        Polk    OR        0  ...           29           1.2     45.193685
-13     Klamath    OR        0  ...           31           1.3     42.495834
-14   Jefferson    OR        0  ...           22           1.4    106.078487
-15   Josephine    OR        0  ...           65           4.2     26.433597
-16      Benton    OR        0  ...           30           1.9     46.252478
-17     Douglas    OR        0  ...           24           1.5     60.167424
-18       Union    OR        0  ...            7           0.7     87.135112
-19       Wasco    OR        0  ...           13           1.3     62.478016
+  Extract downloaded: 2021-01-17 01:10:59.344430 UTC
+  Data last data point date: 1/15/21
+        County State  1/23/20  1/10/21  1/11/21  1/12/21  1/13/21  1/14/21  1/15/21  DayIncrease  %DayIncrease  DaysToDouble
+0        Total    OR        0   125683   126607   127780   129109   130246   131258         1012           0.8     76.817918
+1    Multnomah    OR        0    27137    27144    27400    27705    27890    28030          140           0.5     93.943125
+2   Washington    OR        0    17506    17819    17975    18086    18245    18386          141           0.8     72.035470
+3       Marion    OR        0    15440    15550    15643    15740    15878    15972           94           0.6     93.601460
+4    Clackamas    OR        0    11082    11167    11268    11369    11445    11499           54           0.5     87.684899
+5         Lane    OR        0     7705     7766     7851     7948     8042     8127           85           1.1     63.648896
+6      Jackson    OR        0     6524     6563     6627     6682     6757     6806           49           0.7     82.134267
+7     Umatilla    OR        0     6304     6367     6421     6470     6530     6641          111           1.7     76.400200
+8    Deschutes    OR        0     4541     4579     4635     4723     4805     4846           41           0.9     50.696744
+9      Yamhill    OR        0     3001     3019     3041     3066     3096     3139           43           1.4     81.259180
+10     Malheur    OR        0     3041     3043     3075     3100     3113     3118            5           0.2    123.589321
+11        Linn    OR        0     2946     2959     2984     3034     3048     3065           17           0.6     77.611274
+12        Polk    OR        0     2275     2314     2324     2353     2366     2389           23           1.0     67.033179
+13     Klamath    OR        0     2260     2260     2306     2337     2352     2366           14           0.6     60.308489
+14   Josephine    OR        0     1487     1525     1560     1625     1642     1689           47           2.9     27.579828
+15   Jefferson    OR        0     1603     1608     1627     1649     1661     1675           14           0.8     74.546622
+16      Benton    OR        0     1558     1572     1588     1618     1640     1659           19           1.2     54.019810
+17     Douglas    OR        0     1554     1570     1590     1614     1629     1650           21           1.3     58.366064
+18       Union    OR        0     1055     1060     1063     1070     1089     1095            6           0.6     98.851711
+19       Wasco    OR        0      997     1004     1012     1025     1037     1051           14           1.4     67.652786
 
-   Data from the 1/13/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 1/15/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

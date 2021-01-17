@@ -1,30 +1,30 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-01-15 04:26:59.256981 UTC
-  Data last data point date: 1/13/21
-         County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0         Total    IL        0  ...         5862           0.6    121.616937
-1          Cook    IL        0  ...         2058           0.5    131.818438
-2        DuPage    IL        0  ...          413           0.6    118.985733
-3          Will    IL        0  ...          331           0.6    119.745304
-4          Lake    IL        0  ...          259           0.5    135.064027
-5          Kane    IL        0  ...          233           0.5    136.523375
-6     Winnebago    IL        0  ...          120           0.5    144.367406
-7       Madison    IL        0  ...          211           0.9     88.640747
-8     St. Clair    IL        0  ...          156           0.7     86.134192
-9       McHenry    IL        0  ...          101           0.5     98.242221
-10    Champaign    IL        0  ...           70           0.5    129.269539
-11       Peoria    IL        0  ...           92           0.6    111.815913
-12     Sangamon    IL        0  ...           63           0.4    159.690616
-13       McLean    IL        0  ...           67           0.5     98.739521
-14  Rock Island    IL        0  ...           41           0.4    174.252767
-15     Tazewell    IL        0  ...           75           0.7    101.160502
-16     Kankakee    IL        0  ...           41           0.4    174.810670
-17      Kendall    IL        0  ...           68           0.7     90.154527
-18      LaSalle    IL        0  ...           82           0.9    120.346562
-19        Macon    IL        0  ...           40           0.5    130.665603
+  Extract downloaded: 2021-01-17 01:10:59.344430 UTC
+  Data last data point date: 1/15/21
+         County State  1/23/20  1/10/21  1/11/21  1/12/21  1/13/21  1/14/21  1/15/21  DayIncrease  %DayIncrease  DaysToDouble
+0         Total    IL        0  1028750  1033526  1040168  1046030  1052682  1059324         6642           0.6    120.691679
+1          Cook    IL        0   417790   419471   422159   424217   426658   429270         2612           0.6    130.587962
+2        DuPage    IL        0    66084    66414    66858    67271    67651    68156          505           0.7    116.008470
+3          Will    IL        0    55872    56145    56435    56766    57104    57429          325           0.6    127.985349
+4          Lake    IL        0    51027    51253    51685    51944    52264    52591          327           0.6    117.421898
+5          Kane    IL        0    44090    44266    44579    44812    45073    45300          227           0.5    127.809799
+6     Winnebago    IL        0    25397    25527    25606    25726    25854    25971          117           0.5    159.189986
+7       Madison    IL        0    22953    23063    23239    23450    23664    23853          189           0.8     89.447866
+8     St. Clair    IL        0    20972    21117    21264    21420    21597    21836          239           1.1     90.864581
+9       McHenry    IL        0    20603    20747    20894    20995    21132    21268          136           0.6    109.994613
+10    Champaign    IL        0    14810    14893    14974    15044    15148    15239           91           0.6    128.198707
+11       Peoria    IL        0    14289    14337    14426    14518    14655    14775          120           0.8    108.184879
+12     Sangamon    IL        0    13963    14022    14076    14139    14227    14299           72           0.5    153.240241
+13       McLean    IL        0    12611    12671    12772    12839    12931    13013           82           0.6    108.781289
+14     Tazewell    IL        0    11382    11424    11524    11599    11687    11765           78           0.7    101.445494
+15  Rock Island    IL        0    11514    11548    11595    11636    11688    11752           64           0.5    176.400425
+16     Kankakee    IL        0    11146    11181    11230    11271    11315    11358           43           0.4    180.999220
+17      Kendall    IL        0     9165     9223     9305     9373     9456     9514           58           0.6     90.624766
+18      LaSalle    IL        0     8955     8991     9031     9113     9212     9271           59           0.6    101.446582
+19        Macon    IL        0     8448     8483     8527     8567     8639     8701           62           0.7    124.625155
 
-   Data from the 1/13/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 1/15/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 

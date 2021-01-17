@@ -1,30 +1,30 @@
 
 Top 20 county-state Report - confirmed
   Top 20 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2021-01-15 04:26:59.256981 UTC
-  Data last data point date: 1/13/21
-            County State  1/23/20  ...  DayIncrease  %DayIncrease  DaysToDouble
-0      Los Angeles    CA        0  ...        12121           1.3     44.792816
-1             Cook    IL        0  ...         2058           0.5    131.818438
-2         Maricopa    AZ        0  ...         3476           0.9     41.539024
-3       Miami-Dade    FL        0  ...         2568           0.8     88.612849
-4           Harris    TX        0  ...         1360           0.5     64.283728
-5   San Bernardino    CA        0  ...         4243           1.8     40.276470
-6        Riverside    CA        0  ...         2773           1.2     33.867447
-7           Dallas    TX        0  ...         2994           1.3     57.895312
-8        San Diego    CA        0  ...         3261           1.6     39.289453
-9           Orange    CA        0  ...         3192           1.6     36.286513
-10           Clark    NV        0  ...          737           0.4     72.576274
-11         Tarrant    TX        0  ...         2286           1.3     43.315117
-12         Broward    FL        0  ...         1070           0.7     85.732993
-13          Queens    NY        0  ...         1882           1.3     53.411117
-14           Kings    NY        0  ...         1835           1.3     55.145136
-15           Bexar    TX        0  ...         1378           1.0     44.328680
-16       Salt Lake    UT        0  ...          791           0.7    100.264993
-17         Suffolk    NY        0  ...         1673           1.4     45.452483
-18          Nassau    NY        0  ...         1457           1.4     46.918323
-19         El Paso    TX        0  ...          629           0.6    153.732578
+  Extract downloaded: 2021-01-17 01:10:59.344430 UTC
+  Data last data point date: 1/15/21
+            County State  1/23/20  1/10/21  1/11/21  1/12/21  1/13/21  1/14/21  1/15/21  DayIncrease  %DayIncrease  DaysToDouble
+0      Los Angeles    CA        0   920324   932901   947035   959156   976075   990632        14557           1.5     47.598591
+1             Cook    IL        0   417790   419471   422159   424217   426658   429270         2612           0.6    130.587962
+2         Maricopa    AZ        0   382409   388518   393732   397208   401855   407631         5776           1.4     53.424436
+3       Miami-Dade    FL        0   326607   328701   331649   334217   336749   339434         2685           0.8     89.467458
+4           Harris    TX        0   262525   266525   267729   269089   274899   278312         3413           1.2     66.707568
+5   San Bernardino    CA        0   228857   232171   235543   239786   241523   245033         3510           1.5     47.761695
+6        Riverside    CA        0   216076   219486   227827   230600   233480   233899          419           0.2     37.073587
+7           Dallas    TX        0   217219   219086   222635   225629   227622   230439         2817           1.2     57.086724
+8        San Diego    CA        0   191888   194795   198319   201580   204175   206870         2695           1.3     44.085683
+9           Orange    CA        0   191004   193766   196340   199532   202753   205911         3158           1.6     44.399631
+10           Clark    NV        0   189730   191163   193483   194220   196134   197652         1518           0.8     83.429066
+11         Tarrant    TX        0   173840   178977   180794   183080   185513   187863         2350           1.3     45.481132
+12         Broward    FL        0   150371   151524   152645   153715   155066   156452         1386           0.9     89.636889
+13          Queens    NY        0   142648   144291   145897   147779   149460   151581         2121           1.4     57.475308
+14           Kings    NY        0   139496   141106   142754   144589   146383   148501         2118           1.4     56.281750
+15           Bexar    TX        0   133519   135104   137407   138785   140614   143503         2889           2.1     45.252688
+16         Suffolk    NY        0   113943   115489   117156   118829   120416   122597         2181           1.8     48.268193
+17       Salt Lake    UT        0   117126   117670   118431   119222   120091   121050          959           0.8    105.501652
+18          Nassau    NY        0   102584   104078   105497   106954   108126   109984         1858           1.7     50.936580
+19         El Paso    TX        0   103197   103787   104085   104714   105347   106312          965           0.9    133.558480
 
-   Data from the 1/13/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 1/15/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
