@@ -1,22 +1,22 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-01-26 18:18:22.342464 UTC
-  Data last data point date: 1/25/21
-   Country/Region  1/22/20  1/21/21  1/22/21  1/23/21  1/24/21  1/25/21  DayIncrease  %DayIncrease  DaysToDouble
-0       Indonesia        0   951651   965283   977474   989262   999256         9994           1.0     54.539027
-1     Philippines        0   507717   509887   511679   513619   514996         1377           0.3    187.960381
-2           Japan        2   352129   357174   361928   365899   368684         2785           0.8     52.045610
-3        Malaysia        0   172549   176180   180455   183801   186849         3048           1.7     33.475353
-4           Korea        1    74262    74692    75084    75521    75875          354           0.5    129.921174
-5       Singapore        0    59235    59250    59260    59308    59352           44           0.1   1488.942537
-6       Australia        0    28755    28760    28766    28777    28780            3           0.0   3028.210662
-7        Thailand        4    12795    13104    13302    13500    14646         1146           8.5     34.451044
-8      NewZealand        0     2276     2276     2283     2288     2290            2           0.1    371.606712
-9         Vietnam        0     1546     1548     1548     1548     1549            1           0.1    857.191266
-10         Taiwan        1      881      881      884      889      889            0           0.0    170.252529
-11       Cambodia        0      456      456      458      458      460            2           0.4    199.404287
+  Extract downloaded: 2021-01-28 21:23:11.337455 UTC
+  Data last data point date: 1/27/21
+   Country/Region  1/22/20  1/23/21  1/24/21  1/25/21  1/26/21  1/27/21  DayIncrease  %DayIncrease  DaysToDouble
+0       Indonesia        0   977474   989262   999256  1012350  1024298        11948           1.2     58.090672
+1     Philippines        0   511679   513619   514996   516166   518407         2241           0.4    210.397979
+2           Japan        2   361928   365899   368684   372545   376482         3937           1.1     65.276717
+3        Malaysia        0   180455   183801   186849   190434   194114         3680           1.9     36.125856
+4           Korea        1    75084    75521    75875    76429    76926          497           0.7    121.019913
+5       Singapore        0    59260    59308    59352    59366    59391           25           0.0   1355.269839
+6       Australia        0    28766    28777    28780    28786    28794            8           0.0   3029.509216
+7        Thailand        4    13302    13500    14646    14646    15465          819           5.6     20.917999
+8      NewZealand        0     2283     2288     2290     2295     2299            4           0.2    388.132479
+9         Vietnam        0     1548     1548     1549     1551     1553            2           0.1   1171.418188
+10         Taiwan        1      884      889      889      890      893            3           0.3    283.548257
+11       Cambodia        0      458      458      460      460      460            0           0.0    381.229269
 
-   Data from the 1/25/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
+   Data from the 1/27/21 extract at https://github.com/CSSEGISandData/COVID-19, Credit: Johns Hopkins University
    Analytics: https://github.com/natalyalangford/COVID19_plots
 
