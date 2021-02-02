@@ -1,11 +1,11 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2021-02-02 01:46:26.373599 UTC
+  Extract downloaded: 2021-02-02 05:07:04.802392 UTC
   Data last data point date: 1/31/21
           County State  1/22/20  1/26/21  1/27/21  1/28/21  1/29/21  1/30/21  1/31/21  DayIncrease  %DayIncrease  DaysToDouble
 0    Los Angeles    CA        0    15614    15897    16127    16353    16652    16770          118           0.7     45.381151
-1           Cook    IL        0     9280     9305     9363     9374     9399     9420           21           0.2    228.515590
+1           Cook    IL        0     8734     8756     8803     8819     8844     8865           21           0.2    232.850552
 2          Kings    NY        0     8246     8278     8299     8341     8368     8395           27           0.3    197.476368
 3         Queens    NY        0     8013     8033     8058     8084     8110     8133           23           0.3    235.273319
 4       Maricopa    AZ        0     7053     7174     7271     7375     7442     7462           20           0.3     54.705996
