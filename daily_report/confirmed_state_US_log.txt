@@ -1,7 +1,7 @@
 
 Top 60 state Report - confirmed
   Top 60 regions by Cases, threshold = None Confirmed cases
-  Extract downloaded: 2021-05-16 01:10:52.169308 UTC
+  Extract downloaded: 2021-05-16 01:36:07.714431 UTC
   Data last data point date: 5/14/21
    State  1/23/20   5/8/21   5/9/21  5/10/21  5/11/21  5/12/21  5/13/21  5/14/21  DayIncrease  %DayIncrease  DaysToDouble
 0     CA        0  3757115  3758137  3760303  3761779  3763281  3764405  3767052         2647           0.1   1631.082854

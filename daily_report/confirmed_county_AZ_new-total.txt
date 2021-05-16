@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-05-16 01:10:52.169308 UTC
+  Extract downloaded: 2021-05-16 01:36:07.714431 UTC
   Data last data point date: 5/14/21
         County State  1/23/20  5/9/21  5/10/21  5/11/21  5/12/21  5/13/21  5/14/21  DayIncrease  %DayIncrease  DaysToDouble
 0        Total    AZ        0  868830   869472   870155   870624   871168   872022          854           0.1   1015.026990

@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-05-16 01:10:52.169308 UTC
+  Extract downloaded: 2021-05-16 01:36:07.714431 UTC
   Data last data point date: 5/14/21
          County State  1/23/20   5/9/21  5/10/21  5/11/21  5/12/21  5/13/21  5/14/21  DayIncrease  %DayIncrease  DaysToDouble
 0         Total    NY        0  2072426  2074079  2075539  2077563  2079749  2081823         2074           0.1    764.815434

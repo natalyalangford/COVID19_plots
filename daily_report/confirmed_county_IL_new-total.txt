@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-05-16 01:10:52.169308 UTC
+  Extract downloaded: 2021-05-16 01:36:07.714431 UTC
   Data last data point date: 5/14/21
          County State  1/23/20   5/9/21  5/10/21  5/11/21  5/12/21  5/13/21  5/14/21  DayIncrease  %DayIncrease  DaysToDouble
 0         Total    IL        0  1354869  1356299  1357843  1359651  1361569  1363409         1840           0.1    555.506548
