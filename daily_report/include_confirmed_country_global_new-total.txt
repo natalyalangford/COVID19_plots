@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-05-20 05:14:26.911608 UTC
+  Extract downloaded: 2021-05-21 02:55:37.607715 UTC
   Data last data point date: 5/19/21
    Country/Region  1/22/20  5/15/21  5/16/21  5/17/21  5/18/21  5/19/21  DayIncrease  %DayIncrease  DaysToDouble
 0       Indonesia        0  1736670  1739750  1744045  1748230  1753101         4871           0.3    338.654142

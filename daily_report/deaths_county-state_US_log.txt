@@ -1,7 +1,7 @@
 
 Top 20 county-state Report - deaths
   Top 20 regions by Cases, threshold = None Deaths cases
-  Extract downloaded: 2021-05-20 05:14:26.911608 UTC
+  Extract downloaded: 2021-05-21 02:55:37.607715 UTC
   Data last data point date: 5/19/21
             County State  1/22/20  5/14/21  5/15/21  5/16/21  5/17/21  5/18/21  5/19/21  DayIncrease  %DayIncrease  DaysToDouble
 0      Los Angeles    CA        0    24083    24101    24115    24120    24123    24133           10           0.0   1603.964357
