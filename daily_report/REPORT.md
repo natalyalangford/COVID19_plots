@@ -17,13 +17,14 @@ global data.
 ![](confirmed_country_global_new-total.png)
 ![](confirmed_country_global_trajectory.png)
 ![](confirmed_country_global_rdtd.png)
-![](confirmed_country_global_log.png)
 
 ## Top Asia Confirmed
 #### [Table of Confirmed Cases](include_confirmed_country_global_new-total.txt)
 ![](include_confirmed_country_global_new-total.png)
 ![](include_confirmed_country_global_trajectory.png)
 ![](include_confirmed_country_global_rdtd.png)
+![](include_deaths_country_global_new-total.png)
+![](include_deaths_country_global_trajectory.png)
 
 ## Top Spreading Country Confirmed
 #### [Table of Top Spreading Confirmed Cases](confirmed_country_global_w-new-total.txt)
@@ -34,7 +35,6 @@ global data.
 ![](deaths_country_global_new-total.png)
 ![](deaths_country_global_trajectory.png)
 ![](deaths_country_global_rdtd.png)
-![](deaths_country_global_log.png)
 
 ## Top US States
 #### [Table of Confirmed Cases](confirmed_state_US_log.txt)

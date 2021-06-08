@@ -35,10 +35,10 @@ echo "Using directory: ${SDIR}, rwindow: ${RWIN}, mwindow: ${MWIN}, table column
 
 set -x
 # Global Reports Confirmed
-./covid19-vi --type confirmed --region country --length 70 --threshold 300 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 60 --threshold 10000 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
 ./covid19-vi --type confirmed --region country --length 30 --threshold 10000 --ymin 100 --response new-total --saveplot --savedir ${SDIR} --exclude China
 ./covid19-vi --type confirmed --region country --length 50 --threshold 600 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 10 --exclude China,Korea --saveplot --savedir ${SDIR}
-./covid19-vi --type confirmed --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type confirmed --region country --length 20 --columns ${TCOLS} --savetable --savedir ${SDIR}
 
 # Global Reports Confirmed Top Spreading
 ./covid19-vi --type confirmed --region country --length 35 --threshold 1000 --response w-new-total --ymin 10 --saveplot --savetable --savedir ${SDIR} --exclude China
@@ -47,12 +47,14 @@ set -x
 ./covid19-vi --type confirmed --region country --length 70 --threshold 100 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 1 --include ${ASIA}  --saveplot --savedir ${SDIR}
 ./covid19-vi --type confirmed --region country --length 35 --threshold 100 --response new-total --ymin 1 --include ${ASIA} --saveplot --savetable --savedir ${SDIR}
 ./covid19-vi --type confirmed --region country --length 50 --threshold 100 --response rdtd --rwindow ${RWIN} --mwindow ${MWIN} --minimum 1 --include ${ASIA} --saveplot --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir ${SDIR} --include ${ASIA}
+./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --include ${ASIA} --saveplot --savedir ${SDIR}
 
 # Global Reports Deaths
-./covid19-vi --type deaths --region country --length 70 --threshold 30 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
-./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --saveplot --savedir ${SDIR} --exclude China
+./covid19-vi --type deaths --region country --length 70 --threshold 100 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --ylim 1 --saveplot --savedir ${SDIR} --exclude China
 ./covid19-vi --type deaths --region country --length 50 --threshold 60 --response rdtd --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
-./covid19-vi --type deaths --region country --length 20 --columns ${TCOLS} --saveplot --savetable --savedir ${SDIR}
+./covid19-vi --type deaths --region country --length 20 --columns ${TCOLS} --savetable --savedir ${SDIR}
 
 # US Reports by State
 ./covid19-vi --type confirmed --region state --length 60 --threshold 400 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 6 --saveplot --savedir ${SDIR}

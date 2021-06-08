@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 1000 Confirmed cases
-  Extract downloaded: 2021-06-08 16:03:13.359442 UTC
+  Extract downloaded: 2021-06-08 16:24:21.002981 UTC
   Data last data point date: 6/7/21
          Country/Region  1/22/20   6/3/21   6/4/21   6/5/21   6/6/21   6/7/21  DayIncrease  %DayIncrease  DaysToDouble
 0                Taiwan        1     9974    10446    10956    11298    11491          193           1.7     15.460561
