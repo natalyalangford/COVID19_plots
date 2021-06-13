@@ -4,3 +4,4 @@
 *.json
 __pycache__/
 covid-19-env/
+covid19-env/
