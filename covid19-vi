@@ -50,7 +50,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FormatStrFormatter
 import us_state_abbrev as ussa
 import covid19_math as cm
-import color_ugen as cug
+import colorsugen as cug
 
 
 class CovidData:
@@ -935,7 +935,7 @@ class CovidData:
         """
         color_gen = cug.ColorUgen()
         if self.args.gen_color_json == 'global' or self.args.gen_color_json == 'both':
-            color_list = color_gen.color_gen_list(200, color_space='hsv')
+            color_list = list(color_gen.unique_colors(200, color_space='hsv'))
             file_name = self._config_color_json['global']
             jdf = self.data['global']['confirmed']
             jdf = jdf.loc[jdf['Province/State'].isnull()].copy()
@@ -947,7 +947,7 @@ class CovidData:
             with open(file_name, 'w') as fp:
                 json.dump(color_dict, fp)
         if self.args.gen_color_json == 'usa' or self.args.gen_color_json == 'both':
-            color_list = color_gen.color_gen_list(70, color_space='hsv')
+            color_list = list(color_gen.unique_colors(70, color_space='hsv'))
             file_name = self._config_color_json['usa']
             jdf = self.data['usa']['confirmed']
             jdf = jdf.loc[jdf['County'].isnull()].copy()
