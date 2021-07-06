@@ -52,7 +52,7 @@ set -x
 
 # Global Reports Deaths
 ./covid19-vi --type deaths --region country --length 70 --threshold 100 --response trajectory --mwindow ${MWIN} --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
-./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --ylim 1 --saveplot --savedir ${SDIR} --exclude China
+./covid19-vi --type deaths --region country --length 30 --threshold 30 --response new-total --ymin 1 --saveplot --savedir ${SDIR} --exclude China
 ./covid19-vi --type deaths --region country --length 50 --threshold 60 --response rdtd --rwindow ${RWIN} --minimum 10 --exclude China --saveplot --savedir ${SDIR}
 ./covid19-vi --type deaths --region country --length 20 --columns ${TCOLS} --savetable --savedir ${SDIR}
 
