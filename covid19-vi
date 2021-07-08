@@ -926,7 +926,7 @@ class CovidData:
             with open(self._config_color_json[zone], 'r') as fp:
                 self.data[zone]['colors'] = json.load(fp)
         except Exception:
-            self.data[zone]['colors'] = None
+            self.data[zone]['colors'] = Nondaily.she
         return self.data[zone]['colors']
 
     def gen_color_json(self) -> None:
