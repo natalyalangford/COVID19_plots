@@ -1,7 +1,7 @@
 
 Top 20 county Report - confirmed
   Top 20 regions by Cases, threshold = 100 Confirmed cases
-  Extract downloaded: 2021-08-18 14:19:39.175585 UTC
+  Extract downloaded: 2021-08-18 14:28:55.021650 UTC
   Data last data point date: 8/17/21
         County State  1/23/20  8/12/21  8/13/21  8/14/21  8/15/21  8/16/21  8/17/21  DayIncrease  %DayIncrease  DaysToDouble
 0        Total    TX        0  3306267  3323844  3334027  3339500  3356260  3384466        28206           0.8    177.483929

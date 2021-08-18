@@ -1,7 +1,7 @@
 
 Top 35 country Report - confirmed
   Top 35 regions by Cases, threshold = 1000 Confirmed cases
-  Extract downloaded: 2021-08-18 14:19:39.175585 UTC
+  Extract downloaded: 2021-08-18 14:28:55.021650 UTC
   Data last data point date: 8/17/21
    Country/Region  1/22/20  8/13/21  8/14/21  8/15/21  8/16/21  8/17/21  DayIncrease  %DayIncrease  DaysToDouble
 0         Vietnam        0   255748   265464   275044   283696   293301         9605           3.4     20.419240
